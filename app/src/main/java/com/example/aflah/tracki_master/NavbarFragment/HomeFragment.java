@@ -1,4 +1,4 @@
-package com.example.aflah.tracki_master;
+package com.example.aflah.tracki_master.NavbarFragment;
 
 import android.content.Context;
 import android.net.Uri;
@@ -7,6 +7,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.aflah.tracki_master.NavigationActivity;
+import com.example.aflah.tracki_master.R;
 
 
 /**
@@ -26,6 +29,8 @@ public class HomeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private NavigationActivity navigationActivity;
 
     private OnFragmentInteractionListener mListener;
 
@@ -64,6 +69,10 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+        navigationActivity = (NavigationActivity) getActivity();
+        navigationActivity.getSupportActionBar().show();
+
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
