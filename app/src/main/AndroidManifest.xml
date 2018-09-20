@@ -22,6 +22,9 @@
         <activity
             android:name=".NavigationActivity"
             android:label="Tracki"></activity>
+        <activity
+            android:name=".View.Toko.DetailTokoActivity"
+            android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>
