@@ -12,4 +12,8 @@
         <item name="android:windowBackground">@drawable/logo</item>
     </style>
 
+    <style name="PrologTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/back_prolog</item>
+    </style>
+
 </resources>
