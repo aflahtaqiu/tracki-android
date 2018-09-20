@@ -26,6 +26,7 @@
         <activity
             android:name=".View.Toko.DetailTokoActivity"
             android:parentActivityName=".MainActivity"/>
+
         <activity
             android:name=".PrologActivity"
             android:theme="@style/PrologTheme">
