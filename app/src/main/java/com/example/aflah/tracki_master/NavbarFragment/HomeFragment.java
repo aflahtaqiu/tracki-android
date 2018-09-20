@@ -43,6 +43,7 @@ public class HomeFragment extends Fragment {
     private String mParam2;
 
     private Button btnDetailToko;
+
     private NavigationActivity navigationActivity;
 
     private SearchView searchView = null;
@@ -98,7 +99,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        btnDetailToko = (Button)view.findViewById(R.id.btnDetailToko);
+        btnDetailToko = (Button) view.findViewById(R.id.btnDetailToko);
 
         btnDetailToko.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +108,7 @@ public class HomeFragment extends Fragment {
                 getActivity().startActivity(viewDetailToko);
             }
         });
+    }
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 
