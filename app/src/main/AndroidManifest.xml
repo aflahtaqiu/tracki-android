@@ -9,22 +9,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".SplashScreen"
-            android:theme="@style/SplashScreenTheme">
+            android:theme="@style/SplashScreenTheme" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".NavigationActivity"
+<<<<<<< HEAD
             android:label="Tracki"></activity>
         <activity
             android:name=".View.Toko.DetailTokoActivity"
             android:parentActivityName=".MainActivity"/>
+=======
+            android:label="Tracki" />
+        <activity
+            android:name=".PrologActivity"
+            android:theme="@style/PrologTheme">
+
+        </activity>
+        <!--<activity android:name=".PreferenceManager"></activity>-->
+>>>>>>> ebd49642d41c6183710c2760c2868918a69c7e78
     </application>
 
 </manifest>
