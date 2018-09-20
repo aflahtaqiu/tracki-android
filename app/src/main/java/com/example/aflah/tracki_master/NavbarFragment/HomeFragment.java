@@ -1,5 +1,6 @@
-package com.example.aflah.tracki_master;
+package com.example.aflah.tracki_master.NavbarFragment;
 
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -7,12 +8,20 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.aflah.tracki_master.View.Toko.DetailTokoActivity;
+
+import com.example.aflah.tracki_master.NavigationActivity;
+import com.example.aflah.tracki_master.R;
 
 
 /**
@@ -34,6 +43,11 @@ public class HomeFragment extends Fragment {
     private String mParam2;
 
     private Button btnDetailToko;
+
+    private NavigationActivity navigationActivity;
+
+    private SearchView searchView = null;
+    private SearchView.OnQueryTextListener queryTextListener;
 
     private OnFragmentInteractionListener mListener;
 
@@ -66,6 +80,7 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -73,6 +88,10 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
+
+        navigationActivity = (NavigationActivity) getActivity();
+        navigationActivity.getSupportActionBar().show();
+
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
@@ -80,7 +99,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        btnDetailToko = (Button)view.findViewById(R.id.btnDetailToko);
+        btnDetailToko = (Button) view.findViewById(R.id.btnDetailToko);
 
         btnDetailToko.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +108,44 @@ public class HomeFragment extends Fragment {
                 getActivity().startActivity(viewDetailToko);
             }
         });
+    }
 
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        menu.clear();
+
+        inflater.inflate(R.menu.menu_search, menu);
+
+        MenuItem item = menu.findItem(R.id.action_search);
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+
+        if (item != null){
+            searchView = (SearchView) item.getActionView();
+        }
+
+        if (searchView != null){
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+
+            queryTextListener = new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+
+                    Log.i("onQueryTextSubmit", query);
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+
+                    Log.i("onQueryTextChange", newText);
+                    return false;
+                }
+            };
+
+            searchView.setOnQueryTextListener(queryTextListener);
+        }
+
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
