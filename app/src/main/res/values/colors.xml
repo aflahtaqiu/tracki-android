@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimaryDark">#9D0319</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorAccent">#ffc445</color>
     <color name="colorTracki">#D62A42</color>
     <color name="colorCheckedItem">#480C02</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="rating">#ffc445</color>
 </resources>

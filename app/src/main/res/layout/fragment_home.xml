@@ -11,4 +11,9 @@
         android:layout_height="match_parent"
         android:text="Home Fragment" />
 
+    <Button android:id="@+id/btnDetailToko"
+        android:text="Detail Toko"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </FrameLayout>
