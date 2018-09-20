@@ -5,5 +5,23 @@
     <color name="colorTracki">#D62A42</color>
     <color name="colorCheckedItem">#480C02</color>
     <color name="colorWhite">#FFFFFF</color>
-    <color name="rating">#ffc445</color>
+
+    <!-- dots inactive colors -->
+    <color name="dot_inactive_screen1">#FA8072</color>
+    <color name="dot_inactive_screen2">#FA8072</color>
+    <color name="dot_inactive_screen3">#FA8072</color>
+    <!-- dots active colors -->
+    <color name="dot_active_screen1">#FFA07A</color>
+    <color name="dot_active_screen2">#FFA07A</color>
+    <color name="dot_active_screen3">#FFA07A</color>
+    <array name="array_dot_active">
+        <item>@color/dot_active_screen1</item>
+        <item>@color/dot_active_screen2</item>
+        <item>@color/dot_active_screen3</item>
+    </array>
+    <array name="array_dot_inactive">
+        <item>@color/dot_inactive_screen1</item>
+        <item>@color/dot_inactive_screen2</item>
+        <item>@color/dot_inactive_screen3</item>
+    </array>
 </resources>
