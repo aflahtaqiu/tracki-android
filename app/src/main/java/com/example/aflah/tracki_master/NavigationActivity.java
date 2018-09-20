@@ -8,7 +8,10 @@ import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
-import android.widget.TextView;
+
+import com.example.aflah.tracki_master.NavbarFragment.AccountFragment;
+import com.example.aflah.tracki_master.NavbarFragment.HomeFragment;
+import com.example.aflah.tracki_master.NavbarFragment.MapFragment;
 
 public class NavigationActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnFragmentInteractionListener, MapFragment.OnFragmentInteractionListener, AccountFragment.OnFragmentInteractionListener {
 
