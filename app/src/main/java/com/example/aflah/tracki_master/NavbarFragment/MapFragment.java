@@ -10,6 +10,12 @@ import android.view.ViewGroup;
 
 import com.example.aflah.tracki_master.NavigationActivity;
 import com.example.aflah.tracki_master.R;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 
 /**
@@ -20,7 +26,7 @@ import com.example.aflah.tracki_master.R;
  * Use the {@link MapFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MapFragment extends Fragment {
+public class MapFragment extends Fragment implements OnMapReadyCallback {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -29,6 +35,8 @@ public class MapFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private GoogleMap mMap;
 
     private NavigationActivity navigationActivity;
 
@@ -73,7 +81,17 @@ public class MapFragment extends Fragment {
         navigationActivity = (NavigationActivity) getActivity();
         navigationActivity.getSupportActionBar().hide();
 
-        return inflater.inflate(R.layout.fragment_map, container, false);
+//        View view = inflater.inflate(R.layout.fragment_map, container, false);
+//        SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager()
+//                .findFragmentById(R.id.mapFragment);
+//        mapFragment.getMapAsync(this);
+//        return view;
+        View view = inflater.inflate(R.layout.fragment_map, container, false);
+        SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager()
+                .findFragmentById(R.id.mapFragment);
+        mapFragment.getMapAsync(this);
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -100,6 +118,16 @@ public class MapFragment extends Fragment {
         mListener = null;
     }
 
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        LatLng lokasi = new LatLng(-7.2634152,112.7381467);
+        mMap.addMarker(new MarkerOptions().position(lokasi).title("Sudah masuk Tunjungan Plaza"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lokasi, 18));
+        mMap.getUiSettings().setIndoorLevelPickerEnabled(true);
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -114,4 +142,6 @@ public class MapFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
 }
