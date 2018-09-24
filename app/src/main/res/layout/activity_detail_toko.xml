@@ -17,13 +17,20 @@
                 android:orientation="horizontal">
 
                 //Kene Bel
-                <TextView
-                    android:text="Carrousel"
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/viewPager"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-                //Sampe Kene
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"/>
 
-            </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/SliderDots"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/viewPager"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:orientation="horizontal"/>
             //End Carrousel
 
             //Nama Foto Rating Toko
@@ -243,6 +250,8 @@
                 </android.support.v4.view.ViewPager>
 
             </LinearLayout>
+
+        </LinearLayout>
 
         </LinearLayout>
 
