@@ -1,23 +1,38 @@
-package com.example.aflah.tracki_master;
+package com.example.aflah.tracki_master.NavbarFragment;
 
+import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import com.example.aflah.tracki_master.View.Toko.DetailTokoActivity;
+
+import com.example.aflah.tracki_master.NavigationActivity;
+import com.example.aflah.tracki_master.R;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link MapFragment.OnFragmentInteractionListener} interface
+ * {@link HomeFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link MapFragment#newInstance} factory method to
+ * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MapFragment extends Fragment {
+public class HomeFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -27,9 +42,16 @@ public class MapFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private Button btnDetailToko;
+
+    private NavigationActivity navigationActivity;
+
+    private SearchView searchView = null;
+    private SearchView.OnQueryTextListener queryTextListener;
+
     private OnFragmentInteractionListener mListener;
 
-    public MapFragment() {
+    public HomeFragment() {
         // Required empty public constructor
     }
 
@@ -39,11 +61,11 @@ public class MapFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment MapFragment.
+     * @return A new instance of fragment HomeFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MapFragment newInstance(String param1, String param2) {
-        MapFragment fragment = new MapFragment();
+    public static HomeFragment newInstance(String param1, String param2) {
+        HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -58,13 +80,72 @@ public class MapFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_map, container, false);
+
+        navigationActivity = (NavigationActivity) getActivity();
+        navigationActivity.getSupportActionBar().show();
+
+        return inflater.inflate(R.layout.fragment_home, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        btnDetailToko = (Button) view.findViewById(R.id.btnDetailToko);
+
+        btnDetailToko.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent viewDetailToko = new Intent(getActivity(), DetailTokoActivity.class);
+                getActivity().startActivity(viewDetailToko);
+            }
+        });
+    }
+
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        menu.clear();
+
+        inflater.inflate(R.menu.menu_search, menu);
+
+        MenuItem item = menu.findItem(R.id.action_search);
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+
+        if (item != null){
+            searchView = (SearchView) item.getActionView();
+        }
+
+        if (searchView != null){
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+
+            queryTextListener = new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+
+                    Log.i("onQueryTextSubmit", query);
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+
+                    Log.i("onQueryTextChange", newText);
+                    return false;
+                }
+            };
+
+            searchView.setOnQueryTextListener(queryTextListener);
+        }
+
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

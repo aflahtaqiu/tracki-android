@@ -1,85 +1,134 @@
 package com.example.aflah.tracki_master.View.Toko;
 
+
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.ContextMenu;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.example.aflah.tracki_master.NavbarFragment.HomeFragment;
 import com.example.aflah.tracki_master.R;
+
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class DetailTokoActivity extends AppCompatActivity{
+public class DetailTokoActivity extends AppCompatActivity implements MakananFragment.OnFragmentInteractionListener, MinumanFragment.OnFragmentInteractionListener {
 
     ViewPager viewPager;
-    LinearLayout sliderDotPanel;
-    private int dotcount;
-    private ImageView[] dots;
+//    LinearLayout sliderDotPanel;
+//    private int dotcount;
+//    private ImageView[] dots;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.detail_toko);
+
+        setContentView(R.layout.activity_detail_toko);
 
         viewPager = (ViewPager)findViewById(R.id.viewPager);
 
-        sliderDotPanel = (LinearLayout) findViewById(R.id.SliderDots);
+//        sliderDotPanel = (LinearLayout) findViewById(R.id.SliderDots);
+
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(this);
 
         viewPager.setAdapter(viewPagerAdapter);
 
-        dotcount = viewPagerAdapter.getCount();
-        dots = new ImageView[dotcount];
 
-        for (int i =0 ; i < dotcount ; i++){
+//        dotcount = viewPagerAdapter.getCount();
+//        dots = new ImageView[dotcount];
 
-            dots[i] = new ImageView(this);
-            dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.nonactive_dot));
+//        for (int i =0 ; i < dotcount ; i++){
+//
+//            dots[i] = new ImageView(this);
+//            dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.nonactive_dot));
+//
+//            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//
+//            params.setMargins(8, 0,8,0);
+//
+//            sliderDotPanel.addView(dots[i], params);
+//        }
 
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+//        dots[0].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.active_dot));
+//
+//        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {
+//
+//                for (int i = 0;i < dotcount;i++){
+//
+//                    dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.nonactive_dot));
+//                }
+//                dots[position].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.active_dot));
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//
+//            }
+//        });
 
-            params.setMargins(8, 0,8,0);
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new MyTimerTask(), 2000,4000);
+//        sini
+        final CheckBox checkBox = (CheckBox) findViewById(R.id.favourite);
 
-            sliderDotPanel.addView(dots[i], params);
-        }
+        TabLayout menuLayout = (TabLayout)findViewById(R.id.menuLayout);
+        menuLayout.addTab(menuLayout.newTab().setText("Makanan"));
+        menuLayout.addTab(menuLayout.newTab().setText("Minuman"));
 
-        dots[0].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.active_dot));
+        menuLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        final ViewPager menuPager = (ViewPager)findViewById(R.id.pager);
+        final MenuAdapter adapter = new MenuAdapter(getSupportFragmentManager(), menuLayout.getTabCount());
+        menuPager.setAdapter(adapter);
+        menuPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(menuLayout));
+
+        menuLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            public void onTabSelected(TabLayout.Tab tab) {
+                menuPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
 
             }
 
             @Override
-            public void onPageSelected(int position) {
+            public void onTabReselected(TabLayout.Tab tab) {
 
-                for (int i = 0;i < dotcount;i++){
-
-                    dots[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.nonactive_dot));
-                }
-                    dots[position].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),R.drawable.active_dot));
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
 
             }
         });
 
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new MyTimerTask(), 2000,4000);
-
+//<<<<<<< HEAD
+//        Timer timer = new Timer();
+//        timer.scheduleAtFixedRate(new MyTimerTask(), 2000,4000);
+//
+//    }
+//
+//    public class MyTimerTask extends TimerTask{
+//=======
     }
 
-    public class MyTimerTask extends TimerTask{
+    public class MyTimerTask extends TimerTask {
+//>>>>>>> master
 
         @Override
         public void run() {
@@ -101,8 +150,10 @@ public class DetailTokoActivity extends AppCompatActivity{
 
 
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
-
-
+    }
+//>>>>>>> master
 }
 
