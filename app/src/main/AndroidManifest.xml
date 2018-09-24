@@ -28,12 +28,9 @@
         </activity>
         <activity
             android:name=".NavigationActivity"
-<<<<<<< HEAD
 
-            android:label="Tracki"/>
-=======
             android:label="Tracki" />
->>>>>>> 14e533d87f5250fdf7f64a064054935f0ec03b55
+
         <activity
             android:name=".View.Toko.DetailTokoActivity"
             android:parentActivityName=".MainActivity" />
@@ -53,15 +50,11 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-<<<<<<< HEAD
-        </activity>
-        <!--<activity android:name=".PreferenceManager"></activity>-->
 
-=======
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"></activity>
->>>>>>> 14e533d87f5250fdf7f64a064054935f0ec03b55
+
     </application>
 
 </manifest>
