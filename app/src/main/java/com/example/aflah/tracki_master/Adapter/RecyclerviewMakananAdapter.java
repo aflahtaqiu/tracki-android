@@ -27,7 +27,7 @@ public class RecyclerviewMakananAdapter extends RecyclerView.Adapter<Recyclervie
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v ;
 
-//        v = LayoutInflater.from(context).inflate(R.layout.)
+        v = LayoutInflater.from(context).inflate(R)
     }
 
     @Override
