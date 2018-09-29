@@ -4,11 +4,18 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.aflah.tracki_master.Adapter.RecyclerviewMakananAdapter;
+import com.example.aflah.tracki_master.Model.Makanan;
 import com.example.aflah.tracki_master.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +34,9 @@ public class MakananFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private RecyclerView recyclerView;
+    private List<Makanan> makananList;
 
     private OnFragmentInteractionListener mListener;
 
@@ -59,13 +69,34 @@ public class MakananFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        makananList = new ArrayList<>();
+
+        makananList.add(new Makanan("Makanan 1", "Rp. Makanan1", R.mipmap.logotracki));
+        makananList.add(new Makanan("Makanan 2", "Rp. Makanan1", R.mipmap.logotracki));
+        makananList.add(new Makanan("Makanan 3", "Rp. Makanan1", R.mipmap.logotracki));
+        makananList.add(new Makanan("Makanan 4", "Rp. Makanan1", R.mipmap.logotracki));
+        makananList.add(new Makanan("Makanan 5", "Rp. Makanan1", R.mipmap.logotracki));
+        makananList.add(new Makanan("Makanan 6", "Rp. Makanan1", R.mipmap.logotracki));
+        makananList.add(new Makanan("Makanan 7", "Rp. Makanan1", R.mipmap.logotracki));
+        makananList.add(new Makanan("Makanan 8", "Rp. Makanan1", R.mipmap.logotracki));
+        makananList.add(new Makanan("Makanan 9", "Rp. Makanan1", R.mipmap.logotracki));
+        makananList.add(new Makanan("Makanan 0", "Rp. Makanan1", R.mipmap.logotracki));
+        makananList.add(new Makanan("Makanan 10", "Rp. Makanan1", R.mipmap.logotracki));
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_makanan, container, false);
+
+        View v = inflater.inflate(R.layout.fragment_makanan, container, false);
+
+        recyclerView = (RecyclerView) v.findViewById(R.id.recyclerviewMakanan);
+        RecyclerviewMakananAdapter recyclerviewMakananAdapter = new RecyclerviewMakananAdapter(getContext(), makananList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setAdapter(recyclerviewMakananAdapter);
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
