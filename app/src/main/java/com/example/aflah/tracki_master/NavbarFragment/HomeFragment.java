@@ -160,7 +160,7 @@ public class HomeFragment extends Fragment implements CBRangingListener, CBServi
         // location service for Android API 23 or later
         if (SystemRequirementManager.checkAllRequirementUsingDefaultDialog((Activity) getContext())) {
             // connecting to Cubeacon service when all requirements completed
-            cubeacon.connect(this);
+//            cubeacon.connect(this);
             // disable background mode, because we're going to use full
             // scanning resource in foreground mode
             cubeacon.setBackgroundMode(false);
