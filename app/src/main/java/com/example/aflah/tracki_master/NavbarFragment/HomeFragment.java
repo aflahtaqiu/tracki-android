@@ -25,8 +25,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
-import com.example.aflah.tracki_master.View.Toko.DetailTokoActivity;
-
 import com.example.aflah.tracki_master.NavigationActivity;
 import com.example.aflah.tracki_master.R;
 import com.eyro.cubeacon.CBBeacon;
@@ -146,8 +144,7 @@ public class HomeFragment extends Fragment implements CBRangingListener, CBServi
         btnDetailToko.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent viewDetailToko = new Intent(getActivity(), DetailTokoActivity.class);
-                getActivity().startActivity(viewDetailToko);
+                Log.d("detail", "masuk detail toko");
             }
         });
     }
