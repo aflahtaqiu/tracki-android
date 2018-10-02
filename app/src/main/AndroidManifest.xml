@@ -27,13 +27,11 @@
         </activity>
         <activity
             android:name=".NavigationActivity"
-
             android:label="Tracki" />
-        <activity android:name=".NavbarFragment.MonitoringActivity"></activity>
-
+        <activity android:name=".NavbarFragment.MonitoringActivity" />
         <activity
             android:name=".PrologActivity"
-            android:theme="@style/PrologTheme"></activity>
+            android:theme="@style/PrologTheme" />
         <!-- <activity android:name=".PreferenceManager"></activity> -->
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -48,21 +46,20 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
 
-        <!--<meta-data-->
-            <!--android:name="com.google.android.geo.API_KEY"-->
-            <!--android:value="@string/google_maps_key" />-->
-
-
-        <!--<activity-->
-            <!--android:name=".MapsActivity"-->
-            <!--android:label="@string/title_activity_maps"></activity>-->
+        <!-- <meta-data -->
+        <!-- android:name="com.google.android.geo.API_KEY" -->
+        <!-- android:value="@string/google_maps_key" /> -->
 
 
+        <!-- <activity -->
+        <!-- android:name=".MapsActivity" -->
+        <!-- android:label="@string/title_activity_maps"></activity> -->
+
+        <activity android:name=".DetailTokoActivity"></activity>
     </application>
 
 </manifest>
