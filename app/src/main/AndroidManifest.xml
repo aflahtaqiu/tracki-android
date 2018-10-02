@@ -30,6 +30,7 @@
             android:name=".NavigationActivity"
 
             android:label="Tracki" />
+        <activity android:name=".NavbarFragment.MonitoringActivity"></activity>
 
         <activity
             android:name=".View.Toko.DetailTokoActivity"
