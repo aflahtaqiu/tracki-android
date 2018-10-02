@@ -7,13 +7,6 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerviewMakanan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </android.support.v7.widget.RecyclerView>
-
     <!--<LinearLayout-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="wrap_content"-->
@@ -193,5 +186,191 @@
         <!--&lt;!&ndash;</LinearLayout>&ndash;&gt;-->
 
     <!--</LinearLayout>-->
+=======
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!--<android.support.v7.widget.RecyclerView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+
+            <!--<de.hdodenhof.circleimageview.CircleImageView-->
+                <!--android:id="@+id/fotoMakanan1"-->
+                <!--android:src="@drawable/logo"-->
+                <!--android:layout_margin="5dp"-->
+                <!--android:layout_width="60dp"-->
+                <!--android:layout_height="60dp" />-->
+
+            <android.support.v4.widget.CircleImageView
+                android:id="@+id/fotoMinuman1"
+
+                android:src="@drawable/logo"
+                android:layout_margin="5dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/namaMakanan1"
+                    android:text="Sandwich"
+                    android:textSize="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/hargaMakanan1"
+                    android:text="Rp.60.000"
+                    android:textSize="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!--</android.support.v7.widget.RecyclerView>-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <!--<de.hdodenhof.circleimageview.CircleImageView-->
+                <!--android:id="@+id/fotoMakanan2"-->
+                <!--android:src="@drawable/logo"-->
+                <!--android:layout_margin="5dp"-->
+                <!--android:layout_width="60dp"-->
+                <!--android:layout_height="60dp" />-->
+            <android.support.v4.widget.CircleImageView
+                android:id="@+id/fotoMinuman2"
+
+                android:src="@drawable/logo"
+                android:layout_margin="5dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/namaMakanan2"
+                    android:text="Banana Wrap"
+                    android:textSize="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/hargaMakanan2"
+                    android:text="Rp.30.000"
+                    android:textSize="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <android.support.v4.widget.CircleImageView
+                android:id="@+id/fotoMinuman3"
+
+                android:src="@drawable/logo"
+                android:layout_margin="5dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp" />
+
+            <!--<de.hdodenhof.circleimageview.CircleImageView-->
+                <!--android:id="@+id/fotoMakanan3"-->
+                <!--android:src="@drawable/logo"-->
+                <!--android:layout_margin="5dp"-->
+                <!--android:layout_width="60dp"-->
+                <!--android:layout_height="60dp" />-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/namaMakanan3"
+                    android:text="Steak and Fries"
+                    android:textSize="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/hargaMakanan3"
+                    android:text="Rp.35.000"
+                    android:textSize="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <android.support.v4.widget.CircleImageView
+                android:id="@+id/fotoMinuman4"
+
+                android:src="@drawable/logo"
+                android:layout_margin="5dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp" />
+
+            <!--<de.hdodenhof.circleimageview.CircleImageView-->
+                <!--android:id="@+id/fotoMakanan4"-->
+                <!--android:src="@drawable/logo"-->
+                <!--android:layout_margin="5dp"-->
+                <!--android:layout_width="60dp"-->
+                <!--android:layout_height="60dp" />-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/namaMakanan4"
+                    android:text="Fish and Potato"
+                    android:textSize="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/hargaMakanan4"
+                    android:text="Rp.20.000"
+                    android:textSize="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
 </FrameLayout>

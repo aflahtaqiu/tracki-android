@@ -1,14 +1,22 @@
 package com.example.aflah.tracki_master.View.Toko;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import com.example.aflah.tracki_master.View.Toko.DetailTokoActivity;
+
+import java.util.zip.Inflater;
 
 import com.example.aflah.tracki_master.Adapter.RecyclerviewMakananAdapter;
 import com.example.aflah.tracki_master.Model.Makanan;
@@ -25,7 +33,9 @@ import java.util.List;
  * Use the {@link MakananFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
 public class MakananFragment extends Fragment {
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -88,6 +98,15 @@ public class MakananFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+//        view = inflater.inflate(R.layout.fragment_home,container,false);
+//        Button openToko = (Button) view.findViewById(R.id.button);
+//        openToko.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getActivity(),SplashScreen.class);
+//                getActivity().startActivity(intent);
+//            }
+//        });
         // Inflate the layout for this fragment
 
         View v = inflater.inflate(R.layout.fragment_makanan, container, false);
@@ -97,6 +116,20 @@ public class MakananFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(recyclerviewMakananAdapter);
         return v;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        Button openToko = (Button) view.findViewById(R.id.btnDetailToko);
+        openToko.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(),DetailTokoActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -123,6 +156,11 @@ public class MakananFragment extends Fragment {
         mListener = null;
     }
 
+
+    public void onClick(View view) {
+
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -137,4 +175,5 @@ public class MakananFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
 }

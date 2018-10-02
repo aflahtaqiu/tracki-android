@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/fotoMinuman1"
                 android:src="@drawable/logo"
                 android:layout_margin="5dp"
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/fotoMinuman2"
                 android:src="@drawable/logo"
                 android:layout_margin="5dp"
@@ -86,7 +86,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/fotoMinuman3"
                 android:src="@drawable/logo"
                 android:layout_margin="5dp"
@@ -121,7 +121,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <de.hdodenhof.circleimageview.CircleImageView
+            <ImageView
                 android:id="@+id/fotoMinuman4"
                 android:src="@drawable/logo"
                 android:layout_margin="5dp"
