@@ -30,6 +30,8 @@
             android:name=".NavigationActivity"
 
             android:label="Tracki" />
+        <activity android:name=".NavbarFragment.MonitoringActivity"></activity>
+
 
         <activity
             android:name=".View.Toko.DetailTokoActivity"
@@ -46,6 +48,7 @@
              sign the APK for publishing.
              You can define the keys for the debug and release targets in src/debug/ and src/release/. 
         -->
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
@@ -54,6 +57,16 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"></activity>
+
+        <!--<meta-data-->
+            <!--android:name="com.google.android.geo.API_KEY"-->
+            <!--android:value="@string/google_maps_key" />-->
+
+
+        <!--<activity-->
+            <!--android:name=".MapsActivity"-->
+            <!--android:label="@string/title_activity_maps"></activity>-->
+
 
     </application>
 
