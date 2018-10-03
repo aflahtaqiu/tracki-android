@@ -4,11 +4,19 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.aflah.tracki_master.Model.ResponseDetailToko;
 import com.example.aflah.tracki_master.R;
+import com.example.aflah.tracki_master.Retrofit.ApiRequest;
+import com.example.aflah.tracki_master.Retrofit.RetroServer;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -65,6 +73,22 @@ public class DetailTokoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+        ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
+        final Call<ResponseDetailToko> getDetailTokoData = apiRequest.getDetailToko();
+        getDetailTokoData.enqueue(new Callback<ResponseDetailToko>() {
+            @Override
+            public void onResponse(Call<ResponseDetailToko> call, Response<ResponseDetailToko> response) {
+                Log.i("RETRO", "onResponse, nama Toko " + response.body().getDetailToko().getName() + " nama product : "
+                                                                + response.body().getDetailToko().getProducts().get(0).getName());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseDetailToko> call, Throwable t) {
+                Log.i("RETRO", "onFailure : " + t.getMessage());
+            }
+        });
+
         return inflater.inflate(R.layout.fragment_detail_toko, container, false);
     }
 
