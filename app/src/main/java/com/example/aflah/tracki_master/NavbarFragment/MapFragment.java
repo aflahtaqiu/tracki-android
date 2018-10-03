@@ -38,8 +38,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap mMap;
 
-    private NavigationActivity navigationActivity;
-
     private OnFragmentInteractionListener mListener;
 
     public MapFragment() {
@@ -78,14 +76,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        navigationActivity = (NavigationActivity) getActivity();
-        navigationActivity.getSupportActionBar().hide();
-
-//        View view = inflater.inflate(R.layout.fragment_map, container, false);
-//        SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager()
-//                .findFragmentById(R.id.mapFragment);
-//        mapFragment.getMapAsync(this);
-//        return view;
         View view = inflater.inflate(R.layout.fragment_map, container, false);
         SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager()
                 .findFragmentById(R.id.mapFragment);

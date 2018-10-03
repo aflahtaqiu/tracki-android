@@ -30,8 +30,6 @@ public class AccountFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private NavigationActivity navigationActivity;
-
     private OnFragmentInteractionListener mListener;
 
     public AccountFragment() {
@@ -69,8 +67,6 @@ public class AccountFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        navigationActivity = (NavigationActivity) getActivity();
-        navigationActivity.getSupportActionBar().hide();
 
         return inflater.inflate(R.layout.fragment_account, container, false);
     }
