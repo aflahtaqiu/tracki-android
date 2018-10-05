@@ -5,11 +5,17 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class DetailToko {
+public class Store {
 
     @SerializedName("id")
     @Expose
     private int id;
+    @SerializedName("advertisement_id")
+    @Expose
+    private int advertisement_id;
+    @SerializedName("uid")
+    @Expose
+    private String uid;
     @SerializedName("name")
     @Expose
     private String name;
@@ -28,6 +34,12 @@ public class DetailToko {
     @SerializedName("close")
     @Expose
     private String close;
+    @SerializedName("promo")
+    @Expose
+    private boolean promo;
+    @SerializedName("store_type")
+    @Expose
+    private StoreType store_type;
     @SerializedName("products")
     @Expose
     private List<Product> products;
@@ -38,6 +50,22 @@ public class DetailToko {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getAdvertisement_id() {
+        return advertisement_id;
+    }
+
+    public void setAdvertisement_id(int advertisement_id) {
+        this.advertisement_id = advertisement_id;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getName() {
@@ -86,6 +114,22 @@ public class DetailToko {
 
     public void setClose(String close) {
         this.close = close;
+    }
+
+    public boolean isPromo() {
+        return promo;
+    }
+
+    public void setPromo(boolean promo) {
+        this.promo = promo;
+    }
+
+    public StoreType getStore_type() {
+        return store_type;
+    }
+
+    public void setStore_type(StoreType store_type) {
+        this.store_type = store_type;
     }
 
     public List<Product> getProducts() {

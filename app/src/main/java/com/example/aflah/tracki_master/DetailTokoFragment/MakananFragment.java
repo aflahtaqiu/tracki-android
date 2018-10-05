@@ -4,11 +4,23 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
+import com.example.aflah.tracki_master.Adapter.ListMakananAdapter;
+import com.example.aflah.tracki_master.Model.ResponseDetailToko;
 import com.example.aflah.tracki_master.R;
+import com.example.aflah.tracki_master.Retrofit.ApiRequest;
+import com.example.aflah.tracki_master.Retrofit.RetroServer;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +41,9 @@ public class MakananFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    RecyclerView recyclerView;
+    ProgressBar progressBar;
 
     public MakananFragment() {
         // Required empty public constructor
@@ -65,7 +80,30 @@ public class MakananFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_makanan, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_makanan, container, false);
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_makanan);
+
+        ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
+        Call<ResponseDetailToko> getData = apiRequest.getStore();
+        getData.enqueue(new Callback<ResponseDetailToko>() {
+            @Override
+            public void onResponse(Call<ResponseDetailToko> call, Response<ResponseDetailToko> response) {
+                Log.i("RETRO ", "onResponse : nama produck: " + response.body().getStore().getProducts().get(0).getName());
+
+                recyclerView.setAdapter(new ListMakananAdapter(getContext(), response.body().getStore()));
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                recyclerView.smoothScrollToPosition(0);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseDetailToko> call, Throwable t) {
+                Log.i("RETRO ", " onFailure " + t.getMessage());
+            }
+        });
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

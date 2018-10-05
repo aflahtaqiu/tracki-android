@@ -4,11 +4,15 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
+import com.example.aflah.tracki_master.Adapter.DetailTokoAdapter;
 import com.example.aflah.tracki_master.Model.ResponseDetailToko;
 import com.example.aflah.tracki_master.R;
 import com.example.aflah.tracki_master.Retrofit.ApiRequest;
@@ -37,6 +41,9 @@ public class DetailTokoFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    RecyclerView recyclerView;
+    ProgressBar progressBar;
 
     public DetailTokoFragment() {
         // Required empty public constructor
@@ -74,22 +81,32 @@ public class DetailTokoFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
+        View view = inflater.inflate(R.layout.fragment_detail_toko, container, false);
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_detailtoko);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBarDetailToko);
+
         ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
-        final Call<ResponseDetailToko> getDetailTokoData = apiRequest.getDetailToko();
-        getDetailTokoData.enqueue(new Callback<ResponseDetailToko>() {
+        Call<ResponseDetailToko> getData = apiRequest.getStore();
+        getData.enqueue(new Callback<ResponseDetailToko>() {
             @Override
             public void onResponse(Call<ResponseDetailToko> call, Response<ResponseDetailToko> response) {
-                Log.i("RETRO", "onResponse, nama Toko " + response.body().getDetailToko().getName() + " nama product : "
-                                                                + response.body().getDetailToko().getProducts().get(0).getName());
+                Log.i("RETRO", "onResponse nama toko : " + response.body().getStore().getName());
+
+                progressBar.setVisibility(View.GONE);
+
+                recyclerView.setAdapter(new DetailTokoAdapter(getContext(), response.body().getStore()));
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                recyclerView.smoothScrollToPosition(0);
             }
 
             @Override
             public void onFailure(Call<ResponseDetailToko> call, Throwable t) {
-                Log.i("RETRO", "onFailure : " + t.getMessage());
+                Log.i("RETRO", " onFailure " + t.getMessage());
             }
         });
 
-        return inflater.inflate(R.layout.fragment_detail_toko, container, false);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

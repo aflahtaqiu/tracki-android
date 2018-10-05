@@ -7,13 +7,13 @@ public class ResponseDetailToko {
 
     @SerializedName("store")
     @Expose
-    private DetailToko detailToko;
+    private Store store;
 
-    public DetailToko getDetailToko() {
-        return detailToko;
+    public Store getStore() {
+        return store;
     }
 
-    public void setDetailToko(DetailToko detailToko) {
-        this.detailToko = detailToko;
+    public void setStore(Store store) {
+        this.store = store;
     }
 }

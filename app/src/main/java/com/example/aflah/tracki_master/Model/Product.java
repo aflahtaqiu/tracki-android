@@ -17,6 +17,9 @@ public class Product {
     @SerializedName("description")
     @Expose
     private String description;
+    @SerializedName("category")
+    @Expose
+    private Category category;
     @SerializedName("picture")
     @Expose
     private String picture;
@@ -51,6 +54,14 @@ public class Product {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public String getPicture() {
