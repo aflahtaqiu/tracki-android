@@ -139,4 +139,22 @@ public class Store {
     public void setProducts(List<Product> products) {
         this.products = products;
     }
+
+    @Override
+    public String toString() {
+        return "Store{" +
+                "id=" + id +
+                ", advertisement_id=" + advertisement_id +
+                ", uid='" + uid + '\'' +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", logo='" + logo + '\'' +
+                ", location='" + location + '\'' +
+                ", open='" + open + '\'' +
+                ", close='" + close + '\'' +
+                ", promo=" + promo +
+                ", store_type=" + store_type +
+                ", products=" + products +
+                '}';
+    }
 }

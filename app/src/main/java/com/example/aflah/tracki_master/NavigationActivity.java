@@ -54,7 +54,6 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    setTitle("Home Fragment");
                     if (homeFragment == null){
                         homeFragment = new HomeFragment();
                     }
@@ -63,7 +62,6 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
                     fragmentTransaction.replace(R.id.content, homeFragment, "").commit();
                     return true;
                 case R.id.navigation_map:
-                    setTitle("Map Fragment");
                     if (mapFragment == null){
                         mapFragment = new MapFragment();
                     }
@@ -71,7 +69,6 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
                     fragmentTransaction.replace(R.id.content, mapFragment, "").commit();
                     return true;
                 case R.id.navigation_account:
-                    setTitle("Account Fragment");
                     if (accountFragment == null){
                         accountFragment = new AccountFragment();
                     }
@@ -93,10 +90,8 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         navigation.setSelectedItemId(R.id.navigation_home);
 
         data = new ArrayList<>();
+        beacons = new ArrayList<>();
         cubeacon = Cubeacon.getInstance();
-
-
-
     }
 
     @Override
@@ -159,7 +154,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
 
         // update view using runnable
-        mOnCubeaconUpdated.setData(data);
+        mOnCubeaconUpdated.setData(data,list);
     }
 
     @Override
@@ -177,6 +172,6 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     }
 
     public interface OnCubeaconUpdated{
-        void setData(List<Map<String, String>> data);
+        void setData(List<Map<String, String>> data,List<CBBeacon> cub);
     }
 }

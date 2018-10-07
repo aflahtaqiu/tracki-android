@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 
 import com.example.aflah.tracki_master.Adapter.ListMakananAdapter;
 import com.example.aflah.tracki_master.Model.ResponseDetailToko;
+import com.example.aflah.tracki_master.Model.ResponseTokoTerdekat;
 import com.example.aflah.tracki_master.R;
 import com.example.aflah.tracki_master.Retrofit.ApiRequest;
 import com.example.aflah.tracki_master.Retrofit.RetroServer;
@@ -85,12 +86,14 @@ public class MakananFragment extends Fragment {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_makanan);
 
+        int idToko = getActivity().getIntent().getExtras().getInt("idTokoTerdekat");
+
         ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
-        Call<ResponseDetailToko> getData = apiRequest.getStore();
+        Call<ResponseDetailToko> getData = apiRequest.getStoreByID(idToko);
         getData.enqueue(new Callback<ResponseDetailToko>() {
             @Override
             public void onResponse(Call<ResponseDetailToko> call, Response<ResponseDetailToko> response) {
-                Log.i("RETRO ", "onResponse : nama produck: " + response.body().getStore().getProducts().get(0).getName());
+//                Log.i("RETRO ", "onResponse : nama produck: " + response.body().getStores().getName());
 
                 recyclerView.setAdapter(new ListMakananAdapter(getContext(), response.body().getStore()));
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

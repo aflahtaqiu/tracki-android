@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.example.aflah.tracki_master.Adapter.ListMinumanAdapter;
 import com.example.aflah.tracki_master.Model.ResponseDetailToko;
+import com.example.aflah.tracki_master.Model.ResponseTokoTerdekat;
 import com.example.aflah.tracki_master.R;
 import com.example.aflah.tracki_master.Retrofit.ApiRequest;
 import com.example.aflah.tracki_master.Retrofit.RetroServer;
@@ -83,12 +84,14 @@ public class MinumanFragment extends Fragment {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_minuman);
 
+        int idToko = getActivity().getIntent().getExtras().getInt("idTokoTerdekat");
+
         ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
-        Call<ResponseDetailToko> getData = apiRequest.getStore();
+        Call<ResponseDetailToko> getData = apiRequest.getStoreByID(idToko);
         getData.enqueue(new Callback<ResponseDetailToko>() {
             @Override
             public void onResponse(Call<ResponseDetailToko> call, Response<ResponseDetailToko> response) {
-                Log.i("RETRO ", "onResponse : nama produck: " + response.body().getStore().getProducts().get(1).getName());
+                //Log.i("RETRO ", "onResponse : nama produck: " + response.body().getStore().getProducts().get(1).getName());
 
                 recyclerView.setAdapter(new ListMinumanAdapter(getContext(), response.body().getStore()));
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

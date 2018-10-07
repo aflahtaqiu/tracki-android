@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 
 import com.example.aflah.tracki_master.Adapter.DetailTokoAdapter;
 import com.example.aflah.tracki_master.Model.ResponseDetailToko;
+import com.example.aflah.tracki_master.Model.ResponseTokoTerdekat;
 import com.example.aflah.tracki_master.R;
 import com.example.aflah.tracki_master.Retrofit.ApiRequest;
 import com.example.aflah.tracki_master.Retrofit.RetroServer;
@@ -86,8 +87,11 @@ public class DetailTokoFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_detailtoko);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBarDetailToko);
 
+        int idToko = getActivity().getIntent().getExtras().getInt("idTokoTerdekat");
+        Log.i("idToko", "id toko : " + idToko);
+
         ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
-        Call<ResponseDetailToko> getData = apiRequest.getStore();
+        Call<ResponseDetailToko> getData = apiRequest.getStoreByID(idToko);
         getData.enqueue(new Callback<ResponseDetailToko>() {
             @Override
             public void onResponse(Call<ResponseDetailToko> call, Response<ResponseDetailToko> response) {
@@ -102,7 +106,7 @@ public class DetailTokoFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ResponseDetailToko> call, Throwable t) {
-                Log.i("RETRO", " onFailure " + t.getMessage());
+                Log.i("RETRODetail", " onFailure " + t.getMessage());
             }
         });
 

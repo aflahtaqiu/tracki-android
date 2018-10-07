@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,17 +18,29 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
+import com.example.aflah.tracki_master.Adapter.TokoTerdekatAdapter;
 import com.example.aflah.tracki_master.DetailTokoActivity;
+import com.example.aflah.tracki_master.Model.ResponseTokoTerdekat;
+import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.NavigationActivity;
 import com.example.aflah.tracki_master.R;
+import com.example.aflah.tracki_master.Retrofit.ApiRequest;
+import com.example.aflah.tracki_master.Retrofit.RetroServer;
+import com.eyro.cubeacon.CBBeacon;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -37,7 +51,7 @@ import java.util.Map;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment implements NavigationActivity.OnCubeaconUpdated {
+public class HomeFragment extends Fragment implements NavigationActivity.OnCubeaconUpdated,AdapterView.OnItemClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -45,21 +59,28 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
     private static final String TAG = HomeFragment.class.getSimpleName();
     private ListView listView;
     private List<Map<String, String>> data;
+    private List<CBBeacon> beacons;
     private SimpleAdapter adapter;
+    private TokoTerdekatAdapter tokoTerdekatAdapter;
     private Map map;
     String[] from;
     int[] to;
+
+
+    List<Store> stores;
+
+    int beaconCount;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    private Button btnDetailToko;
-
     private NavigationActivity navigationActivity;
 
     private SearchView searchView = null;
     private SearchView.OnQueryTextListener queryTextListener;
+
+    RecyclerView recyclerView;
 
     private OnFragmentInteractionListener mListener;
 
@@ -98,33 +119,53 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        stores = new ArrayList<>();
+
 
         // Inflate the layout for this fragment
 
         navigationActivity = (NavigationActivity) getActivity();
         navigationActivity.getSupportActionBar().show();
 
-        listView = view.findViewById(R.id.listview);
+        //listView = view.findViewById(R.id.listview);
+
         from = new String[]{"title", "subtitle"};
         to = new int[]{android.R.id.text1, android.R.id.text2};
         data = new ArrayList<>();
         adapter = new SimpleAdapter(getContext(), data, android.R.layout.simple_list_item_2, from, to);
-        listView.setAdapter(adapter);
+        //listView.setAdapter(adapter);
+        //listView.setOnItemClickListener(this);
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycerview_tokoTerdekat);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        tokoTerdekatAdapter = new TokoTerdekatAdapter(getContext(), stores);
+        recyclerView.setAdapter(tokoTerdekatAdapter);
 
         return view;
+    }
+
+    public void loadJSON(int uid){
+
+        ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
+        Call<ResponseTokoTerdekat> getStore = apiRequest.getStoreByUID(String.valueOf(uid));
+        getStore.enqueue(new Callback<ResponseTokoTerdekat>() {
+            @Override
+            public void onResponse(Call<ResponseTokoTerdekat> call, Response<ResponseTokoTerdekat> response) {
+                recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+                recyclerView.setAdapter(new TokoTerdekatAdapter(getContext(), response.body().getStores()));
+            }
+
+            @Override
+            public void onFailure(Call<ResponseTokoTerdekat> call, Throwable t) {
+                Log.i("onFailure", t.getMessage());
+
+            }
+        });
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        btnDetailToko = view.findViewById(R.id.btnDetailToko);
-        btnDetailToko.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().startActivity(new Intent(getActivity(), DetailTokoActivity.class));
-            }
-        });
     }
 
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -172,7 +213,6 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
         }
     }
 
-
 //    @Override
 //    public void onAttach(Context context) {
 //        super.onAttach(context);
@@ -191,29 +231,60 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
 //        mListener = null;
 //    }
 
+
     @Override
-    public void setData(List<Map<String, String>> cbBeacons) {
+    public void setData(final List<Map<String, String>> cbBeacons, List<CBBeacon> list) {
         Log.d("debug",cbBeacons.size() + "");
         data = new ArrayList<>();
+        beacons = new ArrayList<>();
         data = cbBeacons;
+        beacons = list;
+        beaconCount = cbBeacons.size();
+
         if (getActivity() != null){
             Log.d("Debug","Enggak nulll");
-            adapter = new SimpleAdapter(getContext(), data, android.R.layout.simple_list_item_2, from, to);
+            //adapter = new SimpleAdapter(getContext(), data, android.R.layout.simple_list_item_2, from, to);
+
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    listView.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
-//        Log.d("debug",data.size()+ "");
-//        adapter.notifyDataSetChanged();
-//        if (getSupportActionBar() != null) {
-//          getSupportActionBar().setSubtitle("Ranged beacon : " + beacons.size());
-//        }
+                    //listView.setAdapter(adapter);
+                    //tokoTerdekatAdapter.notifyDataSetChanged();
+
+                    ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
+
+                    stores.clear();
+                    List<Store> newStores = new ArrayList<>();
+                    for (int i = 0 ;i<cbBeacons.size(); i++ ){
+                        final int tole = i;
+                        Call<ResponseTokoTerdekat> getData = apiRequest.getStoreByUID(String.valueOf(beacons.get(i).getMajor()));
+                        getData.enqueue(new Callback<ResponseTokoTerdekat>() {
+                            @Override
+                            public void onResponse(Call<ResponseTokoTerdekat> call, Response<ResponseTokoTerdekat> response) {
+                                for (Store store : response.body().getStores()) {
+                                    if (!stores.contains(store)){
+                                        stores.add(store);
+                                    }
+                                }
+                                tokoTerdekatAdapter.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseTokoTerdekat> call, Throwable t) {
+
+                            }
+                        });
+                    }
                 }
             });
-
-
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+               CBBeacon beacon = this.beacons.get(position);
+               Intent intent = new Intent(getActivity(),DetailTokoActivity.class);
+               startActivity(intent);
     }
 
 

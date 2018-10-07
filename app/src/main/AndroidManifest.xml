@@ -60,7 +60,8 @@
         <!-- android:name=".MapsActivity" -->
         <!-- android:label="@string/title_activity_maps"></activity> -->
 
-        <activity android:name=".DetailTokoActivity"></activity>
+        <activity android:name=".DetailTokoActivity" />
+        <activity android:name=".DetailMenuActivity"></activity>
     </application>
 
 </manifest>

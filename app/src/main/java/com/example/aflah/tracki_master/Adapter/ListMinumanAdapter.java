@@ -1,6 +1,7 @@
 package com.example.aflah.tracki_master.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,7 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.aflah.tracki_master.DetailMenuActivity;
+import com.example.aflah.tracki_master.Model.Product;
 import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.R;
 
@@ -26,10 +30,10 @@ public class ListMinumanAdapter extends RecyclerView.Adapter<ListMinumanAdapter.
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_minuman, parent, false);
-        MyViewHolder myViewHolder = new MyViewHolder(view);
+        final MyViewHolder myViewHolder = new MyViewHolder(view);
 
         return myViewHolder;
     }
@@ -69,6 +73,24 @@ public class ListMinumanAdapter extends RecyclerView.Adapter<ListMinumanAdapter.
             rpMinuman = (TextView) itemView.findViewById(R.id.tv_rpminuman_minuman);
             img_makanan = (CircleImageView) itemView.findViewById(R.id.img_minuman_minuman);
             linearLayout_minuman_item = (LinearLayout) itemView.findViewById(R.id.linearlayout_item_minuman);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    int posisi = getAdapterPosition();
+                    if (posisi != RecyclerView.NO_POSITION){
+                        Product clickedData = store.getProducts().get(posisi);
+                        Intent intent = new Intent(v.getContext(), DetailMenuActivity.class);
+                        intent.putExtra("namaMenu", clickedData.getName());
+                        intent.putExtra("kategoriMenu", clickedData.getCategory().getName());
+                        intent.putExtra("hargaMenu", String.valueOf((int)clickedData.getPrice()));
+                        intent.putExtra("detailMenu", clickedData.getDescription());
+                        Toast.makeText(v.getContext(), "On Click : " +clickedData.getName(), Toast.LENGTH_LONG);
+                        context.startActivity(intent);
+                    }
+                }
+            });
         }
     }
 }
