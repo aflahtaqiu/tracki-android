@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.R;
+import com.squareup.picasso.Picasso;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class DetailTokoAdapter extends RecyclerView.Adapter<DetailTokoAdapter.MyViewHolder> {
 
@@ -39,6 +42,9 @@ public class DetailTokoAdapter extends RecyclerView.Adapter<DetailTokoAdapter.My
         holder.jamBukaToko.setText(store.getOpen());
         holder.jamTutupToko.setText(store.getClose());
         holder.noTelpToko.setText(store.getPhone());
+
+        Picasso.get().load(store.getLogo()).into(holder.img_toko_detailToko);
+
     }
 
     @Override
@@ -49,6 +55,7 @@ public class DetailTokoAdapter extends RecyclerView.Adapter<DetailTokoAdapter.My
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView namaToko, tipeToko, lokasiToko, jamBukaToko, jamTutupToko, noTelpToko;
+        CircleImageView img_toko_detailToko;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -59,6 +66,7 @@ public class DetailTokoAdapter extends RecyclerView.Adapter<DetailTokoAdapter.My
             jamBukaToko = (TextView) itemView.findViewById(R.id.tv_jamBukaToko_detailToko);
             jamTutupToko = (TextView) itemView.findViewById(R.id.tv_jamTutupToko_detailToko);
             noTelpToko = (TextView) itemView.findViewById(R.id.tv_phoneToko_detailToko);
+            img_toko_detailToko = (CircleImageView) itemView.findViewById(R.id.iv_logo_detail_toko);
         }
     }
 }

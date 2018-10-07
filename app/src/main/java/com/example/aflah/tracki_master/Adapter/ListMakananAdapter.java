@@ -18,6 +18,7 @@ import com.example.aflah.tracki_master.DetailMenuActivity;
 import com.example.aflah.tracki_master.Model.Product;
 import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -51,6 +52,7 @@ public class ListMakananAdapter extends RecyclerView.Adapter<ListMakananAdapter.
 
             holder.namaMakanan.setText(store.getProducts().get(position).getName());
             holder.hargaMakanan.setText(String.valueOf((int) store.getProducts().get(position).getPrice()));
+            Picasso.get().load(store.getProducts().get(position).getPicture()).into(holder.img_makanan);
         }
         else {
             holder.namaMakanan.setVisibility(View.GONE);
@@ -92,6 +94,7 @@ public class ListMakananAdapter extends RecyclerView.Adapter<ListMakananAdapter.
                         intent.putExtra("kategoriMenu", clickedData.getCategory().getName());
                         intent.putExtra("hargaMenu", String.valueOf((int)clickedData.getPrice()));
                         intent.putExtra("detailMenu", clickedData.getDescription());
+                        intent.putExtra("gambarMenu", clickedData.getPicture());
                         Toast.makeText(v.getContext(), "On Click : " +clickedData.getName(), Toast.LENGTH_LONG);
                         context.startActivity(intent);
                     }

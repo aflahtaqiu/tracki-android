@@ -15,6 +15,7 @@ import com.example.aflah.tracki_master.DetailMenuActivity;
 import com.example.aflah.tracki_master.Model.Product;
 import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.R;
+import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -43,9 +44,10 @@ public class ListMinumanAdapter extends RecyclerView.Adapter<ListMinumanAdapter.
         if (store.getProducts().get(position).getCategory().getId() == 2){
             holder.namaMinuman.setText(store.getProducts().get(position).getName());
             holder.hargaMinuaman.setText(String.valueOf((int) store.getProducts().get(position).getPrice()));
+            Picasso.get().load(store.getProducts().get(position).getPicture()).into(holder.img_minuman);
         }
         else {
-            holder.img_makanan.setVisibility(View.GONE);
+            holder.img_minuman.setVisibility(View.GONE);
             holder.rpMinuman.setVisibility(View.GONE);
             holder.hargaMinuaman.setVisibility(View.GONE);
             holder.namaMinuman.setVisibility(View.GONE);
@@ -62,7 +64,7 @@ public class ListMinumanAdapter extends RecyclerView.Adapter<ListMinumanAdapter.
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView namaMinuman, hargaMinuaman, rpMinuman;
-        CircleImageView img_makanan;
+        CircleImageView img_minuman;
         LinearLayout linearLayout_minuman_item;
 
         public MyViewHolder(View itemView) {
@@ -71,7 +73,7 @@ public class ListMinumanAdapter extends RecyclerView.Adapter<ListMinumanAdapter.
             namaMinuman = (TextView) itemView.findViewById(R.id.tv_namaMimunam_minuman);
             hargaMinuaman = (TextView) itemView.findViewById(R.id.tv_hargaMinuman_minuman);
             rpMinuman = (TextView) itemView.findViewById(R.id.tv_rpminuman_minuman);
-            img_makanan = (CircleImageView) itemView.findViewById(R.id.img_minuman_minuman);
+            img_minuman = (CircleImageView) itemView.findViewById(R.id.img_minuman_minuman);
             linearLayout_minuman_item = (LinearLayout) itemView.findViewById(R.id.linearlayout_item_minuman);
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +88,7 @@ public class ListMinumanAdapter extends RecyclerView.Adapter<ListMinumanAdapter.
                         intent.putExtra("kategoriMenu", clickedData.getCategory().getName());
                         intent.putExtra("hargaMenu", String.valueOf((int)clickedData.getPrice()));
                         intent.putExtra("detailMenu", clickedData.getDescription());
+                        intent.putExtra("gambarMenu", clickedData.getPicture());
                         Toast.makeText(v.getContext(), "On Click : " +clickedData.getName(), Toast.LENGTH_LONG);
                         context.startActivity(intent);
                     }

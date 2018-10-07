@@ -112,7 +112,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        LatLng lokasi = new LatLng(-7.2634152,112.7381467);
+        LatLng lokasi = new LatLng(-7.2917942,112.7838991);
         mMap.addMarker(new MarkerOptions().position(lokasi).title("Sudah masuk Tunjungan Plaza"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lokasi, 18));
         mMap.getUiSettings().setIndoorLevelPickerEnabled(true);
