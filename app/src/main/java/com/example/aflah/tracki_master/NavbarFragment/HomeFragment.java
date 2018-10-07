@@ -35,8 +35,11 @@ import com.example.aflah.tracki_master.Retrofit.RetroServer;
 import com.eyro.cubeacon.CBBeacon;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -68,6 +71,7 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
 
 
     List<Store> stores;
+    HashMap<String,Store> rmdup;
 
     int beaconCount;
 
@@ -120,6 +124,8 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         stores = new ArrayList<>();
+        rmdup = new HashMap<>();
+
 
 
         // Inflate the layout for this fragment
@@ -138,30 +144,30 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycerview_tokoTerdekat);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        tokoTerdekatAdapter = new TokoTerdekatAdapter(getContext(), stores);
+        tokoTerdekatAdapter = new TokoTerdekatAdapter(getContext(), rmdup);
         recyclerView.setAdapter(tokoTerdekatAdapter);
 
         return view;
     }
 
-    public void loadJSON(int uid){
-
-        ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
-        Call<ResponseTokoTerdekat> getStore = apiRequest.getStoreByUID(String.valueOf(uid));
-        getStore.enqueue(new Callback<ResponseTokoTerdekat>() {
-            @Override
-            public void onResponse(Call<ResponseTokoTerdekat> call, Response<ResponseTokoTerdekat> response) {
-                recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-                recyclerView.setAdapter(new TokoTerdekatAdapter(getContext(), response.body().getStores()));
-            }
-
-            @Override
-            public void onFailure(Call<ResponseTokoTerdekat> call, Throwable t) {
-                Log.i("onFailure", t.getMessage());
-
-            }
-        });
-    }
+//    public void loadJSON(int uid){
+//
+//        ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
+//        Call<ResponseTokoTerdekat> getStore = apiRequest.getStoreByUID(String.valueOf(uid));
+//        getStore.enqueue(new Callback<ResponseTokoTerdekat>() {
+//            @Override
+//            public void onResponse(Call<ResponseTokoTerdekat> call, Response<ResponseTokoTerdekat> response) {
+//                recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+//                recyclerView.setAdapter(new TokoTerdekatAdapter(getContext(), response.body().getStores()));
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseTokoTerdekat> call, Throwable t) {
+//                Log.i("onFailure", t.getMessage());
+//
+//            }
+//        });
+//    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -225,11 +231,12 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
 //        }
 //    }
 //
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        mListener = null;
-//    }
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        rmdup.clear();
+        mListener = null;
+    }
 
 
     @Override
@@ -253,7 +260,7 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
 
                     ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
 
-                    stores.clear();
+//                    stores.clear();
                     List<Store> newStores = new ArrayList<>();
                     for (int i = 0 ;i<cbBeacons.size(); i++ ){
                         final int tole = i;
@@ -262,9 +269,14 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                             @Override
                             public void onResponse(Call<ResponseTokoTerdekat> call, Response<ResponseTokoTerdekat> response) {
                                 for (Store store : response.body().getStores()) {
-                                    if (!stores.contains(store)){
-                                        stores.add(store);
-                                    }
+//                                    if (!stores.contains(store)){
+//                                        stores.add(store);
+//                                    }
+                                    rmdup.put(store.getUid(),store);
+//                                    stores.add(rmdup.get(store.getUid()));
+//                                    Log.v("debug",  " isi respine " + response.body().getStores().size());
+//                                    Log.v("debuger",  " isi stores " + rmdup.toString());
+
                                 }
                                 tokoTerdekatAdapter.notifyDataSetChanged();
                             }
