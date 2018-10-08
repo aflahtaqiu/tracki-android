@@ -43,6 +43,17 @@ public class Store {
     @SerializedName("products")
     @Expose
     private List<Product> products;
+    @SerializedName("galleries")
+    @Expose
+    private List<Galery> galleries;
+
+    public List<Galery> getGalleries() {
+        return galleries;
+    }
+
+    public void setGalleries(List<Galery> galleries) {
+        this.galleries = galleries;
+    }
 
     public int getId() {
         return id;
@@ -155,6 +166,7 @@ public class Store {
                 ", promo=" + promo +
                 ", store_type=" + store_type +
                 ", products=" + products +
+                ", galleries=" + galleries +
                 '}';
     }
 }

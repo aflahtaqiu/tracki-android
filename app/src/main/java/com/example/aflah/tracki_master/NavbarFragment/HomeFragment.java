@@ -126,8 +126,6 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
         stores = new ArrayList<>();
         rmdup = new HashMap<>();
 
-
-
         // Inflate the layout for this fragment
 
         navigationActivity = (NavigationActivity) getActivity();
@@ -149,25 +147,6 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
 
         return view;
     }
-
-//    public void loadJSON(int uid){
-//
-//        ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
-//        Call<ResponseTokoTerdekat> getStore = apiRequest.getStoreByUID(String.valueOf(uid));
-//        getStore.enqueue(new Callback<ResponseTokoTerdekat>() {
-//            @Override
-//            public void onResponse(Call<ResponseTokoTerdekat> call, Response<ResponseTokoTerdekat> response) {
-//                recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-//                recyclerView.setAdapter(new TokoTerdekatAdapter(getContext(), response.body().getStores()));
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResponseTokoTerdekat> call, Throwable t) {
-//                Log.i("onFailure", t.getMessage());
-//
-//            }
-//        });
-//    }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -273,11 +252,9 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
 //                                        stores.add(store);
 //                                    }
                                     rmdup.put(String.valueOf(store.getId()),store);
-
 //                                    stores.add(rmdup.get(store.getUid()));
 //                                    Log.v("debug",  " isi respine " + response.body().getStores().size());
 //                                    Log.v("debuger",  " isi stores " + rmdup.toString());
-
                                 }
                                 Log.v("debuggerMas", " isi response" + response.body().getStores().size());
                                 tokoTerdekatAdapter.notifyDataSetChanged();
