@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -54,7 +55,7 @@ import retrofit2.Response;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment implements NavigationActivity.OnCubeaconUpdated,AdapterView.OnItemClickListener {
+public class HomeFragment extends Fragment implements NavigationActivity.OnCubeaconUpdated,AdapterView.OnItemClickListener,SwipeRefreshLayout.OnRefreshListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -65,6 +66,7 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
     private List<CBBeacon> beacons;
     private SimpleAdapter adapter;
     private TokoTerdekatAdapter tokoTerdekatAdapter;
+    private  SwipeRefreshLayout mySwipeRefreshLayout;
     private Map map;
     String[] from;
     int[] to;
@@ -125,6 +127,18 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         stores = new ArrayList<>();
         rmdup = new HashMap<>();
+
+        mySwipeRefreshLayout = view.findViewById(R.id.swiperefresh);
+        mySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Log.v("debug","masuk ke refresh");
+                mySwipeRefreshLayout.setRefreshing(true);
+                rmdup.clear();
+                tokoTerdekatAdapter.notifyDataSetChanged();
+                mySwipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
         // Inflate the layout for this fragment
 
@@ -276,6 +290,11 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                CBBeacon beacon = this.beacons.get(position);
                Intent intent = new Intent(getActivity(),DetailTokoActivity.class);
                startActivity(intent);
+    }
+
+    @Override
+    public void onRefresh() {
+
     }
 
 

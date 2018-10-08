@@ -116,6 +116,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mMap.addMarker(new MarkerOptions().position(lokasi).title("Sudah masuk Tunjungan Plaza"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lokasi, 18));
         mMap.getUiSettings().setIndoorLevelPickerEnabled(true);
+        mMap.setMyLocationEnabled(true);
     }
 
     /**
