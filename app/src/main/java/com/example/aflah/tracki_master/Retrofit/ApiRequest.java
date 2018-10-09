@@ -1,5 +1,6 @@
 package com.example.aflah.tracki_master.Retrofit;
 
+import com.example.aflah.tracki_master.Model.Advertisements;
 import com.example.aflah.tracki_master.Model.ResponseDetailToko;
 import com.example.aflah.tracki_master.Model.ResponseTokoTerdekat;
 
@@ -18,4 +19,7 @@ public interface ApiRequest {
     Call<ResponseDetailToko> getStoreByID(
             @Path("id") int id
     );
+
+    @GET("advertisement")
+    Call<Advertisements> getAdvertisements();
 }

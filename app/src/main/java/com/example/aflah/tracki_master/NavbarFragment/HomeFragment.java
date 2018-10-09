@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,8 +26,10 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import com.example.aflah.tracki_master.Adapter.CarouselHomeAdapter;
 import com.example.aflah.tracki_master.Adapter.TokoTerdekatAdapter;
 import com.example.aflah.tracki_master.DetailTokoActivity;
+import com.example.aflah.tracki_master.Model.Advertisements;
 import com.example.aflah.tracki_master.Model.ResponseTokoTerdekat;
 import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.NavigationActivity;
@@ -41,6 +44,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -71,6 +76,7 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
     String[] from;
     int[] to;
 
+    ViewPager viewPager;
 
     List<Store> stores;
     HashMap<String,Store> rmdup;
@@ -140,8 +146,6 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
             }
         });
 
-        // Inflate the layout for this fragment
-
         navigationActivity = (NavigationActivity) getActivity();
         navigationActivity.getSupportActionBar().show();
 
@@ -154,12 +158,54 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
         //listView.setAdapter(adapter);
         //listView.setOnItemClickListener(this);
 
+        viewPager = (ViewPager) view.findViewById(R.id.viewPager_carousel_Home);
+
+        List<String> urlImageList = new ArrayList<>();
+        ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
+        Call<Advertisements> getIklans = apiRequest.getAdvertisements();
+        getIklans.enqueue(new Callback<Advertisements>() {
+            @Override
+            public void onResponse(Call<Advertisements> call, Response<Advertisements> response) {
+                for (int i = 0; i< response.body().getAdvertisements().size() ;i++){
+                    urlImageList.add(response.body().getAdvertisements().get(i).getBanner());
+                }
+                CarouselHomeAdapter carouselHomeAdapter = new CarouselHomeAdapter(getContext(), urlImageList);
+                viewPager.setAdapter(carouselHomeAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<Advertisements> call, Throwable t) {
+
+            }
+        });
+
         recyclerView = (RecyclerView) view.findViewById(R.id.recycerview_tokoTerdekat);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         tokoTerdekatAdapter = new TokoTerdekatAdapter(getContext(), rmdup);
         recyclerView.setAdapter(tokoTerdekatAdapter);
 
+//        Timer timer = new Timer();
+//        timer.scheduleAtFixedRate(new TimerCarousel(), 2000, 4000);
+
         return view;
+    }
+
+    public class TimerCarousel extends TimerTask{
+
+        @Override
+        public void run() {
+            HomeFragment.this.getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (viewPager.getCurrentItem() == 0)
+                        viewPager.setCurrentItem(1, true);
+                    else if (viewPager.getCurrentItem() == 1)
+                        viewPager.setCurrentItem(2, true);
+                    else
+                        viewPager.setCurrentItem(0,true);
+                }
+            });
+        }
     }
 
     @Override

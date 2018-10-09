@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.example.aflah.tracki_master.Adapter.CarouselDetailTokoAdapter;
 import com.example.aflah.tracki_master.Adapter.DetailTokoViewPagerAdapter;
@@ -35,11 +37,11 @@ public class DetailTokoActivity extends AppCompatActivity implements DetailTokoF
     private ViewPager viewPager;
     private DetailTokoViewPagerAdapter detailTokoViewPagerAdapter;
 
-    private DetailTokoFragment detailTokoFragment = new DetailTokoFragment();
-
-    private RecyclerView recyclerView_detailtoko;
-
     ViewPager viewPager_CarouselDetailToko;
+
+    LinearLayout linearLayout_DotsPanel;
+    private int dotsCount;
+    private ImageView[] dots;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +53,11 @@ public class DetailTokoActivity extends AppCompatActivity implements DetailTokoF
         viewPager_CarouselDetailToko = (ViewPager) findViewById(R.id.viewPager_carousel_detailToko);
         detailTokoViewPagerAdapter = new DetailTokoViewPagerAdapter(getSupportFragmentManager());
 
-//        CarouselDetailTokoAdapter carouselAdapter = new CarouselDetailTokoAdapter(this);
-//        viewPager_CarouselDetailToko.setAdapter(carouselAdapter);
-
         detailTokoViewPagerAdapter.AddFragment(new DetailTokoFragment(), "");
         detailTokoViewPagerAdapter.AddFragment(new MakananFragment(), "");
         detailTokoViewPagerAdapter.AddFragment(new MinumanFragment(), "");
+
+        linearLayout_DotsPanel = (LinearLayout) findViewById(R.id.layoutDots_detailToko);
 
         List<String> urlImageList = new ArrayList<>();
         int idToko = getIntent().getExtras().getInt("idTokoTerdekat");
@@ -70,6 +71,7 @@ public class DetailTokoActivity extends AppCompatActivity implements DetailTokoF
                 }
                 CarouselDetailTokoAdapter carouselDetailTokoAdapter = new CarouselDetailTokoAdapter(DetailTokoActivity.this, urlImageList);
                 viewPager_CarouselDetailToko.setAdapter(carouselDetailTokoAdapter);
+
             }
 
             @Override
@@ -88,7 +90,10 @@ public class DetailTokoActivity extends AppCompatActivity implements DetailTokoF
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimeCarousel(), 4000, 4000);
 
+    }
 
+    public void setDotsCount(int dotsCount) {
+        this.dotsCount = dotsCount;
     }
 
     public class TimeCarousel extends TimerTask{
@@ -106,9 +111,6 @@ public class DetailTokoActivity extends AppCompatActivity implements DetailTokoF
                         viewPager_CarouselDetailToko.setCurrentItem(2, true);
                     else
                         viewPager_CarouselDetailToko.setCurrentItem(0, true);
-
-//                    Log.v("timer" , "timer max : " + viewPager_CarouselDetailToko.item)
-//                    Log.v("timer", "current item : " + viewPager_CarouselDetailToko.getCurrentItem());
                 }
             });
         }

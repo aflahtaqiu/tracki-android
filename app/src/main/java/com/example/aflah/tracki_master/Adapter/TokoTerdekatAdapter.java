@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.aflah.tracki_master.DetailTokoActivity;
@@ -49,8 +50,6 @@ public class TokoTerdekatAdapter extends RecyclerView.Adapter<TokoTerdekatAdapte
         storeList = new ArrayList<>(stores.values());
         holder.tv_namaToko_tokoTerdekat.setText(storeList.get(position).getName());
 
-//        for(Store store : stores.values()){
-//            holder.tv_namaToko_tokoTerdekat.setText(String.valueOf(store.getId()));
             holder.cardView_tokoTerdkat.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -59,7 +58,6 @@ public class TokoTerdekatAdapter extends RecyclerView.Adapter<TokoTerdekatAdapte
                     context.startActivity(intent);
                 }
             });
-//        }
 
 
         Picasso.get().load(storeList.get(position).getLogo()).into(holder.img_tokoTerdekat);
@@ -73,14 +71,14 @@ public class TokoTerdekatAdapter extends RecyclerView.Adapter<TokoTerdekatAdapte
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
-        CircleImageView img_tokoTerdekat;
+        ImageView img_tokoTerdekat;
         TextView tv_namaToko_tokoTerdekat;
         CardView cardView_tokoTerdkat;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            img_tokoTerdekat = (CircleImageView) itemView.findViewById(R.id.iv_toko_tokoTerdekat);
+            img_tokoTerdekat = (ImageView) itemView.findViewById(R.id.iv_toko_tokoTerdekat);
             tv_namaToko_tokoTerdekat = (TextView) itemView.findViewById(R.id.tv_namaToko_tokoTerdekat);
             cardView_tokoTerdkat = (CardView) itemView.findViewById(R.id.cardview_toko_tokoTerdekat);
         }
