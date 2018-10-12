@@ -308,13 +308,7 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                             @Override
                             public void onResponse(Call<ResponseTokoTerdekat> call, Response<ResponseTokoTerdekat> response) {
                                 for (Store store : response.body().getStores()) {
-//                                    if (!stores.contains(store)){
-//                                        stores.add(store);
-//                                    }
                                     rmdup.put(String.valueOf(store.getId()),store);
-//                                    stores.add(rmdup.get(store.getUid()));
-//                                    Log.v("debug",  " isi respine " + response.body().getStores().size());
-//                                    Log.v("debuger",  " isi stores " + rmdup.toString());
                                 }
                                 Log.v("debuggerMas", " isi response" + response.body().getStores().size());
                                 tokoTerdekatAdapter.notifyDataSetChanged();
