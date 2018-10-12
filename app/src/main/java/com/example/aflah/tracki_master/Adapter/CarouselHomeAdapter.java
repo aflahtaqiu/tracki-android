@@ -1,6 +1,7 @@
 package com.example.aflah.tracki_master.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -8,7 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.example.aflah.tracki_master.DetailTokoActivity;
+import com.example.aflah.tracki_master.Model.Advertisement;
 import com.example.aflah.tracki_master.R;
 import com.squareup.picasso.Picasso;
 
@@ -20,15 +24,16 @@ public class CarouselHomeAdapter extends PagerAdapter {
     private LayoutInflater layoutInflater;
     private Integer [] images = {R.drawable.logo, R.drawable.img_menu_default, R.drawable.slide1, R.drawable.slide2, R.drawable.slide3};
     private List<String> urlList;
+    private List<Advertisement> advertisements;
 
-    public CarouselHomeAdapter(Context context, List<String> urlList) {
+    public CarouselHomeAdapter(Context context, List<Advertisement> advertisements) {
         this.context = context;
-        this.urlList = urlList;
+        this.advertisements = advertisements;
     }
 
     @Override
     public int getCount() {
-        return urlList.size();
+        return advertisements.size();
     }
 
     @Override
@@ -44,7 +49,17 @@ public class CarouselHomeAdapter extends PagerAdapter {
         ImageView imageView_carousel = (ImageView) view.findViewById(R.id.iv_carousel_home);
 //        imageView_carousel.setImageResource(images[position]);
 
-        Picasso.get().load(urlList.get(position)).into(imageView_carousel);
+        Picasso.get().load(advertisements.get(position).getBanner()).into(imageView_carousel);
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Toast.makeText(context, "Slide " + advertisements.get(position).getStore_id() + "clicked", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(view.getContext(), DetailTokoActivity.class);
+                intent.putExtra("idTokoTerdekat", advertisements.get(position).getStore_id());
+                context.startActivity(intent);
+            }
+        });
 
         ViewPager viewPager = (ViewPager) container;
         viewPager.addView(view, 0);

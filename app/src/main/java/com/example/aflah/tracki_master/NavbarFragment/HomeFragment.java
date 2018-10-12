@@ -29,6 +29,7 @@ import android.widget.TextView;
 import com.example.aflah.tracki_master.Adapter.CarouselHomeAdapter;
 import com.example.aflah.tracki_master.Adapter.TokoTerdekatAdapter;
 import com.example.aflah.tracki_master.DetailTokoActivity;
+import com.example.aflah.tracki_master.Model.Advertisement;
 import com.example.aflah.tracki_master.Model.Advertisements;
 import com.example.aflah.tracki_master.Model.ResponseTokoTerdekat;
 import com.example.aflah.tracki_master.Model.Store;
@@ -160,16 +161,16 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
 
         viewPager = (ViewPager) view.findViewById(R.id.viewPager_carousel_Home);
 
-        List<String> urlImageList = new ArrayList<>();
+        List<Advertisement> advertisementList = new ArrayList<>();
         ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
         Call<Advertisements> getIklans = apiRequest.getAdvertisements();
         getIklans.enqueue(new Callback<Advertisements>() {
             @Override
             public void onResponse(Call<Advertisements> call, Response<Advertisements> response) {
                 for (int i = 0; i< response.body().getAdvertisements().size() ;i++){
-                    urlImageList.add(response.body().getAdvertisements().get(i).getBanner());
+                    advertisementList.add(response.body().getAdvertisements().get(i));
                 }
-                CarouselHomeAdapter carouselHomeAdapter = new CarouselHomeAdapter(getContext(), urlImageList);
+                CarouselHomeAdapter carouselHomeAdapter = new CarouselHomeAdapter(getContext(), advertisementList);
                 viewPager.setAdapter(carouselHomeAdapter);
             }
 
