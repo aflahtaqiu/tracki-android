@@ -5,6 +5,8 @@
     <color name="colorTracki">#D62A42</color>
     <color name="colorCheckedItem">#480C02</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorAbuGelap">#585858</color>
+    <color name="colorbottom">#e6e6e6</color>
 
     <!-- dots inactive colors -->
     <color name="dot_inactive_screen1">#FA8072</color>

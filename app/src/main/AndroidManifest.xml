@@ -63,7 +63,9 @@
 
         <activity android:name=".DetailTokoActivity" />
         <activity android:name=".DetailMenuActivity" />
-        <activity android:name=".RegisterActivity" />
+        <activity
+            android:name=".RegisterActivity"
+            android:theme="@style/RegisterTheme"/>
         <activity android:name=".LoginActivity"></activity>
     </application>
 
