@@ -28,4 +28,5 @@
     <string name="ranging">Ranging Beacons</string>
     <string name="monitoring">Monitoring Beacon</string>
     <string name="tandatanya">"?"</string>
+    <string name="textlupa">Masukkan alamat email anda untuk kami kirimkan pesan verifikasi penggantian password</string>
 </resources>

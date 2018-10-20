@@ -65,8 +65,12 @@
         <activity android:name=".DetailMenuActivity" />
         <activity
             android:name=".RegisterActivity"
-            android:theme="@style/RegisterTheme"/>
+            android:theme="@style/ThemeNobar"/>
+        <activity
+            android:name=".ForgetPasswordActivity"
+            android:theme="@style/ThemeNobar"/>
         <activity android:name=".LoginActivity"></activity>
+
     </application>
 
 </manifest>
