@@ -58,7 +58,7 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/register_input_nama"
+                android:id="@+id/et_nama_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="60dp"
@@ -74,7 +74,7 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/register_input_email"
+                android:id="@+id/et_email_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -92,7 +92,7 @@
             app:passwordToggleEnabled="true">
 
             <EditText
-                android:id="@+id/register_input_sandi"
+                android:id="@+id/et_sandi_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -112,7 +112,7 @@
             app:passwordToggleEnabled="true">
 
             <EditText
-                android:id="@+id/konfirmasi"
+                android:id="@+id/et_konfirmSandi_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -130,7 +130,7 @@
             android:layout_height="wrap_content">
 
             <EditText
-                android:id="@+id/txtdate"
+                android:id="@+id/et_tanggalLahir_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"

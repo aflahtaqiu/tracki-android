@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "327901663033",
+    "firebase_url": "https://trackimaster.firebaseio.com",
+    "project_id": "trackimaster",
+    "storage_bucket": "trackimaster.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:327901663033:android:4a4ffbbb240b5a7c",
+        "android_client_info": {
+          "package_name": "com.example.aflah.tracki_master"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "327901663033-htsc1qp3s58oigtp8ed3s7enn0fdb2hs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.aflah.tracki_master",
+            "certificate_hash": "2bbe2cf33044e8f624881b6d2a8ba04ee2debe9c"
+          }
+        },
+        {
+          "client_id": "327901663033-mjn25dbfqqn3c4se0mlnptfbo7l36vk8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBEUOI7xgH-Sz1620vxQbGM_DtZsmi1Qr4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "327901663033-mjn25dbfqqn3c4se0mlnptfbo7l36vk8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
