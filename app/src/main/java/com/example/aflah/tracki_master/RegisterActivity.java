@@ -6,12 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 
 public class RegisterActivity extends AppCompatActivity {
 
     Button btnDaftar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +27,6 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
-
     public void onStart() {
         super.onStart();
 
