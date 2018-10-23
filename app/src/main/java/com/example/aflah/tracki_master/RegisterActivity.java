@@ -15,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -25,7 +26,8 @@ import com.google.firebase.auth.FirebaseAuth;
 public class RegisterActivity extends AppCompatActivity implements IRegister, View.OnClickListener {
 
     Button btnDaftar;
-    EditText et_nama, et_email, et_sandi, et_konfirmSandi;
+    EditText et_nama, et_email, et_sandi, et_konfirmSandi, et_tanggalLahir;
+    TextView tv_masuk;
 
     private FirebaseAuth mAuth;
 
@@ -38,6 +40,8 @@ public class RegisterActivity extends AppCompatActivity implements IRegister, Vi
         et_email = (EditText) findViewById(R.id.et_email_register);
         et_sandi = (EditText) findViewById(R.id.et_sandi_register); //email harus minimal 6 karakter
         et_konfirmSandi = (EditText) findViewById(R.id.et_konfirmSandi_register);
+        et_tanggalLahir = (EditText) findViewById(R.id.et_tanggalLahir_register);
+        tv_masuk = (TextView) findViewById(R.id.tv_masuk_register);
         btnDaftar = (Button) findViewById(R.id.btn_daftar_register);
 
         mAuth = FirebaseAuth.getInstance();
@@ -56,13 +60,17 @@ public class RegisterActivity extends AppCompatActivity implements IRegister, Vi
             @Override
             public void afterTextChanged(Editable s) {
                 String password = et_sandi.getText().toString();
-                if (!s.toString().equals(password))
+                if (!s.toString().equals(password)){
                     et_konfirmSandi.setError("Password tidak cocok");
+                }
                 else et_konfirmSandi.setError(null);
             }
         });
+
         btnDaftar.setOnClickListener(this);
+        tv_masuk.setOnClickListener(this);
     }
+
     public void onStart() {
         super.onStart();
 
@@ -73,10 +81,8 @@ public class RegisterActivity extends AppCompatActivity implements IRegister, Vi
                     DateDialog dialog = new DateDialog(view);
                     FragmentTransaction ft = getFragmentManager().beginTransaction();
                     dialog.show(ft, "DatePicker");
-
                 }
             }
-
         });
     }
 
@@ -84,12 +90,41 @@ public class RegisterActivity extends AppCompatActivity implements IRegister, Vi
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_daftar_register:
-                if (cekValidasi()){
+                if (cekValidasi() && cekEmailPattern()){
                     signupUserEmail(et_email.getText().toString(), et_konfirmSandi.getText().toString());
                 }
                 break;
+            case R.id.tv_masuk_register:
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
         }
+    }
 
+    @Override
+    public boolean cekValidasi() {
+
+        if (et_nama.getText().toString().isEmpty() || et_tanggalLahir.getText().toString().isEmpty() || et_sandi.getText().length()<6){
+            if (et_nama.getText().toString().isEmpty()){
+                et_nama.setError("Isi nama anda telebih dahulu");
+            } else if (et_tanggalLahir.getText().toString().isEmpty()){
+                et_tanggalLahir.setError("Isikan tanggal lahir dahulu");
+            } else if (et_sandi.length()<6){
+                et_sandi.setError("Panjang password minimal 6 karakter");
+            }
+            return false;
+        }
+        else return true;
+    }
+
+    @Override
+    public boolean cekEmailPattern() {
+        if (Patterns.EMAIL_ADDRESS.matcher(et_email.getText().toString()).matches()){
+            et_email.setError(null);
+            return true;
+        }
+        else {
+            et_email.setError("Masukkan format email yang benar");
+            return false;
+        }
     }
 
     @Override
@@ -105,32 +140,4 @@ public class RegisterActivity extends AppCompatActivity implements IRegister, Vi
             }
         });
     }
-
-    public boolean cekValidasi(){
-        if (Patterns.EMAIL_ADDRESS.matcher(et_email.getText().toString()).matches()){
-            et_email.setError(null);
-            return true;
-        }
-        else{
-            et_email.setError("Masukkan format email yang benar");
-            return false;
-        }
-    }
-
-//        mAuth.createUserWithEmailAndPassword(email, password)
-//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()){
-//                            snackbar = Snackbar.make(activity_sign_up_layout, "Register berhasil ", Snackbar.LENGTH_LONG);
-//                            snackbar.show();
-//                        }
-//                    }
-//                });
-//
-//    if (Patterns.EMAIL_ADDRESS.matcher(et_email_register.getText().toString()).matches())
-//            et_email_register.setError(null);
-//                else
-//                        et_email_register.setError("Masukkan format email yang benar");
-
 }

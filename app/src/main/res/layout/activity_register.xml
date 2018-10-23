@@ -175,8 +175,8 @@
             android:textColor="@color/colorAbuGelap"
             android:textStyle="bold" />
         <TextView
-            android:id="@+id/toolbar_title2"
-            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:id="@+id/tv_masuk_register"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -184,7 +184,6 @@
             android:textSize="15dp"
             android:textColor="@color/colorTracki"
             android:textStyle="bold" />
-
 
     </android.support.v7.widget.Toolbar>
 

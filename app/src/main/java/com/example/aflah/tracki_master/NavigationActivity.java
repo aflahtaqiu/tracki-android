@@ -22,6 +22,7 @@ import com.eyro.cubeacon.CBRegion;
 import com.eyro.cubeacon.CBServiceListener;
 import com.eyro.cubeacon.Cubeacon;
 import com.eyro.cubeacon.SystemRequirementManager;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,6 +47,8 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     private Cubeacon cubeacon;
     private List<Map<String, String>> data;
     private List<CBBeacon> beacons;
+
+    private FirebaseAuth mAuth;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -84,6 +87,9 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
+
+        mAuth = FirebaseAuth.getInstance();
+        Log.v("loginAkun", " email : " + mAuth.getCurrentUser().getEmail());
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
