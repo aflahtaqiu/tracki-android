@@ -18,6 +18,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.aflah.tracki_master.Auth.RegisterActivity;
+
 public class PrologActivity extends AppCompatActivity {
 
     private ViewPager viewPager;

@@ -1,4 +1,4 @@
-package com.example.aflah.tracki_master;
+package com.example.aflah.tracki_master.Auth;
 
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -11,23 +11,35 @@ import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.aflah.tracki_master.DateDialog;
+import com.example.aflah.tracki_master.Model.Response.ResponseRegister;
+import com.example.aflah.tracki_master.R;
+import com.example.aflah.tracki_master.Retrofit.ApiRequest;
+import com.example.aflah.tracki_master.Retrofit.RetroServer;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.SimpleFormatter;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity implements IRegister, View.OnClickListener {
 
     Button btnDaftar;
     EditText et_nama, et_email, et_sandi, et_konfirmSandi, et_tanggalLahir;
     TextView tv_masuk;
+
 
     private FirebaseAuth mAuth;
 
@@ -91,7 +103,18 @@ public class RegisterActivity extends AppCompatActivity implements IRegister, Vi
         switch (v.getId()){
             case R.id.btn_daftar_register:
                 if (cekValidasi() && cekEmailPattern()){
-                    signupUserEmail(et_email.getText().toString(), et_konfirmSandi.getText().toString());
+                    String email = et_email.getText().toString();
+                    String nama = et_nama.getText().toString();
+                    String date = et_tanggalLahir.getText().toString();
+                    String password = et_sandi.getText().toString();
+                    Date dateOfBirth;
+                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                    try {
+                        dateOfBirth = format.parse(date);
+                        signupUserEmail(nama, email, dateOfBirth, password);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                 }
                 break;
             case R.id.tv_masuk_register:
@@ -128,16 +151,34 @@ public class RegisterActivity extends AppCompatActivity implements IRegister, Vi
     }
 
     @Override
-    public void signupUserEmail(String email, String password) {
-        mAuth.createUserWithEmailAndPassword(email, password)
-        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+    public void signupUserEmail(String name, String email, Date dateOfBirth, String password) {
+//        mAuth.createUserWithEmailAndPassword(email, password)
+//        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+//            @Override
+//            public void onComplete(@NonNull Task<AuthResult> task) {
+//                if (task.isSuccessful()){
+//                    Toast.makeText(RegisterActivity.this, "Selamat, " + email + " sudah terdaftar", Toast.LENGTH_LONG).show();
+//                }
+//                else Log.v("gagalRegister", " gagal bung" + task.getException());
+//            }
+//        });
+
+        ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
+        Call<ResponseRegister> registerUser = apiRequest.sendRegister(name, email, dateOfBirth, password);
+        registerUser.enqueue(new Callback<ResponseRegister>() {
             @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()){
-                    Toast.makeText(RegisterActivity.this, "Selamat, " + email + " sudah terdaftar", Toast.LENGTH_LONG).show();
-                }
-                else Log.v("gagalRegister", " gagal bung" + task.getException());
+            public void onResponse(Call<ResponseRegister> call, Response<ResponseRegister> response) {
+                Toast.makeText(RegisterActivity.this, "Masuk onResponse", Toast.LENGTH_LONG).show();
+
+                Toast.makeText(RegisterActivity.this, "Sealamat datang : " + response.body().getMessage(), Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseRegister> call, Throwable t) {
+                Toast.makeText(RegisterActivity.this, "Maaf : " + t.getMessage(), Toast.LENGTH_LONG).show();
+
             }
         });
+
     }
 }

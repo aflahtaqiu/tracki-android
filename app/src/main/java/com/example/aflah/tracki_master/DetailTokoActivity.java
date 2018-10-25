@@ -1,14 +1,10 @@
 package com.example.aflah.tracki_master;
 
-import android.app.ProgressDialog;
 import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -17,8 +13,7 @@ import com.example.aflah.tracki_master.Adapter.DetailTokoViewPagerAdapter;
 import com.example.aflah.tracki_master.DetailTokoFragment.DetailTokoFragment;
 import com.example.aflah.tracki_master.DetailTokoFragment.MakananFragment;
 import com.example.aflah.tracki_master.DetailTokoFragment.MinumanFragment;
-import com.example.aflah.tracki_master.Model.Galery;
-import com.example.aflah.tracki_master.Model.ResponseDetailToko;
+import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
 import com.example.aflah.tracki_master.Retrofit.ApiRequest;
 import com.example.aflah.tracki_master.Retrofit.RetroServer;
 

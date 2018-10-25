@@ -98,7 +98,6 @@ public class ListMakananAdapter extends RecyclerView.Adapter<ListMakananAdapter.
                         Toast.makeText(v.getContext(), "On Click : " +clickedData.getName(), Toast.LENGTH_LONG);
                         context.startActivity(intent);
                     }
-
                 }
             });
         }
