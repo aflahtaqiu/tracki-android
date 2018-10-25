@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.aflah.tracki_master.DateDialog;
 import com.example.aflah.tracki_master.Model.Response.ResponseRegister;
+import com.example.aflah.tracki_master.NavigationActivity;
 import com.example.aflah.tracki_master.R;
 import com.example.aflah.tracki_master.Retrofit.ApiRequest;
 import com.example.aflah.tracki_master.Retrofit.RetroServer;
@@ -118,7 +119,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegister, Vi
                 }
                 break;
             case R.id.tv_masuk_register:
-                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                startActivity(new Intent(RegisterActivity.this, NavigationActivity.class));
         }
     }
 
