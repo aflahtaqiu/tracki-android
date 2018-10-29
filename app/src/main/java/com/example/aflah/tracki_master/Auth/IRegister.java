@@ -8,5 +8,5 @@ public interface IRegister {
 
     public boolean cekEmailPattern();
 
-    public void signupUserEmail(String name, String email, Date dateOfBirth, String password);
+    public void signupUserEmail(String name, String email, Date dateOfBirth, String password, String konfirmasiPassword);
 }

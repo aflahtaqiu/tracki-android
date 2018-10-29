@@ -42,7 +42,6 @@ public class RegisterActivity extends AppCompatActivity implements IRegister, Vi
     TextView tv_masuk;
 
 
-    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +56,6 @@ public class RegisterActivity extends AppCompatActivity implements IRegister, Vi
         tv_masuk = (TextView) findViewById(R.id.tv_masuk_register);
         btnDaftar = (Button) findViewById(R.id.btn_daftar_register);
 
-        mAuth = FirebaseAuth.getInstance();
 
         et_konfirmSandi.addTextChangedListener(new TextWatcher() {
             @Override
@@ -108,18 +106,19 @@ public class RegisterActivity extends AppCompatActivity implements IRegister, Vi
                     String nama = et_nama.getText().toString();
                     String date = et_tanggalLahir.getText().toString();
                     String password = et_sandi.getText().toString();
+                    String konfirmasiPassword = et_konfirmSandi.getText().toString();
                     Date dateOfBirth;
                     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                     try {
                         dateOfBirth = format.parse(date);
-                        signupUserEmail(nama, email, dateOfBirth, password);
+                        signupUserEmail(nama, email, dateOfBirth, password, konfirmasiPassword);
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
                 }
                 break;
             case R.id.tv_masuk_register:
-                startActivity(new Intent(RegisterActivity.this, NavigationActivity.class));
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
         }
     }
 
@@ -152,20 +151,10 @@ public class RegisterActivity extends AppCompatActivity implements IRegister, Vi
     }
 
     @Override
-    public void signupUserEmail(String name, String email, Date dateOfBirth, String password) {
-//        mAuth.createUserWithEmailAndPassword(email, password)
-//        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//            @Override
-//            public void onComplete(@NonNull Task<AuthResult> task) {
-//                if (task.isSuccessful()){
-//                    Toast.makeText(RegisterActivity.this, "Selamat, " + email + " sudah terdaftar", Toast.LENGTH_LONG).show();
-//                }
-//                else Log.v("gagalRegister", " gagal bung" + task.getException());
-//            }
-//        });
+    public void signupUserEmail(String name, String email, Date dateOfBirth, String password, String konfirmasiPassword) {
 
         ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
-        Call<ResponseRegister> registerUser = apiRequest.sendRegister(name, email, dateOfBirth, password);
+        Call<ResponseRegister> registerUser = apiRequest.sendRegister(name, email, dateOfBirth, password, konfirmasiPassword);
         registerUser.enqueue(new Callback<ResponseRegister>() {
             @Override
             public void onResponse(Call<ResponseRegister> call, Response<ResponseRegister> response) {

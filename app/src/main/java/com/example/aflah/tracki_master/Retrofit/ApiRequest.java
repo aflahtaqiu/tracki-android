@@ -35,6 +35,9 @@ public interface ApiRequest {
             @Field("name") String name,
             @Field("email") String email,
             @Field("date_of_birth") Date dateOfBirth,
-            @Field("password") String password
+            @Field("password") String password,
+            @Field("password_confirmation") String password_confirmation
     );
+
+
 }
