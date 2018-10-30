@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends Activity implements View.OnClickListener, ILogin {
 
-    Button btnLogin;
+    Button btnLogin, btnMasukTamu;
     TextView tvDaftar;
     EditText etEmail, etPassword;
 
@@ -32,11 +32,13 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
 
         tvDaftar = (TextView) findViewById(R.id.tv_daftar_login);
         btnLogin = (Button) findViewById(R.id.btn_masuk_login);
+        btnMasukTamu = (Button) findViewById(R.id.btn_masukTamu_login);
         etEmail = (EditText) findViewById(R.id.et_email_login);
         etPassword = (EditText) findViewById(R.id.et_sandi_login);
 
         tvDaftar.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
+        btnMasukTamu.setOnClickListener(this);
         // ATTENTION: This was auto-generated to handle app links.
         Intent appLinkIntent = getIntent();
         String appLinkAction = appLinkIntent.getAction();
@@ -51,6 +53,9 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
                 break;
             case R.id.btn_masuk_login:
                 loginEmailPassword(etEmail.getText().toString(), etPassword.getText().toString());
+                break;
+            case R.id.btn_masukTamu_login:
+                startActivity(new Intent(LoginActivity.this, NavigationActivity.class));
                 break;
         }
     }
