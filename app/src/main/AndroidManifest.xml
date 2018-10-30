@@ -72,8 +72,10 @@
         <activity
             android:name=".LoginActivity"
             android:theme="@style/ThemeNobar" />
-        <activity android:name=".about_app" />
-        <activity android:name=".setting"></activity>
+        <activity
+            android:name=".SettingActivity"
+            android:theme="@style/ThemeNobar" />
+        <activity android:name=".AboutAppActivity"></activity>
     </application>
 
 </manifest>
