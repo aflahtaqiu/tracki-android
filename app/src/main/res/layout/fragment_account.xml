@@ -29,14 +29,13 @@
            android:layout_height="wrap_content"
            android:layout_marginTop="5dp">
 
-           <android.support.v4.widget.CircleImageView
+           <de.hdodenhof.circleimageview.CircleImageView
                android:layout_width="100dp"
                android:layout_height="100dp"
                android:layout_gravity="center"
                android:layout_marginTop="15dp"
                android:src="@drawable/avatar_profile"
                android:id="@+id/profile"/>
-
            <TextView
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
