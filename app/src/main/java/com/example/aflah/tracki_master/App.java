@@ -1,6 +1,7 @@
 package com.example.aflah.tracki_master;
 
 import android.app.Application;
+
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -46,6 +47,7 @@ public class App extends Application implements BootstrapNotifier {
         // initializing Cubeacon SDK
         Cubeacon.initialize(this);
 
+
         beaconManager = BeaconManager.getInstanceForApplication(this);
         beaconManager.getBeaconParsers().add(new BeaconParser().
                 setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24"));
@@ -85,4 +87,6 @@ public class App extends Application implements BootstrapNotifier {
     public void didDetermineStateForRegion(int i, Region region) {
 
     }
-}
+
+    }
+
