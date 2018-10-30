@@ -13,8 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.example.aflah.tracki_master.Adapter.DetailTokoAdapter;
-import com.example.aflah.tracki_master.Model.ResponseDetailToko;
-import com.example.aflah.tracki_master.Model.ResponseTokoTerdekat;
+import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
 import com.example.aflah.tracki_master.R;
 import com.example.aflah.tracki_master.Retrofit.ApiRequest;
 import com.example.aflah.tracki_master.Retrofit.RetroServer;

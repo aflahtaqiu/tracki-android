@@ -22,6 +22,7 @@ import com.eyro.cubeacon.CBRegion;
 import com.eyro.cubeacon.CBServiceListener;
 import com.eyro.cubeacon.Cubeacon;
 import com.eyro.cubeacon.SystemRequirementManager;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.HashMap;

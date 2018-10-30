@@ -1,11 +1,17 @@
 package com.example.aflah.tracki_master.Retrofit;
 
 import com.example.aflah.tracki_master.Model.Advertisements;
-import com.example.aflah.tracki_master.Model.ResponseDetailToko;
-import com.example.aflah.tracki_master.Model.ResponseTokoTerdekat;
+import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
+import com.example.aflah.tracki_master.Model.Response.ResponseRegister;
+import com.example.aflah.tracki_master.Model.Response.ResponseTokoTerdekat;
+
+import java.util.Date;
 
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface ApiRequest {
@@ -22,4 +28,16 @@ public interface ApiRequest {
 
     @GET("advertisement")
     Call<Advertisements> getAdvertisements();
+
+    @FormUrlEncoded
+    @POST("user/register")
+    Call<ResponseRegister> sendRegister(
+            @Field("name") String name,
+            @Field("email") String email,
+            @Field("date_of_birth") Date dateOfBirth,
+            @Field("password") String password,
+            @Field("password_confirmation") String password_confirmation
+    );
+
+
 }
