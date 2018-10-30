@@ -21,7 +21,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
+    packagingOptions {
+        exclude 'model-distance-calculations.json'
+    }
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')

@@ -31,7 +31,6 @@ public class App extends Application implements BootstrapNotifier {
     private static final String TAG = App.class.getSimpleName();
     private RegionBootstrap regionBootstrap;
     private BackgroundPowerSaver backgroundPowerSaver;
-    private boolean haveDetectedBeaconsSinceBoot = false;
     private BeaconManager beaconManager;
 
     @Override
@@ -66,20 +65,20 @@ public class App extends Application implements BootstrapNotifier {
         beaconManager.setEnableScheduledScanJobs(false);
         regionBootstrap= new RegionBootstrap(this,region);
 
-
-
-
     }
 
 
     @Override
     public void didEnterRegion(Region region) {
-
+    Log.v("backgrounda","masuk region");
+        Intent intent = new Intent(this, NavigationActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        this.startActivity(intent);
     }
 
     @Override
     public void didExitRegion(Region region) {
-
+        Log.v("backgrounda","keluar region");
     }
 
     @Override
