@@ -29,7 +29,7 @@
         <activity
             android:name=".NavigationActivity"
             android:label="Tracki"
-            android:windowSoftInputMode="adjustNothing"/>
+            android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".NavbarFragment.MonitoringActivity" />
         <activity
             android:name=".PrologActivity"
@@ -65,13 +65,15 @@
         <activity android:name=".DetailMenuActivity" />
         <activity
             android:name=".RegisterActivity"
-            android:theme="@style/ThemeNobar"/>
+            android:theme="@style/ThemeNobar" />
         <activity
             android:name=".ForgetPasswordActivity"
-            android:theme="@style/ThemeNobar"/>
-        <activity android:name=".LoginActivity"
-            android:theme="@style/ThemeNobar"></activity>
-
+            android:theme="@style/ThemeNobar" />
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/ThemeNobar" />
+        <activity android:name=".about_app" />
+        <activity android:name=".setting"></activity>
     </application>
 
 </manifest>
