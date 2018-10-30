@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Tracki</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="slide_1_title">Tracki</string>
+    <string name="slide_1_desc">Ketahui informasi dari setiap toko yang ada didekatmu lewat hpmu.
+        Dari jam buka, promo hingga menu apa saja yang disajikan, bisa kamu lihat di Tracki!
+        Ini memudahkanmu untuk melakukan pembelian dengan tepat.</string>
+
+    <string name="slide_2_title">Tracki</string>
+    <string name="slide_2_desc">Kadang suka tersesat dan bingung ada toko apa saja disekitarmu?
+        Ada fitur denah untuk membantumu memahami denah dari mall,
+        dan kamu juga bisa tau letak toko yang kamu cari</string>
+
+    <string name="slide_3_title">Tracki</string>
+    <string name="slide_3_desc">Suka dengan beberapa toko yang kamu lihat?
+        Lain waktu ingin mengunjungi toko tersebut tanpa lupa?
+        Favoritkan toko tersebut agar kamu bisa selalu menikmati update dan tidak lupa dengan toko tersebut!</string>
+
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
+
+    <string name="title_activity_maps">Map</string>
+    <string name="label_region">Region: %1$s</string>
+    <string name="label_state">State: %1$s</string>
+    <string name="ranging">Ranging Beacons</string>
+    <string name="monitoring">Monitoring Beacon</string>
+    <string name="tandatanya">"?"</string>
+    <string name="textlupa">Masukkan alamat email anda untuk kami kirimkan pesan verifikasi penggantian password</string>
+</resources>
