@@ -2,6 +2,7 @@ package com.example.aflah.tracki_master.Auth;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.aflah.tracki_master.Model.Response.ResponseLogin;
+import com.example.aflah.tracki_master.Model.UserLogin;
 import com.example.aflah.tracki_master.NavigationActivity;
 import com.example.aflah.tracki_master.R;
 import com.example.aflah.tracki_master.Retrofit.ApiRequest;
@@ -75,6 +77,10 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
         loginUser.enqueue(new Callback<ResponseLogin>() {
             @Override
             public void onResponse(Call<ResponseLogin> call, Response<ResponseLogin> response) {
+                UserLogin userLogin = response.body().getUserLogin();
+                String token = response.body().getAccessToken();
+                Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
+
                 Toast.makeText(LoginActivity.this, "TOKEN : " + response.body().getAccessToken(), Toast.LENGTH_LONG).show();
             }
 
@@ -84,7 +90,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
             }
         });
     }
-
 
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
