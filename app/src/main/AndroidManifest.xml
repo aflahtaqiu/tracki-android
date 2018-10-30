@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.aflah.tracki_master">
 
     <!--
@@ -8,6 +9,10 @@
          location permissions for the 'MyLocation' functionality. 
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission
+        android:name="android.permission.ACCOUNT_MANAGER"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".App"
@@ -64,16 +69,27 @@
         <activity android:name=".DetailTokoActivity" />
         <activity android:name=".DetailMenuActivity" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".Auth.RegisterActivity"
             android:theme="@style/ThemeNobar" />
         <activity
             android:name=".ForgetPasswordActivity"
             android:theme="@style/ThemeNobar" />
         <activity
-            android:name=".LoginActivity"
-            android:theme="@style/ThemeNobar" />
-        <activity android:name=".about_app" />
-        <activity android:name=".setting"></activity>
+            android:name=".Auth.LoginActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/ThemeNobar">
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:scheme="https"
+                    android:host="still-spire-77258.herokuapp.com"
+                    android:pathPattern="/launchLogin" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

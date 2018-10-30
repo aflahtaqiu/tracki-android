@@ -12,8 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.aflah.tracki_master.Adapter.ListMinumanAdapter;
-import com.example.aflah.tracki_master.Model.ResponseDetailToko;
-import com.example.aflah.tracki_master.Model.ResponseTokoTerdekat;
+import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
 import com.example.aflah.tracki_master.R;
 import com.example.aflah.tracki_master.Retrofit.ApiRequest;
 import com.example.aflah.tracki_master.Retrofit.RetroServer;

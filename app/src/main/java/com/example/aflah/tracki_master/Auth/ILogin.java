@@ -1,4 +1,4 @@
-package com.example.aflah.tracki_master;
+package com.example.aflah.tracki_master.Auth;
 
 public interface ILogin {
 

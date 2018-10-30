@@ -21,17 +21,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 
 import com.example.aflah.tracki_master.Adapter.CarouselHomeAdapter;
 import com.example.aflah.tracki_master.Adapter.TokoTerdekatAdapter;
 import com.example.aflah.tracki_master.DetailTokoActivity;
 import com.example.aflah.tracki_master.Model.Advertisement;
 import com.example.aflah.tracki_master.Model.Advertisements;
-import com.example.aflah.tracki_master.Model.ResponseTokoTerdekat;
+import com.example.aflah.tracki_master.Model.Response.ResponseTokoTerdekat;
 import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.NavigationActivity;
 import com.example.aflah.tracki_master.R;
@@ -41,11 +39,8 @@ import com.eyro.cubeacon.CBBeacon;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.Timer;
 import java.util.TimerTask;
 
 import retrofit2.Call;
