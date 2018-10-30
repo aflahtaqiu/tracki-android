@@ -5,18 +5,26 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.aflah.tracki_master.Model.Response.ResponseLogin;
 import com.example.aflah.tracki_master.NavigationActivity;
 import com.example.aflah.tracki_master.R;
+import com.example.aflah.tracki_master.Retrofit.ApiRequest;
+import com.example.aflah.tracki_master.Retrofit.RetroServer;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginActivity extends Activity implements View.OnClickListener, ILogin {
 
@@ -62,8 +70,19 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
 
     @Override
     public void loginEmailPassword(String email, String password) {
+        ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
+        Call<ResponseLogin> loginUser = apiRequest.sendLogin(email, password);
+        loginUser.enqueue(new Callback<ResponseLogin>() {
+            @Override
+            public void onResponse(Call<ResponseLogin> call, Response<ResponseLogin> response) {
+                Toast.makeText(LoginActivity.this, "TOKEN : " + response.body().getAccessToken(), Toast.LENGTH_LONG).show();
+            }
 
-
+            @Override
+            public void onFailure(Call<ResponseLogin> call, Throwable t) {
+                Toast.makeText(LoginActivity.this, "onFailure :  " + t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 
