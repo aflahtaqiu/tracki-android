@@ -2,6 +2,7 @@ package com.example.aflah.tracki_master.Retrofit;
 
 import com.example.aflah.tracki_master.Model.Advertisements;
 import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
+import com.example.aflah.tracki_master.Model.Response.ResponseLogin;
 import com.example.aflah.tracki_master.Model.Response.ResponseRegister;
 import com.example.aflah.tracki_master.Model.Response.ResponseTokoTerdekat;
 
@@ -39,5 +40,10 @@ public interface ApiRequest {
             @Field("password_confirmation") String password_confirmation
     );
 
-
+    @FormUrlEncoded
+    @POST("user/login")
+    Call<ResponseLogin> sendLogin(
+            @Field("email") String email,
+            @Field("password") String password
+    );
 }
