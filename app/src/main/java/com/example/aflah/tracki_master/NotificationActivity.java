@@ -22,6 +22,7 @@ public class NotificationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        demoHeadsUp(null);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -29,8 +30,8 @@ public class NotificationActivity extends AppCompatActivity {
         //To be heads up , the process is the same but setPriority should be called with at leas
         //PRIORITY_HIGHT , and the notification should use either sound or vibration
         Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        Intent intent = new Intent(NotificationActivity.this, NotificationActivity.class);
-        PendingIntent pi = PendingIntent.getActivity(NotificationActivity.this, 0, intent, 0);
+        Intent intent = new Intent(this, NavigationActivity.class);
+        PendingIntent pi = PendingIntent.getActivity(this, 0, intent, 0);
         Notification.Builder builder = new Notification.Builder(this);
 
         builder.setContentTitle("Tracki")

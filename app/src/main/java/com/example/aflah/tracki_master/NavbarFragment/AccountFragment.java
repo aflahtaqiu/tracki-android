@@ -17,6 +17,7 @@ import com.example.aflah.tracki_master.R;
 import com.example.aflah.tracki_master.SettingActivity;
 
 
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
