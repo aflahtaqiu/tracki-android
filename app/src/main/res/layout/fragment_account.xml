@@ -30,22 +30,23 @@
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="15dp"
-                android:src="@drawable/avatar_profile"
-                android:id="@+id/profile"/>
+                android:src="@drawable/avatar_profile" />
+
             <TextView
+                android:id="@+id/user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/user_name"
-                android:text="User Name"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
+                android:text="User Name"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/btn_edit"
@@ -59,6 +60,7 @@
                 android:textColor="@color/colorWhite"
                 android:textSize="16dp" />
         </LinearLayout>
+
     </RelativeLayout>
 
     <Button
@@ -68,7 +70,7 @@
         android:layout_gravity="center"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="140dp"
         android:background="@drawable/button_edit_profile"
         android:text="ceksetting"
         android:textAllCaps="false"
@@ -86,7 +88,7 @@
         android:layout_gravity="center"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="28dp"
         android:background="@drawable/button_edit_profile"
         android:text="cekaboutapp"
         android:textAllCaps="false"
@@ -95,5 +97,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ceksetting" />
+
+    <TextView
+        android:layout_width="397dp"
+        android:layout_height="33dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="276dp"
+        android:background="@drawable/border"
+        android:text="Toko Favorit"
+        android:textAlignment="center"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
