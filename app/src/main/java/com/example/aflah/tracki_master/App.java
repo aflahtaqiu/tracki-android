@@ -1,5 +1,6 @@
 package com.example.aflah.tracki_master;
 
+import android.annotation.TargetApi;
 import android.app.Application;
 
 import android.app.Notification;
@@ -41,6 +42,7 @@ public class App extends Application implements BootstrapNotifier {
     private BackgroundPowerSaver backgroundPowerSaver;
     private BeaconManager beaconManager;
 
+    @TargetApi(Build.VERSION_CODES.O)
     @Override
     public void onCreate() {
         super.onCreate();
@@ -62,6 +64,9 @@ public class App extends Application implements BootstrapNotifier {
         Region region = new Region("backgroundRegion", null, null, null);
         beaconManager.setBackgroundBetweenScanPeriod(0);
         beaconManager.setBackgroundScanPeriod(500);
+
+        String CHANNEL_ID = "TRACKI";
+        NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, "nobel", NotificationManager.IMPORTANCE_HIGH);
         Notification.Builder builder = new Notification.Builder(this);
 //        builder.setSmallIcon(R.drawable.ic_launcher);
         builder.setContentTitle("Scanning for Beacons");
@@ -70,12 +75,17 @@ public class App extends Application implements BootstrapNotifier {
                 this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT
         );
         builder.setContentIntent(pendingIntent);
+        builder.setChannelId(CHANNEL_ID);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notificationManager.createNotificationChannel(mChannel);
+        }
         beaconManager.enableForegroundServiceScanning(builder.build(), 456);
+
         beaconManager.setEnableScheduledScanJobs(false);
         regionBootstrap= new RegionBootstrap(this,region);
 
     }
-
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
