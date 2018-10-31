@@ -42,7 +42,7 @@ public class App extends Application implements BootstrapNotifier {
     private BackgroundPowerSaver backgroundPowerSaver;
     private BeaconManager beaconManager;
 
-    @TargetApi(Build.VERSION_CODES.O)
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -66,7 +66,10 @@ public class App extends Application implements BootstrapNotifier {
         beaconManager.setBackgroundScanPeriod(500);
 
         String CHANNEL_ID = "TRACKI";
-        NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, "nobel", NotificationManager.IMPORTANCE_HIGH);
+        NotificationChannel mChannel = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            mChannel = new NotificationChannel(CHANNEL_ID, "nobel", NotificationManager.IMPORTANCE_HIGH);
+        }
         Notification.Builder builder = new Notification.Builder(this);
 //        builder.setSmallIcon(R.drawable.ic_launcher);
         builder.setContentTitle("Scanning for Beacons");
@@ -75,8 +78,13 @@ public class App extends Application implements BootstrapNotifier {
                 this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT
         );
         builder.setContentIntent(pendingIntent);
-        builder.setChannelId(CHANNEL_ID);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            builder.setChannelId(CHANNEL_ID);
+        }
+
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notificationManager.createNotificationChannel(mChannel);
         }
