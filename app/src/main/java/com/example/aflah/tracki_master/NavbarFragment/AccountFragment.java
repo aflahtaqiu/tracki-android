@@ -2,17 +2,25 @@ package com.example.aflah.tracki_master.NavbarFragment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.aflah.tracki_master.Model.UserLogin;
 import com.example.aflah.tracki_master.R;
 import com.example.aflah.tracki_master.SettingActivity;
+import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 /**
@@ -33,7 +41,15 @@ public class AccountFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+
     Button btnAbout,btnSetting;
+    CircleImageView imgAvatar;
+    TextView tvUserName;
+    SharedPreferences sharedPreferences;
+    String json;
+    UserLogin userLogin;
+    Gson gson = new Gson();
+    String userToken;
 
     private OnFragmentInteractionListener mListener;
 
@@ -66,6 +82,10 @@ public class AccountFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        sharedPreferences = this.getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
+        json = sharedPreferences.getString("userLogin", "");
+        userLogin= gson.fromJson(json, UserLogin.class);
+        userToken = sharedPreferences.getString("tokenLogin", "");
     }
 
     @Override
@@ -74,17 +94,13 @@ public class AccountFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         btnAbout = view.findViewById(R.id.cekaboutapp);
         btnSetting = view.findViewById(R.id.ceksetting);
+        imgAvatar = view.findViewById(R.id.imgProfile);
+        tvUserName = view.findViewById(R.id.tv_userName);
 
-        btnSetting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getContext().startActivity(new Intent(getContext(), SettingActivity.class));
-            }
-        });
+        Picasso.get().load(userLogin.getFoto()).fit().into(imgAvatar);
+        tvUserName.setText(userLogin.getName());
+
         return view;
-        // Inflate the layout for this fragment
-
-        //return inflater.inflate(R.layout.fragment_account, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

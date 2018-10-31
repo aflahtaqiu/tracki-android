@@ -44,7 +44,6 @@ public class DetailTokoAdapter extends RecyclerView.Adapter<DetailTokoAdapter.My
         holder.noTelpToko.setText(store.getPhone());
 
         Picasso.get().load(store.getLogo()).into(holder.img_toko_detailToko);
-
     }
 
     @Override

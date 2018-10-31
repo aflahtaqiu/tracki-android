@@ -98,7 +98,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
                 editor.apply();
                 editor.commit();
 
-
                 startActivity(new Intent(LoginActivity.this, NavigationActivity.class));
             }
 

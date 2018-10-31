@@ -59,9 +59,7 @@ public class TokoTerdekatAdapter extends RecyclerView.Adapter<TokoTerdekatAdapte
                 }
             });
 
-
         Picasso.get().load(storeList.get(position).getLogo()).into(holder.img_tokoTerdekat);
-
     }
 
     @Override

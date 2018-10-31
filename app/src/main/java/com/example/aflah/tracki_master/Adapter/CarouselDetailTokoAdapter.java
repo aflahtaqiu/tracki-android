@@ -44,7 +44,7 @@ public class CarouselDetailTokoAdapter extends PagerAdapter {
 //        ImageView imageView_carousel = (ImageView) view.findViewById(R.id.iv_carousel_detail_toko);
 //        imageView_carousel.setImageResource(images[position]);
 
-        Picasso.get().load(urlList.get(position)).into((ImageView) view.findViewById(R.id.iv_carousel_detail_toko));
+        Picasso.get().load(urlList.get(position)).fit().into((ImageView) view.findViewById(R.id.iv_carousel_detail_toko));
 
         ViewPager viewPager = (ViewPager) container;
         viewPager.addView(view, 0);

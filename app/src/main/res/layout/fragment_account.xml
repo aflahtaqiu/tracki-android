@@ -33,7 +33,7 @@
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile"
+                android:id="@+id/imgProfile"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
@@ -41,7 +41,7 @@
                 android:src="@drawable/avatar_profile" />
 
             <TextView
-                android:id="@+id/user_name"
+                android:id="@+id/tv_userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
