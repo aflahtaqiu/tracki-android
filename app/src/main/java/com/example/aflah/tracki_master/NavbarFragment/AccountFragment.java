@@ -3,16 +3,13 @@ package com.example.aflah.tracki_master.NavbarFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.aflah.tracki_master.NavigationActivity;
 import com.example.aflah.tracki_master.R;
 import com.example.aflah.tracki_master.SettingActivity;
 
@@ -73,9 +70,9 @@ public class AccountFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View setting = inflater.inflate(R.layout.fragment_account, container, false);
-        btnAbout = setting.findViewById(R.id.cekaboutapp);
-        btnSetting = setting.findViewById(R.id.ceksetting);
+        View view = inflater.inflate(R.layout.fragment_account, container, false);
+        btnAbout = view.findViewById(R.id.cekaboutapp);
+        btnSetting = view.findViewById(R.id.ceksetting);
 
         btnSetting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +80,7 @@ public class AccountFragment extends Fragment {
                 getContext().startActivity(new Intent(getContext(), SettingActivity.class));
             }
         });
-        return setting;
+        return view;
         // Inflate the layout for this fragment
 
         //return inflater.inflate(R.layout.fragment_account, container, false);

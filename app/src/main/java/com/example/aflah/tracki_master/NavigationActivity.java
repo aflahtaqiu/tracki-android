@@ -1,6 +1,7 @@
 package com.example.aflah.tracki_master;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.RemoteException;
@@ -12,7 +13,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.example.aflah.tracki_master.Model.UserLogin;
 import com.example.aflah.tracki_master.NavbarFragment.AccountFragment;
 import com.example.aflah.tracki_master.NavbarFragment.HomeFragment;
 import com.example.aflah.tracki_master.NavbarFragment.MapFragment;
@@ -23,6 +26,7 @@ import com.eyro.cubeacon.CBServiceListener;
 import com.eyro.cubeacon.Cubeacon;
 import com.eyro.cubeacon.SystemRequirementManager;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -93,6 +97,14 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         data = new ArrayList<>();
         beacons = new ArrayList<>();
         cubeacon = Cubeacon.getInstance();
+
+        SharedPreferences sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
+
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("userLogin", "");
+        UserLogin userLogin = gson.fromJson(json, UserLogin.class);
+
+        Toast.makeText(NavigationActivity.this, "user : " + userLogin.getName(), Toast.LENGTH_LONG).show();
     }
 
     @Override

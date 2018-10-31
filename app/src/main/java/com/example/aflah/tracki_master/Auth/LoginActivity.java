@@ -1,6 +1,7 @@
 package com.example.aflah.tracki_master.Auth;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -23,6 +24,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.gson.Gson;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -81,7 +83,16 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
                 String token = response.body().getAccessToken();
                 Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
 
-                Toast.makeText(LoginActivity.this, "TOKEN : " + response.body().getAccessToken(), Toast.LENGTH_LONG).show();
+
+                Gson gson = new Gson();
+                String json = gson.toJson(userLogin);
+                SharedPreferences.Editor editor = getSharedPreferences("login", Context.MODE_PRIVATE).edit();
+                editor.putString("tokenLogin", token);
+                editor.putString("userLogin", json);
+                editor.apply();
+                editor.commit();
+
+                startActivity(new Intent(LoginActivity.this, NavigationActivity.class));
             }
 
             @Override
