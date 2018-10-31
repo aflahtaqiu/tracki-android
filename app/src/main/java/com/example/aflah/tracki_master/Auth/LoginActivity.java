@@ -67,10 +67,14 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
                 break;
             case R.id.btn_masuk_login:
+
                 loginEmailPassword(etEmail.getText().toString(), etPassword.getText().toString());
+                finish();
                 break;
             case R.id.btn_masukTamu_login:
+                loginSebagaiTamu();
                 startActivity(new Intent(LoginActivity.this, NavigationActivity.class));
+                finish();
                 break;
         }
     }
@@ -86,7 +90,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
                 String token = response.body().getAccessToken();
                 Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
 
-
                 Gson gson = new Gson();
                 String json = gson.toJson(userLogin);
                 SharedPreferences.Editor editor = getSharedPreferences("login", Context.MODE_PRIVATE).edit();
@@ -94,6 +97,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
                 editor.putString("userLogin", json);
                 editor.apply();
                 editor.commit();
+
 
                 startActivity(new Intent(LoginActivity.this, NavigationActivity.class));
             }
@@ -103,6 +107,16 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
                 Toast.makeText(LoginActivity.this, "onFailure :  " + t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    @Override
+    public void loginSebagaiTamu() {
+        SharedPreferences.Editor editor = getSharedPreferences("login", Context.MODE_PRIVATE).edit();
+        editor.putString("tokenLogin", "");
+        editor.putString("userLogin", "");
+        editor.apply();
+        editor.commit();
+
     }
 
     protected void onNewIntent(Intent intent) {

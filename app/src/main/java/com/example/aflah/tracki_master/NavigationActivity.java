@@ -103,8 +103,12 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         Gson gson = new Gson();
         String json = sharedPreferences.getString("userLogin", "");
         UserLogin userLogin = gson.fromJson(json, UserLogin.class);
+        String userToken = sharedPreferences.getString("tokenLogin", "");
 
-        Toast.makeText(NavigationActivity.this, "user : " + userLogin.getName(), Toast.LENGTH_LONG).show();
+        if (sharedPreferences.getString("tokenLogin", "").isEmpty())
+            Toast.makeText(NavigationActivity.this, "tokem :  kosong", Toast.LENGTH_LONG).show();
+        else
+            Toast.makeText(NavigationActivity.this, "token :  " + userToken, Toast.LENGTH_LONG).show();
     }
 
     @Override
