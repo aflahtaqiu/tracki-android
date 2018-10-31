@@ -85,11 +85,12 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:scheme="https"
                     android:host="still-spire-77258.herokuapp.com"
-                    android:pathPattern="/launchLogin" />
+                    android:pathPattern="/launchLogin"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
+        <activity android:name=".AboutTrackiActivity"></activity>
     </application>
 
 </manifest>

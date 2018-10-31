@@ -1,5 +1,6 @@
 package com.example.aflah.tracki_master.NavbarFragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,15 +9,18 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.aflah.tracki_master.AboutTrackiActivity;
 import com.example.aflah.tracki_master.Model.UserLogin;
 import com.example.aflah.tracki_master.R;
-import com.example.aflah.tracki_master.SettingActivity;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -41,8 +45,6 @@ public class AccountFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-
-    Button btnAbout,btnSetting;
     CircleImageView imgAvatar;
     TextView tvUserName;
     SharedPreferences sharedPreferences;
@@ -86,14 +88,13 @@ public class AccountFragment extends Fragment {
         json = sharedPreferences.getString("userLogin", "");
         userLogin= gson.fromJson(json, UserLogin.class);
         userToken = sharedPreferences.getString("tokenLogin", "");
+        setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
-        btnAbout = view.findViewById(R.id.cekaboutapp);
-        btnSetting = view.findViewById(R.id.ceksetting);
         imgAvatar = view.findViewById(R.id.imgProfile);
         tvUserName = view.findViewById(R.id.tv_userName);
 
@@ -101,6 +102,33 @@ public class AccountFragment extends Fragment {
         tvUserName.setText(userLogin.getName());
 
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        inflater.inflate(R.menu.menu_setting, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+
+        switch (itemId){
+            case R.id.item_about:
+                Log.v("itemSelected", "about");
+                getActivity().startActivity(new Intent(getActivity(), AboutTrackiActivity.class));
+                break;
+            case R.id.item_help:
+                Log.v("itemSelected", "help");
+                break;
+            case R.id.item_logout:
+                Log.v("itemSelected", "logout");
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
