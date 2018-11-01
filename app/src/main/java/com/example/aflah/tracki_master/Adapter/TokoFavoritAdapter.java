@@ -46,6 +46,7 @@ public class TokoFavoritAdapter extends RecyclerView.Adapter<TokoFavoritAdapter.
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.namaToko.setText(favouriteStores.get(position).getName());
         Picasso.get().load(favouriteStores.get(position).getLogo()).fit().into(holder.iv_tokoFavorite);
+        holder.checkBox.setChecked(true);
     }
 
     @Override
