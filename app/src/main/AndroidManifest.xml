@@ -74,6 +74,11 @@
         <activity
             android:name=".ForgetPasswordActivity"
             android:theme="@style/ThemeNobar" />
+
+        <activity
+            android:name=".EditProfilActivity"
+            android:theme="@style/ThemeNobar" />
+
         <activity
             android:name=".Auth.LoginActivity"
             android:launchMode="singleTop"
