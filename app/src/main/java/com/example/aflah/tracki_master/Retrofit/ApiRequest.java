@@ -4,6 +4,7 @@ import com.example.aflah.tracki_master.Model.Advertisements;
 import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
 import com.example.aflah.tracki_master.Model.Response.ResponseLogin;
 import com.example.aflah.tracki_master.Model.Response.ResponseRegister;
+import com.example.aflah.tracki_master.Model.Response.ResponseTokoFavourite;
 import com.example.aflah.tracki_master.Model.Response.ResponseTokoTerdekat;
 
 import java.util.Date;
@@ -24,6 +25,11 @@ public interface ApiRequest {
 
     @GET("store/{id}")
     Call<ResponseDetailToko> getStoreByID(
+            @Path("id") int id
+    );
+
+    @GET("user/{id}")
+    Call<ResponseTokoFavourite> getTokoFavorit(
             @Path("id") int id
     );
 

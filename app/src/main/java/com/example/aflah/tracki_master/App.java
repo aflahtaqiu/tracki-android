@@ -94,6 +94,8 @@ public class App extends Application implements BootstrapNotifier {
         beaconManager.setEnableScheduledScanJobs(false);
         regionBootstrap= new RegionBootstrap(this,region);
 
+        Log.v("masukActivity", "app");
+
     }
 
     @Override

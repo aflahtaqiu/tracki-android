@@ -69,6 +69,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
             case R.id.btn_masuk_login:
 
                 loginEmailPassword(etEmail.getText().toString(), etPassword.getText().toString());
+                startActivity(new Intent(LoginActivity.this, NavigationActivity.class));
                 finish();
                 break;
             case R.id.btn_masukTamu_login:
@@ -88,7 +89,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
             public void onResponse(Call<ResponseLogin> call, Response<ResponseLogin> response) {
                 UserLogin userLogin = response.body().getUserLogin();
                 String token = response.body().getAccessToken();
-                Intent intent = new Intent(LoginActivity.this, NavigationActivity.class);
 
                 Gson gson = new Gson();
                 String json = gson.toJson(userLogin);
@@ -98,7 +98,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
                 editor.apply();
                 editor.commit();
 
-                startActivity(new Intent(LoginActivity.this, NavigationActivity.class));
+
             }
 
             @Override

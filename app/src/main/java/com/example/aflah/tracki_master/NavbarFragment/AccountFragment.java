@@ -7,6 +7,8 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -19,12 +21,24 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.aflah.tracki_master.AboutTrackiActivity;
+import com.example.aflah.tracki_master.Adapter.TokoFavoritAdapter;
+import com.example.aflah.tracki_master.Model.Response.ResponseTokoFavourite;
+import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.Model.UserLogin;
 import com.example.aflah.tracki_master.R;
+import com.example.aflah.tracki_master.Retrofit.ApiRequest;
+import com.example.aflah.tracki_master.Retrofit.RetroServer;
+import com.google.android.gms.common.api.Api;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -52,6 +66,9 @@ public class AccountFragment extends Fragment {
     UserLogin userLogin;
     Gson gson = new Gson();
     String userToken;
+    List<Store> stores;
+    RecyclerView recyclerView;
+    TokoFavoritAdapter tokoFavoritAdapter;
 
     private OnFragmentInteractionListener mListener;
 
@@ -100,6 +117,29 @@ public class AccountFragment extends Fragment {
 
         Picasso.get().load(userLogin.getFoto()).fit().into(imgAvatar);
         tvUserName.setText(userLogin.getName());
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycerview_tokoFavorit);
+
+
+        stores = new ArrayList<>();
+        ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
+        Call<ResponseTokoFavourite> getTokoFav = apiRequest.getTokoFavorit(userLogin.getId());
+        Log.v("userId" , " "+ userLogin.getId());
+        getTokoFav.enqueue(new Callback<ResponseTokoFavourite>() {
+            @Override
+            public void onResponse(Call<ResponseTokoFavourite> call, Response<ResponseTokoFavourite> response) {
+                for (int i =0; i < response.body().getUser().getStores().size();i++){
+                    stores.add(response.body().getUser().getStores().get(i));
+                }
+                recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+                tokoFavoritAdapter = new TokoFavoritAdapter(getContext(), stores);
+                recyclerView.setAdapter(tokoFavoritAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseTokoFavourite> call, Throwable t) {
+
+            }
+        });
 
         return view;
     }
