@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.aflah.tracki_master.Auth.LoginActivity;
 import com.example.aflah.tracki_master.Auth.RegisterActivity;
 
 public class PrologActivity extends AppCompatActivity {
@@ -118,7 +119,7 @@ public class PrologActivity extends AppCompatActivity {
 
     private void launchHomeScreen() {
         prefManager.setFirstTimeLaunch(false);
-        startActivity(new Intent(PrologActivity.this, RegisterActivity.class));
+        startActivity(new Intent(PrologActivity.this, LoginActivity.class));
         finish();
     }
 

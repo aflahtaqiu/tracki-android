@@ -42,7 +42,7 @@ public class App extends Application implements BootstrapNotifier {
     private BackgroundPowerSaver backgroundPowerSaver;
     private BeaconManager beaconManager;
 
-    @TargetApi(Build.VERSION_CODES.O)
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -66,7 +66,10 @@ public class App extends Application implements BootstrapNotifier {
         beaconManager.setBackgroundScanPeriod(500);
 
         String CHANNEL_ID = "TRACKI";
-        NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, "nobel", NotificationManager.IMPORTANCE_HIGH);
+        NotificationChannel mChannel = null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            mChannel = new NotificationChannel(CHANNEL_ID, "nobel", NotificationManager.IMPORTANCE_HIGH);
+        }
         Notification.Builder builder = new Notification.Builder(this);
 //        builder.setSmallIcon(R.drawable.ic_launcher);
         builder.setContentTitle("Scanning for Beacons");
@@ -75,19 +78,26 @@ public class App extends Application implements BootstrapNotifier {
                 this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT
         );
         builder.setContentIntent(pendingIntent);
-        builder.setChannelId(CHANNEL_ID);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            builder.setChannelId(CHANNEL_ID);
+        }
+
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notificationManager.createNotificationChannel(mChannel);
         }
+
         beaconManager.enableForegroundServiceScanning(builder.build(), 456);
 
         beaconManager.setEnableScheduledScanJobs(false);
         regionBootstrap= new RegionBootstrap(this,region);
 
+        Log.v("masukActivity", "app");
+
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void didEnterRegion(Region region) {
     Log.v("backgrounda","masuk region");
@@ -98,23 +108,40 @@ public class App extends Application implements BootstrapNotifier {
         Intent intent = new Intent(this, NavigationActivity.class);
         PendingIntent pi = PendingIntent.getActivity(this, 0, intent, 0);
         String CHANNEL_ID = "TRACKI";
-        NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, "nobel", NotificationManager.IMPORTANCE_HIGH);
+        NotificationChannel mChannel = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            mChannel = new NotificationChannel(CHANNEL_ID, "nobel", NotificationManager.IMPORTANCE_HIGH);
+        }
         Notification.Builder builder = new Notification.Builder(this);
 
-        builder.setContentTitle("Tracki")
-                .setContentText("toko dengan cubeacon terdeteksi")
-                .setSmallIcon(R.mipmap.logotracki)
-                .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.logotracki))
-                .setContentIntent(pi)
-                .setVibrate(new long[]{250, 250, 250, 250})
-                .setSound(soundUri)
-                .setChannelId(CHANNEL_ID)
-                .setPriority(Notification.PRIORITY_MAX);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            builder.setContentTitle("Tracki")
+                    .setContentText("toko dengan cubeacon terdeteksi")
+                    .setSmallIcon(R.mipmap.logotracki)
+                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.logotracki))
+                    .setContentIntent(pi)
+                    .setVibrate(new long[]{250, 250, 250, 250})
+                    .setSound(soundUri)
+                    .setChannelId(CHANNEL_ID)
+                    .setPriority(Notification.PRIORITY_MAX);
+        }
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             notificationManager.createNotificationChannel(mChannel);
+        }else{
+
+            builder.setContentTitle("Tracki")
+                    .setContentText("toko dengan cubeacon terdeteksi")
+                    .setSmallIcon(R.mipmap.logotracki)
+                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.mipmap.logotracki))
+                    .setContentIntent(pi)
+                    .setVibrate(new long[]{250, 250, 250, 250})
+                    .setSound(soundUri)
+                    .setPriority(Notification.PRIORITY_MAX);
         }
+
         notificationManager.notify(0, builder.build());
     }
 

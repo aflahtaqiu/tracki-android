@@ -47,14 +47,12 @@ public class CarouselHomeAdapter extends PagerAdapter {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.item_carousel_home, null);
         ImageView imageView_carousel = (ImageView) view.findViewById(R.id.iv_carousel_home);
-//        imageView_carousel.setImageResource(images[position]);
 
-        Picasso.get().load(advertisements.get(position).getBanner()).into(imageView_carousel);
+        Picasso.get().load(advertisements.get(position).getBanner()).fit().into(imageView_carousel);
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(context, "Slide " + advertisements.get(position).getStore_id() + "clicked", Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(view.getContext(), DetailTokoActivity.class);
                 intent.putExtra("idTokoTerdekat", advertisements.get(position).getStore_id());
                 context.startActivity(intent);

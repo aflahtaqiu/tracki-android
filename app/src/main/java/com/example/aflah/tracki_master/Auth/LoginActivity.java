@@ -1,7 +1,9 @@
 package com.example.aflah.tracki_master.Auth;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 
 
 import com.example.aflah.tracki_master.Model.Response.ResponseLogin;
+import com.example.aflah.tracki_master.Model.UserLogin;
 import com.example.aflah.tracki_master.NavigationActivity;
 import com.example.aflah.tracki_master.R;
 import com.example.aflah.tracki_master.Retrofit.ApiRequest;
@@ -23,6 +26,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.gson.Gson;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -63,10 +67,15 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
                 break;
             case R.id.btn_masuk_login:
+
                 loginEmailPassword(etEmail.getText().toString(), etPassword.getText().toString());
+                startActivity(new Intent(LoginActivity.this, NavigationActivity.class));
+                finish();
                 break;
             case R.id.btn_masukTamu_login:
+                loginSebagaiTamu();
                 startActivity(new Intent(LoginActivity.this, NavigationActivity.class));
+                finish();
                 break;
         }
     }
@@ -78,7 +87,18 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
         loginUser.enqueue(new Callback<ResponseLogin>() {
             @Override
             public void onResponse(Call<ResponseLogin> call, Response<ResponseLogin> response) {
-                Toast.makeText(LoginActivity.this, "TOKEN : " + response.body().getAccessToken(), Toast.LENGTH_LONG).show();
+                UserLogin userLogin = response.body().getUserLogin();
+                String token = response.body().getAccessToken();
+
+                Gson gson = new Gson();
+                String json = gson.toJson(userLogin);
+                SharedPreferences.Editor editor = getSharedPreferences("login", Context.MODE_PRIVATE).edit();
+                editor.putString("tokenLogin", token);
+                editor.putString("userLogin", json);
+                editor.apply();
+                editor.commit();
+
+
             }
 
             @Override
@@ -88,6 +108,15 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
         });
     }
 
+    @Override
+    public void loginSebagaiTamu() {
+        SharedPreferences.Editor editor = getSharedPreferences("login", Context.MODE_PRIVATE).edit();
+        editor.putString("tokenLogin", "");
+        editor.putString("userLogin", "");
+        editor.apply();
+        editor.commit();
+
+    }
 
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);

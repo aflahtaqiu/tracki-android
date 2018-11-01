@@ -145,14 +145,10 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
         navigationActivity = (NavigationActivity) getActivity();
         navigationActivity.getSupportActionBar().show();
 
-        //listView = view.findViewById(R.id.listview);
-
         from = new String[]{"title", "subtitle"};
         to = new int[]{android.R.id.text1, android.R.id.text2};
         data = new ArrayList<>();
         adapter = new SimpleAdapter(getContext(), data, android.R.layout.simple_list_item_2, from, to);
-        //listView.setAdapter(adapter);
-        //listView.setOnItemClickListener(this);
 
         viewPager = (ViewPager) view.findViewById(R.id.viewPager_carousel_Home);
 
