@@ -74,11 +74,9 @@
         <activity
             android:name=".ForgetPasswordActivity"
             android:theme="@style/ThemeNobar" />
-
         <activity
             android:name=".EditProfilActivity"
             android:theme="@style/ThemeNobar" />
-
         <activity
             android:name=".Auth.LoginActivity"
             android:launchMode="singleTop"
@@ -95,7 +93,11 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
-        <activity android:name=".AboutTrackiActivity"></activity>
+        <activity android:name=".AboutTrackiActivity" />
+        <activity
+            android:name=".ReviewActivity"
+            android:theme="@style/ThemeNobar">
+        </activity>
     </application>
 
 </manifest>
