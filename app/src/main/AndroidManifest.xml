@@ -13,6 +13,9 @@
         android:name="android.permission.ACCOUNT_MANAGER"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
 
     <application
         android:name=".App"
@@ -74,11 +77,9 @@
         <activity
             android:name=".ForgetPasswordActivity"
             android:theme="@style/ThemeNobar" />
-
         <activity
             android:name=".EditProfilActivity"
             android:theme="@style/ThemeNobar" />
-
         <activity
             android:name=".Auth.LoginActivity"
             android:launchMode="singleTop"
@@ -95,7 +96,11 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
-        <activity android:name=".AboutTrackiActivity"></activity>
+        <activity android:name=".AboutTrackiActivity" />
+        <activity
+            android:name=".ReviewActivity"
+            android:theme="@style/ThemeNobar">
+        </activity>
     </application>
 
 </manifest>
