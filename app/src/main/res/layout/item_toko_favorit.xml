@@ -31,10 +31,10 @@
 
             <TextView
                 android:id="@+id/tv_namaToko_favorit"
-                android:layout_width="119dp"
-                android:layout_height="35dp"
-                android:textAlignment="center"
+                android:layout_width="115dp"
+                android:layout_height="wrap_content"
                 android:text="Nama Toko"
+                android:textAlignment="center"
                 android:textColor="#6F6F6F" />
 
             <CheckBox

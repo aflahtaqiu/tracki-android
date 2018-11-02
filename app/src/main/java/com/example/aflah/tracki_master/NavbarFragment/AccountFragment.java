@@ -1,21 +1,44 @@
 package com.example.aflah.tracki_master.NavbarFragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.aflah.tracki_master.NavigationActivity;
+import com.example.aflah.tracki_master.AboutTrackiActivity;
+import com.example.aflah.tracki_master.Adapter.TokoFavoritAdapter;
+import com.example.aflah.tracki_master.Model.Response.ResponseTokoFavourite;
+import com.example.aflah.tracki_master.Model.Store;
+import com.example.aflah.tracki_master.Model.UserLogin;
 import com.example.aflah.tracki_master.R;
-import com.example.aflah.tracki_master.SettingActivity;
+import com.example.aflah.tracki_master.Retrofit.ApiRequest;
+import com.example.aflah.tracki_master.Retrofit.RetroServer;
+import com.google.android.gms.common.api.Api;
+import com.google.gson.Gson;
+import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -36,7 +59,16 @@ public class AccountFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    Button btnAbout,btnSetting;
+    CircleImageView imgAvatar;
+    TextView tvUserName;
+    SharedPreferences sharedPreferences;
+    String json;
+    UserLogin userLogin;
+    Gson gson = new Gson();
+    String userToken;
+    List<Store> stores;
+    RecyclerView recyclerView;
+    TokoFavoritAdapter tokoFavoritAdapter;
 
     private OnFragmentInteractionListener mListener;
 
@@ -69,25 +101,74 @@ public class AccountFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        sharedPreferences = this.getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
+        json = sharedPreferences.getString("userLogin", "");
+        userLogin= gson.fromJson(json, UserLogin.class);
+        userToken = sharedPreferences.getString("tokenLogin", "");
+        setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View setting = inflater.inflate(R.layout.fragment_account, container, false);
-        btnAbout = setting.findViewById(R.id.cekaboutapp);
-        btnSetting = setting.findViewById(R.id.ceksetting);
+        View view = inflater.inflate(R.layout.fragment_account, container, false);
+        imgAvatar = view.findViewById(R.id.imgProfile);
+        tvUserName = view.findViewById(R.id.tv_userName);
 
-        btnSetting.setOnClickListener(new View.OnClickListener() {
+        Picasso.get().load(userLogin.getFoto()).fit().into(imgAvatar);
+        tvUserName.setText(userLogin.getName());
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycerview_tokoFavorit);
+
+
+        stores = new ArrayList<>();
+        ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
+        Call<ResponseTokoFavourite> getTokoFav = apiRequest.getTokoFavorit(userLogin.getId());
+        Log.v("userId" , " "+ userLogin.getId());
+        getTokoFav.enqueue(new Callback<ResponseTokoFavourite>() {
             @Override
-            public void onClick(View v) {
-                getContext().startActivity(new Intent(getContext(), SettingActivity.class));
+            public void onResponse(Call<ResponseTokoFavourite> call, Response<ResponseTokoFavourite> response) {
+                for (int i =0; i < response.body().getUser().getStores().size();i++){
+                    stores.add(response.body().getUser().getStores().get(i));
+                }
+                recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+                tokoFavoritAdapter = new TokoFavoritAdapter(getContext(), stores);
+                recyclerView.setAdapter(tokoFavoritAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseTokoFavourite> call, Throwable t) {
+
             }
         });
-        return setting;
-        // Inflate the layout for this fragment
 
-        //return inflater.inflate(R.layout.fragment_account, container, false);
+        return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+        inflater.inflate(R.menu.menu_setting, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+
+        switch (itemId){
+            case R.id.item_about:
+                Log.v("itemSelected", "about");
+                getActivity().startActivity(new Intent(getActivity(), AboutTrackiActivity.class));
+                break;
+            case R.id.item_help:
+                Log.v("itemSelected", "help");
+                break;
+            case R.id.item_logout:
+                Log.v("itemSelected", "logout");
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
