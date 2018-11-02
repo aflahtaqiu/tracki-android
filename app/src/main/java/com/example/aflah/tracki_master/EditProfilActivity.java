@@ -9,10 +9,7 @@ import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.PersistableBundle;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -45,6 +42,13 @@ public class EditProfilActivity extends Activity{
         show = (ImageView)findViewById(R.id.profile);
         show1 = (TextView)findViewById(R.id.gantiFoto);
         show.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyCustomDialog();
+            }
+        });
+
+        show1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 MyCustomDialog();
