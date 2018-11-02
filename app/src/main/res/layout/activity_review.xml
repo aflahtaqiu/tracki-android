@@ -45,7 +45,7 @@
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imgProfile"
+                android:id="@+id/imgToko_review"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
@@ -53,7 +53,7 @@
                 android:src="@drawable/logo" />
 
             <TextView
-                android:id="@+id/tv_namaToko_detailToko"
+                android:id="@+id/tv_namaToko_review"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -64,7 +64,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_tipeToko_detailToko"
+                android:id="@+id/tv_tipeToko_review"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -74,7 +74,7 @@
                 android:textSize="14sp" />
 
             <RatingBar
-                android:id="@+id/ratingToko_detailToko"
+                android:id="@+id/ratingTokoResult_review"
                 style="@style/Base.Widget.AppCompat.RatingBar.Indicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
                     android:textSize="14dp"/>
 
                 <RatingBar
-                    android:id="@+id/rating"
+                    android:id="@+id/ratingToko_review"
                     style="@style/Base.Widget.AppCompat.RatingBar.Indicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
                     android:numStars="5"/>
 
                 <android.support.design.widget.TextInputLayout
-                    android:id="@+id/kolom_komentar"
+                    android:id="@+id/kolomKomentar_review"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 

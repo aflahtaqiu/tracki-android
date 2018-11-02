@@ -1,15 +1,18 @@
 package com.example.aflah.tracki_master.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.R;
+import com.example.aflah.tracki_master.ReviewActivity;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -43,6 +46,15 @@ public class DetailTokoAdapter extends RecyclerView.Adapter<DetailTokoAdapter.My
         holder.jamTutupToko.setText(store.getClose());
         holder.noTelpToko.setText(store.getPhone());
 
+        holder.btnReview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ReviewActivity.class);
+                intent.putExtra("idToko", store.getId());
+                context.startActivity(intent);
+            }
+        });
+
         Picasso.get().load(store.getLogo()).into(holder.img_toko_detailToko);
     }
 
@@ -55,6 +67,7 @@ public class DetailTokoAdapter extends RecyclerView.Adapter<DetailTokoAdapter.My
 
         TextView namaToko, tipeToko, lokasiToko, jamBukaToko, jamTutupToko, noTelpToko;
         CircleImageView img_toko_detailToko;
+        Button btnReview;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -66,6 +79,7 @@ public class DetailTokoAdapter extends RecyclerView.Adapter<DetailTokoAdapter.My
             jamTutupToko = (TextView) itemView.findViewById(R.id.tv_jamTutupToko_detailToko);
             noTelpToko = (TextView) itemView.findViewById(R.id.tv_phoneToko_detailToko);
             img_toko_detailToko = (CircleImageView) itemView.findViewById(R.id.iv_logo_detail_toko);
+            btnReview = (Button) itemView.findViewById(R.id.btn_reviewToko_detailToko);
         }
     }
 }
