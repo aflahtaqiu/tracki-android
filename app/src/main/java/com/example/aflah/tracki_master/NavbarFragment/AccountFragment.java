@@ -69,6 +69,7 @@ public class AccountFragment extends Fragment {
     List<Store> stores;
     RecyclerView recyclerView;
     TokoFavoritAdapter tokoFavoritAdapter;
+    Button btnEditProfile;
 
     private OnFragmentInteractionListener mListener;
 
@@ -114,10 +115,18 @@ public class AccountFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         imgAvatar = view.findViewById(R.id.imgProfile);
         tvUserName = view.findViewById(R.id.tv_userName);
+        btnEditProfile = (Button) view.findViewById(R.id.btn_edit);
 
         Picasso.get().load(userLogin.getFoto()).fit().into(imgAvatar);
         tvUserName.setText(userLogin.getName());
         recyclerView = (RecyclerView) view.findViewById(R.id.recycerview_tokoFavorit);
+
+        btnEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().startActivity(new Intent());
+            }
+        });
 
 
         stores = new ArrayList<>();
