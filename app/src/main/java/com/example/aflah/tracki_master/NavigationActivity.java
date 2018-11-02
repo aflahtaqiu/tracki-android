@@ -1,6 +1,7 @@
 package com.example.aflah.tracki_master;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.aflah.tracki_master.Auth.LoginActivity;
 import com.example.aflah.tracki_master.Model.UserLogin;
 import com.example.aflah.tracki_master.NavbarFragment.AccountFragment;
 import com.example.aflah.tracki_master.NavbarFragment.HomeFragment;
@@ -51,6 +53,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     private Cubeacon cubeacon;
     private List<Map<String, String>> data;
     private List<CBBeacon> beacons;
+    SharedPreferences sharedPreferences;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -77,8 +80,13 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
                     if (accountFragment == null){
                         accountFragment = new AccountFragment();
                     }
-                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.content, accountFragment, "").commit();
+                    if (sharedPreferences.getString("tokenLogin", "").isEmpty()){
+                        startActivity(new Intent(NavigationActivity.this, LoginActivity.class));
+                        finish();
+                    }else {
+                        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.content, accountFragment, "").commit();
+                    }
                     return true;
             }
             return false;
@@ -99,17 +107,11 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         beacons = new ArrayList<>();
         cubeacon = Cubeacon.getInstance();
 
-        SharedPreferences sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
-
+        sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("userLogin", "");
         UserLogin userLogin = gson.fromJson(json, UserLogin.class);
         String userToken = sharedPreferences.getString("tokenLogin", "");
-
-        if (sharedPreferences.getString("tokenLogin", "").isEmpty())
-            Toast.makeText(NavigationActivity.this, "tokem :  kosong", Toast.LENGTH_LONG).show();
-        else
-            Toast.makeText(NavigationActivity.this, "token :  " + userToken, Toast.LENGTH_LONG).show();
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.example.aflah.tracki_master.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.aflah.tracki_master.DetailTokoActivity;
 import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.R;
 import com.squareup.picasso.Picasso;
@@ -47,6 +49,15 @@ public class TokoFavoritAdapter extends RecyclerView.Adapter<TokoFavoritAdapter.
         holder.namaToko.setText(favouriteStores.get(position).getName());
         Picasso.get().load(favouriteStores.get(position).getLogo()).fit().into(holder.iv_tokoFavorite);
         holder.checkBox.setChecked(true);
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), DetailTokoActivity.class);
+                intent.putExtra("idTokoTerdekat", favouriteStores.get(position).getId());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

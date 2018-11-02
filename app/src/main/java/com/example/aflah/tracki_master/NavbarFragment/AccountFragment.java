@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.aflah.tracki_master.AboutTrackiActivity;
 import com.example.aflah.tracki_master.Adapter.TokoFavoritAdapter;
+import com.example.aflah.tracki_master.EditProfilActivity;
 import com.example.aflah.tracki_master.Model.Response.ResponseTokoFavourite;
 import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.Model.UserLogin;
@@ -124,15 +125,13 @@ public class AccountFragment extends Fragment {
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().startActivity(new Intent());
+                getActivity().startActivity(new Intent(view.getContext(), EditProfilActivity.class));
             }
         });
-
 
         stores = new ArrayList<>();
         ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
         Call<ResponseTokoFavourite> getTokoFav = apiRequest.getTokoFavorit(userLogin.getId());
-        Log.v("userId" , " "+ userLogin.getId());
         getTokoFav.enqueue(new Callback<ResponseTokoFavourite>() {
             @Override
             public void onResponse(Call<ResponseTokoFavourite> call, Response<ResponseTokoFavourite> response) {
