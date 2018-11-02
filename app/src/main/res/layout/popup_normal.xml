@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/ket"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:textSize="16sp"
+            android:gravity="left"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="3dp"
+            android:text="Tetapkan Foto Profil"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold" />
+
+        <View style="@style/line_style" />
+
+        <TextView
+            android:id="@+id/imgAvatar"
+            android:layout_width="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:layout_height="50dp"
+            android:textSize="16sp"
+            android:gravity="left"
+            android:text="Pilih avatar"
+            android:textColor="@color/colorBlack" />
+
+        <TextView
+            android:id="@+id/imgGaleri"
+            android:layout_width="match_parent"
+            android:paddingLeft="10dp"
+            android:layout_height="50dp"
+            android:textSize="16sp"
+            android:gravity="left"
+            android:paddingTop="5dp"
+            android:text="Foto Profil Baru"
+            android:textColor="@color/colorBlack" />
+
+</LinearLayout>

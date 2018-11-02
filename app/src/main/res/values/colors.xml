@@ -7,6 +7,7 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorAbuGelap">#585858</color>
     <color name="colorbottom">#e6e6e6</color>
+    <color name="colorBlack">#000000</color>
 
     <!-- dots inactive colors -->
     <color name="dot_inactive_screen1">#FA8072</color>
