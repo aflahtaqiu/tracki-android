@@ -41,7 +41,17 @@
             android:textSize="16sp"
             android:gravity="left"
             android:paddingTop="5dp"
-            android:text="Foto Profil Baru"
+            android:text="Dari Gallery"
+            android:textColor="@color/colorBlack" />
+
+        <TextView
+            android:id="@+id/imgCamera"
+            android:layout_width="match_parent"
+            android:paddingLeft="10dp"
+            android:layout_height="50dp"
+            android:textSize="16sp"
+            android:gravity="left"
+            android:text="Kamera"
             android:textColor="@color/colorBlack" />
 
 </LinearLayout>

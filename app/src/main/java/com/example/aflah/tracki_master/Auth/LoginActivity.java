@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.aflah.tracki_master.ForgotPasswordActivity;
 import com.example.aflah.tracki_master.Model.Response.ResponseLogin;
 import com.example.aflah.tracki_master.Model.UserLogin;
 import com.example.aflah.tracki_master.NavigationActivity;
@@ -22,6 +23,7 @@ import com.example.aflah.tracki_master.R;
 import com.example.aflah.tracki_master.Retrofit.ApiRequest;
 import com.example.aflah.tracki_master.Retrofit.RetroServer;
 
+import com.facebook.login.Login;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -36,7 +38,7 @@ import retrofit2.Response;
 public class LoginActivity extends Activity implements View.OnClickListener, ILogin {
 
     Button btnLogin, btnMasukTamu;
-    TextView tvDaftar;
+    TextView tvDaftar, tvLupaPassword;
     EditText etEmail, etPassword;
 
     @Override
@@ -46,12 +48,14 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
         handleIntent(getIntent());
 
         tvDaftar = (TextView) findViewById(R.id.tv_daftar_login);
+        tvLupaPassword = (TextView) findViewById(R.id.tv_lupaPassword_login);
         btnLogin = (Button) findViewById(R.id.btn_masuk_login);
         btnMasukTamu = (Button) findViewById(R.id.btn_masukTamu_login);
         etEmail = (EditText) findViewById(R.id.et_email_login);
         etPassword = (EditText) findViewById(R.id.et_sandi_login);
 
         tvDaftar.setOnClickListener(this);
+        tvLupaPassword.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
         btnMasukTamu.setOnClickListener(this);
         // ATTENTION: This was auto-generated to handle app links.
@@ -77,6 +81,10 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
                 startActivity(new Intent(LoginActivity.this, NavigationActivity.class));
                 finish();
                 break;
+            case R.id.tv_lupaPassword_login:
+                startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
+                finish();
+                break;
         }
     }
 
@@ -97,8 +105,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
                 editor.putString("userLogin", json);
                 editor.apply();
                 editor.commit();
-
-
             }
 
             @Override
@@ -115,7 +121,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
         editor.putString("userLogin", "");
         editor.apply();
         editor.commit();
-
     }
 
     protected void onNewIntent(Intent intent) {

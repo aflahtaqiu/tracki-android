@@ -3,13 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_columnWeight="1"
-    android:layout_rowWeight="1"
-    app:cardElevation="6dp"
+   app:cardElevation="6dp"
     app:cardCornerRadius="12dp"
     android:layout_margin="5dp"
     android:clickable="true"
-    android:id="@+id/cardview_toko_tokoTerdekat">
+    android:id="@+id/cardview_review">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,13 +15,13 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="70dp"
-            android:layout_height="70dp">
+            android:layout_width="80dp"
+            android:layout_height="80dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/iv_foto_user"
-                android:layout_width="65dp"
-                android:layout_height="60dp"
+                android:id="@+id/iv_fotoUser_itemReview"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:src="@drawable/avatar_profile"
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="5dp"/>
@@ -40,9 +38,9 @@
                 android:orientation="horizontal"
                 android:paddingTop="5dp">
                 <TextView
-                    android:id="@+id/tv_userName"
+                    android:id="@+id/tv_userName_itemReview"
                     android:text="Nama User"
-                    android:layout_width="200dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
                     android:textSize="20dp"
@@ -50,16 +48,16 @@
             </LinearLayout>
 
             <RatingBar
-                android:id="@+id/rating"
+                android:id="@+id/rating_itemReview"
                 style="@style/Base.Widget.AppCompat.RatingBar.Indicator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="1dp"
-                android:rating="3"
-                android:numStars="5"/>
+                android:numStars="5"
+                android:rating="4"/>
 
             <TextView
-                android:id="@+id/tv_isi_komentar"
+                android:id="@+id/tv_komentar_itemReview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="isi komentar"

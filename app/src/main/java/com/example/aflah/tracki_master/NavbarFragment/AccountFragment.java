@@ -1,6 +1,5 @@
 package com.example.aflah.tracki_master.NavbarFragment;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,18 +17,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.aflah.tracki_master.AboutTrackiActivity;
 import com.example.aflah.tracki_master.Adapter.TokoFavoritAdapter;
 import com.example.aflah.tracki_master.EditProfilActivity;
-import com.example.aflah.tracki_master.Model.Response.ResponseTokoFavourite;
+import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
 import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.Model.UserLogin;
 import com.example.aflah.tracki_master.R;
 import com.example.aflah.tracki_master.Retrofit.ApiRequest;
 import com.example.aflah.tracki_master.Retrofit.RetroServer;
-import com.google.android.gms.common.api.Api;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -131,10 +128,10 @@ public class AccountFragment extends Fragment {
 
         stores = new ArrayList<>();
         ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
-        Call<ResponseTokoFavourite> getTokoFav = apiRequest.getTokoFavorit(userLogin.getId());
-        getTokoFav.enqueue(new Callback<ResponseTokoFavourite>() {
+        Call<ResponseUserById> getTokoFav = apiRequest.getTokoFavorit(userLogin.getId());
+        getTokoFav.enqueue(new Callback<ResponseUserById>() {
             @Override
-            public void onResponse(Call<ResponseTokoFavourite> call, Response<ResponseTokoFavourite> response) {
+            public void onResponse(Call<ResponseUserById> call, Response<ResponseUserById> response) {
                 for (int i =0; i < response.body().getUser().getStores().size();i++){
                     stores.add(response.body().getUser().getStores().get(i));
                 }
@@ -144,7 +141,7 @@ public class AccountFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<ResponseTokoFavourite> call, Throwable t) {
+            public void onFailure(Call<ResponseUserById> call, Throwable t) {
 
             }
         });

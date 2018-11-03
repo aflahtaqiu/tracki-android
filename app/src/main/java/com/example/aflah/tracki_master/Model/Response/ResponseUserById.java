@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class ResponseTokoFavourite {
+public class ResponseUserById {
 
     @SerializedName("user")
     @Expose

@@ -4,16 +4,20 @@ import com.example.aflah.tracki_master.Model.Advertisements;
 import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
 import com.example.aflah.tracki_master.Model.Response.ResponseLogin;
 import com.example.aflah.tracki_master.Model.Response.ResponseRegister;
-import com.example.aflah.tracki_master.Model.Response.ResponseTokoFavourite;
+import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
 import com.example.aflah.tracki_master.Model.Response.ResponseTokoTerdekat;
 
 import java.util.Date;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
+import retrofit2.Response;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface ApiRequest {
@@ -29,7 +33,7 @@ public interface ApiRequest {
     );
 
     @GET("user/{id}")
-    Call<ResponseTokoFavourite> getTokoFavorit(
+    Call<ResponseUserById> getTokoFavorit(
             @Path("id") int id
     );
 
@@ -52,4 +56,15 @@ public interface ApiRequest {
             @Field("email") String email,
             @Field("password") String password
     );
+
+    @FormUrlEncoded
+    @Multipart
+    @POST("user/{id}")
+    Call<ResponseLogin> updateProfile(
+            @Path("id") int idUser,
+            @Part("name") String name,
+            @Part("date_of_birth") String dateOfBirth,
+            @Part("foto")MultipartBody.Part image
+    );
+
 }

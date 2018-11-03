@@ -46,6 +46,28 @@ public class Store {
     @SerializedName("galleries")
     @Expose
     private List<Galery> galleries;
+    @SerializedName("rating")
+    @Expose
+    private double rating;
+    @SerializedName("reviewers")
+    @Expose
+    private List<Reviewer> reviewers;
+
+    public List<Reviewer> getReviewers() {
+        return reviewers;
+    }
+
+    public void setReviewers(List<Reviewer> reviewers) {
+        this.reviewers = reviewers;
+    }
+
+    public double getRating() {
+        return rating;
+    }
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
 
     public List<Galery> getGalleries() {
         return galleries;
@@ -167,6 +189,7 @@ public class Store {
                 ", store_type=" + store_type +
                 ", products=" + products +
                 ", galleries=" + galleries +
+                ", rating=" + rating +
                 '}';
     }
 }

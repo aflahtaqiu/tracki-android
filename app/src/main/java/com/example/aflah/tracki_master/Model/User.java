@@ -19,6 +19,9 @@ public class User {
     @SerializedName("id")
     @Expose
     private int id;
+    @SerializedName("foto")
+    @Expose
+    private String foto;
     @SerializedName("stores")
     @Expose
     private List<Store> stores;
@@ -53,6 +56,14 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 
     public List<Store> getStores() {

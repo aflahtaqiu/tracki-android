@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.aflah.tracki_master.Adapter.CarouselDetailTokoAdapter;
 import com.example.aflah.tracki_master.Adapter.DetailTokoViewPagerAdapter;
