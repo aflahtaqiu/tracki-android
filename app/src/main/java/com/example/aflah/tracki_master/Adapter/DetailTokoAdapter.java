@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.R;
-import com.example.aflah.tracki_master.ReviewActivity;
+import com.example.aflah.tracki_master.ReviewTokoActivity;
 import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -49,7 +49,7 @@ public class DetailTokoAdapter extends RecyclerView.Adapter<DetailTokoAdapter.My
         holder.btnReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ReviewActivity.class);
+                Intent intent = new Intent(v.getContext(), ReviewTokoActivity.class);
                 intent.putExtra("idToko", store.getId());
                 context.startActivity(intent);
             }
