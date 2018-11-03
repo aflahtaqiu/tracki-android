@@ -96,7 +96,8 @@
         <activity android:name=".AboutTrackiActivity" />
         <activity
             android:name=".ReviewActivity"
-            android:theme="@style/ThemeNobar"></activity>
+            android:theme="@style/ThemeNobar">
+        </activity>
         <activity android:name=".ForgotPasswordActivity"></activity>
     </application>
 

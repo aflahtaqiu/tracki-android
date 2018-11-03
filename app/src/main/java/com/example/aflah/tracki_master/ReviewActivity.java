@@ -53,6 +53,8 @@ public class ReviewActivity extends AppCompatActivity {
                 recyclerView.setLayoutManager(new GridLayoutManager(ReviewActivity.this, 1));
                 reviewAdapter = new ReviewAdapter(ReviewActivity.this, response.body().getStore().getReviewers());
                 recyclerView.setAdapter(reviewAdapter);
+                Toast.makeText(ReviewActivity.this, "rating " + response.body().getStore().getRating(), Toast.LENGTH_LONG).show();
+
             }
 
             @Override
