@@ -1,5 +1,7 @@
 package com.example.aflah.tracki_master;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -85,7 +87,6 @@ public class DetailTokoActivity extends AppCompatActivity implements DetailTokoF
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimeCarousel(), 4000, 4000);
-
     }
 
     public void setDotsCount(int dotsCount) {

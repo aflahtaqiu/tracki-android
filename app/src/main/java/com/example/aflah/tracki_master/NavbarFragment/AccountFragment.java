@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.example.aflah.tracki_master.AboutTrackiActivity;
 import com.example.aflah.tracki_master.Adapter.TokoFavoritAdapter;
+import com.example.aflah.tracki_master.Auth.LoginActivity;
 import com.example.aflah.tracki_master.EditProfilActivity;
 import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
 import com.example.aflah.tracki_master.Model.Store;
@@ -170,7 +171,12 @@ public class AccountFragment extends Fragment {
                 Log.v("itemSelected", "help");
                 break;
             case R.id.item_logout:
-                Log.v("itemSelected", "logout");
+                SharedPreferences.Editor editor = this.getActivity().getSharedPreferences("login", Context.MODE_PRIVATE).edit();
+                editor.putString("tokenLogin", "");
+                editor.putString("userLogin", "");
+                editor.apply();
+                editor.commit();
+                startActivity(new Intent(getContext(), LoginActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);

@@ -158,9 +158,8 @@ public class RegisterActivity extends AppCompatActivity implements IRegister, Vi
         registerUser.enqueue(new Callback<ResponseRegister>() {
             @Override
             public void onResponse(Call<ResponseRegister> call, Response<ResponseRegister> response) {
-                Toast.makeText(RegisterActivity.this, "Masuk onResponse", Toast.LENGTH_LONG).show();
 
-                Toast.makeText(RegisterActivity.this, "Sealamat datang : " + response.body().getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(RegisterActivity.this, "Selamat datang : " + response.body().getUser().getName(), Toast.LENGTH_LONG).show();
             }
 
             @Override

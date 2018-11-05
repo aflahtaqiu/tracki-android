@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -47,6 +48,11 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
         setContentView(R.layout.activity_login);
         handleIntent(getIntent());
 
+        SharedPreferences sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
+        String userToken = sharedPreferences.getString("tokenLogin", "");
+        if (!userToken.isEmpty())
+            startActivity(new Intent(LoginActivity.this, NavigationActivity.class));
+
         tvDaftar = (TextView) findViewById(R.id.tv_daftar_login);
         tvLupaPassword = (TextView) findViewById(R.id.tv_lupaPassword_login);
         btnLogin = (Button) findViewById(R.id.btn_masuk_login);
@@ -71,10 +77,11 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
                 break;
             case R.id.btn_masuk_login:
-
-                loginEmailPassword(etEmail.getText().toString(), etPassword.getText().toString());
-                startActivity(new Intent(LoginActivity.this, NavigationActivity.class));
-                finish();
+                if (cekValidasi()){
+                    loginEmailPassword(etEmail.getText().toString(), etPassword.getText().toString());
+                    startActivity(new Intent(LoginActivity.this, NavigationActivity.class));
+                    finish();
+                }
                 break;
             case R.id.btn_masukTamu_login:
                 loginSebagaiTamu();
@@ -101,7 +108,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
                 Gson gson = new Gson();
                 String json = gson.toJson(userLogin);
                 SharedPreferences.Editor editor = getSharedPreferences("login", Context.MODE_PRIVATE).edit();
-                editor.putString("tokenLogin", token);
+                editor.putString("tokenLogin","Bearer "+ token);
                 editor.putString("userLogin", json);
                 editor.apply();
                 editor.commit();
@@ -121,6 +128,30 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
         editor.putString("userLogin", "");
         editor.apply();
         editor.commit();
+    }
+
+    @Override
+    public boolean cekValidasi() {
+        if (etEmail.getText().equals("") || etPassword.getText().equals("")) {
+            if (etEmail.getText().equals(""))
+                etEmail.setError("Email tolong diisi");
+            if (etPassword.getText().equals(""))
+                etPassword.setError("Email tolong diisi");
+            return false;
+        }
+        else return cekEmailPattern();
+    }
+
+    @Override
+    public boolean cekEmailPattern() {
+        if (Patterns.EMAIL_ADDRESS.matcher(etEmail.getText().toString()).matches()){
+            etEmail.setError(null);
+            return true;
+        }
+        else {
+            etEmail.setError("Masukkan format email yang benar");
+            return false;
+        }
     }
 
     protected void onNewIntent(Intent intent) {

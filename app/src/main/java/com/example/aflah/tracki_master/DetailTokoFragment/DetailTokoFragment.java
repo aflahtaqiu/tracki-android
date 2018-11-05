@@ -1,6 +1,7 @@
 package com.example.aflah.tracki_master.DetailTokoFragment;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.aflah.tracki_master.Adapter.DetailTokoAdapter;
 import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
@@ -44,6 +46,8 @@ public class DetailTokoFragment extends Fragment {
 
     RecyclerView recyclerView;
     ProgressBar progressBar;
+    String userToken;
+    SharedPreferences sharedPreferences;
 
     public DetailTokoFragment() {
         // Required empty public constructor
@@ -74,6 +78,8 @@ public class DetailTokoFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        sharedPreferences = this.getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
+        userToken = sharedPreferences.getString("tokenLogin", "");
     }
 
     @Override
@@ -94,11 +100,11 @@ public class DetailTokoFragment extends Fragment {
         getData.enqueue(new Callback<ResponseDetailToko>() {
             @Override
             public void onResponse(Call<ResponseDetailToko> call, Response<ResponseDetailToko> response) {
-                Log.i("RETRO", "onResponse nama toko : " + response.body().getStore().getName());
+                Log.i("RETROfittt", "onResponse nama toko : " + response.body().getStore().getName());
 
                 progressBar.setVisibility(View.GONE);
 
-                recyclerView.setAdapter(new DetailTokoAdapter(getContext(), response.body().getStore()));
+                recyclerView.setAdapter(new DetailTokoAdapter(getContext(), response.body().getStore(), userToken));
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 recyclerView.smoothScrollToPosition(0);
             }

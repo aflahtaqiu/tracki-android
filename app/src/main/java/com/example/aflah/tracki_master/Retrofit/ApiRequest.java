@@ -1,6 +1,7 @@
 package com.example.aflah.tracki_master.Retrofit;
 
 import com.example.aflah.tracki_master.Model.Advertisements;
+import com.example.aflah.tracki_master.Model.Response.ResponseAddReview;
 import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
 import com.example.aflah.tracki_master.Model.Response.ResponseLogin;
 import com.example.aflah.tracki_master.Model.Response.ResponseRegister;
@@ -15,6 +16,7 @@ import retrofit2.Response;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -67,4 +69,12 @@ public interface ApiRequest {
             @Part("foto")MultipartBody.Part image
     );
 
+    @FormUrlEncoded
+    @POST("review")
+    Call<ResponseAddReview> addReview(
+            @Header("Authorization") String token,
+            @Field("store_id") int store_id,
+            @Field("rating") double rating,
+            @Field("description") String description
+    );
 }

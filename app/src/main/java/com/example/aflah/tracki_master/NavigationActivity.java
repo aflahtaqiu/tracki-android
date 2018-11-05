@@ -14,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.aflah.tracki_master.Auth.LoginActivity;
 import com.example.aflah.tracki_master.Model.UserLogin;
@@ -27,7 +26,6 @@ import com.eyro.cubeacon.CBRegion;
 import com.eyro.cubeacon.CBServiceListener;
 import com.eyro.cubeacon.Cubeacon;
 import com.eyro.cubeacon.SystemRequirementManager;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
