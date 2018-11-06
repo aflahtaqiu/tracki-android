@@ -20,7 +20,10 @@ import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.R;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -28,6 +31,7 @@ public class ListMakananAdapter extends RecyclerView.Adapter<ListMakananAdapter.
 
     private Context context;
     private Store store;
+    NumberFormat numberFormat = new DecimalFormat("#,###");
 
     public ListMakananAdapter(Context context, Store store) {
         this.context = context;
@@ -51,7 +55,8 @@ public class ListMakananAdapter extends RecyclerView.Adapter<ListMakananAdapter.
         if (store.getProducts().get(position).getCategory().getId() == 1){
 
             holder.namaMakanan.setText(store.getProducts().get(position).getName());
-            holder.hargaMakanan.setText(String.valueOf((int) store.getProducts().get(position).getPrice()));
+            holder.hargaMakanan.setText(numberFormat.format(store.getProducts().get(position).getPrice()).replace(',','.'));
+            Log.v("numberFormat", numberFormat.format(store.getProducts().get(position).getPrice()));
             Picasso.get().load(store.getProducts().get(position).getPicture()).into(holder.img_makanan);
         }
         else {
@@ -92,7 +97,7 @@ public class ListMakananAdapter extends RecyclerView.Adapter<ListMakananAdapter.
                         Intent intent = new Intent(v.getContext(), DetailMenuActivity.class);
                         intent.putExtra("namaMenu", clickedData.getName());
                         intent.putExtra("kategoriMenu", clickedData.getCategory().getName());
-                        intent.putExtra("hargaMenu", String.valueOf((int)clickedData.getPrice()));
+                        intent.putExtra("hargaMenu", numberFormat.format(clickedData.getPrice()).replace(',','.'));
                         intent.putExtra("detailMenu", clickedData.getDescription());
                         intent.putExtra("gambarMenu", clickedData.getPicture());
                         Toast.makeText(v.getContext(), "On Click : " +clickedData.getName(), Toast.LENGTH_LONG);
