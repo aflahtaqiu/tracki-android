@@ -112,6 +112,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegister, Vi
                     try {
                         dateOfBirth = format.parse(date);
                         signupUserEmail(nama, email, dateOfBirth, password, konfirmasiPassword);
+                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }

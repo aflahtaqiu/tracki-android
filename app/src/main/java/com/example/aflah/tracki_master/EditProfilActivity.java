@@ -21,7 +21,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
+import com.example.aflah.tracki_master.Model.User;
 import com.example.aflah.tracki_master.Model.UserLogin;
+import com.example.aflah.tracki_master.NavbarFragment.AccountFragment;
+import com.example.aflah.tracki_master.Retrofit.ApiRequest;
+import com.example.aflah.tracki_master.Retrofit.RetroServer;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -29,12 +34,19 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 import retrofit2.http.Url;
 
 
@@ -53,6 +65,10 @@ public class EditProfilActivity extends Activity implements View.OnClickListener
     private int REQ_GALLERY = 1;
     private int REQ_CAMERA = 0;
     private static final String IMAGE_DIRECTORY = "/Tracki";
+    private android.support.v4.app.FragmentTransaction fragmentTransaction;
+    String userToken;
+    UserLogin userLogin;
+    Date dateOfBirth;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,8 +78,8 @@ public class EditProfilActivity extends Activity implements View.OnClickListener
         sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("userLogin", "");
-        UserLogin userLogin = gson.fromJson(json, UserLogin.class);
-        String userToken = sharedPreferences.getString("tokenLogin", "");
+         userLogin = gson.fromJson(json, UserLogin.class);
+         userToken = sharedPreferences.getString("tokenLogin", "");
 
         avatar = (CircleImageView)findViewById(R.id.iv_profil_editProfil);
         et_editText = (TextView)findViewById(R.id.tv_ubahFoto_editProfil);
@@ -77,6 +93,7 @@ public class EditProfilActivity extends Activity implements View.OnClickListener
         etNama.setText(userLogin.getName());
         etTanggalLahir.setText(userLogin.getDateOfBirth());
 
+
         correct.setOnClickListener(this);
         close.setOnClickListener(this);
         avatar.setOnClickListener(this);
@@ -87,7 +104,53 @@ public class EditProfilActivity extends Activity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.iv_correctEditProfil:
-                Toast.makeText(EditProfilActivity.this,"ceklis bro" + bitmap.toString(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(EditProfilActivity.this,"ceklis bro" + bitmap.toString(), Toast.LENGTH_SHORT).show();
+
+                    SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+                try {
+                    dateOfBirth = format.parse(etTanggalLahir.getText().toString());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
+                    Call<ResponseUserById> editProfil = apiRequest.updateProfile(userLogin.getId(),userToken, etNama.getText().toString(), dateOfBirth);
+                    editProfil.enqueue(new Callback<ResponseUserById>() {
+                        @Override
+                        public void onResponse(Call<ResponseUserById> call, Response<ResponseUserById> response) {
+                            ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
+                            Call<ResponseUserById> relog = apiRequest.getTokoFavorit(userLogin.getId());
+                            relog.enqueue(new Callback<ResponseUserById>() {
+                                @Override
+                                public void onResponse(Call<ResponseUserById> call, Response<ResponseUserById> response) {
+                                    User userLogin =  response.body().getUser();
+
+
+                                    Gson gson = new Gson();
+                                    String json = gson.toJson(userLogin);
+                                    SharedPreferences.Editor editor = getSharedPreferences("login", Context.MODE_PRIVATE).edit();
+//                                    editor.putString("tokenLogin","Bearer "+ token);
+                                    editor.putString("userLogin", json);
+                                    editor.apply();
+                                    editor.commit();
+
+                                    Intent intent = new Intent(getApplicationContext(),NavigationActivity.class);
+                                    intent.putExtra("LOC",R.id.navigation_account);
+                                    startActivity(intent);
+                                }
+
+                                @Override
+                                public void onFailure(Call<ResponseUserById> call, Throwable t) {
+
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseUserById> call, Throwable t) {
+                            Log.v("update", "gagal" + t.getMessage());
+                        }
+                    });
+
                 break;
             case R.id.iv_closeEditProfil:
                 Toast.makeText(EditProfilActivity.this,"close bro", Toast.LENGTH_SHORT).show();

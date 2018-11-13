@@ -52,6 +52,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     private List<Map<String, String>> data;
     private List<CBBeacon> beacons;
     SharedPreferences sharedPreferences;
+    Integer fragmentSelect;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -110,6 +111,18 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         String json = sharedPreferences.getString("userLogin", "");
         UserLogin userLogin = gson.fromJson(json, UserLogin.class);
         String userToken = sharedPreferences.getString("tokenLogin", "");
+        try {
+            fragmentSelect = getIntent().getExtras().getInt("LOC");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        Log.v("update","" + fragmentSelect);
+        if(fragmentSelect!= null){
+            Log.v("update","masuk ke if di home ");
+            navigation = (BottomNavigationView) findViewById(R.id.navigation);
+            navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+            navigation.setSelectedItemId(R.id.navigation_account);
+        }
     }
 
     @Override

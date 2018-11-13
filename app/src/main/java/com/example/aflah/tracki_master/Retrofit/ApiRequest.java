@@ -18,6 +18,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
@@ -60,13 +61,13 @@ public interface ApiRequest {
     );
 
     @FormUrlEncoded
-    @Multipart
-    @POST("user/{id}")
-    Call<ResponseLogin> updateProfile(
+//    @Multipart
+    @PATCH("user/{id}")
+    Call<ResponseUserById> updateProfile(
             @Path("id") int idUser,
-            @Part("name") String name,
-            @Part("date_of_birth") String dateOfBirth,
-            @Part("foto")MultipartBody.Part image
+            @Header("Authorization") String token,
+            @Field("name") String name,
+            @Field("date_of_birth") Date dateOfBirth
     );
 
     @FormUrlEncoded
@@ -77,4 +78,5 @@ public interface ApiRequest {
             @Field("rating") double rating,
             @Field("description") String description
     );
+
 }
