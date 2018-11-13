@@ -8,27 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.aflah.tracki_master.NavigationActivity;
 import com.example.aflah.tracki_master.R;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
-
-import java.util.Timer;
-
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link MapFragment.OnFragmentInteractionListener} interface
+ * {@link PromoFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link MapFragment#newInstance} factory method to
+ * Use the {@link PromoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MapFragment extends Fragment implements OnMapReadyCallback {
+public class PromoFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -38,11 +28,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private String mParam1;
     private String mParam2;
 
-    private GoogleMap mMap;
-
     private OnFragmentInteractionListener mListener;
 
-    public MapFragment() {
+    public PromoFragment() {
         // Required empty public constructor
     }
 
@@ -52,11 +40,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment MapFragment.
+     * @return A new instance of fragment PromoFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MapFragment newInstance(String param1, String param2) {
-        MapFragment fragment = new MapFragment();
+    public static PromoFragment newInstance(String param1, String param2) {
+        PromoFragment fragment = new PromoFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -77,16 +65,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-        View view = inflater.inflate(R.layout.fragment_map, container, false);
-        SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager()
-                .findFragmentById(R.id.mapFragment);
-        mapFragment.getMapAsync(this);
-
-//        Timer timer = new Timer();
-//        timer.scheduleAtFixedRate(new HomeFragment.TimerCarousel(), 2000, 4000);
-
-        return view;
+        return inflater.inflate(R.layout.fragment_promo, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -113,17 +92,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mListener = null;
     }
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
-        LatLng lokasi = new LatLng(-7.2634152,112.7381467);
-        mMap.addMarker(new MarkerOptions().position(lokasi).title("Sudah masuk Tunjungan Plaza"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lokasi, 18));
-        mMap.getUiSettings().setIndoorLevelPickerEnabled(true);
-        mMap.setMyLocationEnabled(true);
-    }
-
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -138,6 +106,4 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
-
 }

@@ -9,17 +9,17 @@ import android.os.RemoteException;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.aflah.tracki_master.Auth.LoginActivity;
 import com.example.aflah.tracki_master.Model.UserLogin;
 import com.example.aflah.tracki_master.NavbarFragment.AccountFragment;
 import com.example.aflah.tracki_master.NavbarFragment.HomeFragment;
-import com.example.aflah.tracki_master.NavbarFragment.MapFragment;
+import com.example.aflah.tracki_master.NavbarFragment.PromoFragment;
 import com.eyro.cubeacon.CBBeacon;
 import com.eyro.cubeacon.CBRangingListener;
 import com.eyro.cubeacon.CBRegion;
@@ -37,14 +37,14 @@ import java.util.UUID;
 
 public class NavigationActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
 //        HomeFragment.OnFragmentInteractionListener,
-        MapFragment.OnFragmentInteractionListener,
         AccountFragment.OnFragmentInteractionListener,
+        PromoFragment.OnFragmentInteractionListener,
         CBRangingListener, CBServiceListener{
 
     private static final String TAG = NavigationActivity.class.getSimpleName();
     private HomeFragment homeFragment = null;
-    private MapFragment mapFragment = null;
     private AccountFragment accountFragment = null;
+    private PromoFragment promoFragment = null;
     private FragmentTransaction fragmentTransaction;
     private OnCubeaconUpdated mOnCubeaconUpdated;
 
@@ -53,6 +53,8 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     private List<CBBeacon> beacons;
     SharedPreferences sharedPreferences;
     Integer fragmentSelect;
+
+    int accountFragmentId = 0;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -68,12 +70,12 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.content, homeFragment, "").commit();
                     return true;
-                case R.id.navigation_map:
-                    if (mapFragment == null){
-                        mapFragment = new MapFragment();
+                case R.id.navigation_promo:
+                    if (promoFragment == null){
+                        promoFragment = new PromoFragment();
                     }
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.content, mapFragment, "").commit();
+                    fragmentTransaction.replace(R.id.content, promoFragment, "").commit();
                     return true;
                 case R.id.navigation_account:
                     if (accountFragment == null){
@@ -98,19 +100,42 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         setContentView(R.layout.activity_navigation);
         Log.v("masukActivity", "navigation");
 
+        sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("userLogin", "");
+        UserLogin userLogin = gson.fromJson(json, UserLogin.class);
+        String userToken = sharedPreferences.getString("tokenLogin", "");
+
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        navigation.setSelectedItemId(R.id.navigation_home);
+
+        try{
+            if (getIntent()!=null){
+                Log.v("AccountFragmentLoc", " ada isinya " +getIntent().getIntExtra("AccountFragmentLoc", 0));
+                if (getIntent().getIntExtra("AccountFragmentLoc", 0) != 0){
+                    accountFragmentId = getIntent().getIntExtra("AccountFragmentLoc", 0);
+                }
+            }
+
+        }catch (Exception e){
+            Log.v("AccountFragmentLoc", " " +e.getMessage() );
+        }
+
+        if (accountFragmentId ==0){
+            navigation.setSelectedItemId(R.id.navigation_home);
+        }else {
+            navigation.setSelectedItemId(R.id.navigation_account);
+        }
 
         data = new ArrayList<>();
         beacons = new ArrayList<>();
         cubeacon = Cubeacon.getInstance();
 
         sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("userLogin", "");
-        UserLogin userLogin = gson.fromJson(json, UserLogin.class);
-        String userToken = sharedPreferences.getString("tokenLogin", "");
+        gson = new Gson();
+        json = sharedPreferences.getString("userLogin", "");
+        userLogin = gson.fromJson(json, UserLogin.class);
+        userToken = sharedPreferences.getString("tokenLogin", "");
         try {
             fragmentSelect = getIntent().getExtras().getInt("LOC");
         }catch (Exception e){

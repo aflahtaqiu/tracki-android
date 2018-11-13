@@ -7,9 +7,9 @@
         android:title="Home" />
 
     <item
-        android:id="@+id/navigation_map"
-        android:icon="@drawable/ic_location_on"
-        android:title="Map" />
+        android:id="@+id/navigation_promo"
+        android:icon="@drawable/ic_money_off"
+        android:title="Promo" />
 
     <item
         android:id="@+id/navigation_account"

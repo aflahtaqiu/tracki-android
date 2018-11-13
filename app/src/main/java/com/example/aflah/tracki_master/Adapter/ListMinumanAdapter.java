@@ -17,12 +17,16 @@ import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.R;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ListMinumanAdapter extends RecyclerView.Adapter<ListMinumanAdapter.MyViewHolder> {
 
     private Context context;
     private Store store;
+    NumberFormat numberFormat = new DecimalFormat("#,###");
 
     public ListMinumanAdapter(Context context, Store store) {
         this.context = context;
@@ -43,7 +47,7 @@ public class ListMinumanAdapter extends RecyclerView.Adapter<ListMinumanAdapter.
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         if (store.getProducts().get(position).getCategory().getId() == 2){
             holder.namaMinuman.setText(store.getProducts().get(position).getName());
-            holder.hargaMinuaman.setText(String.valueOf((int) store.getProducts().get(position).getPrice()));
+            holder.hargaMinuaman.setText(numberFormat.format(store.getProducts().get(position).getPrice()).replace(',','.'));
             Picasso.get().load(store.getProducts().get(position).getPicture()).into(holder.img_minuman);
         }
         else {
@@ -86,7 +90,7 @@ public class ListMinumanAdapter extends RecyclerView.Adapter<ListMinumanAdapter.
                         Intent intent = new Intent(v.getContext(), DetailMenuActivity.class);
                         intent.putExtra("namaMenu", clickedData.getName());
                         intent.putExtra("kategoriMenu", clickedData.getCategory().getName());
-                        intent.putExtra("hargaMenu", String.valueOf((int)clickedData.getPrice()));
+                        intent.putExtra("hargaMenu", numberFormat.format(clickedData.getPrice()).replace(',','.'));
                         intent.putExtra("detailMenu", clickedData.getDescription());
                         intent.putExtra("gambarMenu", clickedData.getPicture());
                         Toast.makeText(v.getContext(), "On Click : " +clickedData.getName(), Toast.LENGTH_LONG);
