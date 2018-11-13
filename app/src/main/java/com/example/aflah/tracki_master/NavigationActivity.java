@@ -19,6 +19,7 @@ import com.example.aflah.tracki_master.Auth.LoginActivity;
 import com.example.aflah.tracki_master.Model.UserLogin;
 import com.example.aflah.tracki_master.NavbarFragment.AccountFragment;
 import com.example.aflah.tracki_master.NavbarFragment.HomeFragment;
+import com.example.aflah.tracki_master.NavbarFragment.PromoFragment;
 import com.eyro.cubeacon.CBBeacon;
 import com.eyro.cubeacon.CBRangingListener;
 import com.eyro.cubeacon.CBRegion;
@@ -37,11 +38,13 @@ import java.util.UUID;
 public class NavigationActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
 //        HomeFragment.OnFragmentInteractionListener,
         AccountFragment.OnFragmentInteractionListener,
+        PromoFragment.OnFragmentInteractionListener,
         CBRangingListener, CBServiceListener{
 
     private static final String TAG = NavigationActivity.class.getSimpleName();
     private HomeFragment homeFragment = null;
     private AccountFragment accountFragment = null;
+    private PromoFragment promoFragment = null;
     private FragmentTransaction fragmentTransaction;
     private OnCubeaconUpdated mOnCubeaconUpdated;
 
@@ -65,6 +68,13 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
                     mOnCubeaconUpdated = homeFragment;
                     fragmentTransaction = getSupportFragmentManager().beginTransaction();
                     fragmentTransaction.replace(R.id.content, homeFragment, "").commit();
+                    return true;
+                case R.id.navigation_promo:
+                    if (promoFragment == null){
+                        promoFragment = new PromoFragment();
+                    }
+                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.content, promoFragment, "").commit();
                     return true;
                 case R.id.navigation_account:
                     if (accountFragment == null){
