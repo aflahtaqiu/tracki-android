@@ -56,7 +56,6 @@ public class EditProfilActivity extends Activity implements View.OnClickListener
     SharedPreferences sharedPreferences;
     UserLogin userLogin;
     String userToken;
-    Date dateOfBirth;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,15 +86,13 @@ public class EditProfilActivity extends Activity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.iv_correctEditProfil:
-//                Toast.makeText(EditProfilActivity.this,"ceklis bro" + bitmap.toString(), Toast.LENGTH_SHORT).show();
 
-                    SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+                String date = etTanggalLahir.getText().toString();
                 try {
-                    dateOfBirth = format.parse(etTanggalLahir.getText().toString());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
+                    SimpleDateFormat inputFormat = new SimpleDateFormat("dd-MM-yyyy");
+                    Date dateOfBirth = inputFormat.parse(date);
+
+                    ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
                     Call<ResponseUserById> editProfil = apiRequest.updateProfile(userLogin.getId(),userToken, etNama.getText().toString(), dateOfBirth);
                     editProfil.enqueue(new Callback<ResponseUserById>() {
                         @Override
@@ -135,8 +132,9 @@ public class EditProfilActivity extends Activity implements View.OnClickListener
                             Log.v("update", "gagal" + t.getMessage());
                         }
                     });
-
-
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
                 break;
             case R.id.iv_closeEditProfil:
                 Toast.makeText(EditProfilActivity.this,"close bro", Toast.LENGTH_SHORT).show();
