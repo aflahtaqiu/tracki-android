@@ -75,7 +75,16 @@ public class EditProfilActivity extends Activity implements View.OnClickListener
         etTanggalLahir = (EditText) findViewById(R.id.et_tanggalLahir_editProfil);
 
         etNama.setText(userLogin.getName());
-        etTanggalLahir.setText(userLogin.getDateOfBirth());
+        SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date date = inputFormat.parse(userLogin.getDateOfBirth());
+            String dateStr = outputFormat.format(date);
+            etTanggalLahir.setText(dateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
 
 
         correct.setOnClickListener(this);
