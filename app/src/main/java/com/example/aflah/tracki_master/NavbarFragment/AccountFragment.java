@@ -24,6 +24,8 @@ import com.example.aflah.tracki_master.Auth.LoginActivity;
 import com.example.aflah.tracki_master.EditProfilActivity;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameProduct;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameStore;
+import com.example.aflah.tracki_master.Model.Response.ResponseSearchProduct;
+import com.example.aflah.tracki_master.Model.Response.ResponseTokoTerdekat;
 import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
 import com.example.aflah.tracki_master.Model.SearchName;
 import com.example.aflah.tracki_master.Model.Store;
@@ -110,7 +112,6 @@ public class AccountFragment extends Fragment {
         userToken = sharedPreferences.getString("tokenLogin", "");
         setHasOptionsMenu(true);
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

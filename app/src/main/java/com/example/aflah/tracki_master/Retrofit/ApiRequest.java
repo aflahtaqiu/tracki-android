@@ -7,6 +7,7 @@ import com.example.aflah.tracki_master.Model.Response.ResponseLogin;
 import com.example.aflah.tracki_master.Model.Response.ResponseRegister;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameProduct;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameStore;
+import com.example.aflah.tracki_master.Model.Response.ResponseSearchProduct;
 import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
 import com.example.aflah.tracki_master.Model.Response.ResponseTokoTerdekat;
 
@@ -20,6 +21,7 @@ import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiRequest {
 
@@ -37,6 +39,12 @@ public interface ApiRequest {
     Call<ResponseUserById> getTokoFavorit(
             @Path("id") int id
     );
+
+    @GET("search-product")
+    Call<ResponseSearchProduct> getProductList(@Query("name") String name);
+
+    @GET("search-store")
+    Call<ResponseTokoTerdekat> getStore(@Query("name") String name);
 
     @GET("advertisement")
     Call<Advertisements> getAdvertisements();
