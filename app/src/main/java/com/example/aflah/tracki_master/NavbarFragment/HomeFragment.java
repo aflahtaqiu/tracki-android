@@ -41,6 +41,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
 import java.util.TimerTask;
 
 import retrofit2.Call;
@@ -176,8 +177,8 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
         tokoTerdekatAdapter = new TokoTerdekatAdapter(getContext(), rmdup);
         recyclerView.setAdapter(tokoTerdekatAdapter);
 
-//        Timer timer = new Timer();
-//        timer.scheduleAtFixedRate(new TimerCarousel(), 2000, 4000);
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerCarousel(), 2000, 4000);
 
         return view;
     }

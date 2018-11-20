@@ -4,6 +4,7 @@ import com.example.aflah.tracki_master.Model.Advertisements;
 import com.example.aflah.tracki_master.Model.Response.ResponseAddReview;
 import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
 import com.example.aflah.tracki_master.Model.Response.ResponseLogin;
+import com.example.aflah.tracki_master.Model.Response.ResponsePromotion;
 import com.example.aflah.tracki_master.Model.Response.ResponseRegister;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameProduct;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameStore;
@@ -40,6 +41,9 @@ public interface ApiRequest {
 
     @GET("advertisement")
     Call<Advertisements> getAdvertisements();
+
+    @GET("promotion")
+    Call<ResponsePromotion> getPromotions();
 
     @GET("all-stores")
     Call<ResponseSearchNameStore> getSearchNamesStore();
