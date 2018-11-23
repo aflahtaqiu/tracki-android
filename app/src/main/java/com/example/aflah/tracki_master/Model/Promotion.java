@@ -25,9 +25,17 @@ public class Promotion {
     @SerializedName("expired_date")
     @Expose
     private String expired_date;
-    @SerializedName("stores")
+    @SerializedName("pivot")
     @Expose
-    private List<Store> stores;
+    private PivotPromo pivot;
+
+    public PivotPromo getPivot() {
+        return pivot;
+    }
+
+    public void setPivot(PivotPromo pivot) {
+        this.pivot = pivot;
+    }
 
     public int getId() {
         return id;
@@ -75,13 +83,5 @@ public class Promotion {
 
     public void setExpired_date(String expired_date) {
         this.expired_date = expired_date;
-    }
-
-    public List<Store> getStores() {
-        return stores;
-    }
-
-    public void setStores(List<Store> stores) {
-        this.stores = stores;
     }
 }

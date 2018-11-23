@@ -10,7 +10,7 @@ import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameProduct;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameStore;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchProduct;
 import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
-import com.example.aflah.tracki_master.Model.Response.ResponseTokoTerdekat;
+import com.example.aflah.tracki_master.Model.Response.ResponseTokoByUID;
 
 import java.util.Date;
 
@@ -27,8 +27,8 @@ import retrofit2.http.Query;
 public interface ApiRequest {
 
     @GET("store/uid/{numberUID}")
-    Call<ResponseTokoTerdekat> getStoreByUID(
-        @Path("numberUID") String numberUID
+    Call<ResponseTokoByUID> getStoreByUID(
+        @Path("numberUID") int numberUID
     );
 
     @GET("store/{id}")
@@ -45,7 +45,7 @@ public interface ApiRequest {
     Call<ResponseSearchProduct> getProductList(@Query("name") String name);
 
     @GET("search-store")
-    Call<ResponseTokoTerdekat> getStore(@Query("name") String name);
+    Call<ResponseTokoByUID> getStore(@Query("name") String name);
 
     @GET("advertisement")
     Call<Advertisements> getAdvertisements();

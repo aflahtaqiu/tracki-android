@@ -29,7 +29,7 @@ import com.example.aflah.tracki_master.Adapter.TokoTerdekatAdapter;
 import com.example.aflah.tracki_master.DetailTokoActivity;
 import com.example.aflah.tracki_master.Model.Advertisement;
 import com.example.aflah.tracki_master.Model.Advertisements;
-import com.example.aflah.tracki_master.Model.Response.ResponseTokoTerdekat;
+import com.example.aflah.tracki_master.Model.Response.ResponseTokoByUID;
 import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.NavigationActivity;
 import com.example.aflah.tracki_master.R;
@@ -63,13 +63,11 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private static final String TAG = HomeFragment.class.getSimpleName();
-    private ListView listView;
     private List<Map<String, String>> data;
     private List<CBBeacon> beacons;
     private SimpleAdapter adapter;
     private TokoTerdekatAdapter tokoTerdekatAdapter;
     private  SwipeRefreshLayout mySwipeRefreshLayout;
-    private Map map;
     String[] from;
     int[] to;
 
@@ -176,9 +174,9 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         tokoTerdekatAdapter = new TokoTerdekatAdapter(getContext(), rmdup);
         recyclerView.setAdapter(tokoTerdekatAdapter);
-
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerCarousel(), 2000, 4000);
+//
+//        Timer timer = new Timer();
+//        timer.scheduleAtFixedRate(new TimerCarousel(), 2000, 4000);
 
         return view;
     }
@@ -293,22 +291,22 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                     ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
 
 //                    stores.clear();
-                    List<Store> newStores = new ArrayList<>();
                     for (int i = 0 ;i<cbBeacons.size(); i++ ){
                         final int tole = i;
-                        Call<ResponseTokoTerdekat> getData = apiRequest.getStoreByUID(String.valueOf(beacons.get(i).getMajor()));
-                        getData.enqueue(new Callback<ResponseTokoTerdekat>() {
+                        Call<ResponseTokoByUID> getData = apiRequest.getStoreByUID(beacons.get(i).getMajor());
+                        Log.v("isiToko", String.valueOf(beacons.get(i).getMajor()));
+                        getData.enqueue(new Callback<ResponseTokoByUID>() {
                             @Override
-                            public void onResponse(Call<ResponseTokoTerdekat> call, Response<ResponseTokoTerdekat> response) {
+                            public void onResponse(Call<ResponseTokoByUID> call, Response<ResponseTokoByUID> response) {
                                 for (Store store : response.body().getStores()) {
                                     rmdup.put(String.valueOf(store.getId()),store);
+                                    Log.v("isiToko", store.toString());
                                 }
-                                Log.v("debuggerMas", " isi response" + response.body().getStores().size());
                                 tokoTerdekatAdapter.notifyDataSetChanged();
                             }
 
                             @Override
-                            public void onFailure(Call<ResponseTokoTerdekat> call, Throwable t) {
+                            public void onFailure(Call<ResponseTokoByUID> call, Throwable t) {
 
                             }
                         });
