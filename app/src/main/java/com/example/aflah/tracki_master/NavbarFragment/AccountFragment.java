@@ -1,5 +1,6 @@
 package com.example.aflah.tracki_master.NavbarFragment;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.aflah.tracki_master.AboutTrackiActivity;
 import com.example.aflah.tracki_master.Adapter.TokoFavoritAdapter;
@@ -38,6 +40,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.media.MediaRecorder.VideoSource.CAMERA;
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 
 /**
@@ -69,6 +74,10 @@ public class AccountFragment extends Fragment {
     RecyclerView recyclerView;
     TokoFavoritAdapter tokoFavoritAdapter;
     Button btnEditProfile;
+    TextView show1;
+    Dialog Mydialog;
+    TextView picAvatar,picGaleri, picCamera;
+    private int GALLERY = 1, CAMERA = 2;
 
     private OnFragmentInteractionListener mListener;
 
@@ -119,6 +128,13 @@ public class AccountFragment extends Fragment {
         Picasso.get().load(userLogin.getFoto()).fit().into(imgAvatar);
         tvUserName.setText(userLogin.getName());
         recyclerView = (RecyclerView) view.findViewById(R.id.recycerview_tokoFavorit);
+
+        imgAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyCustomDialog();
+            }
+        });
 
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,6 +203,45 @@ public class AccountFragment extends Fragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+    }
+
+    public void MyCustomDialog(){
+        Mydialog = new Dialog(getActivity());
+        Mydialog.setContentView(R.layout.popup_normal);
+
+        picAvatar = (TextView)Mydialog.findViewById(R.id.imgAvatar);
+        picGaleri = (TextView)Mydialog.findViewById(R.id.imgGaleri);
+        picCamera = (TextView)Mydialog.findViewById(R.id.imgCamera);
+
+        picAvatar.setEnabled(true);
+        picGaleri.setEnabled(true);
+        picCamera.setEnabled(true);
+
+        picAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Pilih default avatar", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        picGaleri.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(galleryIntent, GALLERY);
+            }
+        });
+
+        picCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, CAMERA);
+            }
+        });
+
+        Mydialog.show();
     }
 
     @Override

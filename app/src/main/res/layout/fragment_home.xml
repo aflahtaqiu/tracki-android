@@ -16,13 +16,40 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@color/colorTracki">
+                <EditText
+                    android:id="@+id/edit_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="60dp"
+                    android:paddingLeft="10dp"
+                    android:paddingStart="10dp"
+                    android:drawableLeft="@drawable/ic_search_black_24dp"
+                    android:drawableStart="@drawable/ic_search_black_24dp"
+                    android:background="@drawable/round_textedit"
+                    android:hint="Cari toko terdekat"
+                    android:textSize="15sp"
+                    android:inputType="text"
+                    android:imeOptions="actionSearch"
+                    android:textColorHint="@color/searchHint"
+                    android:textColor="@color/searchText"
+                    android:fontFamily="sans-serif-light">
+                </EditText>
+            </android.support.v7.widget.Toolbar>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="150dp">
                 <android.support.v4.view.ViewPager
                     android:id="@+id/viewPager_carousel_Home"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp">
+                    android:layout_height="300dp">
 
                 </android.support.v4.view.ViewPager>
             </LinearLayout>
