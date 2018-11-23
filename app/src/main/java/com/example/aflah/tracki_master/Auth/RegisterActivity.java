@@ -22,6 +22,7 @@ import com.example.aflah.tracki_master.R;
 import com.example.aflah.tracki_master.Retrofit.ApiRequest;
 import com.example.aflah.tracki_master.Retrofit.RetroServer;
 
+import java.sql.Ref;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -103,11 +104,13 @@ public class RegisterActivity extends AppCompatActivity implements IRegister, Vi
                     String date = et_tanggalLahir.getText().toString();
                     String password = et_sandi.getText().toString();
                     String konfirmasiPassword = et_konfirmSandi.getText().toString();
-                    Date dateOfBirth;
-                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
                     try {
-                        dateOfBirth = format.parse(date);
+                        SimpleDateFormat inputFormat = new SimpleDateFormat("dd-MM-yyyy");
+                        Date dateOfBirth = inputFormat.parse(date);
+
                         signupUserEmail(nama, email, dateOfBirth, password, konfirmasiPassword);
+                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }

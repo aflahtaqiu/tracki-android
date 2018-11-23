@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
+import com.example.aflah.tracki_master.Model.User;
 import com.example.aflah.tracki_master.Model.UserLogin;
 import com.example.aflah.tracki_master.NavbarFragment.AccountFragment;
 import com.example.aflah.tracki_master.Retrofit.ApiRequest;
@@ -74,7 +75,17 @@ public class EditProfilActivity extends Activity implements View.OnClickListener
         etTanggalLahir = (EditText) findViewById(R.id.et_tanggalLahir_editProfil);
 
         etNama.setText(userLogin.getName());
-        etTanggalLahir.setText(userLogin.getDateOfBirth());
+        SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date date = inputFormat.parse(userLogin.getDateOfBirth());
+            String dateStr = outputFormat.format(date);
+            etTanggalLahir.setText(dateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+
 
         correct.setOnClickListener(this);
         close.setOnClickListener(this);
@@ -84,30 +95,55 @@ public class EditProfilActivity extends Activity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.iv_correctEditProfil:
-                Date dateOfBirth;
-                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+
+                String date = etTanggalLahir.getText().toString();
                 try {
-                    dateOfBirth = format.parse(etTanggalLahir.getText().toString());
+                    SimpleDateFormat inputFormat = new SimpleDateFormat("dd-MM-yyyy");
+                    Date dateOfBirth = inputFormat.parse(date);
+
                     ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
-                    Call<ResponseUserById> getResultEdit = apiRequest.updateProfile(userLogin.getId(), userToken, etNama.getText().toString(), dateOfBirth);
-                    getResultEdit.enqueue(new Callback<ResponseUserById>() {
+                    Call<ResponseUserById> editProfil = apiRequest.updateProfile(userLogin.getId(),userToken, etNama.getText().toString(), dateOfBirth);
+                    editProfil.enqueue(new Callback<ResponseUserById>() {
                         @Override
                         public void onResponse(Call<ResponseUserById> call, Response<ResponseUserById> response) {
-                            Log.v("updateProfil", " " + response.toString());
-                            Intent intent = new Intent(EditProfilActivity.this, NavigationActivity.class);
-                            intent.putExtra("AccountFragmentLoc", R.id.navigation_account);
-                            startActivity(intent);
+                            ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
+                            Call<ResponseUserById> relog = apiRequest.getTokoFavorit(userLogin.getId());
+                            relog.enqueue(new Callback<ResponseUserById>() {
+                                @Override
+                                public void onResponse(Call<ResponseUserById> call, Response<ResponseUserById> response) {
+                                    User userLogin =  response.body().getUser();
+
+
+                                    Gson gson = new Gson();
+                                    String json = gson.toJson(userLogin);
+                                    SharedPreferences.Editor editor = getSharedPreferences("login", Context.MODE_PRIVATE).edit();
+//                                    editor.putString("tokenLogin","Bearer "+ token);
+                                    editor.putString("userLogin", json);
+                                    editor.apply();
+                                    editor.commit();
+
+                                    Intent intent = new Intent(getApplicationContext(),NavigationActivity.class);
+                                    intent.putExtra("LOC",R.id.navigation_account);
+                                    startActivity(intent);
+                                }
+
+                                @Override
+                                public void onFailure(Call<ResponseUserById> call, Throwable t) {
+
+                                }
+                            });
+
                         }
 
                         @Override
                         public void onFailure(Call<ResponseUserById> call, Throwable t) {
-                            Log.v("updateProfil", " " + t.getMessage());
+
+                            Log.v("update", "gagal" + t.getMessage());
                         }
                     });
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-
                 break;
             case R.id.iv_closeEditProfil:
                 Toast.makeText(EditProfilActivity.this,"close bro", Toast.LENGTH_SHORT).show();

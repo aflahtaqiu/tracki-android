@@ -52,6 +52,17 @@ public class Store {
     @SerializedName("reviewers")
     @Expose
     private List<Reviewer> reviewers;
+    @SerializedName("promotions")
+    @Expose
+    private List<Promotion> promotions;
+
+    public List<Promotion> getPromotions() {
+        return promotions;
+    }
+
+    public void setPromotions(List<Promotion> promotions) {
+        this.promotions = promotions;
+    }
 
     public List<Reviewer> getReviewers() {
         return reviewers;

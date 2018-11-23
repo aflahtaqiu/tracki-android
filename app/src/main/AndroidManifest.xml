@@ -72,12 +72,12 @@
             android:theme="@style/ThemeNobar" />
         <activity
             android:name=".EditProfilActivity"
-            android:theme="@style/ThemeNobar" />
+            android:theme="@style/ThemeNobar"/>
         <activity
             android:name=".Auth.LoginActivity"
             android:launchMode="singleTop"
             android:theme="@style/ThemeNobar">
-            <intent-filter android:autoVerify="true">
+            <intent-filter android:autoVerify="false">
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />

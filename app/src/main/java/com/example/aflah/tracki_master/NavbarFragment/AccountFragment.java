@@ -116,7 +116,6 @@ public class AccountFragment extends Fragment {
         userToken = sharedPreferences.getString("tokenLogin", "");
         setHasOptionsMenu(true);
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
