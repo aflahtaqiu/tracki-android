@@ -94,6 +94,9 @@
         <activity
             android:name=".ReviewTokoActivity"
             android:theme="@style/ThemeNobar" />
+        <activity
+            android:name=".DetailPromoActivity"
+            android:theme="@style/ThemeNobar"></activity>
     </application>
 
 </manifest>
