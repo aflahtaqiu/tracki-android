@@ -21,7 +21,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.SimpleAdapter;
 
 import com.example.aflah.tracki_master.Adapter.CarouselHomeAdapter;
@@ -29,7 +30,9 @@ import com.example.aflah.tracki_master.Adapter.TokoTerdekatAdapter;
 import com.example.aflah.tracki_master.DetailTokoActivity;
 import com.example.aflah.tracki_master.Model.Advertisement;
 import com.example.aflah.tracki_master.Model.Advertisements;
+import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameStore;
 import com.example.aflah.tracki_master.Model.Response.ResponseTokoByUID;
+import com.example.aflah.tracki_master.Model.SearchName;
 import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.NavigationActivity;
 import com.example.aflah.tracki_master.R;
@@ -38,10 +41,10 @@ import com.example.aflah.tracki_master.Retrofit.RetroServer;
 import com.eyro.cubeacon.CBBeacon;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Timer;
 import java.util.TimerTask;
 
 import retrofit2.Call;
@@ -68,11 +71,13 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
     private SimpleAdapter adapter;
     private TokoTerdekatAdapter tokoTerdekatAdapter;
     private  SwipeRefreshLayout mySwipeRefreshLayout;
+    HashMap<String,SearchName> toko;
     String[] from;
     int[] to;
 
     ViewPager viewPager;
 
+    ArrayAdapter<String> autoCompleteAdaptor;
     List<Store> stores;
     HashMap<String,Store> rmdup;
 
@@ -126,8 +131,50 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        AutoCompleteTextView autoCompleteTextView = view.findViewById(R.id.edit_search);
+
+
+        autoCompleteTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
+                Call<ResponseSearchNameStore> getNamaToko = apiRequest.getSearchNamesStore();
+                getNamaToko.enqueue(new Callback<ResponseSearchNameStore>() {
+                    @Override
+                    public void onResponse(Call<ResponseSearchNameStore> call, Response<ResponseSearchNameStore> response) {
+                        toko = new HashMap<>();
+                        String[] namaToko = new String[response.body().getSearchNamesStore().size()];
+                        for (int i = 0; i < response.body().getSearchNamesStore().size(); i++) {
+                            namaToko[i] = response.body().getSearchNamesStore().get(i).getName();
+                            toko.put(namaToko[i],response.body().getSearchNamesStore().get(i));
+                        }
+                        autoCompleteAdaptor = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,namaToko);
+                        autoCompleteTextView.setAdapter(autoCompleteAdaptor);
+                        autoCompleteTextView.setThreshold(0);
+                        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                String selected = (String) adapterView.getItemAtPosition(i);
+                                int pos = Arrays.asList(namaToko).indexOf(selected);
+                                SearchName tokoPilihan =toko.get(namaToko[pos]);
+                                Intent intent = new Intent(getActivity(),DetailTokoActivity.class);
+                                intent.putExtra("idTokoTerdekat",Integer.valueOf(tokoPilihan.getId()));
+                                startActivity(intent);
+                            }
+                        });
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseSearchNameStore> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
         stores = new ArrayList<>();
         rmdup = new HashMap<>();
+
 
         mySwipeRefreshLayout = view.findViewById(R.id.swiperefresh);
         mySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
