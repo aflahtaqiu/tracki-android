@@ -39,7 +39,7 @@ public class ListPromoAdapter extends RecyclerView.Adapter<ListPromoAdapter.MyVi
         for (Store store : storeList){
             if (!(store.getPromotions().isEmpty() || store.getPromotions() == null)){
                 for (Promotion promotion : store.getPromotions()){
-                    promotion.setNamaToko(store.getName());
+                    promotion.setStore(store);
                     promotions.add(promotion);
                 }
             }
@@ -59,16 +59,17 @@ public class ListPromoAdapter extends RecyclerView.Adapter<ListPromoAdapter.MyVi
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         holder.namaPromo.setText(promotions.get(position).getTitle());
-        holder.namaToko.setText(promotions.get(position).getNamaToko());
+        holder.namaToko.setText(promotions.get(position).getStore().getName());
 
         Picasso.get().load(promotions.get(position).getBanner()).into(holder.gambarPromo);
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(v.getContext(), " " + promotions.get(position).getId(), Toast.LENGTH_LONG).show();;
                 Intent intent = new Intent(v.getContext(), DetailPromoActivity.class);
                 intent.putExtra("idPromo", promotions.get(position).getId());
+                intent.putExtra("idToko", promotions.get(position).getStore().getId());
+                intent.putExtra("namaToko", promotions.get(position).getStore().getName());
                 context.startActivity(intent);
             }
         });

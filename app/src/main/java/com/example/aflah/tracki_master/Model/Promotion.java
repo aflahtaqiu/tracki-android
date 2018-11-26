@@ -28,16 +28,28 @@ public class Promotion {
     @SerializedName("pivot")
     @Expose
     private PivotPromo pivot;
+    @SerializedName("stores")
+    @Expose
+    private List<Store> stores;
 
-    private String namaToko;
+    private Store store;
 
-    public String getNamaToko() {
-        return namaToko;
+    public Store getStore() {
+        return store;
     }
 
-    public void setNamaToko(String namaToko) {
-        this.namaToko = namaToko;
+    public void setStore(Store store) {
+        this.store = store;
     }
+
+    public List<Store> getStores() {
+        return stores;
+    }
+
+    public void setStores(List<Store> stores) {
+        this.stores = stores;
+    }
+
 
     public PivotPromo getPivot() {
         return pivot;

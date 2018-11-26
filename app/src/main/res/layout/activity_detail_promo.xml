@@ -15,7 +15,7 @@
         xmlns:tools="http://schemas.android.com/tools">
 
         <ImageView
-            android:id="@+id/gambar_promo"
+            android:id="@+id/gambarPromo_detailPromo"
             android:layout_width="match_parent"
             android:layout_height="230dp"
             android:src="@drawable/logo"
@@ -25,7 +25,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/promo_name"
+            android:id="@+id/namaPromo_detailPromo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -36,10 +36,10 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/gambar_promo" />
+            app:layout_constraintTop_toBottomOf="@+id/gambarPromo_detailPromo" />
 
         <TextView
-            android:id="@+id/name_store"
+            android:id="@+id/namaToko_detailPromo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -49,7 +49,7 @@
             android:textSize="18dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/promo_name" />
+            app:layout_constraintTop_toBottomOf="@+id/namaPromo_detailPromo" />
 
         <View
             android:id="@+id/view"
@@ -62,7 +62,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/name_store" />
+            app:layout_constraintTop_toBottomOf="@+id/namaToko_detailPromo" />
 
         <TextView
             android:id="@+id/textView"
@@ -78,7 +78,7 @@
             app:layout_constraintTop_toTopOf="@+id/view" />
 
         <TextView
-            android:id="@+id/tgl"
+            android:id="@+id/batasTanggalPromo_detailPromo"
             android:layout_width="158dp"
             android:layout_height="36dp"
             android:layout_margin="5dp"
@@ -104,7 +104,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tgl" />
+            app:layout_constraintTop_toBottomOf="@+id/batasTanggalPromo_detailPromo" />
 
 
         <TextView
@@ -136,7 +136,7 @@
             app:layout_constraintTop_toBottomOf="@+id/deskripsi" />
 
         <TextView
-            android:id="@+id/isi_deskripsi"
+            android:id="@+id/deskripsiPromo_detailPromo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -161,7 +161,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/isi_deskripsi" />
+            app:layout_constraintTop_toBottomOf="@+id/deskripsiPromo_detailPromo" />
 
         <View
             android:id="@+id/view4"
@@ -174,7 +174,7 @@
             app:layout_constraintTop_toBottomOf="@+id/ketentuan" />
 
         <TextView
-            android:id="@+id/isi_ketentuan"
+            android:id="@+id/ketentuanPromo_detailPromo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
@@ -196,7 +196,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="50dp"
             android:gravity="center_horizontal"
-            app:layout_constraintTop_toBottomOf="@+id/isi_ketentuan">
+            app:layout_constraintTop_toBottomOf="@+id/ketentuanPromo_detailPromo">
 
             <Button
                 android:id="@+id/btn_simpan"

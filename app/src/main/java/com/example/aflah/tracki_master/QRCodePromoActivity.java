@@ -3,6 +3,7 @@ package com.example.aflah.tracki_master;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.widget.TextView;
 
 public class QRCodePromoActivity extends AppCompatActivity {
 
@@ -15,5 +16,6 @@ public class QRCodePromoActivity extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
         getWindow().setLayout((int)(displayMetrics.widthPixels*.8), (int)(displayMetrics.heightPixels*.6));
+
     }
 }
