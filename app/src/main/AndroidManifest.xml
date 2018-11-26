@@ -72,7 +72,7 @@
             android:theme="@style/ThemeNobar" />
         <activity
             android:name=".EditProfilActivity"
-            android:theme="@style/ThemeNobar"/>
+            android:theme="@style/ThemeNobar" />
         <activity
             android:name=".Auth.LoginActivity"
             android:launchMode="singleTop"
@@ -96,7 +96,8 @@
             android:theme="@style/ThemeNobar" />
         <activity
             android:name=".DetailPromoActivity"
-            android:theme="@style/ThemeNobar"></activity>
+            android:theme="@style/ThemeNobar" />
+        <activity android:name=".QRCodePromoActivity"></activity>
     </application>
 
 </manifest>

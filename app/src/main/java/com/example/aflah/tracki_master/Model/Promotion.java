@@ -29,6 +29,16 @@ public class Promotion {
     @Expose
     private PivotPromo pivot;
 
+    private String namaToko;
+
+    public String getNamaToko() {
+        return namaToko;
+    }
+
+    public void setNamaToko(String namaToko) {
+        this.namaToko = namaToko;
+    }
+
     public PivotPromo getPivot() {
         return pivot;
     }
