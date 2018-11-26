@@ -159,6 +159,7 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                                 SearchName tokoPilihan =toko.get(namaToko[pos]);
                                 Intent intent = new Intent(getActivity(),DetailTokoActivity.class);
                                 intent.putExtra("idTokoTerdekat",Integer.valueOf(tokoPilihan.getId()));
+                                autoCompleteTextView.setText("");
                                 startActivity(intent);
                             }
                         });
