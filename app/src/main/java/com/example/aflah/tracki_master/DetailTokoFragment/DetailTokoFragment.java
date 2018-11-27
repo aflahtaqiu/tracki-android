@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.aflah.tracki_master.Adapter.DetailTokoAdapter;
@@ -48,6 +49,7 @@ public class DetailTokoFragment extends Fragment {
     ProgressBar progressBar;
     String userToken;
     SharedPreferences sharedPreferences;
+    TextView telepon;
 
     public DetailTokoFragment() {
         // Required empty public constructor
@@ -108,7 +110,6 @@ public class DetailTokoFragment extends Fragment {
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 recyclerView.smoothScrollToPosition(0);
             }
-
             @Override
             public void onFailure(Call<ResponseDetailToko> call, Throwable t) {
                 Log.i("RETRODetail", " onFailure " + t.getMessage());
