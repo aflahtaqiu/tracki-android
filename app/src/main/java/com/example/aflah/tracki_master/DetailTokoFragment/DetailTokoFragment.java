@@ -49,7 +49,6 @@ public class DetailTokoFragment extends Fragment {
     ProgressBar progressBar;
     String userToken;
     SharedPreferences sharedPreferences;
-    TextView telepon;
 
     public DetailTokoFragment() {
         // Required empty public constructor
@@ -109,6 +108,7 @@ public class DetailTokoFragment extends Fragment {
                 recyclerView.setAdapter(new DetailTokoAdapter(getContext(), response.body().getStore(), userToken));
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 recyclerView.smoothScrollToPosition(0);
+
             }
             @Override
             public void onFailure(Call<ResponseDetailToko> call, Throwable t) {
