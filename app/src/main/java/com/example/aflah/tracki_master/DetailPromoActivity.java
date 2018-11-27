@@ -1,21 +1,24 @@
 package com.example.aflah.tracki_master;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.aflah.tracki_master.Model.Promotion;
-import com.example.aflah.tracki_master.Model.Response.ResponsePromotion;
 import com.example.aflah.tracki_master.Model.Response.ResponsePromotionById;
+import com.example.aflah.tracki_master.Model.UserLogin;
 import com.example.aflah.tracki_master.Retrofit.ApiRequest;
 import com.example.aflah.tracki_master.Retrofit.RetroServer;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
-import java.io.Serializable;
+import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,6 +32,10 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
     int idPromo, idToko;
     String namaToko;
     ImageView gambarPromo;
+    UserLogin userLogin;
+    SharedPreferences sharedPreferences;
+    HashMap<String, Object> hasMapQrCode;
+    String qrCodeString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +53,16 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
         idPromo = getIntent().getExtras().getInt("idPromo");
         idToko = getIntent().getExtras().getInt("idToko");
         namaToko = getIntent().getExtras().getString("namaToko");
+        sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String json = sharedPreferences.getString("userLogin", "");
+        userLogin = gson.fromJson(json, UserLogin.class);
+
+        hasMapQrCode = new HashMap<>();
+        hasMapQrCode.put("idPromo", idPromo);
+        hasMapQrCode.put("idToko", idToko);
+        hasMapQrCode.put("idUser", userLogin.getId());
+        qrCodeString = gson.toJsonTree(hasMapQrCode).toString();
 
         ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
         Call<ResponsePromotionById> getPromotion = apiRequest.getPromotionById(idPromo);
@@ -73,7 +90,10 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnGunakan_detailPromo :
-                startActivity(new Intent(DetailPromoActivity.this, QRCodePromoActivity.class));
+                Intent intent = new Intent(DetailPromoActivity.this, QRCodePromoActivity.class);
+                intent.putExtra("qrCodeString", qrCodeString);
+                intent.putExtra("", idPromo);
+                startActivity(intent);
                 break;
         }
     }

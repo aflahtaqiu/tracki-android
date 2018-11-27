@@ -11,7 +11,7 @@
     tools:context=".QRCodePromoActivity">
 
     <ImageView
-        android:id="@+id/qr_code"
+        android:id="@+id/qrCode_generatePromo"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_marginBottom="8dp"
