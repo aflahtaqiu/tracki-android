@@ -76,6 +76,12 @@ public interface ApiRequest {
     );
 
     @FormUrlEncoded
+    @POST("redeem")
+    Call<ResponsePromotion> getRedeemData (
+            @Field("promotion_id") int promotion_id
+    );
+
+    @FormUrlEncoded
     @POST("user/login")
     Call<ResponseLogin> sendLogin(
             @Field("email") String email,

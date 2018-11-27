@@ -61,7 +61,7 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
         hasMapQrCode = new HashMap<>();
         hasMapQrCode.put("idPromo", idPromo);
         hasMapQrCode.put("idToko", idToko);
-        hasMapQrCode.put("idUser", userLogin.getName());
+        hasMapQrCode.put("idUser", userLogin.getId());
         qrCodeString = gson.toJsonTree(hasMapQrCode).toString();
 
         ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
@@ -92,6 +92,7 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
             case R.id.btnGunakan_detailPromo :
                 Intent intent = new Intent(DetailPromoActivity.this, QRCodePromoActivity.class);
                 intent.putExtra("qrCodeString", qrCodeString);
+                intent.putExtra("", idPromo);
                 startActivity(intent);
                 break;
         }
