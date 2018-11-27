@@ -109,8 +109,8 @@ public class DetailTokoFragment extends Fragment {
                 recyclerView.setAdapter(new DetailTokoAdapter(getContext(), response.body().getStore(), userToken));
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 recyclerView.smoothScrollToPosition(0);
-            }
 
+            }
             @Override
             public void onFailure(Call<ResponseDetailToko> call, Throwable t) {
                 Log.i("RETRODetail", " onFailure " + t.getMessage());
