@@ -199,7 +199,7 @@
             app:layout_constraintTop_toBottomOf="@+id/ketentuanPromo_detailPromo">
 
             <Button
-                android:id="@+id/btn_simpan"
+                android:id="@+id/btnSimpan_detailPromo"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"

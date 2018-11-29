@@ -26,7 +26,7 @@ import retrofit2.Response;
 
 public class DetailPromoActivity extends AppCompatActivity implements View.OnClickListener{
 
-    Button btnGunakan;
+    Button btnGunakan, btnSimpan;
     TextView textViewNamaPromo, textViewNamaToko, textViewTanggalPromo, textViewKetentuanPromo,
         textViewDeskripsiPromo;
     int idPromo, idToko;
@@ -43,6 +43,7 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_detail_promo);
 
         btnGunakan = (Button) findViewById(R.id.btnGunakan_detailPromo);
+        btnSimpan = (Button) findViewById(R.id.btnSimpan_detailPromo);
         textViewNamaPromo = (TextView) findViewById(R.id.namaPromo_detailPromo);
         textViewNamaToko = (TextView) findViewById(R.id.namaToko_detailPromo);
         textViewTanggalPromo = (TextView) findViewById(R.id.batasTanggalPromo_detailPromo);
@@ -84,6 +85,8 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
         });
 
         btnGunakan.setOnClickListener(this);
+        btnGunakan.setEnabled(false);
+        btnSimpan.setOnClickListener(this);
     }
 
     @Override
@@ -94,6 +97,10 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
                 intent.putExtra("qrCodeString", qrCodeString);
                 intent.putExtra("", idPromo);
                 startActivity(intent);
+                break;
+            case R.id.btnSimpan_detailPromo :
+//                btnGunakan.setEnabled(true);
+//                btnGunakan.setBackground(this.getResources().getDrawable(R.drawable.button_gunakan));
                 break;
         }
     }
