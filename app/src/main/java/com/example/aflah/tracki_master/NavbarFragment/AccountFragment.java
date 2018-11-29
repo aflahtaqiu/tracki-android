@@ -74,7 +74,6 @@ public class AccountFragment extends Fragment {
     RecyclerView recyclerView;
     TokoFavoritAdapter tokoFavoritAdapter;
     Button btnEditProfile;
-    TextView show1;
     Dialog Mydialog;
     TextView picAvatar,picGaleri, picCamera;
     private int GALLERY = 1, CAMERA = 2;

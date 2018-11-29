@@ -85,8 +85,6 @@ public class EditProfilActivity extends Activity implements View.OnClickListener
             e.printStackTrace();
         }
 
-
-
         correct.setOnClickListener(this);
         close.setOnClickListener(this);
     }
@@ -113,11 +111,9 @@ public class EditProfilActivity extends Activity implements View.OnClickListener
                                 public void onResponse(Call<ResponseUserById> call, Response<ResponseUserById> response) {
                                     User userLogin =  response.body().getUser();
 
-
                                     Gson gson = new Gson();
                                     String json = gson.toJson(userLogin);
                                     SharedPreferences.Editor editor = getSharedPreferences("login", Context.MODE_PRIVATE).edit();
-//                                    editor.putString("tokenLogin","Bearer "+ token);
                                     editor.putString("userLogin", json);
                                     editor.apply();
                                     editor.commit();
@@ -138,7 +134,6 @@ public class EditProfilActivity extends Activity implements View.OnClickListener
                         @Override
                         public void onFailure(Call<ResponseUserById> call, Throwable t) {
 
-                            Log.v("update", "gagal" + t.getMessage());
                         }
                     });
                 } catch (ParseException e) {

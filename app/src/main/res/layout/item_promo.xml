@@ -6,7 +6,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="6dp"
     app:cardElevation="3dp"
-    app:cardUseCompatPadding="true">
+    app:cardUseCompatPadding="true"
+    android:id="@+id/cardview_promo">
 
     <LinearLayout
         android:id="@+id/isiCardPromo"
@@ -15,13 +16,13 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/gambar_promo"
+            android:id="@+id/gambarPromo_itemPromo"
             android:layout_width="match_parent"
             android:layout_height="125dp"
             android:src="@drawable/logo" />
 
         <TextView
-            android:id="@+id/name_promo"
+            android:id="@+id/namaPromo_itemPromo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nama Promo "
@@ -33,7 +34,7 @@
             android:layout_marginTop="5dp"/>
 
         <TextView
-            android:id="@+id/name_store"
+            android:id="@+id/namaToko_itemPromo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nama Toko"
