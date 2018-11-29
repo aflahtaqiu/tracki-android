@@ -4,7 +4,7 @@ import com.example.aflah.tracki_master.Model.Advertisements;
 import com.example.aflah.tracki_master.Model.Response.ResponseAddReview;
 import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
 import com.example.aflah.tracki_master.Model.Response.ResponseLogin;
-import com.example.aflah.tracki_master.Model.Response.ResponsePromotion;
+import com.example.aflah.tracki_master.Model.Response.ResponseRedeemPromotion;
 import com.example.aflah.tracki_master.Model.Response.ResponsePromotionById;
 import com.example.aflah.tracki_master.Model.Response.ResponseRegister;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameProduct;
@@ -52,7 +52,7 @@ public interface ApiRequest {
     Call<Advertisements> getAdvertisements();
 
     @GET("promotion")
-    Call<ResponsePromotion> getPromotions();
+    Call<ResponseRedeemPromotion> getPromotions();
 
     @GET("promotion/{id}")
     Call<ResponsePromotionById> getPromotionById(
@@ -77,7 +77,8 @@ public interface ApiRequest {
 
     @FormUrlEncoded
     @POST("redeem")
-    Call<ResponsePromotion> getRedeemData (
+    Call<ResponseRedeemPromotion> getRedeemData (
+            @Header("Authorization") String token,
             @Field("promotion_id") int promotion_id
     );
 
