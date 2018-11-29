@@ -51,9 +51,9 @@ public class DetailTokoActivity extends AppCompatActivity implements DetailTokoF
         viewPager_CarouselDetailToko = (ViewPager) findViewById(R.id.viewPager_carousel_detailToko);
         detailTokoViewPagerAdapter = new DetailTokoViewPagerAdapter(getSupportFragmentManager());
 
-        detailTokoViewPagerAdapter.AddFragment(new DetailTokoFragment(), "");
-        detailTokoViewPagerAdapter.AddFragment(new MakananFragment(), "");
-        detailTokoViewPagerAdapter.AddFragment(new MinumanFragment(), "");
+        detailTokoViewPagerAdapter.AddFragment(new DetailTokoFragment(), "About");
+        detailTokoViewPagerAdapter.AddFragment(new MakananFragment(), "Makanan");
+        detailTokoViewPagerAdapter.AddFragment(new MinumanFragment(), "Minuman");
 
         linearLayout_DotsPanel = (LinearLayout) findViewById(R.id.layoutDots_detailToko);
 
