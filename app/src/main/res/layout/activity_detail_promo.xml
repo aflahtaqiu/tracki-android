@@ -206,7 +206,7 @@
                 android:background="@drawable/button_simpan"
                 android:text="Simpan Promo"
                 android:textAllCaps="false"
-                android:textColor="#ffffff"
+                android:textColor="@color/colorTracki"
                 android:textSize="18dp"/>
 
             <Button
