@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.aflah.tracki_master.Adapter.DetailTokoAdapter;
@@ -91,6 +92,7 @@ public class DetailTokoFragment extends Fragment {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_detailtoko);
         progressBar = (ProgressBar) view.findViewById(R.id.progressBarDetailToko);
+        TextView textView = (TextView) view.findViewById(R.id.tv_phoneToko_detailToko);
 
         int idToko = getActivity().getIntent().getExtras().getInt("idTokoTerdekat");
         Log.i("idToko", "id toko : " + idToko);
@@ -107,8 +109,8 @@ public class DetailTokoFragment extends Fragment {
                 recyclerView.setAdapter(new DetailTokoAdapter(getContext(), response.body().getStore(), userToken));
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 recyclerView.smoothScrollToPosition(0);
-            }
 
+            }
             @Override
             public void onFailure(Call<ResponseDetailToko> call, Throwable t) {
                 Log.i("RETRODetail", " onFailure " + t.getMessage());

@@ -5,6 +5,7 @@ import com.example.aflah.tracki_master.Model.Response.ResponseAddReview;
 import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
 import com.example.aflah.tracki_master.Model.Response.ResponseLogin;
 import com.example.aflah.tracki_master.Model.Response.ResponsePromotion;
+import com.example.aflah.tracki_master.Model.Response.ResponsePromotionById;
 import com.example.aflah.tracki_master.Model.Response.ResponseRegister;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameProduct;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameStore;
@@ -53,6 +54,11 @@ public interface ApiRequest {
     @GET("promotion")
     Call<ResponsePromotion> getPromotions();
 
+    @GET("promotion/{id}")
+    Call<ResponsePromotionById> getPromotionById(
+            @Path("id") int id
+    );
+
     @GET("all-stores")
     Call<ResponseSearchNameStore> getSearchNamesStore();
 
@@ -67,6 +73,12 @@ public interface ApiRequest {
             @Field("date_of_birth") Date dateOfBirth,
             @Field("password") String password,
             @Field("password_confirmation") String password_confirmation
+    );
+
+    @FormUrlEncoded
+    @POST("redeem")
+    Call<ResponsePromotion> getRedeemData (
+            @Field("promotion_id") int promotion_id
     );
 
     @FormUrlEncoded
