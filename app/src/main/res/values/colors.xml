@@ -2,9 +2,9 @@
 <resources>
     <color name="colorPrimaryDark">#1C1C1C</color>
     <color name="colorAccent">#ffc445</color>
-    <color name="colorTracki">#D62A42</color>
+    <color name="colorTracki">#B40037</color>
     <color name="colorCheckedItem">#480C02</color>
-    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorWhite">#ffffff</color>
     <color name="colorAbuGelap">#585858</color>
     <color name="colorbottom">#e6e6e6</color>
     <color name="colorBlack">#000000</color>
