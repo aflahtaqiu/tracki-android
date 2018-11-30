@@ -17,4 +17,9 @@
         android:title="Help"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/btn_edit"
+        android:title="Edit Profile"
+        app:showAsAction="never" />
+
 </menu>

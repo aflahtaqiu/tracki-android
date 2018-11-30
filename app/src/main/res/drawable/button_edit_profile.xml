@@ -3,5 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
     <corners
         android:radius="25dp"/>
-    <solid android:color="#fc7834"/>
+    <solid android:color="#ffffff"/>
+    <stroke android:width="3dp"
+        android:color="@color/colorTracki"/>
 </shape>
