@@ -7,7 +7,9 @@
     android:layout_rowWeight="1"
     app:cardElevation="6dp"
     app:cardCornerRadius="12dp"
-    android:layout_margin="5dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="15dp"
+    android:layout_marginTop="5dp"
     android:clickable="true"
     android:id="@+id/cardview_save_promo">
 
@@ -21,6 +23,7 @@
             android:id="@+id/gambarPromo_itemPromo"
             android:layout_width="match_parent"
             android:layout_height="125dp"
+            android:scaleType="fitXY"
             android:src="@drawable/logo" />
 
         <LinearLayout
