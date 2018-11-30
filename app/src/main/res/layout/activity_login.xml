@@ -171,8 +171,6 @@
         android:id="@+id/toolbar_login"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
         android:background="@color/colorbottom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
