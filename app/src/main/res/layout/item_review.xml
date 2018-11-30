@@ -3,10 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-   app:cardElevation="6dp"
-    app:cardCornerRadius="12dp"
-    android:layout_margin="5dp"
+    app:cardElevation="6dp"
     android:clickable="true"
+    android:background="@drawable/back_item_review"
     android:id="@+id/cardview_review">
 
     <LinearLayout
@@ -15,21 +14,24 @@
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="80dp"
-            android:layout_height="80dp">
+            android:layout_width="57dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_fotoUser_itemReview"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:src="@drawable/avatar_profile"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginLeft="5dp"/>
+                android:src="@drawable/avatar_profile" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -42,14 +44,13 @@
                     android:text="Nama User"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:textSize="20dp"
+                    android:textSize="14dp"
                     android:textStyle="bold"/>
             </LinearLayout>
 
             <RatingBar
                 android:id="@+id/rating_itemReview"
-                style="@style/Base.Widget.AppCompat.RatingBar.Indicator"
+                style="@style/Base.Widget.AppCompat.RatingBar.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="1dp"
@@ -60,9 +61,9 @@
                 android:id="@+id/tv_komentar_itemReview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="isi komentar"
-                android:textSize="14dp"
-                android:paddingLeft="3dp"/>
+                android:text="isi komentar "
+                android:textSize="12dp"
+                android:layout_marginBottom="5dp"/>
         </LinearLayout>
     </LinearLayout>
 
