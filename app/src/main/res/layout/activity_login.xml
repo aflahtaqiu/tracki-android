@@ -67,7 +67,7 @@
                 android:layout_marginTop="10dp"
                 android:drawablePadding="20dp"
                 android:ems="10"
-                android:hint="Sandi"
+                android:hint="Kata sandi"
                 android:inputType="textPassword"
                 android:maxLines="1" />
 
@@ -79,7 +79,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:text="Lupa Password?"
+            android:textAllCaps="false"
+            android:text="Lupa Kata Sandi?"
             android:textSize="15dp"
             android:textColor="@color/colorTracki" />
 
@@ -100,6 +101,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+       android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -117,7 +120,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="ATAU"
+            android:text="Atau"
             android:textColor="@color/colorAbuGelap" />
 
         <View
@@ -156,13 +159,13 @@
     </com.google.android.gms.common.SignInButton>
 
     <!--<com.facebook.login.widget.LoginButton-->
-        <!--android:layout_width="306dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent"-->
-        <!--app:layout_constraintVertical_bias="0.88"/>-->
+    <!--android:layout_width="306dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent"-->
+    <!--app:layout_constraintVertical_bias="0.88"/>-->
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_login"
