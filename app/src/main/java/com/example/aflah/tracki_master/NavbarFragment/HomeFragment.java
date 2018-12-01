@@ -88,7 +88,7 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
     private String mParam1;
     private String mParam2;
 
-    TextView textViewTokoTerdekat;
+    TextView textViewTokoTerdekat, textViewNoTokoTerdekat;
 
     private NavigationActivity navigationActivity;
 
@@ -135,6 +135,7 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         textViewTokoTerdekat = (TextView) view.findViewById(R.id.tv_tokoTerdekat_tokoTerdekat);
+        textViewNoTokoTerdekat = (TextView) view.findViewById(R.id.tvNoTokoTerdekat_tokoTerdekat);
         AutoCompleteTextView autoCompleteTextView = view.findViewById(R.id.edit_search);
 
 
@@ -342,8 +343,10 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
 
                     if (cbBeacons.size() == 0){
                         textViewTokoTerdekat.setText("");
+                        textViewNoTokoTerdekat.setText("Tidak terdeteksi toko disekitar Anda");
                     }
                     else {
+                        textViewNoTokoTerdekat.setText("");
                         for (int i = 0 ;i<cbBeacons.size(); i++ ){
                             final int tole = i;
                             Call<ResponseTokoByUID> getData = apiRequest.getStoreByUID(beacons.get(i).getMajor());
