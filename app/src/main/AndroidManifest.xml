@@ -36,7 +36,7 @@
         </activity>
         <activity
             android:name=".NavigationActivity"
-            android:label="Tracki"
+            android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustNothing" />
         <activity android:name=".NavbarFragment.MonitoringActivity" />
         <activity
