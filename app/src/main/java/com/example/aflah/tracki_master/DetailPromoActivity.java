@@ -98,6 +98,10 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
 
                 if (response.body().getPromotion().getSaved() == true){
                     btnSimpan.setEnabled(false);
+                    if (response.body().getPromotion().getUsed() == true){
+                        btnSimpan.setVisibility(View.GONE);
+                        btnGunakan.setVisibility(View.GONE);
+                    }
                 }
                 if (response.body().getPromotion().getUsed() == true){
                     btnGunakan.setEnabled(false);
