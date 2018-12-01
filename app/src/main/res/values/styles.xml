@@ -22,7 +22,7 @@
     </style>
 
     <style name="BaseButtonOverflow" parent="Widget.AppCompat.ActionButton.Overflow">
-        <item name="android:src"> @drawable/ic_set</item>
+        <!--<item name="android:src"> @drawable/ic_set</item>-->
     </style>
 
     <style name="line_style">
