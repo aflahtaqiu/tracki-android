@@ -88,9 +88,6 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
                     Date dateExpire = inputFormat.parse(response.body().getPromotion().getExpired_date());
                     expireDateStr = outputFormat.format(dateExpire);
                     textViewTanggalPromo.setText(expireDateStr);
-//                    textViewTanggalPromo.setText(datePromo.toString());
-//                    expireDate = simpleDateFormat.format(datePromo);
-//                    textViewTanggalPromo.setText(expireDate);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
