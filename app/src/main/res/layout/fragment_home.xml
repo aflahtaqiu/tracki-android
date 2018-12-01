@@ -53,6 +53,7 @@
                 </android.support.v4.view.ViewPager>
             </LinearLayout>
             <TextView
+                android:id="@+id/tv_tokoTerdekat_tokoTerdekat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Toko Terdekat : "

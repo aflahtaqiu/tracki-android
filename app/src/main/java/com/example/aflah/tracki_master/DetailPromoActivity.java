@@ -21,6 +21,9 @@ import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 import retrofit2.Call;
@@ -77,7 +80,21 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
 
                 textViewNamaPromo.setText(response.body().getPromotion().getTitle());
                 textViewNamaToko.setText(namaToko);
-                textViewTanggalPromo.setText(response.body().getPromotion().getExpired_date());
+
+                try {
+                    String expireDateStr;
+                    SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MM-yyyy");
+                    SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    Date dateExpire = inputFormat.parse(response.body().getPromotion().getExpired_date());
+                    expireDateStr = outputFormat.format(dateExpire);
+                    textViewTanggalPromo.setText(expireDateStr);
+//                    textViewTanggalPromo.setText(datePromo.toString());
+//                    expireDate = simpleDateFormat.format(datePromo);
+//                    textViewTanggalPromo.setText(expireDate);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
                 textViewDeskripsiPromo.setText(response.body().getPromotion().getDescription());
                 textViewKetentuanPromo.setText(response.body().getPromotion().getTerms_and_policies());
                 Picasso.get().load(response.body().getPromotion().getBanner()).into(gambarPromo);
