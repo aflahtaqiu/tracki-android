@@ -205,6 +205,10 @@ public class AccountFragment extends Fragment {
                 startActivity(new Intent(getContext(), LoginActivity.class));
                 getActivity().finish();
                 break;
+            case R.id.btn_edit:
+                Log.v("itemSelected", "edit profile");
+                getActivity().startActivity(new Intent(getActivity(), EditProfilActivity.class));
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

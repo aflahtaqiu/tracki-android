@@ -141,7 +141,7 @@ public class EditProfilActivity extends Activity implements View.OnClickListener
                 }
                 break;
             case R.id.iv_closeEditProfil:
-                Toast.makeText(EditProfilActivity.this,"close bro", Toast.LENGTH_SHORT).show();
+                finish();
                 break;
         }
     }
