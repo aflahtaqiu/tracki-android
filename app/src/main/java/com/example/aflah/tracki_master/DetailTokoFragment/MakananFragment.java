@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.aflah.tracki_master.Adapter.ListMakananAdapter;
 import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
@@ -44,6 +45,7 @@ public class MakananFragment extends Fragment {
 
     RecyclerView recyclerView;
     ProgressBar progressBar;
+    TextView textViewNoMakanan;
 
     public MakananFragment() {
         // Required empty public constructor
@@ -84,6 +86,7 @@ public class MakananFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_makanan, container, false);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_makanan);
+        textViewNoMakanan = (TextView) view.findViewById(R.id.tv_makananTidakAda_fragmenMakanan);
 
         int idToko = getActivity().getIntent().getExtras().getInt("idTokoTerdekat");
 
@@ -92,7 +95,17 @@ public class MakananFragment extends Fragment {
         getData.enqueue(new Callback<ResponseDetailToko>() {
             @Override
             public void onResponse(Call<ResponseDetailToko> call, Response<ResponseDetailToko> response) {
-//                Log.i("RETRO ", "onResponse : nama produck: " + response.body().getStores().getName());
+
+                int temp=0;
+                for (int i = 0;i<response.body().getStore().getProducts().size();i++){
+                    if (response.body().getStore().getProducts().get(i).getCategory().getId() == 1){
+                        Log.v("idProductMInuman",response.body().getStore().getProducts().get(i).toString() + " " +response.body().getStore().getProducts().get(i).getCategory().toString());
+                        temp =1;
+                    }
+                }
+                if (temp==1){
+                    textViewNoMakanan.setVisibility(View.GONE);
+                }
 
                 recyclerView.setAdapter(new ListMakananAdapter(getContext(), response.body().getStore()));
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

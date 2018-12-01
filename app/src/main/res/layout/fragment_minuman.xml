@@ -13,4 +13,14 @@
 
     </android.support.v7.widget.RecyclerView>
 
+
+    <TextView
+        android:id="@+id/tv_minumanTidakAda_fragmenMinuman"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Minuman tidak tersedia"
+        android:textSize="20dp"
+        android:textColor="#000000"/>
+
 </FrameLayout>
