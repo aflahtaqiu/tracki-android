@@ -5,12 +5,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.aflah.tracki_master.Model.Response.ResponsePromotionById;
 import com.example.aflah.tracki_master.Model.Response.ResponseRedeemPromotion;
@@ -34,7 +34,7 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
 
     Button btnGunakan, btnSimpan;
     TextView textViewNamaPromo, textViewNamaToko, textViewTanggalPromo, textViewKetentuanPromo,
-        textViewDeskripsiPromo;
+        textViewDeskripsiPromo, textViewPromoDigunakan;
     int idPromo;
     String namaToko;
     ImageView gambarPromo;
@@ -43,6 +43,7 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
     HashMap<String, Object> hasMapQrCode;
     String qrCodeString;
     String userToken;
+    Toolbar toolbarPromoUsed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,7 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
         textViewTanggalPromo = (TextView) findViewById(R.id.batasTanggalPromo_detailPromo);
         textViewDeskripsiPromo = (TextView) findViewById(R.id.deskripsiPromo_detailPromo);
         textViewKetentuanPromo = (TextView) findViewById(R.id.ketentuanPromo_detailPromo);
+        textViewPromoDigunakan = (TextView) findViewById(R.id.tv_promoDigunakan_detailPromo);
         gambarPromo = (ImageView) findViewById(R.id.gambarPromo_detailPromo);
 
         idPromo = getIntent().getExtras().getInt("idPromo");
@@ -101,6 +103,7 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
                     if (response.body().getPromotion().getUsed() == true){
                         btnSimpan.setVisibility(View.GONE);
                         btnGunakan.setVisibility(View.GONE);
+                        textViewPromoDigunakan.setVisibility(View.VISIBLE);
                     }
                 }
                 if (response.body().getPromotion().getUsed() == true){
