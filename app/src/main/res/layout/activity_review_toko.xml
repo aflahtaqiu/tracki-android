@@ -38,7 +38,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/toolbar">
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        android:background="@color/colorWhite">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgToko_review"
@@ -53,7 +54,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:text="Nama Toko"
             android:textColor="@color/colorAbuGelap"
             android:textSize="20sp"
@@ -64,7 +65,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:text="Tipe Toko"
             android:textColor="@color/colorAbuGelap"
             android:textSize="14sp" />
@@ -74,7 +76,7 @@
             style="@style/Base.Widget.AppCompat.RatingBar.Indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="8dp"
             android:layout_gravity="center"
             android:numStars="5"
             android:rating="4.5" />
@@ -88,7 +90,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Beri Penilaian Anda "
-                android:layout_margin="5dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="8dp"
                 android:textColor="@color/colorAbuGelap"
                 android:textSize="14dp"/>
 
@@ -97,7 +101,9 @@
                 style="@style/Base.Widget.AppCompat.RatingBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="8dp"
                 android:numStars="5"/>
 
             <android.support.design.widget.TextInputLayout
@@ -110,6 +116,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="40dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
                     android:drawablePadding="20dp"
                     android:ems="10"
                     android:hint="Komentar"/>
@@ -121,13 +129,13 @@
                 android:layout_width="100dp"
                 android:layout_height="30dp"
                 android:layout_gravity="right"
-                android:layout_marginTop="7dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginRight="16dp"
                 android:background="@drawable/button_edit_profile"
                 android:text="Kirim"
                 android:textAllCaps="false"
-                android:textColor="@color/colorAbuGelap"
-                android:textSize="16dp" />
+                android:textColor="@color/colorAbuGelap"/>
 
         </LinearLayout>
         <LinearLayout
