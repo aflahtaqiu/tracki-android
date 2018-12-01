@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<android.support.constraint.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -14,35 +14,73 @@
         android:id="@+id/swiperefresh">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="80dp"
             android:orientation="vertical">
-            <android.support.v7.widget.Toolbar
+            <android.support.constraint.ConstraintLayout
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="100dp"
                 android:background="@color/colorTracki">
+
                 <AutoCompleteTextView
                     android:id="@+id/edit_search"
-                    android:layout_width="match_parent"
+                    android:layout_width="248dp"
                     android:layout_height="35dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="60dp"
-                    android:paddingLeft="10dp"
-                    android:paddingStart="10dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/round_textedit"
                     android:drawableLeft="@drawable/ic_search_black_24dp"
                     android:drawableStart="@drawable/ic_search_black_24dp"
-                    android:background="@drawable/round_textedit"
+                    android:fontFamily="sans-serif-light"
                     android:hint="Cari toko"
-                    android:textSize="15sp"
-                    android:inputType="text"
                     android:imeOptions="actionSearch"
-                    android:textColorHint="@color/searchHint"
+                    android:inputType="text"
+                    android:paddingLeft="10dp"
+                    android:paddingStart="10dp"
                     android:textColor="@color/searchText"
-                    android:fontFamily="sans-serif-light">
-                </AutoCompleteTextView>
-            </android.support.v7.widget.Toolbar>
+                    android:textColorHint="@color/searchHint"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.216"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.724"></AutoCompleteTextView>
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/ic_filter"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.037"
+                    app:layout_constraintStart_toEndOf="@+id/edit_search"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.75" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:text="Filter"
+                    android:textColor="@color/colorWhite"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.629"
+                    app:layout_constraintStart_toEndOf="@+id/edit_search"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.955" />
+
+            </android.support.constraint.ConstraintLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="200dp">
