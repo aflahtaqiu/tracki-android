@@ -48,8 +48,10 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
 
         SharedPreferences sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
         String userToken = sharedPreferences.getString("tokenLogin", "");
-        if (!userToken.isEmpty())
+        if (!userToken.isEmpty()){
             startActivity(new Intent(LoginActivity.this, NavigationActivity.class));
+            finish();
+        }
 
         tvDaftar = (TextView) findViewById(R.id.tv_daftar_login);
         tvLupaPassword = (TextView) findViewById(R.id.tv_lupaPassword_login);
