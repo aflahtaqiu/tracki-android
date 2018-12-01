@@ -189,6 +189,7 @@
             app:layout_constraintTop_toBottomOf="@+id/ketentuan" />
 
         <LinearLayout
+            android:id="@+id/linearLayoutButton_detailPromo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -223,27 +224,20 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tv_promoDigunakan_detailPromo"
+            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="50dp"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ketentuanPromo_detailPromo"
-            app:layout_constraintVertical_bias="1.0">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="*Anda Sudah Menggunakan Promo"
-                android:textColor="@color/colorTracki" />
-
-        </LinearLayout>
+            android:layout_gravity="center"
+            android:text="*Anda sudah menggunakan promo  "
+            android:textColor="@color/colorTracki"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayoutButton_detailPromo"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:visibility="gone"/>
 
         <!--<android.support.v7.widget.Toolbar-->
             <!--android:id="@+id/toolbar_login"-->
