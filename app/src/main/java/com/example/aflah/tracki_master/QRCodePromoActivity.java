@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -35,6 +37,7 @@ public class QRCodePromoActivity extends AppCompatActivity {
     int idPromo;
     String userToken;
     UserLogin userLogin;
+    ImageButton imageButtonCLose;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,7 @@ public class QRCodePromoActivity extends AppCompatActivity {
         userToken = sharedPreferences.getString("tokenLogin", "");
 
         imageViewQRCode = (ImageView) findViewById(R.id.qrCode_generatePromo);
+        imageButtonCLose = (ImageButton) findViewById(R.id.btnClosePopUp);
         generateQRCode = getIntent().getExtras().getString("qrCodeString");
         idPromo = getIntent().getExtras().getInt("idPromo");
 
@@ -62,27 +66,16 @@ public class QRCodePromoActivity extends AppCompatActivity {
             BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
             Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
             imageViewQRCode.setImageBitmap(bitmap);
-//            ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
-//            Call<ResponseRedeemPromotion> getReedem = apiRequest.getRedeemData(userToken, idPromo);
-//            getReedem.enqueue(new Callback<ResponseRedeemPromotion>() {
-//                @Override
-//                public void onResponse(Call<ResponseRedeemPromotion> call, Response<ResponseRedeemPromotion> response) {
-//                    Log.v("sudahRedeem", "anda sudah redeem promo ini " + response.toString());
-//                    try {
-//                        Toast.makeText(QRCodePromoActivity.this, " " + response.errorBody().string(), Toast.LENGTH_LONG).show();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//
-//                @Override
-//                public void onFailure(Call<ResponseRedeemPromotion> call, Throwable t) {
-//                    Log.v("sudahRedeem", "anda sudah redeem promo ini " + t.getMessage());
-//                }
-//            });
         }catch (WriterException e){
             e.printStackTrace();
         }
+
+        imageButtonCLose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 }

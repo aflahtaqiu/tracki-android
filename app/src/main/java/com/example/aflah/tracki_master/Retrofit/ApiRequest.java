@@ -4,6 +4,7 @@ import com.example.aflah.tracki_master.Model.Advertisements;
 import com.example.aflah.tracki_master.Model.Response.ResponseAddReview;
 import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
 import com.example.aflah.tracki_master.Model.Response.ResponseLogin;
+import com.example.aflah.tracki_master.Model.Response.ResponseLogout;
 import com.example.aflah.tracki_master.Model.Response.ResponseRedeemPromotion;
 import com.example.aflah.tracki_master.Model.Response.ResponsePromotionById;
 import com.example.aflah.tracki_master.Model.Response.ResponseRegister;
@@ -74,6 +75,10 @@ public interface ApiRequest {
             @Field("date_of_birth") Date dateOfBirth,
             @Field("password") String password,
             @Field("password_confirmation") String password_confirmation
+    );
+
+    @POST("user/logout")
+    Call<ResponseLogout> sendLogout(
     );
 
     @FormUrlEncoded

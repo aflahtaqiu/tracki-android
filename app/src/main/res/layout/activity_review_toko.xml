@@ -126,7 +126,7 @@
                 android:background="@drawable/button_edit_profile"
                 android:text="Kirim"
                 android:textAllCaps="false"
-                android:textColor="@color/colorWhite"
+                android:textColor="@color/colorAbuGelap"
                 android:textSize="16dp" />
 
         </LinearLayout>

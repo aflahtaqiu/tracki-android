@@ -27,12 +27,14 @@ import com.example.aflah.tracki_master.Adapter.TokoFavoritAdapter;
 import com.example.aflah.tracki_master.Auth.LoginActivity;
 import com.example.aflah.tracki_master.EditProfilActivity;
 import com.example.aflah.tracki_master.Model.Promotion;
+import com.example.aflah.tracki_master.Model.Response.ResponseLogout;
 import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
 import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.Model.UserLogin;
 import com.example.aflah.tracki_master.R;
 import com.example.aflah.tracki_master.Retrofit.ApiRequest;
 import com.example.aflah.tracki_master.Retrofit.RetroServer;
+import com.google.android.gms.common.api.Api;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -77,7 +79,6 @@ public class AccountFragment extends Fragment {
     List<Promotion> promotions;
     RecyclerView recyclerView;
     ListSavePromoAdapter listSavePromoAdapter;
-    Button btnEditProfile;
     Dialog Mydialog;
     TextView picAvatar,picGaleri, picCamera;
     private int GALLERY = 1, CAMERA = 2;
@@ -125,7 +126,6 @@ public class AccountFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         imgAvatar = view.findViewById(R.id.imgProfile);
         tvUserName = view.findViewById(R.id.tv_userName);
-        btnEditProfile = (Button) view.findViewById(R.id.btn_edit);
 
         Picasso.get().load(userLogin.getFoto()).fit().into(imgAvatar);
         tvUserName.setText(userLogin.getName());
@@ -138,12 +138,6 @@ public class AccountFragment extends Fragment {
             }
         });
 
-        btnEditProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().startActivity(new Intent(view.getContext(), EditProfilActivity.class));
-            }
-        });
 
         stores = new ArrayList<>();
         promotions = new ArrayList<>();
@@ -195,7 +189,21 @@ public class AccountFragment extends Fragment {
                 editor.putString("userLogin", "");
                 editor.apply();
                 editor.commit();
+                ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
+                Call<ResponseLogout> responseLogoutCall = apiRequest.sendLogout();
+                responseLogoutCall.enqueue(new Callback<ResponseLogout>() {
+                    @Override
+                    public void onResponse(Call<ResponseLogout> call, Response<ResponseLogout> response) {
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseLogout> call, Throwable t) {
+
+                    }
+                });
                 startActivity(new Intent(getContext(), LoginActivity.class));
+                getActivity().finish();
                 break;
         }
         return super.onOptionsItemSelected(item);
