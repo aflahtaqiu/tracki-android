@@ -7,9 +7,11 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -31,6 +33,7 @@ import com.example.aflah.tracki_master.Model.Response.ResponseLogout;
 import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
 import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.Model.UserLogin;
+import com.example.aflah.tracki_master.NavigationActivity;
 import com.example.aflah.tracki_master.R;
 import com.example.aflah.tracki_master.Retrofit.ApiRequest;
 import com.example.aflah.tracki_master.Retrofit.RetroServer;
@@ -81,6 +84,7 @@ public class AccountFragment extends Fragment {
     ListSavePromoAdapter listSavePromoAdapter;
     Dialog Mydialog;
     TextView picAvatar,picGaleri, picCamera;
+    Toolbar toolbarAccount;
     private int GALLERY = 1, CAMERA = 2;
 
     private OnFragmentInteractionListener mListener;
@@ -126,6 +130,10 @@ public class AccountFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         imgAvatar = view.findViewById(R.id.imgProfile);
         tvUserName = view.findViewById(R.id.tv_userName);
+        toolbarAccount = (Toolbar) view.findViewById(R.id.toolbar_account);
+
+        NavigationActivity navigationActivity = (NavigationActivity) getActivity();
+        navigationActivity.setSupportActionBar(toolbarAccount);
 
         Picasso.get().load(userLogin.getFoto()).fit().into(imgAvatar);
         tvUserName.setText(userLogin.getName());

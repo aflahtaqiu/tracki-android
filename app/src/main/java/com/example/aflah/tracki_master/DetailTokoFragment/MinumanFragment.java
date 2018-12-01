@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.aflah.tracki_master.Adapter.ListMinumanAdapter;
 import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
@@ -40,6 +41,7 @@ public class MinumanFragment extends Fragment {
     private String mParam2;
 
     RecyclerView recyclerView;
+    TextView textViewNoMinuman;
 
     private OnFragmentInteractionListener mListener;
 
@@ -82,6 +84,7 @@ public class MinumanFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_minuman, container, false);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_minuman);
+        textViewNoMinuman = (TextView) view.findViewById(R.id.tv_minumanTidakAda_fragmenMinuman);
 
         int idToko = getActivity().getIntent().getExtras().getInt("idTokoTerdekat");
 
@@ -90,7 +93,18 @@ public class MinumanFragment extends Fragment {
         getData.enqueue(new Callback<ResponseDetailToko>() {
             @Override
             public void onResponse(Call<ResponseDetailToko> call, Response<ResponseDetailToko> response) {
-                //Log.i("RETRO ", "onResponse : nama produck: " + response.body().getStore().getProducts().get(1).getName());
+
+;
+                int temp=0;
+                for (int i = 0;i<response.body().getStore().getProducts().size();i++){
+                    if (response.body().getStore().getProducts().get(i).getCategory().getId() == 2){
+                        Log.v("idProductMInuman",response.body().getStore().getProducts().get(i).toString() + " " +response.body().getStore().getProducts().get(i).getCategory().toString());
+                        temp =1;
+                    }
+                }
+                if (temp==1){
+                    textViewNoMinuman.setVisibility(View.GONE);
+                }
 
                 recyclerView.setAdapter(new ListMinumanAdapter(getContext(), response.body().getStore()));
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

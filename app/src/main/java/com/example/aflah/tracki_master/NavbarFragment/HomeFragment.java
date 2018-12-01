@@ -192,9 +192,9 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                 mySwipeRefreshLayout.setRefreshing(false);
             }
         });
-
-        navigationActivity = (NavigationActivity) getActivity();
-        navigationActivity.getSupportActionBar().show();
+//
+//        navigationActivity = (NavigationActivity) getActivity();
+//        navigationActivity.getSupportActionBar().show();
 
         from = new String[]{"title", "subtitle"};
         to = new int[]{android.R.id.text1, android.R.id.text2};
