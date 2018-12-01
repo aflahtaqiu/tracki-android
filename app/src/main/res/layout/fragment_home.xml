@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:orientation="vertical">
+
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -49,12 +50,13 @@
                     app:layout_constraintVertical_bias="0.724"></AutoCompleteTextView>
 
                 <ImageView
-                    android:id="@+id/imageView2"
+                    android:id="@+id/iv_filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
+                    android:clickable="true"
                     android:src="@drawable/ic_filter"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -69,16 +71,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:text="Filter"
                     android:textColor="@color/colorWhite"
+                    android:textSize="10dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.629"
-                    app:layout_constraintStart_toEndOf="@+id/edit_search"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/iv_filter"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.955" />
+                    app:layout_constraintVertical_bias="0.887" />
 
             </android.support.constraint.ConstraintLayout>
             <LinearLayout
@@ -94,7 +96,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Toko Terdekat : "
-                android:textSize="20dp"
+                android:textSize="16dp"
                 android:textColor="#000000"
                 android:layout_margin="10dp"/>
 
