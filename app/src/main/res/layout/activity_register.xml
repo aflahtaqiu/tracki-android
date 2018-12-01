@@ -7,18 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".Auth.RegisterActivity">
 
-    <Button
-        android:id="@+id/buttonHelpRegister"
-        android:layout_width="38dp"
-        android:layout_height="38dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/button_help_register"
-        android:text="@string/tandatanya"
-        android:textColor="@color/colorTracki"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!--<Button-->
+        <!--android:id="@+id/buttonHelpRegister"-->
+        <!--android:layout_width="38dp"-->
+        <!--android:layout_height="38dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:background="@drawable/button_help_register"-->
+        <!--android:text="@string/tandatanya"-->
+        <!--android:textColor="@color/colorTracki"-->
+        <!--android:textSize="20dp"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
 
     <TextView
         android:id="@+id/textViewTracki"
