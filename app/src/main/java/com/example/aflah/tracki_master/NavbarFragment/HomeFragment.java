@@ -24,6 +24,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import com.example.aflah.tracki_master.Adapter.CarouselHomeAdapter;
 import com.example.aflah.tracki_master.Adapter.TokoTerdekatAdapter;
@@ -87,6 +88,8 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
     private String mParam1;
     private String mParam2;
 
+    TextView textViewTokoTerdekat, textViewNoTokoTerdekat;
+
     private NavigationActivity navigationActivity;
 
     private SearchView searchView = null;
@@ -131,6 +134,8 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        textViewTokoTerdekat = (TextView) view.findViewById(R.id.tv_tokoTerdekat_tokoTerdekat);
+        textViewNoTokoTerdekat = (TextView) view.findViewById(R.id.tvNoTokoTerdekat_tokoTerdekat);
         AutoCompleteTextView autoCompleteTextView = view.findViewById(R.id.edit_search);
 
 
@@ -181,7 +186,6 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
         mySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Log.v("debug","masuk ke refresh");
                 mySwipeRefreshLayout.setRefreshing(true);
                 rmdup.clear();
                 tokoTerdekatAdapter.notifyDataSetChanged();
@@ -327,7 +331,6 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
         beaconCount = cbBeacons.size();
 
         if (getActivity() != null){
-            Log.d("Debug","Enggak nulll");
             //adapter = new SimpleAdapter(getContext(), data, android.R.layout.simple_list_item_2, from, to);
 
             getActivity().runOnUiThread(new Runnable() {
@@ -338,26 +341,30 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
 
                     ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
 
-//                    stores.clear();
-                    for (int i = 0 ;i<cbBeacons.size(); i++ ){
-                        final int tole = i;
-                        Call<ResponseTokoByUID> getData = apiRequest.getStoreByUID(beacons.get(i).getMajor());
-                        Log.v("isiToko", String.valueOf(beacons.get(i).getMajor()));
-                        getData.enqueue(new Callback<ResponseTokoByUID>() {
-                            @Override
-                            public void onResponse(Call<ResponseTokoByUID> call, Response<ResponseTokoByUID> response) {
-                                for (Store store : response.body().getStores()) {
-                                    rmdup.put(String.valueOf(store.getId()),store);
-                                    Log.v("isiToko", store.toString());
+                    if (cbBeacons.size() == 0){
+                        textViewTokoTerdekat.setText("");
+                        textViewNoTokoTerdekat.setText("Tidak terdeteksi toko disekitar Anda");
+                    }
+                    else {
+                        textViewNoTokoTerdekat.setText("");
+                        for (int i = 0 ;i<cbBeacons.size(); i++ ){
+                            final int tole = i;
+                            Call<ResponseTokoByUID> getData = apiRequest.getStoreByUID(beacons.get(i).getMajor());
+                            getData.enqueue(new Callback<ResponseTokoByUID>() {
+                                @Override
+                                public void onResponse(Call<ResponseTokoByUID> call, Response<ResponseTokoByUID> response) {
+                                    for (Store store : response.body().getStores()) {
+                                        rmdup.put(String.valueOf(store.getId()),store);
+                                    }
+                                    tokoTerdekatAdapter.notifyDataSetChanged();
                                 }
-                                tokoTerdekatAdapter.notifyDataSetChanged();
-                            }
 
-                            @Override
-                            public void onFailure(Call<ResponseTokoByUID> call, Throwable t) {
+                                @Override
+                                public void onFailure(Call<ResponseTokoByUID> call, Throwable t) {
 
-                            }
-                        });
+                                }
+                            });
+                        }
                     }
                 }
             });
