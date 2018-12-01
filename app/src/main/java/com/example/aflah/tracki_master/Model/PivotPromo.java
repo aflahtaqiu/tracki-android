@@ -11,6 +11,17 @@ public class PivotPromo {
     @SerializedName("promotion_id")
     @Expose
     private int promotion_id;
+    @SerializedName("user_id")
+    @Expose
+    private int user_id;
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
 
     public int getStore_id() {
         return store_id;

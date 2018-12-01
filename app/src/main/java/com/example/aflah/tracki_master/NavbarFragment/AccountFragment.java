@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,9 +22,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.aflah.tracki_master.AboutTrackiActivity;
+import com.example.aflah.tracki_master.Adapter.ListSavePromoAdapter;
 import com.example.aflah.tracki_master.Adapter.TokoFavoritAdapter;
 import com.example.aflah.tracki_master.Auth.LoginActivity;
 import com.example.aflah.tracki_master.EditProfilActivity;
+import com.example.aflah.tracki_master.Model.Promotion;
 import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
 import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.Model.UserLogin;
@@ -71,8 +74,9 @@ public class AccountFragment extends Fragment {
     Gson gson = new Gson();
     String userToken;
     List<Store> stores;
+    List<Promotion> promotions;
     RecyclerView recyclerView;
-    TokoFavoritAdapter tokoFavoritAdapter;
+    ListSavePromoAdapter listSavePromoAdapter;
     Button btnEditProfile;
     Dialog Mydialog;
     TextView picAvatar,picGaleri, picCamera;
@@ -125,7 +129,7 @@ public class AccountFragment extends Fragment {
 
         Picasso.get().load(userLogin.getFoto()).fit().into(imgAvatar);
         tvUserName.setText(userLogin.getName());
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycerview_tokoFavorit);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycerview_promoSaved);
 
         imgAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,17 +146,18 @@ public class AccountFragment extends Fragment {
         });
 
         stores = new ArrayList<>();
+        promotions = new ArrayList<>();
         ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
         Call<ResponseUserById> getTokoFav = apiRequest.getTokoFavorit(userLogin.getId());
         getTokoFav.enqueue(new Callback<ResponseUserById>() {
             @Override
             public void onResponse(Call<ResponseUserById> call, Response<ResponseUserById> response) {
-                for (int i =0; i < response.body().getUser().getStores().size();i++){
-                    stores.add(response.body().getUser().getStores().get(i));
+                for (Promotion promotion : response.body().getUnused_promotions()){
+                    promotions.add(promotion);
                 }
-                recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-                tokoFavoritAdapter = new TokoFavoritAdapter(getContext(), stores);
-                recyclerView.setAdapter(tokoFavoritAdapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                listSavePromoAdapter = new ListSavePromoAdapter(getContext(), promotions);
+                recyclerView.setAdapter(listSavePromoAdapter);
             }
 
             @Override

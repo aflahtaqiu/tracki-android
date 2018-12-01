@@ -56,6 +56,7 @@ public interface ApiRequest {
 
     @GET("promotion/{id}")
     Call<ResponsePromotionById> getPromotionById(
+            @Header("Authorization") String token,
             @Path("id") int id
     );
 

@@ -64,7 +64,7 @@
             android:orientation="vertical">
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycerview_tokoFavorit"
+                android:id="@+id/recycerview_promoSaved"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
