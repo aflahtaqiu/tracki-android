@@ -1,7 +1,9 @@
 package com.example.aflah.tracki_master.Auth;
 
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,10 +19,12 @@ import android.widget.Toast;
 
 import com.example.aflah.tracki_master.DateDialog;
 import com.example.aflah.tracki_master.Model.Response.ResponseRegister;
+import com.example.aflah.tracki_master.Model.UserLogin;
 import com.example.aflah.tracki_master.NavigationActivity;
 import com.example.aflah.tracki_master.R;
 import com.example.aflah.tracki_master.Retrofit.ApiRequest;
 import com.example.aflah.tracki_master.Retrofit.RetroServer;
+import com.google.gson.Gson;
 
 import java.sql.Ref;
 import java.text.ParseException;
@@ -110,7 +114,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegister, Vi
                         Date dateOfBirth = inputFormat.parse(date);
 
                         signupUserEmail(nama, email, dateOfBirth, password, konfirmasiPassword);
-                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                        startActivity(new Intent(RegisterActivity.this, NavigationActivity.class));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -152,17 +156,30 @@ public class RegisterActivity extends AppCompatActivity implements IRegister, Vi
     @Override
     public void signupUserEmail(String name, String email, Date dateOfBirth, String password, String konfirmasiPassword) {
 
-        ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
+
+        ApiRequest apiRequest = RetroServer.getRegister().create(ApiRequest.class);
         Call<ResponseRegister> registerUser = apiRequest.sendRegister(name, email, dateOfBirth, password, konfirmasiPassword);
         registerUser.enqueue(new Callback<ResponseRegister>() {
             @Override
             public void onResponse(Call<ResponseRegister> call, Response<ResponseRegister> response) {
+                UserLogin userLogin = response.body().getUser();
+                String token = response.body().getAccess_token();
+
+                Gson gson = new Gson();
+                String json = gson.toJson(userLogin);
+                SharedPreferences.Editor editor = getSharedPreferences("login", Context.MODE_PRIVATE).edit();
+                editor.putString("tokenLogin","Bearer "+ token);
+                editor.putString("userLogin", json);
+                editor.apply();
+                editor.commit();
+                Log.e("selamatDatangRegister", response.body().toString());
 
                 Toast.makeText(RegisterActivity.this, "Selamat datang : " + response.body().getUser().getName(), Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onFailure(Call<ResponseRegister> call, Throwable t) {
+                Log.e("selamatDatangRegister", t.getMessage());
                 Toast.makeText(RegisterActivity.this, "Maaf : " + t.getMessage(), Toast.LENGTH_LONG).show();
 
             }
