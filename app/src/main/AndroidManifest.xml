@@ -37,7 +37,8 @@
         <activity
             android:name=".NavigationActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustNothing"
+            android:label=""/>
         <activity android:name=".NavbarFragment.MonitoringActivity" />
         <activity
             android:name=".PrologActivity"
