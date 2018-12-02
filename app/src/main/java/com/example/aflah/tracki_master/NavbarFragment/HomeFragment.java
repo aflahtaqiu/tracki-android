@@ -198,26 +198,26 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
         data = new ArrayList<>();
         adapter = new SimpleAdapter(getContext(), data, android.R.layout.simple_list_item_2, from, to);
 
-        viewPager = (ViewPager) view.findViewById(R.id.viewPager_carousel_Home);
+//        viewPager = (ViewPager) view.findViewById(R.id.viewPager_carousel_Home);
 
-        List<Advertisement> advertisementList = new ArrayList<>();
-        ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
-        Call<Advertisements> getIklans = apiRequest.getAdvertisements();
-        getIklans.enqueue(new Callback<Advertisements>() {
-            @Override
-            public void onResponse(Call<Advertisements> call, Response<Advertisements> response) {
-                for (int i = 0; i< response.body().getAdvertisements().size() ;i++){
-                    advertisementList.add(response.body().getAdvertisements().get(i));
-                }
-                CarouselHomeAdapter carouselHomeAdapter = new CarouselHomeAdapter(getContext(), advertisementList);
-                viewPager.setAdapter(carouselHomeAdapter);
-            }
-
-            @Override
-            public void onFailure(Call<Advertisements> call, Throwable t) {
-
-            }
-        });
+//        List<Advertisement> advertisementList = new ArrayList<>();
+//        ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
+//        Call<Advertisements> getIklans = apiRequest.getAdvertisements();
+//        getIklans.enqueue(new Callback<Advertisements>() {
+//            @Override
+//            public void onResponse(Call<Advertisements> call, Response<Advertisements> response) {
+//                for (int i = 0; i< response.body().getAdvertisements().size() ;i++){
+//                    advertisementList.add(response.body().getAdvertisements().get(i));
+//                }
+//                CarouselHomeAdapter carouselHomeAdapter = new CarouselHomeAdapter(getContext(), advertisementList);
+//                viewPager.setAdapter(carouselHomeAdapter);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Advertisements> call, Throwable t) {
+//
+//            }
+//        });
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycerview_tokoTerdekat);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
@@ -348,7 +348,7 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                                 }
                                 if (rmdup.size() != 0){
                                     textViewNoTokoTerdekat.setText("");
-                                    textViewTokoTerdekat.setText("Toko Terdekat : ");
+                                    textViewTokoTerdekat.setText("Toko Terdekat");
                                 }
                                 else{
                                     textViewTokoTerdekat.setText("");
