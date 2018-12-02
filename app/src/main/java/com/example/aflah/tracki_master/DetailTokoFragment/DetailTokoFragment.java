@@ -7,13 +7,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.aflah.tracki_master.Adapter.DetailTokoAdapter;
 import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
@@ -34,14 +32,6 @@ import retrofit2.Response;
  * create an instance of this fragment.
  */
 public class DetailTokoFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
@@ -65,20 +55,12 @@ public class DetailTokoFragment extends Fragment {
     // TODO: Rename and change types and number of parameters
     public static DetailTokoFragment newInstance(String param1, String param2) {
         DetailTokoFragment fragment = new DetailTokoFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
         sharedPreferences = this.getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
         userToken = sharedPreferences.getString("tokenLogin", "");
     }
@@ -86,7 +68,6 @@ public class DetailTokoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_detail_toko, container, false);
 
@@ -103,11 +84,9 @@ public class DetailTokoFragment extends Fragment {
             public void onResponse(Call<ResponseDetailToko> call, Response<ResponseDetailToko> response) {
 
                 progressBar.setVisibility(View.GONE);
-
                 recyclerView.setAdapter(new DetailTokoAdapter(getContext(), response.body().getStore(), userToken));
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 recyclerView.smoothScrollToPosition(0);
-
             }
             @Override
             public void onFailure(Call<ResponseDetailToko> call, Throwable t) {
@@ -117,7 +96,6 @@ public class DetailTokoFragment extends Fragment {
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
