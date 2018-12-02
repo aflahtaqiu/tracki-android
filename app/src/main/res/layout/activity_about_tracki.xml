@@ -9,7 +9,7 @@
         android:id="@+id/toolbar_tokoTerdekat"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorbottom">
+        android:background="@color/colorTracki">
 
         <TextView
             android:id="@+id/toolbar_title"
@@ -18,7 +18,7 @@
             style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
             android:layout_gravity="center"
             android:text="About App"
-            android:textColor="@color/colorAbuGelap"
+            android:textColor="@color/colorWhite"
             android:textStyle="bold"/>
 
     </android.support.v7.widget.Toolbar>
