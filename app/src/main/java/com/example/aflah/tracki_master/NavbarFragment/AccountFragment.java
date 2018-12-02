@@ -133,8 +133,8 @@ public class AccountFragment extends Fragment {
         tvUserName = view.findViewById(R.id.tv_userName);
         toolbarAccount = (Toolbar) view.findViewById(R.id.toolbar_account);
 
-//        NavigationActivity navigationActivity = (NavigationActivity) getActivity();
-//        navigationActivity.setSupportActionBar(toolbarAccount);
+        NavigationActivity navigationActivity = (NavigationActivity) getActivity();
+        navigationActivity.setSupportActionBar(toolbarAccount);
 
 
         PopupMenu popupMenu = new PopupMenu(getContext(), view);
