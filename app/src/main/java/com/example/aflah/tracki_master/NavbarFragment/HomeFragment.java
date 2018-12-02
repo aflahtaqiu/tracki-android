@@ -263,6 +263,9 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                                         rmdup.put(String.valueOf(store.getId()),store);
 
                                     }
+                                    if (rmdup.size() !=0 ){
+                                        textViewTokoTerdekat.setText("Toko terdekat");
+                                    }
                                     tokoTerdekatAdapter.notifyDataSetChanged();
                                 }
 
