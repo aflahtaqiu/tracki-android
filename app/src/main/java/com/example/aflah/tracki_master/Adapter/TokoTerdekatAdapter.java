@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.example.aflah.tracki_master.DetailTokoActivity;
@@ -50,14 +51,16 @@ public class TokoTerdekatAdapter extends RecyclerView.Adapter<TokoTerdekatAdapte
         storeList = new ArrayList<>(stores.values());
         holder.tv_namaToko_tokoTerdekat.setText(storeList.get(position).getName());
 
-            holder.cardView_tokoTerdkat.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), DetailTokoActivity.class);
-                    intent.putExtra("idTokoTerdekat", storeList.get(position).getId());
-                    context.startActivity(intent);
-                }
-            });
+        holder.cardView_tokoTerdkat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), DetailTokoActivity.class);
+                intent.putExtra("idTokoTerdekat", storeList.get(position).getId());
+                context.startActivity(intent);
+            }
+        });
+
+        holder.ratingBar_tokoTerdekat.setRating((float)storeList.get(position).getRating());
 
         Picasso.get().load(storeList.get(position).getLogo()).into(holder.img_tokoTerdekat);
     }
@@ -72,12 +75,14 @@ public class TokoTerdekatAdapter extends RecyclerView.Adapter<TokoTerdekatAdapte
         ImageView img_tokoTerdekat;
         TextView tv_namaToko_tokoTerdekat;
         CardView cardView_tokoTerdkat;
+        RatingBar ratingBar_tokoTerdekat;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
             img_tokoTerdekat = (ImageView) itemView.findViewById(R.id.iv_toko_tokoTerdekat);
             tv_namaToko_tokoTerdekat = (TextView) itemView.findViewById(R.id.tv_namaToko_tokoTerdekat);
+            ratingBar_tokoTerdekat = (RatingBar) itemView.findViewById(R.id.rating_itemTokoTerdekat);
             cardView_tokoTerdkat = (CardView) itemView.findViewById(R.id.cardview_toko_tokoTerdekat);
         }
     }
