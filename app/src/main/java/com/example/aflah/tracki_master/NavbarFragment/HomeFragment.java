@@ -192,9 +192,6 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                 mySwipeRefreshLayout.setRefreshing(false);
             }
         });
-//
-//        navigationActivity = (NavigationActivity) getActivity();
-//        navigationActivity.getSupportActionBar().show();
 
         from = new String[]{"title", "subtitle"};
         to = new int[]{android.R.id.text1, android.R.id.text2};
@@ -323,7 +320,6 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
 
     @Override
     public void setData(final List<Map<String, String>> cbBeacons, List<CBBeacon> list) {
-        Log.d("debug",cbBeacons.size() + "");
         data = new ArrayList<>();
         beacons = new ArrayList<>();
         data = cbBeacons;
@@ -331,7 +327,6 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
         beaconCount = cbBeacons.size();
 
         if (getActivity() != null){
-            //adapter = new SimpleAdapter(getContext(), data, android.R.layout.simple_list_item_2, from, to);
 
             getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -341,30 +336,32 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
 
                     ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
 
-                    if (cbBeacons.size() == 0){
-                        textViewTokoTerdekat.setText("");
-                        textViewNoTokoTerdekat.setText("Tidak terdeteksi toko disekitar Anda");
-                    }
-                    else {
-                        textViewNoTokoTerdekat.setText("");
-                        for (int i = 0 ;i<cbBeacons.size(); i++ ){
-                            final int tole = i;
-                            Call<ResponseTokoByUID> getData = apiRequest.getStoreByUID(beacons.get(i).getMajor());
-                            getData.enqueue(new Callback<ResponseTokoByUID>() {
-                                @Override
-                                public void onResponse(Call<ResponseTokoByUID> call, Response<ResponseTokoByUID> response) {
-                                    for (Store store : response.body().getStores()) {
-                                        rmdup.put(String.valueOf(store.getId()),store);
-                                    }
-                                    tokoTerdekatAdapter.notifyDataSetChanged();
-                                }
-
-                                @Override
-                                public void onFailure(Call<ResponseTokoByUID> call, Throwable t) {
+                    for (int i = 0 ;i<cbBeacons.size(); i++ ){
+                        final int tole = i;
+                        Call<ResponseTokoByUID> getData = apiRequest.getStoreByUID(beacons.get(i).getMajor());
+                        getData.enqueue(new Callback<ResponseTokoByUID>() {
+                            @Override
+                            public void onResponse(Call<ResponseTokoByUID> call, Response<ResponseTokoByUID> response) {
+                                for (Store store : response.body().getStores()) {
+                                    rmdup.put(String.valueOf(store.getId()),store);
 
                                 }
-                            });
-                        }
+                                if (rmdup.size() != 0){
+                                    textViewNoTokoTerdekat.setText("");
+                                    textViewTokoTerdekat.setText("Toko Terdekat : ");
+                                }
+                                else{
+                                    textViewTokoTerdekat.setText("");
+                                    textViewNoTokoTerdekat.setText("Tidak terdeteksi toko disekitar Anda");
+                                }
+                                tokoTerdekatAdapter.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseTokoByUID> call, Throwable t) {
+
+                            }
+                        });
                     }
                 }
             });
