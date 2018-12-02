@@ -7,9 +7,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class ResponseRegister {
 
-    @SerializedName("message")
-    @Expose
-    private String message;
     @SerializedName("user")
     @Expose
     private UserLogin user;
@@ -17,13 +14,6 @@ public class ResponseRegister {
     @Expose
     private String access_token;
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 
     public UserLogin getUser() {
         return user;
@@ -44,8 +34,7 @@ public class ResponseRegister {
     @Override
     public String toString() {
         return "ResponseRegister{" +
-                "message='" + message + '\'' +
-                ", user=" + user +
+                "user=" + user +
                 ", access_token='" + access_token + '\'' +
                 '}';
     }
