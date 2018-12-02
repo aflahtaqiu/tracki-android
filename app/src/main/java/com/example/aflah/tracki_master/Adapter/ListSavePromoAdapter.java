@@ -32,7 +32,7 @@ public class ListSavePromoAdapter extends RecyclerView.Adapter<ListSavePromoAdap
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.item_promo, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_save_promo, parent, false);
         ListSavePromoAdapter.MyViewHolder myViewHolder = new ListSavePromoAdapter.MyViewHolder(view);
         return myViewHolder;
     }
@@ -74,7 +74,7 @@ public class ListSavePromoAdapter extends RecyclerView.Adapter<ListSavePromoAdap
             namaToko = itemView.findViewById(R.id.namaToko_itemPromo);
             namaPromo = itemView.findViewById(R.id.namaPromo_itemPromo);
             gambarPromo = itemView.findViewById(R.id.gambarPromo_itemPromo);
-            cardView = itemView.findViewById(R.id.cardview_promo);
+            cardView = itemView.findViewById(R.id.cardview_save_promo);
         }
     }
 }

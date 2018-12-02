@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -132,12 +133,18 @@ public class AccountFragment extends Fragment {
         tvUserName = view.findViewById(R.id.tv_userName);
         toolbarAccount = (Toolbar) view.findViewById(R.id.toolbar_account);
 
-        NavigationActivity navigationActivity = (NavigationActivity) getActivity();
-        navigationActivity.setSupportActionBar(toolbarAccount);
+//        NavigationActivity navigationActivity = (NavigationActivity) getActivity();
+//        navigationActivity.setSupportActionBar(toolbarAccount);
+
+
+        PopupMenu popupMenu = new PopupMenu(getContext(), view);
+        MenuInflater menuInflater = popupMenu.getMenuInflater();
+        menuInflater.inflate(R.menu.menu_setting, popupMenu.getMenu());
+        popupMenu.show();
+
 
         Picasso.get().load(userLogin.getFoto()).fit().into(imgAvatar);
         tvUserName.setText(userLogin.getName());
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycerview_promoSaved);
 
         imgAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,7 +152,6 @@ public class AccountFragment extends Fragment {
                 MyCustomDialog();
             }
         });
-
 
         stores = new ArrayList<>();
         promotions = new ArrayList<>();
@@ -157,8 +163,9 @@ public class AccountFragment extends Fragment {
                 for (Promotion promotion : response.body().getUnused_promotions()){
                     promotions.add(promotion);
                 }
-                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 listSavePromoAdapter = new ListSavePromoAdapter(getContext(), promotions);
+                recyclerView = view.findViewById(R.id.recycerview_promoSaved);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 recyclerView.setAdapter(listSavePromoAdapter);
             }
 
