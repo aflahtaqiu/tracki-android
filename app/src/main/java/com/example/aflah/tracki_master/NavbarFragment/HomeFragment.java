@@ -135,7 +135,6 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         textViewTokoTerdekat = (TextView) view.findViewById(R.id.tv_tokoTerdekat_tokoTerdekat);
-        textViewNoTokoTerdekat = (TextView) view.findViewById(R.id.tvNoTokoTerdekat_tokoTerdekat);
         AutoCompleteTextView autoCompleteTextView = view.findViewById(R.id.edit_search);
 
 
@@ -336,32 +335,39 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
 
                     ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
 
-                    for (int i = 0 ;i<cbBeacons.size(); i++ ){
-                        final int tole = i;
-                        Call<ResponseTokoByUID> getData = apiRequest.getStoreByUID(beacons.get(i).getMajor());
-                        getData.enqueue(new Callback<ResponseTokoByUID>() {
-                            @Override
-                            public void onResponse(Call<ResponseTokoByUID> call, Response<ResponseTokoByUID> response) {
-                                for (Store store : response.body().getStores()) {
-                                    rmdup.put(String.valueOf(store.getId()),store);
+                    if (cbBeacons.size() != 0){
+                        for (int i = 0 ;i<cbBeacons.size(); i++ ){
+                            final int tole = i;
+                            Call<ResponseTokoByUID> getData = apiRequest.getStoreByUID(beacons.get(i).getMajor());
+                            getData.enqueue(new Callback<ResponseTokoByUID>() {
+                                @Override
+                                public void onResponse(Call<ResponseTokoByUID> call, Response<ResponseTokoByUID> response) {
+                                    for (Store store : response.body().getStores()) {
+                                        rmdup.put(String.valueOf(store.getId()),store);
+
+                                    }
+                                    Log.e("isiRMDIUP", String.valueOf(rmdup.size()));
+                                    if (rmdup.size() != 0){
+                                        textViewTokoTerdekat.setText("Toko Terdekat");
+                                    }
+                                    else{
+                                        textViewTokoTerdekat.setText("Tidak terdeteksi toko disekitar Anda");
+                                    }
+                                    tokoTerdekatAdapter.notifyDataSetChanged();
+                                }
+
+                                @Override
+                                public void onFailure(Call<ResponseTokoByUID> call, Throwable t) {
 
                                 }
-                                if (rmdup.size() != 0){
-                                    textViewNoTokoTerdekat.setText("");
-                                    textViewTokoTerdekat.setText("Toko Terdekat");
-                                }
-                                else{
-                                    textViewTokoTerdekat.setText("");
-                                    textViewNoTokoTerdekat.setText("Tidak terdeteksi toko disekitar Anda");
-                                }
-                                tokoTerdekatAdapter.notifyDataSetChanged();
-                            }
-
-                            @Override
-                            public void onFailure(Call<ResponseTokoByUID> call, Throwable t) {
-
-                            }
-                        });
+                            });
+                        }
+                    }
+                    else{
+                        rmdup.clear();
+                        tokoTerdekatAdapter = new TokoTerdekatAdapter(getContext(), rmdup);
+                        recyclerView.setAdapter(tokoTerdekatAdapter);
+                        textViewTokoTerdekat.setText("Tidak terdeteksi toko");
                     }
                 }
             });

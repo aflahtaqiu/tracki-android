@@ -137,12 +137,6 @@ public class AccountFragment extends Fragment {
         navigationActivity.setSupportActionBar(toolbarAccount);
 
 
-        PopupMenu popupMenu = new PopupMenu(getContext(), view);
-        MenuInflater menuInflater = popupMenu.getMenuInflater();
-        menuInflater.inflate(R.menu.menu_setting, popupMenu.getMenu());
-        popupMenu.show();
-
-
         Picasso.get().load(userLogin.getFoto()).fit().into(imgAvatar);
         tvUserName.setText(userLogin.getName());
 

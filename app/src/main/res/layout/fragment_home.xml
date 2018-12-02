@@ -66,23 +66,12 @@
     <!--</LinearLayout>-->
 
     <TextView
-        android:id="@+id/tvNoTokoTerdekat_tokoTerdekat"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textAllCaps="true"
-        android:textColor="@color/colorWhite"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toStartOf="@+id/swiperefresh"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_tokoTerdekat"/>
-
-    <TextView
         android:id="@+id/tv_tokoTerdekat_tokoTerdekat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:gravity="center"
+        android:text="Tidak terdeteksi toko"
         android:textAllCaps="true"
         android:textColor="@color/colorWhite"
         android:textSize="20dp"
