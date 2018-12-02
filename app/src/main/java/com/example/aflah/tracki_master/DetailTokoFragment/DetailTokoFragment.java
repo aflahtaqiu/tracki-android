@@ -95,14 +95,12 @@ public class DetailTokoFragment extends Fragment {
         TextView textView = (TextView) view.findViewById(R.id.tv_phoneToko_detailToko);
 
         int idToko = getActivity().getIntent().getExtras().getInt("idTokoTerdekat");
-        Log.i("idToko", "id toko : " + idToko);
 
         ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
         Call<ResponseDetailToko> getData = apiRequest.getStoreByID(idToko);
         getData.enqueue(new Callback<ResponseDetailToko>() {
             @Override
             public void onResponse(Call<ResponseDetailToko> call, Response<ResponseDetailToko> response) {
-                Log.i("RETROfittt", "onResponse nama toko : " + response.body().getStore().getName());
 
                 progressBar.setVisibility(View.GONE);
 
@@ -113,7 +111,6 @@ public class DetailTokoFragment extends Fragment {
             }
             @Override
             public void onFailure(Call<ResponseDetailToko> call, Throwable t) {
-                Log.i("RETRODetail", " onFailure " + t.getMessage());
             }
         });
 

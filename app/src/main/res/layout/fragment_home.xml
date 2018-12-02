@@ -35,7 +35,7 @@
                     android:drawableStart="@drawable/ic_search_black_24dp"
                     android:drawableLeft="@drawable/ic_search_black_24dp"
                     android:fontFamily="sans-serif-light"
-                    android:hint="Cari toko"
+                    android:hint="Cari toko atau produk"
                     android:imeOptions="actionSearch"
                     android:inputType="text"
                     android:paddingStart="10dp"

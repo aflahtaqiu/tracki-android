@@ -69,7 +69,6 @@ public class DetailTokoActivity extends AppCompatActivity implements DetailTokoF
                 }
                 CarouselDetailTokoAdapter carouselDetailTokoAdapter = new CarouselDetailTokoAdapter(DetailTokoActivity.this, urlImageList);
                 viewPager_CarouselDetailToko.setAdapter(carouselDetailTokoAdapter);
-
             }
 
             @Override
@@ -80,10 +79,6 @@ public class DetailTokoActivity extends AppCompatActivity implements DetailTokoF
 
         viewPager.setAdapter(detailTokoViewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
-//
-//        tabLayout.getTabAt(0).setIcon(R.drawable.ic_store);
-//        tabLayout.getTabAt(1).setIcon(R.drawable.ic_restaurant);
-//        tabLayout.getTabAt(2).setIcon(R.drawable.ic_local_cafe);
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimeCarousel(), 4000, 4000);

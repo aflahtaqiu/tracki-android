@@ -3,6 +3,7 @@ package com.example.aflah.tracki_master;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.aflah.tracki_master.Model.Response.ResponsePromotionById;
@@ -34,7 +36,7 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
 
     Button btnGunakan, btnSimpan;
     TextView textViewNamaPromo, textViewNamaToko, textViewTanggalPromo, textViewKetentuanPromo,
-        textViewDeskripsiPromo, textViewPromoDigunakan;
+        textViewDeskripsiPromo, textViewPromoDigunakan, textViewTanggalTersedia, textViewdeskripsi, textViewSyaratKetentuan;
     int idPromo;
     String namaToko;
     ImageView gambarPromo;
@@ -43,22 +45,17 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
     HashMap<String, Object> hasMapQrCode;
     String qrCodeString;
     String userToken;
-    Toolbar toolbarPromoUsed;
+    ProgressBar progressBarDetailPromo;
+    View view1, view2, view3, view4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_promo);
 
-        btnGunakan = (Button) findViewById(R.id.btnGunakan_detailPromo);
-        btnSimpan = (Button) findViewById(R.id.btnSimpan_detailPromo);
-        textViewNamaPromo = (TextView) findViewById(R.id.namaPromo_detailPromo);
-        textViewNamaToko = (TextView) findViewById(R.id.namaToko_detailPromo);
-        textViewTanggalPromo = (TextView) findViewById(R.id.batasTanggalPromo_detailPromo);
-        textViewDeskripsiPromo = (TextView) findViewById(R.id.deskripsiPromo_detailPromo);
-        textViewKetentuanPromo = (TextView) findViewById(R.id.ketentuanPromo_detailPromo);
-        textViewPromoDigunakan = (TextView) findViewById(R.id.tv_promoDigunakan_detailPromo);
-        gambarPromo = (ImageView) findViewById(R.id.gambarPromo_detailPromo);
+        initView();
+
+        initViewGone();
 
         idPromo = getIntent().getExtras().getInt("idPromo");
         namaToko = getIntent().getExtras().getString("namaToko");
@@ -73,12 +70,13 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
         hasMapQrCode.put("idUser", userLogin.getId());
         qrCodeString = gson.toJsonTree(hasMapQrCode).toString();
 
-        Log.v("detailPromoAc","token :"+ userToken);
         ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
         Call<ResponsePromotionById> getPromotion = apiRequest.getPromotionById(userToken,idPromo);
         getPromotion.enqueue(new Callback<ResponsePromotionById>() {
             @Override
             public void onResponse(Call<ResponsePromotionById> call, Response<ResponsePromotionById> response) {
+
+                progressBarDetailPromo.setVisibility(View.GONE);
 
                 textViewNamaPromo.setText(response.body().getPromotion().getTitle());
                 textViewNamaToko.setText(namaToko);
@@ -97,6 +95,17 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
                 textViewDeskripsiPromo.setText(response.body().getPromotion().getDescription());
                 textViewKetentuanPromo.setText(response.body().getPromotion().getTerms_and_policies());
                 Picasso.get().load(response.body().getPromotion().getBanner()).into(gambarPromo);
+
+                btnSimpan.setVisibility(View.VISIBLE);
+                btnGunakan.setVisibility(View.VISIBLE);
+                textViewTanggalTersedia.setVisibility(View.VISIBLE);
+                textViewdeskripsi.setVisibility(View.VISIBLE);
+                textViewSyaratKetentuan.setVisibility(View.VISIBLE);
+                view1.setVisibility(View.VISIBLE);
+                view2.setVisibility(View.VISIBLE);
+                view3.setVisibility(View.VISIBLE);
+                view4.setVisibility(View.VISIBLE);
+                gambarPromo.setVisibility(View.VISIBLE);
 
                 if (response.body().getPromotion().getSaved() == true){
                     btnSimpan.setEnabled(false);
@@ -119,6 +128,39 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
 
         btnGunakan.setOnClickListener(this);
         btnSimpan.setOnClickListener(this);
+    }
+
+    private void initViewGone() {
+        btnSimpan.setVisibility(View.INVISIBLE);
+        btnGunakan.setVisibility(View.INVISIBLE);
+        gambarPromo.setVisibility(View.INVISIBLE);
+        textViewTanggalTersedia.setVisibility(View.INVISIBLE);
+        textViewdeskripsi.setVisibility(View.INVISIBLE);
+        textViewSyaratKetentuan.setVisibility(View.INVISIBLE);
+        view1.setVisibility(View.INVISIBLE);
+        view2.setVisibility(View.INVISIBLE);
+        view3.setVisibility(View.INVISIBLE);
+        view4.setVisibility(View.INVISIBLE);
+    }
+
+    private void initView() {
+        btnGunakan = (Button) findViewById(R.id.btnGunakan_detailPromo);
+        btnSimpan = (Button) findViewById(R.id.btnSimpan_detailPromo);
+        textViewNamaPromo = (TextView) findViewById(R.id.namaPromo_detailPromo);
+        textViewNamaToko = (TextView) findViewById(R.id.namaToko_detailPromo);
+        textViewTanggalPromo = (TextView) findViewById(R.id.batasTanggalPromo_detailPromo);
+        textViewDeskripsiPromo = (TextView) findViewById(R.id.deskripsiPromo_detailPromo);
+        textViewKetentuanPromo = (TextView) findViewById(R.id.ketentuanPromo_detailPromo);
+        textViewPromoDigunakan = (TextView) findViewById(R.id.tv_promoDigunakan_detailPromo);
+        textViewTanggalTersedia = (TextView) findViewById(R.id.tanggalPromo);
+        textViewdeskripsi = (TextView) findViewById(R.id.deskripsi);
+        textViewSyaratKetentuan = (TextView) findViewById(R.id.syaratKetentuan);
+        gambarPromo = (ImageView) findViewById(R.id.gambarPromo_detailPromo);
+        view1 = (View) findViewById(R.id.view1);
+        view2 = (View) findViewById(R.id.view2);
+        view3 = (View) findViewById(R.id.view3);
+        view4 = (View) findViewById(R.id.view4);
+        progressBarDetailPromo = (ProgressBar) findViewById(R.id.progressBarDetailPromo);
     }
 
     @Override
@@ -146,8 +188,6 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
                     }
                 });
                 btnSimpan.setEnabled(false);
-//                btnGunakan.setEnabled(true);
-//                btnGunakan.setBackground(this.getResources().getDrawable(R.drawable.button_gunakan));
                 break;
         }
     }

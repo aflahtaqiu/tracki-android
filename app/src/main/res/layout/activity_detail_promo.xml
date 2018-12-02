@@ -7,9 +7,10 @@
     android:layout_height="match_parent"
     tools:context="com.example.aflah.tracki_master.DetailPromoActivity">
 
+
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
@@ -32,7 +33,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text="Nama Promo"
+            android:text=""
             android:textSize="22dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -46,7 +47,6 @@
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text="Nama Toko "
             android:textSize="18dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -54,7 +54,7 @@
             app:layout_constraintTop_toBottomOf="@+id/namaPromo_detailPromo" />
 
         <View
-            android:id="@+id/view"
+            android:id="@+id/view1"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginEnd="16dp"
@@ -67,7 +67,7 @@
             app:layout_constraintTop_toBottomOf="@+id/namaToko_detailPromo" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tanggalPromo"
             android:layout_width="wrap_content"
             android:layout_height="36dp"
             android:layout_marginStart="16dp"
@@ -77,7 +77,7 @@
             android:textAlignment="textStart"
             android:textSize="18dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/view" />
+            app:layout_constraintTop_toTopOf="@+id/view1" />
 
         <TextView
             android:id="@+id/batasTanggalPromo_detailPromo"
@@ -87,13 +87,12 @@
             android:layout_marginEnd="16dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
-            android:text="29 September 2018"
             android:textAlignment="textEnd"
             android:textSize="18dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.87"
-            app:layout_constraintStart_toEndOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/view" />
+            app:layout_constraintStart_toEndOf="@+id/tanggalPromo"
+            app:layout_constraintTop_toBottomOf="@+id/view1" />
 
         <View
             android:id="@+id/view2"
@@ -102,7 +101,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:background="#000000"
-            app:layout_constraintBottom_toBottomOf="@+id/textView"
+            app:layout_constraintBottom_toBottomOf="@+id/tanggalPromo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/batasTanggalPromo_detailPromo" />
@@ -122,6 +121,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view2" />
+
 
         <View
             android:id="@+id/view3"
@@ -143,14 +143,13 @@
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text="Isi Deskripsi"
             android:textSize="18dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view3" />
 
         <TextView
-            android:id="@+id/ketentuan"
+            android:id="@+id/syaratKetentuan"
             android:layout_width="match_parent"
             android:layout_height="33dp"
             android:layout_marginEnd="16dp"
@@ -172,7 +171,7 @@
             android:layout_marginStart="16dp"
             android:background="#000000"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ketentuan" />
+            app:layout_constraintTop_toBottomOf="@+id/syaratKetentuan" />
 
         <TextView
             android:id="@+id/ketentuanPromo_detailPromo"
@@ -181,12 +180,21 @@
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="12dp"
-            android:text="Isi Ketentuan"
             android:textSize="18dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ketentuan" />
+            app:layout_constraintTop_toBottomOf="@+id/syaratKetentuan" />
+
+        <ProgressBar
+            android:id="@+id/progressBarDetailPromo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/colorTracki"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <LinearLayout
             android:id="@+id/linearLayoutButton_detailPromo"
