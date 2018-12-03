@@ -70,7 +70,7 @@ public class PromoFragment extends Fragment {
         rmdup = new HashMap<>();
 
         ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
-        Call<ResponseTokoByUID> getStoreByUID = apiRequest.getStoreByUID(1);
+        Call<ResponseTokoByUID> getStoreByUID = apiRequest.getStoreByUID(5);
         getStoreByUID.enqueue(new Callback<ResponseTokoByUID>() {
             @Override
             public void onResponse(Call<ResponseTokoByUID> call, Response<ResponseTokoByUID> response) {

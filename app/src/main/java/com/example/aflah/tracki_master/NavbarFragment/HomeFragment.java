@@ -118,7 +118,7 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         textViewTokoTerdekat = (TextView) view.findViewById(R.id.tv_tokoTerdekat_tokoTerdekat);
         imageViewUndetectStore = (ImageView) view.findViewById(R.id.iv_undetect_store);
-        imageViewUndetectStore.setVisibility(View.INVISIBLE);
+//        imageViewUndetectStore.setVisibility(View.INVISIBLE);
         AutoCompleteTextView autoCompleteTextView = view.findViewById(R.id.edit_search);
 
         autoCompleteTextView.setOnClickListener(new View.OnClickListener() {

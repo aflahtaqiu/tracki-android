@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -37,7 +38,7 @@ public class QRCodePromoActivity extends AppCompatActivity {
     int idPromo;
     String userToken;
     UserLogin userLogin;
-    ImageButton imageButtonCLose;
+    Button imageButtonCLose;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,7 @@ public class QRCodePromoActivity extends AppCompatActivity {
         userToken = sharedPreferences.getString("tokenLogin", "");
 
         imageViewQRCode = (ImageView) findViewById(R.id.qrCode_generatePromo);
-        imageButtonCLose = (ImageButton) findViewById(R.id.btnClosePopUp);
+        imageButtonCLose = (Button) findViewById(R.id.btnClosePopUp);
         generateQRCode = getIntent().getExtras().getString("qrCodeString");
         idPromo = getIntent().getExtras().getInt("idPromo");
 
