@@ -118,13 +118,11 @@ public class ReviewTokoActivity extends AppCompatActivity implements View.OnClic
             public void onResponse(Call<ResponseAddReview> call, Response<ResponseAddReview> response) {
                 ResponseAddReview responseAddReview;
                 if (response.code() == 404){
-                    Toast.makeText(ReviewTokoActivity.this, " : " + "masuk respon code", Toast.LENGTH_LONG);
                     Gson gson = new Gson();
                     TypeAdapter<ResponseAddReview> adapter = gson.getAdapter(ResponseAddReview.class);
                     try{
                         if (response.errorBody() != null){
                             responseAddReview = adapter.fromJson(response.errorBody().string());
-                            Toast.makeText(ReviewTokoActivity.this, responseAddReview.getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }catch (IOException e){
                         e.printStackTrace();
@@ -137,7 +135,6 @@ public class ReviewTokoActivity extends AppCompatActivity implements View.OnClic
 
             @Override
             public void onFailure(Call<ResponseAddReview> call, Throwable t) {
-                Toast.makeText(ReviewTokoActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
     }
