@@ -2,6 +2,7 @@ package com.example.aflah.tracki_master.Retrofit;
 
 import com.example.aflah.tracki_master.Model.Advertisements;
 import com.example.aflah.tracki_master.Model.Response.ResponseAddReview;
+import com.example.aflah.tracki_master.Model.Response.ResponseDeletePromo;
 import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
 import com.example.aflah.tracki_master.Model.Response.ResponseLogin;
 import com.example.aflah.tracki_master.Model.Response.ResponseLogout;
@@ -20,6 +21,7 @@ import java.util.Date;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -45,7 +47,7 @@ public interface ApiRequest {
     );
 
     @GET("user/{id}")
-    Call<ResponseUserById> getTokoFavorit(
+    Call<ResponseUserById> getSavedPromo(
             @Path("id") int id
     );
 
@@ -63,6 +65,12 @@ public interface ApiRequest {
 
     @GET("promotion/{id}")
     Call<ResponsePromotionById> getPromotionById(
+            @Header("Authorization") String token,
+            @Path("id") int id
+    );
+
+    @DELETE("redeem/{id}")
+    Call<ResponseDeletePromo> deletePromo(
             @Header("Authorization") String token,
             @Path("id") int id
     );

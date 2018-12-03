@@ -1,106 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<android.support.v4.widget.SwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swiperefresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_account"
     tools:context=".NavbarFragment.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swiperefresh"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-    </android.support.v4.widget.SwipeRefreshLayout>
+        android:background="@drawable/background_account">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_tokoTerdekat"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:background="@color/colorTracki"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        <!-- TODO: Update blank fragment layout -->
 
-        <AutoCompleteTextView
-            android:id="@+id/edit_search"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_tokoTerdekat"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_marginLeft="32dp"
+            android:layout_height="80dp"
+            android:background="@color/colorTracki"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <AutoCompleteTextView
+                android:id="@+id/edit_search"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="80dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/round_textedit"
+                android:drawableStart="@drawable/ic_search_black_24dp"
+                android:drawableLeft="@drawable/ic_search_black_24dp"
+                android:fontFamily="sans-serif-light"
+                android:hint="Cari toko atau produk"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:paddingStart="10dp"
+                android:paddingLeft="10dp"
+                android:textColor="@color/searchText"
+                android:textColorHint="@color/searchHint"
+                android:textSize="15sp">
+
+            </AutoCompleteTextView>
+        </android.support.v7.widget.Toolbar>
+
+        <!--<LinearLayout-->
+        <!--android:id="@+id/linearCarousel_tokoTerdekat"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="200dp"-->
+        <!--android:layout_below="@+id/toolbar_tokoTerdekat"-->
+        <!--android:orientation="vertical"-->
+        <!--tools:ignore="NotSibling">-->
+
+        <!--<android.support.v4.view.ViewPager-->
+        <!--android:id="@+id/viewPager_carousel_Home"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="300dp"></android.support.v4.view.ViewPager>-->
+        <!--</LinearLayout>-->
+
+        <TextView
+            android:id="@+id/tv_tokoTerdekat_tokoTerdekat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Tidak terdeteksi toko"
+            android:textAllCaps="true"
+            android:textColor="@color/colorWhite"
+            android:textSize="20dp"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar_tokoTerdekat"/>
+
+        <View
+            android:id="@+id/view6"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_alignParentStart="true"
             android:layout_marginTop="16dp"
-            android:layout_marginRight="32dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/round_textedit"
-            android:drawableStart="@drawable/ic_search_black_24dp"
-            android:drawableLeft="@drawable/ic_search_black_24dp"
-            android:fontFamily="sans-serif-light"
-            android:hint="Cari toko atau produk"
-            android:imeOptions="actionSearch"
-            android:inputType="text"
-            android:paddingStart="10dp"
-            android:paddingLeft="10dp"
-            android:textColor="@color/searchText"
-            android:textColorHint="@color/searchHint"
-            android:textSize="15sp"></AutoCompleteTextView>
-    </android.support.v7.widget.Toolbar>
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@color/colorWhite"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_tokoTerdekat_tokoTerdekat" />
 
-    <!--<LinearLayout-->
-    <!--android:id="@+id/linearCarousel_tokoTerdekat"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="200dp"-->
-    <!--android:layout_below="@+id/toolbar_tokoTerdekat"-->
-    <!--android:orientation="vertical"-->
-    <!--tools:ignore="NotSibling">-->
+        <ImageView
+            android:id="@+id/iv_undetect_store"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.868"
+            app:srcCompat="@drawable/background_undetect" />
 
-    <!--<android.support.v4.view.ViewPager-->
-    <!--android:id="@+id/viewPager_carousel_Home"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="300dp"></android.support.v4.view.ViewPager>-->
-    <!--</LinearLayout>-->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycerview_tokoTerdekat"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view6"
+            app:layout_constraintVertical_bias="1.0">
 
-    <TextView
-        android:id="@+id/tv_tokoTerdekat_tokoTerdekat"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:gravity="center"
-        android:text="Tidak terdeteksi toko"
-        android:textAllCaps="true"
-        android:textColor="@color/colorWhite"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toStartOf="@+id/swiperefresh"
-        app:layout_constraintStart_toEndOf="@+id/swiperefresh"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_tokoTerdekat"/>
+        </android.support.v7.widget.RecyclerView>
 
-    <View
-        android:id="@+id/view6"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="48dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:background="@color/colorWhite"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_tokoTerdekat" />
+        <ImageView
+            android:id="@+id/iv_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/ic_filter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.883"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycerview_tokoTerdekat"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="1dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/view6">
-
-    </android.support.v7.widget.RecyclerView>
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Filter"
+            android:textColor="@color/colorWhite"
+            android:textSize="12dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/iv_filter"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.066" />
+    </android.support.constraint.ConstraintLayout>
+</android.support.v4.widget.SwipeRefreshLayout>

@@ -46,7 +46,7 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
     String qrCodeString;
     String userToken;
     ProgressBar progressBarDetailPromo;
-    View view1, view2, view3, view4;
+    View view1, view2, view3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +104,6 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
                 view1.setVisibility(View.VISIBLE);
                 view2.setVisibility(View.VISIBLE);
                 view3.setVisibility(View.VISIBLE);
-                view4.setVisibility(View.VISIBLE);
                 gambarPromo.setVisibility(View.VISIBLE);
 
                 if (response.body().getPromotion().getSaved() == true){
@@ -140,7 +139,6 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
         view1.setVisibility(View.INVISIBLE);
         view2.setVisibility(View.INVISIBLE);
         view3.setVisibility(View.INVISIBLE);
-        view4.setVisibility(View.INVISIBLE);
     }
 
     private void initView() {
@@ -159,7 +157,6 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
         view1 = (View) findViewById(R.id.view1);
         view2 = (View) findViewById(R.id.view2);
         view3 = (View) findViewById(R.id.view3);
-        view4 = (View) findViewById(R.id.view4);
         progressBarDetailPromo = (ProgressBar) findViewById(R.id.progressBarDetailPromo);
     }
 
