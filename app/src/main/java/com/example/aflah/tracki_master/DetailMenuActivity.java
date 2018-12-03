@@ -61,16 +61,7 @@ public class DetailMenuActivity extends AppCompatActivity {
                 }
             });
         }catch (Exception e){
-            String nama = getIntent().getExtras().getString("namaMenu");
-            String kategori = getIntent().getExtras().getString("kategoriMenu");
-            String harga = getIntent().getExtras().getString("hargaMenu");
-            String detail = getIntent().getExtras().getString("detailMenu");
-            String gambar = getIntent().getExtras().getString("gambarMenu");
-            namaMenu.setText(nama);
-            kategoriMenu.setText(kategori);
-            hargaMenu.setText(harga);
-            detailMenu.setText(detail);
-            Picasso.get().load(gambar).into(gambarMenu);
+
         }
 
     }

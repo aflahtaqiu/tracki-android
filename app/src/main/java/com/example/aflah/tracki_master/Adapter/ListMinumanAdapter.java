@@ -88,12 +88,7 @@ public class ListMinumanAdapter extends RecyclerView.Adapter<ListMinumanAdapter.
                     if (posisi != RecyclerView.NO_POSITION){
                         Product clickedData = store.getProducts().get(posisi);
                         Intent intent = new Intent(v.getContext(), DetailMenuActivity.class);
-                        intent.putExtra("namaMenu", clickedData.getName());
-                        intent.putExtra("kategoriMenu", clickedData.getCategory().getName());
-                        intent.putExtra("hargaMenu", numberFormat.format(clickedData.getPrice()).replace(',','.'));
-                        intent.putExtra("detailMenu", clickedData.getDescription());
-                        intent.putExtra("gambarMenu", clickedData.getPicture());
-                        Toast.makeText(v.getContext(), "On Click : " +clickedData.getName(), Toast.LENGTH_LONG);
+                        intent.putExtra("idProduk", clickedData.getId());
                         context.startActivity(intent);
                     }
                 }

@@ -211,20 +211,20 @@ public class AccountFragment extends Fragment {
         Mydialog = new Dialog(getActivity());
         Mydialog.setContentView(R.layout.popup_normal);
 
-        picAvatar = (TextView)Mydialog.findViewById(R.id.imgAvatar);
+        //picAvatar = (TextView)Mydialog.findViewById(R.id.imgAvatar);
         picGaleri = (TextView)Mydialog.findViewById(R.id.imgGaleri);
         picCamera = (TextView)Mydialog.findViewById(R.id.imgCamera);
 
-        picAvatar.setEnabled(true);
+        //picAvatar.setEnabled(true);
         picGaleri.setEnabled(true);
         picCamera.setEnabled(true);
 
-        picAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Toast.makeText(getApplicationContext(), "Pilih default avatar", Toast.LENGTH_LONG).show();
-            }
-        });
+//        picAvatar.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                Toast.makeText(getApplicationContext(), "Pilih default avatar", Toast.LENGTH_LONG).show();
+//            }
+//        });
 
         picGaleri.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -241,7 +241,6 @@ public class AccountFragment extends Fragment {
             public void onClick(View v) {
 //                Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 //                startActivityForResult(intent, CAMERA);
-                Log.v("poto","udah di klik");
             }
         });
 
@@ -268,7 +267,6 @@ public class AccountFragment extends Fragment {
 
         if (requestCode == GALLERY && resultCode == RESULT_OK && null != data) {
             try {
-                Log.v("poto","masuk result");
                 selectedImage = data.getData();
                 Bitmap foto = getResizedBitmap(MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),selectedImage));
 
@@ -282,8 +280,6 @@ public class AccountFragment extends Fragment {
                 fos.write(bitmapdata);
                 fos.flush();
                 fos.close();
-
-                Log.v("poto",""+file.getAbsolutePath());
 
                 RequestBody requestFile = RequestBody.create(MultipartBody.FORM,file);
                 MultipartBody.Part multipartBody = MultipartBody.Part.createFormData("foto",file.getName(),requestFile);
@@ -312,13 +308,10 @@ public class AccountFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<ResponseUserById> call, Throwable t) {
-                        Log.v("poto","gagal");
-                        Log.v("poto",""+ t.getMessage());
                     }
                 });
 
             } catch (Exception e) {
-                Log.v("poto",""+e.toString());
         }
 
     }
