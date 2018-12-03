@@ -61,7 +61,7 @@
         android:layout_height="match_parent">
 
         <ImageButton
-            android:id="@+id/delete"
+            android:id="@+id/btn_deletePromo"
             android:layout_width="30dp"
             android:layout_height="35dp"
             android:layout_centerHorizontal="true"

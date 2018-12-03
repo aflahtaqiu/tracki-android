@@ -113,7 +113,6 @@ public class AccountFragment extends Fragment {
         NavigationActivity navigationActivity = (NavigationActivity) getActivity();
         navigationActivity.setSupportActionBar(toolbarAccount);
 
-
         Picasso.get().load(userLogin.getFoto()).fit().into(imgAvatar);
         tvUserName.setText(userLogin.getName());
 
@@ -127,14 +126,14 @@ public class AccountFragment extends Fragment {
         stores = new ArrayList<>();
         promotions = new ArrayList<>();
         ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
-        Call<ResponseUserById> getTokoFav = apiRequest.getTokoFavorit(userLogin.getId());
+        Call<ResponseUserById> getTokoFav = apiRequest.getSavedPromo(userLogin.getId());
         getTokoFav.enqueue(new Callback<ResponseUserById>() {
             @Override
             public void onResponse(Call<ResponseUserById> call, Response<ResponseUserById> response) {
                 for (Promotion promotion : response.body().getUnused_promotions()){
                     promotions.add(promotion);
                 }
-                listSavePromoAdapter = new ListSavePromoAdapter(getContext(), promotions);
+                listSavePromoAdapter = new ListSavePromoAdapter(getContext(), promotions, userToken);
                 recyclerView = view.findViewById(R.id.recycerview_promoSaved);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 recyclerView.setAdapter(listSavePromoAdapter);

@@ -283,7 +283,7 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                     else{
                         rmdup.clear();
                         tokoTerdekatAdapter = new TokoTerdekatAdapter(getContext(), rmdup);
-                        textViewTokoTerdekat.setText("Tidak teredeksi toko terdekat");
+                        textViewTokoTerdekat.setText("Tidak terdeteksi toko");
                         recyclerView.setAdapter(tokoTerdekatAdapter);
                         imageViewUndetectStore.setVisibility(View.VISIBLE);
                     }
