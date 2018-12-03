@@ -26,17 +26,23 @@ import com.example.aflah.tracki_master.Auth.LoginActivity;
 import com.example.aflah.tracki_master.EditProfilActivity;
 import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
 import com.example.aflah.tracki_master.Model.Store;
+import com.example.aflah.tracki_master.Model.User;
 import com.example.aflah.tracki_master.Model.UserLogin;
+import com.example.aflah.tracki_master.NavigationActivity;
 import com.example.aflah.tracki_master.R;
 import com.example.aflah.tracki_master.Retrofit.ApiRequest;
 import com.example.aflah.tracki_master.Retrofit.RetroServer;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -218,7 +224,7 @@ public class AccountFragment extends Fragment {
         picAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Pilih default avatar", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "Pilih default avatar", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -234,8 +240,39 @@ public class AccountFragment extends Fragment {
         picCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, CAMERA);
+//                Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+//                startActivityForResult(intent, CAMERA);
+                Log.v("poto","udah di klik");
+                File foto = new File("/User/Ennobel/Pictures/Legend.jpg");
+                if(foto!=null){Log.v("poto","file potonya ada");}
+
+                RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"),foto);
+                MultipartBody.Part multipartBody = MultipartBody.Part.createFormData("foto",foto.getName(),requestFile);
+
+                ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
+                Call<ResponseUserById> updatefoto = apiRequest.updateProfilPicture(userLogin.getId(),userToken,multipartBody);
+                updatefoto.enqueue(new Callback<ResponseUserById>() {
+                    @Override
+                    public void onResponse(Call<ResponseUserById> call, Response<ResponseUserById> response) {
+                        User userLogin =  response.body().getUser();
+
+                        Gson gson = new Gson();
+                        String json = gson.toJson(userLogin);
+                        SharedPreferences.Editor editor = getContext().getSharedPreferences("login", Context.MODE_PRIVATE).edit();
+                        editor.putString("userLogin", json);
+                        editor.apply();
+                        editor.commit();
+
+                        Intent intent = new Intent(getApplicationContext(),NavigationActivity.class);
+//                        intent.putExtra("LOC",R.id.navigation_account);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseUserById> call, Throwable t) {
+                        Log.v("poto","gagal");
+                    }
+                });
             }
         });
 
