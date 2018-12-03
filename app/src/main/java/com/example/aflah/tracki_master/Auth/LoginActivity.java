@@ -29,6 +29,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.gson.Gson;
 
+import java.io.IOException;
+
 import me.omidh.ripplevalidatoredittext.RVEValidatorFactory;
 import me.omidh.ripplevalidatoredittext.RVEValidatorType;
 import me.omidh.ripplevalidatoredittext.RippleValidatorEditText;
@@ -113,6 +115,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
             public void onResponse(Call<ResponseLogin> call, Response<ResponseLogin> response) {
 
                 try{
+                    String message = response.body().getMessage();
                     UserLogin userLogin = response.body().getUserLogin();
                     String token = response.body().getAccessToken();
                     Gson gson = new Gson();
@@ -125,17 +128,28 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
                     startActivity(new Intent(LoginActivity.this, NavigationActivity.class));
                     finish();
                 }catch (Exception e){
+                    String message = null;
+                    try {
+                        message = response.errorBody().string();
+                        if (message.equals("{\"message\":\"email\"}")){
+                            if (etEmail.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EQUAL, "Email Anda belum terdaftar", etEmail.getText().toString() + " "), true)){
+                                etEmail.getEditText().setText("");
 
-                    if (etPassword.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EQUAL, "Password Anda salah", etPassword.getText().toString()+ " "), true)
-                            ){
-                        etPassword.getEditText().setText("");
+                            }
+                        } else if(message.equals("{\"message\":\"password\"}")){
+                            if (etPassword.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EQUAL, "Password Anda salah", etPassword.getText().toString()+ " "), true)
+                                    ){
+                                etPassword.getEditText().setText("");
+                            }
+                        }
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseLogin> call, Throwable t) {
-
             }
         });
     }
