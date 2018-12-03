@@ -29,6 +29,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.gson.Gson;
 
+import me.omidh.ripplevalidatoredittext.RVEValidatorFactory;
+import me.omidh.ripplevalidatoredittext.RVEValidatorType;
+import me.omidh.ripplevalidatoredittext.RippleValidatorEditText;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -38,7 +41,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
 
     Button btnLogin, btnMasukTamu;
     TextView tvDaftar, tvLupaPassword;
-    EditText etEmail, etPassword;
+    RippleValidatorEditText etEmail, etPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +60,16 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
         tvLupaPassword = (TextView) findViewById(R.id.tv_lupaPassword_login);
         btnLogin = (Button) findViewById(R.id.btn_masuk_login);
         btnMasukTamu = (Button) findViewById(R.id.btn_masukTamu_login);
-        etEmail = (EditText) findViewById(R.id.et_email_login);
-        etPassword = (EditText) findViewById(R.id.et_sandi_login);
+        etEmail = (RippleValidatorEditText) findViewById(R.id.et_email_login);
+        etPassword = (RippleValidatorEditText) findViewById(R.id.et_sandi_login);
+
+        etEmail.addValidator(
+                RVEValidatorFactory.getValidator(RVEValidatorType.EMPTY, "Email harus diisi", null),
+                RVEValidatorFactory.getValidator(RVEValidatorType.EMAIL, "ex: john@doe.com", null)
+        );
+        etPassword.addValidator(
+                RVEValidatorFactory.getValidator(RVEValidatorType.EMPTY, "Anda harus mengisi password", null)
+        );
 
         tvDaftar.setOnClickListener(this);
         tvLupaPassword.setOnClickListener(this);
@@ -79,8 +90,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
             case R.id.btn_masuk_login:
                 if (cekValidasi()){
                     loginEmailPassword(etEmail.getText().toString(), etPassword.getText().toString());
-                    startActivity(new Intent(LoginActivity.this, NavigationActivity.class));
-                    finish();
                 }
                 break;
             case R.id.btn_masukTamu_login:
@@ -102,21 +111,31 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
         loginUser.enqueue(new Callback<ResponseLogin>() {
             @Override
             public void onResponse(Call<ResponseLogin> call, Response<ResponseLogin> response) {
-                UserLogin userLogin = response.body().getUserLogin();
-                String token = response.body().getAccessToken();
 
-                Gson gson = new Gson();
-                String json = gson.toJson(userLogin);
-                SharedPreferences.Editor editor = getSharedPreferences("login", Context.MODE_PRIVATE).edit();
-                editor.putString("tokenLogin","Bearer "+ token);
-                editor.putString("userLogin", json);
-                editor.apply();
-                editor.commit();
+                try{
+                    UserLogin userLogin = response.body().getUserLogin();
+                    String token = response.body().getAccessToken();
+                    Gson gson = new Gson();
+                    String json = gson.toJson(userLogin);
+                    SharedPreferences.Editor editor = getSharedPreferences("login", Context.MODE_PRIVATE).edit();
+                    editor.putString("tokenLogin","Bearer "+ token);
+                    editor.putString("userLogin", json);
+                    editor.apply();
+                    editor.commit();
+                    startActivity(new Intent(LoginActivity.this, NavigationActivity.class));
+                    finish();
+                }catch (Exception e){
+
+                    if (etPassword.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EQUAL, "Password Anda salah", etPassword.getText().toString()+ " "), true)
+                            ){
+                        etPassword.getEditText().setText("");
+                    }
+                }
             }
 
             @Override
             public void onFailure(Call<ResponseLogin> call, Throwable t) {
-                Toast.makeText(LoginActivity.this, "onFailure :  " + t.getMessage(), Toast.LENGTH_LONG).show();
+
             }
         });
     }
@@ -132,26 +151,12 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
 
     @Override
     public boolean cekValidasi() {
-        if (etEmail.getText().equals("") || etPassword.getText().equals("")) {
-            if (etEmail.getText().equals(""))
-                etEmail.setError("Email tolong diisi");
-            if (etPassword.getText().equals(""))
-                etPassword.setError("Email tolong diisi");
-            return false;
-        }
-        else return cekEmailPattern();
-    }
 
-    @Override
-    public boolean cekEmailPattern() {
-        if (Patterns.EMAIL_ADDRESS.matcher(etEmail.getText().toString()).matches()){
-            etEmail.setError(null);
+        if (etEmail.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EMPTY, "Email harus diisi", null),true) &&
+                etEmail.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EMAIL, "ex: john@doe.com", null),true) &&
+                etPassword.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EMPTY, "Anda harus mengisi password", null),true)){
             return true;
-        }
-        else {
-            etEmail.setError("Masukkan format email yang benar");
-            return false;
-        }
+        } else return false;
     }
 
     protected void onNewIntent(Intent intent) {
@@ -169,5 +174,4 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
             Toast.makeText(LoginActivity.this, "appData : " + appData, Toast.LENGTH_LONG).show();
         }
     }
-
 }
