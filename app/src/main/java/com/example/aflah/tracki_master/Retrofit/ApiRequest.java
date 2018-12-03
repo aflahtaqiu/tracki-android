@@ -18,6 +18,7 @@ import java.io.File;
 import java.util.Date;
 
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -109,13 +110,13 @@ public interface ApiRequest {
             @Field("date_of_birth") Date dateOfBirth
     );
 
-    @FormUrlEncoded
     @Multipart
-    @PUT("user/photo/{id}")
+    @POST("user/photo/{id}")
     Call<ResponseUserById> updateProfilPicture(
             @Path("id") int idUser,
             @Header("Authorization") String token,
-            @Part MultipartBody.Part file
+            @Part MultipartBody.Part file,
+            @Part("_method") RequestBody reqMethod
             );
 
 

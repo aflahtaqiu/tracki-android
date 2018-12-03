@@ -1,11 +1,16 @@
 package com.example.aflah.tracki_master.NavbarFragment;
 
 import android.app.Dialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -37,7 +42,11 @@ import com.example.aflah.tracki_master.Retrofit.RetroServer;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,17 +58,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.app.Activity.RESULT_OK;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link AccountFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link AccountFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class AccountFragment extends Fragment {
 
     CircleImageView imgAvatar;
@@ -76,9 +78,9 @@ public class AccountFragment extends Fragment {
     Dialog Mydialog;
     TextView picAvatar,picGaleri, picCamera;
     Toolbar toolbarAccount;
+    Uri selectedImage;
     private int GALLERY = 1, CAMERA = 2;
 
-    private OnFragmentInteractionListener mListener;
 
     public AccountFragment() {
     }
@@ -204,11 +206,6 @@ public class AccountFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
     public void MyCustomDialog(){
         Mydialog = new Dialog(getActivity());
@@ -232,9 +229,10 @@ public class AccountFragment extends Fragment {
         picGaleri.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                galleryIntent.setType("image/*");
                 startActivityForResult(galleryIntent, GALLERY);
+
             }
         });
 
@@ -244,14 +242,41 @@ public class AccountFragment extends Fragment {
 //                Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 //                startActivityForResult(intent, CAMERA);
                 Log.v("poto","udah di klik");
-                File foto = new File("/User/Ennobel/Pictures/Legend.jpg");
-                if(foto!=null){Log.v("poto","file potonya ada");}
+            }
+        });
 
-                RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"),foto);
-                MultipartBody.Part multipartBody = MultipartBody.Part.createFormData("foto",foto.getName(),requestFile);
+        Mydialog.show();
+    }
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == GALLERY && resultCode == RESULT_OK && null != data) {
+            try {
+                Log.v("poto","masuk result");
+                selectedImage = data.getData();
+                Bitmap foto = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),selectedImage);
+
+                File file = new File(getContext().getCacheDir(), "fotoProfil");
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                file.createNewFile();
+
+                foto.compress(Bitmap.CompressFormat.JPEG, 100 /*ignored for PNG*/, bos);
+                byte[] bitmapdata = bos.toByteArray();
+                FileOutputStream fos = new FileOutputStream(file);
+                fos.write(bitmapdata);
+                fos.flush();
+                fos.close();
+
+                Log.v("poto",""+file.getAbsolutePath());
+
+                RequestBody requestFile = RequestBody.create(MultipartBody.FORM,file);
+                MultipartBody.Part multipartBody = MultipartBody.Part.createFormData("foto",file.getName(),requestFile);
+
+                RequestBody requestMethod = RequestBody.create(MultipartBody.FORM,"PUT");
 
                 ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
-                Call<ResponseUserById> updatefoto = apiRequest.updateProfilPicture(userLogin.getId(),userToken,multipartBody);
+                Call<ResponseUserById> updatefoto = apiRequest.updateProfilPicture(userLogin.getId(),userToken,multipartBody,requestMethod);
                 updatefoto.enqueue(new Callback<ResponseUserById>() {
                     @Override
                     public void onResponse(Call<ResponseUserById> call, Response<ResponseUserById> response) {
@@ -264,51 +289,24 @@ public class AccountFragment extends Fragment {
                         editor.apply();
                         editor.commit();
 
-                        Intent intent = new Intent(getApplicationContext(),NavigationActivity.class);
-//                        intent.putExtra("LOC",R.id.navigation_account);
+                        Intent intent = new Intent(getContext(),NavigationActivity.class);
+                        intent.putExtra("LOC",R.id.navigation_account);
                         startActivity(intent);
+                        getActivity().finish();
                     }
 
                     @Override
                     public void onFailure(Call<ResponseUserById> call, Throwable t) {
                         Log.v("poto","gagal");
+                        Log.v("poto",""+ t.getMessage());
                     }
                 });
-            }
-        });
 
-        Mydialog.show();
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+            } catch (Exception e) {
+                Log.v("poto",""+e.toString());
         }
-    }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
     }
+}
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
 }
