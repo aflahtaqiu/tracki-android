@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -26,9 +27,12 @@ import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.aflah.tracki_master.Adapter.TokoTerdekatAdapter;
+import com.example.aflah.tracki_master.DetailMenuActivity;
 import com.example.aflah.tracki_master.DetailTokoActivity;
+import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameProduct;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameStore;
 import com.example.aflah.tracki_master.Model.Response.ResponseTokoByUID;
 import com.example.aflah.tracki_master.Model.SearchName;
@@ -59,7 +63,7 @@ import retrofit2.Response;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment implements NavigationActivity.OnCubeaconUpdated,AdapterView.OnItemClickListener,SwipeRefreshLayout.OnRefreshListener {
+public class HomeFragment extends Fragment implements NavigationActivity.OnCubeaconUpdated,AdapterView.OnItemClickListener,SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemSelectedListener {
 
     private static final String TAG = HomeFragment.class.getSimpleName();
     private List<Map<String, String>> data;
@@ -70,6 +74,7 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
     HashMap<String,SearchName> toko;
     String[] from;
     int[] to;
+    String[] spinnerItem = new String[]{"Toko", "Produk"};
 
     ViewPager viewPager;
 
@@ -79,9 +84,10 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
     ImageView imageViewUndetectStore;
 
     int beaconCount;
-
+    int flagSearch = 0;
 
     TextView textViewTokoTerdekat;
+    AppCompatSpinner spinnerSearch;
 
     private SearchView searchView = null;
     private SearchView.OnQueryTextListener queryTextListener;
@@ -120,43 +126,87 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
         imageViewUndetectStore = (ImageView) view.findViewById(R.id.iv_undetect_store);
 //        imageViewUndetectStore.setVisibility(View.INVISIBLE);
         AutoCompleteTextView autoCompleteTextView = view.findViewById(R.id.edit_search);
+        spinnerSearch = (AppCompatSpinner) view.findViewById(R.id.spinnerSearch);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this.getActivity(), R.layout.item_spinner, spinnerItem);
+        spinnerSearch.setAdapter(spinnerAdapter);
+        spinnerSearch.setOnItemSelectedListener(this);
 
         autoCompleteTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
-                Call<ResponseSearchNameStore> getNamaToko = apiRequest.getSearchNamesStore();
-                getNamaToko.enqueue(new Callback<ResponseSearchNameStore>() {
-                    @Override
-                    public void onResponse(Call<ResponseSearchNameStore> call, Response<ResponseSearchNameStore> response) {
-                        toko = new HashMap<>();
-                        String[] namaToko = new String[response.body().getSearchNamesStore().size()];
-                        for (int i = 0; i < response.body().getSearchNamesStore().size(); i++) {
-                            namaToko[i] = response.body().getSearchNamesStore().get(i).getName();
-                            toko.put(namaToko[i],response.body().getSearchNamesStore().get(i));
-                        }
-                        autoCompleteAdaptor = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,namaToko);
-                        autoCompleteTextView.setAdapter(autoCompleteAdaptor);
-                        autoCompleteTextView.setThreshold(0);
-                        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                String selected = (String) adapterView.getItemAtPosition(i);
-                                int pos = Arrays.asList(namaToko).indexOf(selected);
-                                SearchName tokoPilihan =toko.get(namaToko[pos]);
-                                Intent intent = new Intent(getActivity(),DetailTokoActivity.class);
-                                intent.putExtra("idTokoTerdekat",Integer.valueOf(tokoPilihan.getId()));
-                                autoCompleteTextView.setText("");
-                                startActivity(intent);
+
+                if (flagSearch == 0){
+                    Call<ResponseSearchNameStore> getNama;
+                    getNama = apiRequest.getSearchNamesStore();
+                    getNama.enqueue(new Callback<ResponseSearchNameStore>() {
+                        @Override
+                        public void onResponse(Call<ResponseSearchNameStore> call, Response<ResponseSearchNameStore> response) {
+                            toko = new HashMap<>();
+                            String[] namaToko = new String[response.body().getSearchNamesStore().size()];
+                            for (int i = 0; i < response.body().getSearchNamesStore().size(); i++) {
+                                namaToko[i] = response.body().getSearchNamesStore().get(i).getName();
+                                toko.put(namaToko[i],response.body().getSearchNamesStore().get(i));
                             }
-                        });
-                    }
+                            autoCompleteAdaptor = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,namaToko);
+                            autoCompleteTextView.setAdapter(autoCompleteAdaptor);
+                            autoCompleteTextView.setThreshold(0);
+                            autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                    String selected = (String) adapterView.getItemAtPosition(i);
+                                    int pos = Arrays.asList(namaToko).indexOf(selected);
+                                    SearchName tokoPilihan =toko.get(namaToko[pos]);
+                                    Intent intent = new Intent(getActivity(),DetailTokoActivity.class);
+                                    intent.putExtra("idTokoTerdekat",Integer.valueOf(tokoPilihan.getId()));
+                                    autoCompleteTextView.setText("");
+                                    startActivity(intent);
+                                }
+                            });
+                        }
 
-                    @Override
-                    public void onFailure(Call<ResponseSearchNameStore> call, Throwable t) {
+                        @Override
+                        public void onFailure(Call<ResponseSearchNameStore> call, Throwable t) {
 
-                    }
-                });
+                        }
+                    });
+                }else {
+                    Call<ResponseSearchNameProduct> getNama;
+                    getNama = apiRequest.getSearchNamesProduct();
+                    getNama.enqueue(new Callback<ResponseSearchNameProduct>() {
+                        @Override
+                        public void onResponse(Call<ResponseSearchNameProduct> call, Response<ResponseSearchNameProduct> response) {
+                            toko = new HashMap<>();
+                            String[] namaToko = new String[response.body().getSearchNamesProduct().size()];
+                            for (int i = 0; i < response.body().getSearchNamesProduct().size(); i++) {
+                                namaToko[i] = response.body().getSearchNamesProduct().get(i).getName();
+                                toko.put(namaToko[i],response.body().getSearchNamesProduct().get(i));
+                            }
+                            autoCompleteAdaptor = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,namaToko);
+                            autoCompleteTextView.setAdapter(autoCompleteAdaptor);
+                            autoCompleteTextView.setThreshold(0);
+                            autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                    String selected = (String) adapterView.getItemAtPosition(i);
+                                    int pos = Arrays.asList(namaToko).indexOf(selected);
+                                    SearchName tokoPilihan =toko.get(namaToko[pos]);
+                                    Intent intent = new Intent(getActivity(),DetailMenuActivity.class);
+                                    intent.putExtra("idProduk",Integer.valueOf(tokoPilihan.getId()));
+                                    autoCompleteTextView.setText("");
+                                    startActivity(intent);
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseSearchNameProduct> call, Throwable t) {
+
+                        }
+                    });
+                }
+
+
             }
         });
         stores = new ArrayList<>();
@@ -282,13 +332,6 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                             });
                         }
                     }
-//                    else{
-//                        rmdup.clear();
-//                        tokoTerdekatAdapter = new TokoTerdekatAdapter(getContext(), rmdup);
-//                        textViewTokoTerdekat.setText("Tidak terdeksi toko terdekat");
-//                        recyclerView.setAdapter(tokoTerdekatAdapter);
-//                        imageViewUndetectStore.setVisibility(View.VISIBLE);
-//                    }
                 }
             });
         }
@@ -303,6 +346,23 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
 
     @Override
     public void onRefresh() {
+
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        switch (position){
+            case 0:
+                flagSearch = 0;
+                break;
+            case 1:
+                flagSearch = 1;
+                break;
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
 
     }
 

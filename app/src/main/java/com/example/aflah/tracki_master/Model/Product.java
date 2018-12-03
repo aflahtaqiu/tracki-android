@@ -3,6 +3,8 @@ package com.example.aflah.tracki_master.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Product {
 
     @SerializedName("id")
@@ -23,6 +25,17 @@ public class Product {
     @SerializedName("picture")
     @Expose
     private String picture;
+    @SerializedName("stores")
+    @Expose
+    private List<Store> stores;
+
+    public List<Store> getStores() {
+        return stores;
+    }
+
+    public void setStores(List<Store> stores) {
+        this.stores = stores;
+    }
 
     public int getId() {
         return id;
@@ -81,6 +94,7 @@ public class Product {
                 ", description='" + description + '\'' +
                 ", category=" + category +
                 ", picture='" + picture + '\'' +
+                ", stores=" + stores +
                 '}';
     }
 }

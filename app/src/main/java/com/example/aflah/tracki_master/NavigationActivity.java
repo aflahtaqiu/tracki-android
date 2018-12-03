@@ -35,7 +35,6 @@ import java.util.UUID;
 
 public class NavigationActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
 //        HomeFragment.OnFragmentInteractionListener,
-        AccountFragment.OnFragmentInteractionListener,
         PromoFragment.OnFragmentInteractionListener,
         CBRangingListener, CBServiceListener{
 
