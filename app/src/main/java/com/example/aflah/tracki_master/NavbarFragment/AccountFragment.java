@@ -247,6 +247,21 @@ public class AccountFragment extends Fragment {
 
         Mydialog.show();
     }
+    private Bitmap getResizedBitmap(Bitmap image) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+
+        float bitmapRatio = (float) width / (float) height;
+        if (bitmapRatio > 1) {
+            width = 800;
+            height = (int) (width / bitmapRatio);
+        } else {
+            height = 800;
+            width = (int) (height * bitmapRatio);
+        }
+        return Bitmap.createScaledBitmap(image, width, height, true);
+    }
+
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         super.onActivityResult(requestCode, resultCode, data);
@@ -255,7 +270,7 @@ public class AccountFragment extends Fragment {
             try {
                 Log.v("poto","masuk result");
                 selectedImage = data.getData();
-                Bitmap foto = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),selectedImage);
+                Bitmap foto = getResizedBitmap(MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),selectedImage));
 
                 File file = new File(getContext().getCacheDir(), "fotoProfil");
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
