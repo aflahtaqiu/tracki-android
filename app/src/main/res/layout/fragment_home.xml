@@ -26,9 +26,9 @@
 
             <AutoCompleteTextView
                 android:id="@+id/edit_search"
-                android:layout_width="300dp"
+                android:layout_width="250dp"
                 android:layout_height="35dp"
-                android:layout_marginLeft="12dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="12dp"
                 android:layout_marginBottom="16dp"
@@ -46,15 +46,15 @@
                 android:textSize="15sp">
 
             </AutoCompleteTextView>
-
-            <Spinner
+            <android.support.v7.widget.AppCompatSpinner
                 android:id="@+id/spinnerSearch"
-                android:layout_width="60dp"
-                android:layout_height="35dp"
+                android:layout_width="125dp"
+                android:layout_height="50dp"
                 android:background="@android:drawable/btn_dropdown"
-                android:spinnerMode="dropdown">
+                android:spinnerMode="dropdown" >
 
-            </Spinner>
+            </android.support.v7.widget.AppCompatSpinner>
+
         </android.support.v7.widget.Toolbar>
 
         <!--<LinearLayout-->

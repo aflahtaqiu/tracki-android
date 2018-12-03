@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -25,7 +26,6 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -82,9 +82,10 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
     ImageView imageViewUndetectStore;
 
     int beaconCount;
+    int flagSearch = 0;
 
     TextView textViewTokoTerdekat;
-    Spinner spinnerSearch;
+    AppCompatSpinner spinnerSearch;
 
     private SearchView searchView = null;
     private SearchView.OnQueryTextListener queryTextListener;
@@ -123,10 +124,9 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
         imageViewUndetectStore = (ImageView) view.findViewById(R.id.iv_undetect_store);
         imageViewUndetectStore.setVisibility(View.INVISIBLE);
         AutoCompleteTextView autoCompleteTextView = view.findViewById(R.id.edit_search);
-        spinnerSearch = (Spinner) view.findViewById(R.id.spinnerSearch);
+        spinnerSearch = (AppCompatSpinner) view.findViewById(R.id.spinnerSearch);
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this.getActivity(), R.layout.item_spinner, spinnerItem);
         spinnerSearch.setAdapter(spinnerAdapter);
-        spinnerSearch.setEnabled(true);
         spinnerSearch.setOnItemSelectedListener(this);
 
         autoCompleteTextView.setOnClickListener(new View.OnClickListener() {
@@ -314,7 +314,7 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                 Toast.makeText(getActivity(), "Anda memilih id " + position , Toast.LENGTH_LONG).show();
                 break;
             case 1:
-                Toast.makeText(getActivity(), "Anda memilih id " + position , Toast.LENGTH_LONG).show();
+                Toast.  makeText(getActivity(), "Anda memilih id " + position , Toast.LENGTH_LONG).show();
                 break;
         }
     }
