@@ -127,16 +127,16 @@ public class AccountFragment extends Fragment {
         promotions = new ArrayList<>();
 
         ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
-        Call<ResponseUserById> getTokoFav = apiRequest.getSavedPromo(userLogin.getId());
-        getTokoFav.enqueue(new Callback<ResponseUserById>() {
+        Call<ResponseUserById> getSavedPromo = apiRequest.getSavedPromo(userLogin.getId());
+        getSavedPromo.enqueue(new Callback<ResponseUserById>() {
             @Override
             public void onResponse(Call<ResponseUserById> call, Response<ResponseUserById> response) {
                 for (Promotion promotion : response.body().getUnused_promotions()){
                     promotions.add(promotion);
                 }
-                listSavePromoAdapter = new ListSavePromoAdapter(getContext(), promotions, userToken);
                 recyclerView = view.findViewById(R.id.recycerview_promoSaved);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                listSavePromoAdapter = new ListSavePromoAdapter(getContext(), promotions, userToken,recyclerView);
                 recyclerView.setAdapter(listSavePromoAdapter);
             }
 
