@@ -7,18 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".Auth.RegisterActivity">
 
-    <Button
-        android:id="@+id/buttonHelpRegister"
-        android:layout_width="38dp"
-        android:layout_height="38dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/button_help_register"
-        android:text="@string/tandatanya"
-        android:textColor="@color/colorTracki"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <!--<Button-->
+        <!--android:id="@+id/buttonHelpRegister"-->
+        <!--android:layout_width="38dp"-->
+        <!--android:layout_height="38dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:background="@drawable/button_help_register"-->
+        <!--android:text="@string/tandatanya"-->
+        <!--android:textColor="@color/colorTracki"-->
+        <!--android:textSize="20dp"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
 
     <TextView
         android:id="@+id/textViewTracki"
@@ -52,94 +52,128 @@
         app:layout_constraintVertical_bias="0.569">
 
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/nama"
+        <me.omidh.ripplevalidatoredittext.RippleValidatorEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="50dp"
+            android:id="@+id/et_nama_register"
+            app:rve_helperTextGravity="left"
+            app:rve_editTextGravity="left"
+            app:rve_hint="Masukkan nama Anda"
+            app:rve_helperTextSize="12sp"
+            app:rve_editTextSize="14sp"
+            app:rve_topLeftCornerRadius="25dp"
+            app:rve_bottomLeftCornerRadius="25dp"
+            app:rve_bottomRightCornerRadius="25dp"
+            app:rve_topRightCornerRadius="25dp"
+            app:rve_strokeWidth="1dp"
+            android:inputType="textPersonName"
+            android:textColorHint="#C7C7C7"
+            app:rve_normalColor="#C7C7C7"
+            app:rve_backgroundColor="#10ffffff"
+            app:rve_typingColor="#aa1a237e"
+            app:rve_errorColor="#EF5350"
+            app:rve_validColor="#ff00c853"
+            android:padding="8dp"
+            app:rve_editTextColor="#000000" />
 
-            <EditText
-                android:id="@+id/et_nama_register"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
-                android:drawablePadding="20dp"
-                android:ems="10"
-                android:hint="Nama"
-                android:maxLines="1" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/email"
+        <me.omidh.ripplevalidatoredittext.RippleValidatorEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="50dp"
+            android:id="@+id/et_email_register"
+            app:rve_helperTextGravity="left"
+            app:rve_editTextGravity="left"
+            android:layout_marginTop="10dp"
+            app:rve_hint="Masukkan email Anda"
+            app:rve_helperTextSize="12sp"
+            app:rve_editTextSize="14sp"
+            app:rve_topLeftCornerRadius="25dp"
+            app:rve_bottomLeftCornerRadius="25dp"
+            app:rve_bottomRightCornerRadius="25dp"
+            app:rve_topRightCornerRadius="25dp"
+            app:rve_strokeWidth="1dp"
+            android:inputType="textEmailAddress"
+            android:textColorHint="#C7C7C7"
+            app:rve_normalColor="#C7C7C7"
+            app:rve_backgroundColor="#10ffffff"
+            app:rve_typingColor="#aa1a237e"
+            app:rve_errorColor="#EF5350"
+            app:rve_validColor="#ff00c853"
+            android:padding="8dp"
+            app:rve_editTextColor="#000000" />
 
-            <EditText
-                android:id="@+id/et_email_register"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:drawablePadding="20dp"
-                android:ems="10"
-                android:hint="Email"
-                android:maxLines="1" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/sandi_register"
+        <me.omidh.ripplevalidatoredittext.RippleValidatorEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:passwordToggleEnabled="true">
+            android:layout_height="50dp"
+            android:id="@+id/et_sandi_register"
+            app:rve_helperTextGravity="left"
+            app:rve_editTextGravity="left"
+            android:layout_marginTop="10dp"
+            app:rve_hint="Masukkan password"
+            app:rve_helperTextSize="12sp"
+            app:rve_editTextSize="14sp"
+            app:rve_topLeftCornerRadius="25dp"
+            app:rve_bottomLeftCornerRadius="25dp"
+            app:rve_bottomRightCornerRadius="25dp"
+            app:rve_topRightCornerRadius="25dp"
+            app:rve_strokeWidth="1dp"
+            android:inputType="textPassword"
+            android:textColorHint="#C7C7C7"
+            app:rve_normalColor="#C7C7C7"
+            app:rve_backgroundColor="#10ffffff"
+            app:rve_typingColor="#aa1a237e"
+            app:rve_errorColor="#EF5350"
+            app:rve_validColor="#ff00c853"
+            android:padding="8dp"
+            app:rve_editTextColor="#000000" />
 
-            <EditText
-                android:id="@+id/et_sandi_register"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:drawablePadding="20dp"
-                android:ems="10"
-                android:hint="Sandi"
-                android:inputType="textPassword"
-                android:maxLines="1" />
-
-        </android.support.design.widget.TextInputLayout>
-
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/konfirmasi_sandi_register"
+        <me.omidh.ripplevalidatoredittext.RippleValidatorEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:passwordToggleEnabled="true">
+            android:layout_height="50dp"
+            android:id="@+id/et_konfirmSandi_register"
+            app:rve_helperTextGravity="left"
+            app:rve_editTextGravity="left"
+            android:layout_marginTop="10dp"
+            app:rve_hint="Korfirmasi Password Anda"
+            app:rve_helperTextSize="12sp"
+            app:rve_editTextSize="14sp"
+            app:rve_topLeftCornerRadius="25dp"
+            app:rve_bottomLeftCornerRadius="25dp"
+            app:rve_bottomRightCornerRadius="25dp"
+            app:rve_topRightCornerRadius="25dp"
+            app:rve_strokeWidth="1dp"
+            android:inputType="textPassword"
+            android:textColorHint="#C7C7C7"
+            app:rve_normalColor="#C7C7C7"
+            app:rve_backgroundColor="#10ffffff"
+            app:rve_typingColor="#aa1a237e"
+            app:rve_errorColor="#EF5350"
+            app:rve_validColor="#ff00c853"
+            android:padding="8dp"
+            app:rve_editTextColor="#000000" />
 
-            <EditText
-                android:id="@+id/et_konfirmSandi_register"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:drawablePadding="20dp"
-                android:ems="10"
-                android:hint="Konfirmasi sandi"
-                android:inputType="textPassword"
-                android:maxLines="1" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/dateBirth"
+        <me.omidh.ripplevalidatoredittext.RippleValidatorEditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <EditText
-                android:id="@+id/et_tanggalLahir_register"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:drawablePadding="20dp"
-                android:ems="10"
-                android:hint="Tanggal lahir"
-                android:maxLines="1" />
-        </android.support.design.widget.TextInputLayout>
-
+            android:layout_height="50dp"
+            android:id="@+id/et_tanggalLahir_register"
+            app:rve_helperTextGravity="left"
+            app:rve_editTextGravity="left"
+            android:layout_marginTop="10dp"
+            app:rve_hint="Masukkan Tanggal Lahir Anda"
+            app:rve_helperTextSize="12sp"
+            app:rve_editTextSize="14sp"
+            app:rve_topLeftCornerRadius="25dp"
+            app:rve_bottomLeftCornerRadius="25dp"
+            app:rve_bottomRightCornerRadius="25dp"
+            app:rve_topRightCornerRadius="25dp"
+            app:rve_strokeWidth="1dp"
+            android:textColorHint="#C7C7C7"
+            app:rve_normalColor="#C7C7C7"
+            app:rve_backgroundColor="#10ffffff"
+            app:rve_typingColor="#aa1a237e"
+            app:rve_errorColor="#EF5350"
+            app:rve_validColor="#ff00c853"
+            android:padding="8dp"
+            app:rve_editTextColor="#000000" />
 
         <Button
             android:id="@+id/btn_daftar_register"
@@ -147,7 +181,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:background="@drawable/button_register_login"
-            android:text="Daftar"
+            android:text="Register"
             android:textAllCaps="false"
             android:textColor="#ffffff"
             android:textSize="18dp" />

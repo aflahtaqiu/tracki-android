@@ -1,42 +1,41 @@
 package com.example.aflah.tracki_master.Model.Response;
 
 import com.example.aflah.tracki_master.Model.User;
+import com.example.aflah.tracki_master.Model.UserLogin;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class ResponseRegister {
 
-    @SerializedName("message")
-    @Expose
-    private String message;
     @SerializedName("user")
     @Expose
-    private User user;
-    @SerializedName("token")
+    private UserLogin user;
+    @SerializedName("access_token")
     @Expose
-    private String token;
+    private String access_token;
 
-    public String getMessage() {
-        return message;
-    }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public User getUser() {
+    public UserLogin getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserLogin user) {
         this.user = user;
     }
 
-    public String getToken() {
-        return token;
+    public String getAccess_token() {
+        return access_token;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setAccess_token(String access_token) {
+        this.access_token = access_token;
+    }
+
+    @Override
+    public String toString() {
+        return "ResponseRegister{" +
+                "user=" + user +
+                ", access_token='" + access_token + '\'' +
+                '}';
     }
 }

@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:facebook="http://schemas.android.com/apk/res-auto"
-
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -25,53 +23,68 @@
     <LinearLayout
         android:id="@+id/layout_input_login"
         android:layout_width="306dp"
-        android:layout_height="393dp"
-        android:orientation="vertical"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.569">
+        app:layout_constraintVertical_bias="0.375">
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/email"
+        <me.omidh.ripplevalidatoredittext.RippleValidatorEditText
+            android:id="@+id/et_email_login"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:inputType="textEmailAddress"
+            android:padding="8dp"
+            android:textColorHint="#C7C7C7"
+            app:rve_backgroundColor="#10ffffff"
+            app:rve_topLeftCornerRadius="25dp"
+            app:rve_bottomLeftCornerRadius="25dp"
+            app:rve_bottomRightCornerRadius="25dp"
+            app:rve_topRightCornerRadius="25dp"
+            app:rve_editTextColor="#000000"
+            app:rve_editTextGravity="left"
+            app:rve_editTextSize="14sp"
+            app:rve_errorColor="#EF5350"
+            app:rve_helperTextGravity="left"
+            app:rve_helperTextSize="12sp"
+            app:rve_hint="Masukkan Email Anda"
+            app:rve_normalColor="#C7C7C7"
+            app:rve_strokeWidth="1dp"
+            app:rve_typingColor="#aa1a237e"
+            app:rve_validColor="#ff00c853" />
 
-            <EditText
-                android:id="@+id/et_email_login"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:drawablePadding="20dp"
-                android:ems="10"
-                android:hint="Email"
-                android:maxLines="1" />
-
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/sandi_register"
+        <me.omidh.ripplevalidatoredittext.RippleValidatorEditText
+            android:id="@+id/et_sandi_login"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:passwordToggleEnabled="true">
-
-            <EditText
-                android:id="@+id/et_sandi_login"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:drawablePadding="20dp"
-                android:ems="10"
-                android:hint="Sandi"
-                android:inputType="textPassword"
-                android:maxLines="1" />
-
-        </android.support.design.widget.TextInputLayout>
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:inputType="textPassword"
+            android:padding="8dp"
+            android:textColorHint="#C7C7C7"
+            app:rve_backgroundColor="#10ffffff"
+            app:rve_topLeftCornerRadius="25dp"
+            app:rve_bottomLeftCornerRadius="25dp"
+            app:rve_bottomRightCornerRadius="25dp"
+            app:rve_topRightCornerRadius="25dp"
+            app:rve_editTextColor="#000000"
+            app:rve_editTextGravity="left"
+            app:rve_editTextSize="14sp"
+            app:rve_errorColor="#EF5350"
+            app:rve_helperTextGravity="left"
+            app:rve_helperTextSize="12sp"
+            app:rve_hint="Masukkan Password Anda"
+            app:rve_normalColor="#C7C7C7"
+            app:rve_strokeWidth="1dp"
+            app:rve_typingColor="#aa1a237e"
+            app:rve_validColor="#ff00c853" />
 
         <TextView
             android:id="@+id/tv_lupaPassword_login"
@@ -79,16 +92,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:text="Lupa Password?"
-            android:textSize="15dp"
-            android:textColor="@color/colorTracki" />
+            android:text="Lupa Kata Sandi?"
+            android:textAllCaps="false"
+            android:textColor="@color/colorTracki"
+            android:textSize="15dp" />
 
         <Button
             android:id="@+id/btn_masuk_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/button_register_login"
-            android:text="Masuk"
+            android:text="Login"
             android:textAllCaps="false"
             android:textColor="#ffffff"
             android:textSize="18dp" />
@@ -99,13 +113,14 @@
         android:id="@+id/login_layout_or"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="424dp"
+        android:layout_marginRight="40dp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.61">
+        app:layout_constraintTop_toTopOf="parent">
 
         <View
             android:layout_width="200dp"
@@ -117,7 +132,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="ATAU"
+            android:text="Atau"
             android:textColor="@color/colorAbuGelap" />
 
         <View
@@ -133,7 +148,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="55dp"
         android:background="@drawable/button_login_tamu"
-        android:text="Masuk sebagai tamu"
+        android:text="LOgin as Guest"
         android:textAllCaps="false"
         android:textColor="#ffffff"
         android:textSize="18dp"
@@ -141,35 +156,33 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.68"/>
+        app:layout_constraintVertical_bias="0.75"/>
 
-    <com.google.android.gms.common.SignInButton
-        android:layout_width="306dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.79"
-        android:layout_marginTop="50dp">
-
-    </com.google.android.gms.common.SignInButton>
-
-    <!--<com.facebook.login.widget.LoginButton-->
+    <!--<com.google.android.gms.common.SignInButton-->
         <!--android:layout_width="306dp"-->
         <!--android:layout_height="wrap_content"-->
         <!--app:layout_constraintBottom_toBottomOf="parent"-->
         <!--app:layout_constraintEnd_toEndOf="parent"-->
         <!--app:layout_constraintStart_toStartOf="parent"-->
         <!--app:layout_constraintTop_toTopOf="parent"-->
-        <!--app:layout_constraintVertical_bias="0.88"/>-->
+        <!--app:layout_constraintVertical_bias="0.79"-->
+        <!--android:layout_marginTop="50dp">-->
+
+    <!--</com.google.android.gms.common.SignInButton>-->
+
+    <!--<com.facebook.login.widget.LoginButton-->
+    <!--android:layout_width="306dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--app:layout_constraintEnd_toEndOf="parent"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent"-->
+    <!--app:layout_constraintVertical_bias="0.88"/>-->
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_login"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
         android:background="@color/colorbottom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

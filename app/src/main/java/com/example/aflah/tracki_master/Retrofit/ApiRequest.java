@@ -4,7 +4,8 @@ import com.example.aflah.tracki_master.Model.Advertisements;
 import com.example.aflah.tracki_master.Model.Response.ResponseAddReview;
 import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
 import com.example.aflah.tracki_master.Model.Response.ResponseLogin;
-import com.example.aflah.tracki_master.Model.Response.ResponsePromotion;
+import com.example.aflah.tracki_master.Model.Response.ResponseLogout;
+import com.example.aflah.tracki_master.Model.Response.ResponseRedeemPromotion;
 import com.example.aflah.tracki_master.Model.Response.ResponsePromotionById;
 import com.example.aflah.tracki_master.Model.Response.ResponseRegister;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameProduct;
@@ -57,10 +58,11 @@ public interface ApiRequest {
     Call<Advertisements> getAdvertisements();
 
     @GET("promotion")
-    Call<ResponsePromotion> getPromotions();
+    Call<ResponseRedeemPromotion> getPromotions();
 
     @GET("promotion/{id}")
     Call<ResponsePromotionById> getPromotionById(
+            @Header("Authorization") String token,
             @Path("id") int id
     );
 
@@ -80,9 +82,14 @@ public interface ApiRequest {
             @Field("password_confirmation") String password_confirmation
     );
 
+    @POST("user/logout")
+    Call<ResponseLogout> sendLogout(
+    );
+
     @FormUrlEncoded
     @POST("redeem")
-    Call<ResponsePromotion> getRedeemData (
+    Call<ResponseRedeemPromotion> getRedeemData (
+            @Header("Authorization") String token,
             @Field("promotion_id") int promotion_id
     );
 

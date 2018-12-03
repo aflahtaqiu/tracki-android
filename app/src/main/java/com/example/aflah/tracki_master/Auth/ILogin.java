@@ -7,6 +7,4 @@ public interface ILogin {
     public void loginSebagaiTamu();
 
     public boolean cekValidasi();
-
-    public boolean cekEmailPattern();
 }

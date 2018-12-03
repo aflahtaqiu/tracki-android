@@ -51,9 +51,9 @@ public class DetailTokoActivity extends AppCompatActivity implements DetailTokoF
         viewPager_CarouselDetailToko = (ViewPager) findViewById(R.id.viewPager_carousel_detailToko);
         detailTokoViewPagerAdapter = new DetailTokoViewPagerAdapter(getSupportFragmentManager());
 
-        detailTokoViewPagerAdapter.AddFragment(new DetailTokoFragment(), "");
-        detailTokoViewPagerAdapter.AddFragment(new MakananFragment(), "");
-        detailTokoViewPagerAdapter.AddFragment(new MinumanFragment(), "");
+        detailTokoViewPagerAdapter.AddFragment(new DetailTokoFragment(), "About");
+        detailTokoViewPagerAdapter.AddFragment(new MakananFragment(), "Makanan");
+        detailTokoViewPagerAdapter.AddFragment(new MinumanFragment(), "Minuman");
 
         linearLayout_DotsPanel = (LinearLayout) findViewById(R.id.layoutDots_detailToko);
 
@@ -69,7 +69,6 @@ public class DetailTokoActivity extends AppCompatActivity implements DetailTokoF
                 }
                 CarouselDetailTokoAdapter carouselDetailTokoAdapter = new CarouselDetailTokoAdapter(DetailTokoActivity.this, urlImageList);
                 viewPager_CarouselDetailToko.setAdapter(carouselDetailTokoAdapter);
-
             }
 
             @Override
@@ -80,10 +79,6 @@ public class DetailTokoActivity extends AppCompatActivity implements DetailTokoF
 
         viewPager.setAdapter(detailTokoViewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
-
-        tabLayout.getTabAt(0).setIcon(R.drawable.ic_store);
-        tabLayout.getTabAt(1).setIcon(R.drawable.ic_restaurant);
-        tabLayout.getTabAt(2).setIcon(R.drawable.ic_local_cafe);
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimeCarousel(), 4000, 4000);

@@ -21,8 +21,14 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+    </style>
+
     <style name="BaseButtonOverflow" parent="Widget.AppCompat.ActionButton.Overflow">
-        <item name="android:src"> @drawable/ic_settings</item>
+        <item name="android:src"> @drawable/ic_more_vert_black_24dp</item>
     </style>
 
     <style name="line_style">

@@ -36,20 +36,22 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingTop="10dp">
+
                     <TextView
                         android:id="@+id/tv_namaToko_detailToko"
-                        android:text="Excelso"
-                        android:layout_width="200dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingLeft="10dp"
-                        android:textSize="30dp"
-                        android:textStyle="bold"/>
+                        android:layout_marginEnd="16dp"
+                        android:text="Excelso"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
 
-                    <CheckBox
-                        android:button="@drawable/cb_selector"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"/>
+                    <!--<CheckBox-->
+                        <!--android:button="@drawable/cb_selector"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginLeft="15dp"/>-->
                 </LinearLayout>
 
                 <TextView
@@ -57,7 +59,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Tipe Toko"
-                    android:textSize="18dp"
+                    android:textSize="16dp"
+                    android:layout_marginEnd="16dp"
                     android:paddingLeft="10dp"/>
 
                 <RatingBar
@@ -66,27 +69,33 @@
                     android:layout_height="wrap_content"
                     android:numStars="5"
                     android:rating="4.5"
+                    android:layout_marginEnd="16dp"
                     style="@style/Base.Widget.AppCompat.RatingBar.Indicator"
                     android:layout_margin="10dp"/>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="20dp">
+                    android:layout_width="254dp"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginEnd="16dp"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
+
                     <Button
                         android:id="@+id/btn_reviewToko_detailToko"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
+                        android:layout_height="match_parent"
                         android:layout_marginBottom="5dp"
-                        android:background="@drawable/button_review"
-                        android:text="Review"
-                        android:textColor="#FFFFFF"/>
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/button_simpan"
+                        android:text="Lihat ulasan"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorTracki"
+                        android:textSize="12dp" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -108,6 +117,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
+                    android:layout_marginStart="16dp"
                     android:src="@drawable/ic_location_on"/>
 
                 <TextView
@@ -115,9 +125,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:isScrollContainer="true"
-                    android:layout_margin="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="10dp"
                     android:text="Lokasi Toko"
-                    android:textSize="20dp"/>
+                    android:textSize="16dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -129,6 +141,7 @@
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:padding="10dp"
+                    android:layout_marginStart="16dp"
                     android:src="@drawable/ic_access_time"/>
 
                 <TextView
@@ -137,19 +150,21 @@
                     android:layout_height="wrap_content"
                     android:text="10.00"
                     android:isScrollContainer="true"
-                    android:textSize="20dp"
+                    android:textSize="16dp"
                     android:maxLength="5"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="5dp"
                     android:layout_marginLeft="10dp"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
-                    android:textSize="20dp"
+                    android:textSize="16dp"
                     android:isScrollContainer="true"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="5dp"/>
+
                 <TextView
                     android:id="@+id/tv_jamTutupToko_detailToko"
                     android:layout_width="wrap_content"
@@ -157,7 +172,7 @@
                     android:text="22.00"
                     android:maxLength="5"
                     android:layout_marginTop="10dp"
-                    android:textSize="20dp"
+                    android:textSize="16dp"
                     android:isScrollContainer="true"/>
             </LinearLayout>
 
@@ -169,6 +184,7 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
+                    android:layout_marginStart="16dp"
                     android:src="@drawable/ic_local_phone"
                     android:padding="10dp"/>
 
@@ -178,7 +194,7 @@
                     android:layout_height="wrap_content"
                     android:text="1234567890"
                     android:layout_margin="10dp"
-                    android:textSize="20dp"
+                    android:textSize="16dp"
                     android:clickable="true"
                     android:textColor="#2a43ff"
                     android:isScrollContainer="true"/>

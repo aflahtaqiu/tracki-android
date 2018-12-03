@@ -11,9 +11,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.aflah.tracki_master.Auth.LoginActivity;
 import com.example.aflah.tracki_master.Model.UserLogin;
@@ -98,7 +96,6 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
-        Log.v("masukActivity", "navigation");
 
         sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
         Gson gson = new Gson();
@@ -111,14 +108,12 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
         try{
             if (getIntent()!=null){
-                Log.v("AccountFragmentLoc", " ada isinya " +getIntent().getIntExtra("AccountFragmentLoc", 0));
                 if (getIntent().getIntExtra("AccountFragmentLoc", 0) != 0){
                     accountFragmentId = getIntent().getIntExtra("AccountFragmentLoc", 0);
                 }
             }
 
         }catch (Exception e){
-            Log.v("AccountFragmentLoc", " " +e.getMessage() );
         }
 
         if (accountFragmentId ==0){
@@ -141,9 +136,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         }catch (Exception e){
             e.printStackTrace();
         }
-        Log.v("update","" + fragmentSelect);
         if(fragmentSelect!= null){
-            Log.v("update","masuk ke if di home ");
             navigation = (BottomNavigationView) findViewById(R.id.navigation);
             navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
             navigation.setSelectedItemId(R.id.navigation_account);
@@ -223,7 +216,6 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
             // start ranging beacons using region
             cubeacon.startRangingBeaconsInRegion(region);
         } catch (RemoteException e) {
-            Log.e(TAG, "Error while start ranging beacon, " + e);
         }
     }
 

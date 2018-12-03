@@ -31,8 +31,30 @@ public class Promotion {
     @SerializedName("stores")
     @Expose
     private List<Store> stores;
+    @SerializedName("saved")
+    @Expose
+    private Boolean saved;
+    @SerializedName("used")
+    @Expose
+    private Boolean used;
 
     private Store store;
+
+    public Boolean getSaved() {
+        return saved;
+    }
+
+    public void setSaved(Boolean saved) {
+        this.saved = saved;
+    }
+
+    public Boolean getUsed() {
+        return used;
+    }
+
+    public void setUsed(Boolean used) {
+        this.used = used;
+    }
 
     public Store getStore() {
         return store;

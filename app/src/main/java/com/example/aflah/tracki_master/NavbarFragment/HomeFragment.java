@@ -24,12 +24,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
-import com.example.aflah.tracki_master.Adapter.CarouselHomeAdapter;
 import com.example.aflah.tracki_master.Adapter.TokoTerdekatAdapter;
 import com.example.aflah.tracki_master.DetailTokoActivity;
-import com.example.aflah.tracki_master.Model.Advertisement;
-import com.example.aflah.tracki_master.Model.Advertisements;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameStore;
 import com.example.aflah.tracki_master.Model.Response.ResponseTokoByUID;
 import com.example.aflah.tracki_master.Model.SearchName;
@@ -61,10 +59,7 @@ import retrofit2.Response;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment implements NavigationActivity.OnCubeaconUpdated,AdapterView.OnItemClickListener,SwipeRefreshLayout.OnRefreshListener {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+
     private static final String TAG = HomeFragment.class.getSimpleName();
     private List<Map<String, String>> data;
     private List<CBBeacon> beacons;
@@ -83,11 +78,8 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
 
     int beaconCount;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
-    private NavigationActivity navigationActivity;
+    TextView textViewTokoTerdekat;
 
     private SearchView searchView = null;
     private SearchView.OnQueryTextListener queryTextListener;
@@ -110,29 +102,20 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
     // TODO: Rename and change types and number of parameters
     public static HomeFragment newInstance(String param1, String param2) {
         HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-        setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        textViewTokoTerdekat = (TextView) view.findViewById(R.id.tv_tokoTerdekat_tokoTerdekat);
         AutoCompleteTextView autoCompleteTextView = view.findViewById(R.id.edit_search);
-
 
         autoCompleteTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,7 +146,6 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                                 startActivity(intent);
                             }
                         });
-
                     }
 
                     @Override
@@ -181,7 +163,6 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
         mySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                Log.v("debug","masuk ke refresh");
                 mySwipeRefreshLayout.setRefreshing(true);
                 rmdup.clear();
                 tokoTerdekatAdapter.notifyDataSetChanged();
@@ -189,105 +170,43 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
             }
         });
 
-        navigationActivity = (NavigationActivity) getActivity();
-        navigationActivity.getSupportActionBar().show();
-
         from = new String[]{"title", "subtitle"};
         to = new int[]{android.R.id.text1, android.R.id.text2};
         data = new ArrayList<>();
         adapter = new SimpleAdapter(getContext(), data, android.R.layout.simple_list_item_2, from, to);
 
-        viewPager = (ViewPager) view.findViewById(R.id.viewPager_carousel_Home);
+//        viewPager = (ViewPager) view.findViewById(R.id.viewPager_carousel_Home);
 
-        List<Advertisement> advertisementList = new ArrayList<>();
-        ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
-        Call<Advertisements> getIklans = apiRequest.getAdvertisements();
-        getIklans.enqueue(new Callback<Advertisements>() {
-            @Override
-            public void onResponse(Call<Advertisements> call, Response<Advertisements> response) {
-                for (int i = 0; i< response.body().getAdvertisements().size() ;i++){
-                    advertisementList.add(response.body().getAdvertisements().get(i));
-                }
-                CarouselHomeAdapter carouselHomeAdapter = new CarouselHomeAdapter(getContext(), advertisementList);
-                viewPager.setAdapter(carouselHomeAdapter);
-            }
-
-            @Override
-            public void onFailure(Call<Advertisements> call, Throwable t) {
-
-            }
-        });
+//        List<Advertisement> advertisementList = new ArrayList<>();
+//        ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
+//        Call<Advertisements> getIklans = apiRequest.getAdvertisements();
+//        getIklans.enqueue(new Callback<Advertisements>() {
+//            @Override
+//            public void onResponse(Call<Advertisements> call, Response<Advertisements> response) {
+//                for (int i = 0; i< response.body().getAdvertisements().size() ;i++){
+//                    advertisementList.add(response.body().getAdvertisements().get(i));
+//                }
+//                CarouselHomeAdapter carouselHomeAdapter = new CarouselHomeAdapter(getContext(), advertisementList);
+//                viewPager.setAdapter(carouselHomeAdapter);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Advertisements> call, Throwable t) {
+//
+//            }
+//        });
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycerview_tokoTerdekat);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         tokoTerdekatAdapter = new TokoTerdekatAdapter(getContext(), rmdup);
         recyclerView.setAdapter(tokoTerdekatAdapter);
-//
-//        Timer timer = new Timer();
-//        timer.scheduleAtFixedRate(new TimerCarousel(), 2000, 4000);
 
         return view;
-    }
-
-    public class TimerCarousel extends TimerTask{
-
-        @Override
-        public void run() {
-            HomeFragment.this.getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (viewPager.getCurrentItem() == 0)
-                        viewPager.setCurrentItem(1, true);
-                    else if (viewPager.getCurrentItem() == 1)
-                        viewPager.setCurrentItem(2, true);
-                    else
-                        viewPager.setCurrentItem(0,true);
-                }
-            });
-        }
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-    }
-
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-
-        menu.clear();
-
-        inflater.inflate(R.menu.menu_search, menu);
-
-        MenuItem item = menu.findItem(R.id.action_search);
-        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-
-        if (item != null){
-            searchView = (SearchView) item.getActionView();
-        }
-
-        if (searchView != null){
-            searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
-
-            queryTextListener = new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-
-                    Log.i("onQueryTextSubmit", query);
-                    return false;
-                }
-
-                @Override
-                public boolean onQueryTextChange(String newText) {
-
-                    Log.i("onQueryTextChange", newText);
-                    return false;
-                }
-            };
-
-            searchView.setOnQueryTextListener(queryTextListener);
-        }
-
-        super.onCreateOptionsMenu(menu, inflater);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -319,7 +238,6 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
 
     @Override
     public void setData(final List<Map<String, String>> cbBeacons, List<CBBeacon> list) {
-        Log.d("debug",cbBeacons.size() + "");
         data = new ArrayList<>();
         beacons = new ArrayList<>();
         data = cbBeacons;
@@ -327,37 +245,42 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
         beaconCount = cbBeacons.size();
 
         if (getActivity() != null){
-            Log.d("Debug","Enggak nulll");
-            //adapter = new SimpleAdapter(getContext(), data, android.R.layout.simple_list_item_2, from, to);
 
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    //listView.setAdapter(adapter);
-                    //tokoTerdekatAdapter.notifyDataSetChanged();
 
                     ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
 
-//                    stores.clear();
-                    for (int i = 0 ;i<cbBeacons.size(); i++ ){
-                        final int tole = i;
-                        Call<ResponseTokoByUID> getData = apiRequest.getStoreByUID(beacons.get(i).getMajor());
-                        Log.v("isiToko", String.valueOf(beacons.get(i).getMajor()));
-                        getData.enqueue(new Callback<ResponseTokoByUID>() {
-                            @Override
-                            public void onResponse(Call<ResponseTokoByUID> call, Response<ResponseTokoByUID> response) {
-                                for (Store store : response.body().getStores()) {
-                                    rmdup.put(String.valueOf(store.getId()),store);
-                                    Log.v("isiToko", store.toString());
+                    if (cbBeacons.size() != 0){
+                        for (int i = 0 ;i<cbBeacons.size(); i++ ){
+                            final int tole = i;
+                            Call<ResponseTokoByUID> getData = apiRequest.getStoreByUID(beacons.get(i).getMajor());
+                            getData.enqueue(new Callback<ResponseTokoByUID>() {
+                                @Override
+                                public void onResponse(Call<ResponseTokoByUID> call, Response<ResponseTokoByUID> response) {
+                                    for (Store store : response.body().getStores()) {
+                                        rmdup.put(String.valueOf(store.getId()),store);
+
+                                    }
+                                    if (rmdup.size() !=0 ){
+                                        textViewTokoTerdekat.setText("Toko terdekat");
+                                    }
+                                    tokoTerdekatAdapter.notifyDataSetChanged();
                                 }
-                                tokoTerdekatAdapter.notifyDataSetChanged();
-                            }
 
-                            @Override
-                            public void onFailure(Call<ResponseTokoByUID> call, Throwable t) {
+                                @Override
+                                public void onFailure(Call<ResponseTokoByUID> call, Throwable t) {
 
-                            }
-                        });
+                                }
+                            });
+                        }
+                    }
+                    else{
+                        rmdup.clear();
+                        tokoTerdekatAdapter = new TokoTerdekatAdapter(getContext(), rmdup);
+                        recyclerView.setAdapter(tokoTerdekatAdapter);
+                        textViewTokoTerdekat.setText("Tidak terdeteksi toko");
                     }
                 }
             });

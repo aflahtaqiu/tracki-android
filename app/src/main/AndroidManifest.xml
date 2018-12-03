@@ -36,8 +36,9 @@
         </activity>
         <activity
             android:name=".NavigationActivity"
-            android:label="Tracki"
-            android:windowSoftInputMode="adjustNothing" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustNothing"
+            android:label=""/>
         <activity android:name=".NavbarFragment.MonitoringActivity" />
         <activity
             android:name=".PrologActivity"
@@ -55,6 +56,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
         <!-- <meta-data -->
         <!-- android:name="com.google.android.geo.API_KEY" -->
@@ -66,7 +70,8 @@
         <!-- android:label="@string/title_activity_maps"></activity> -->
 
         <activity android:name=".DetailTokoActivity" />
-        <activity android:name=".DetailMenuActivity" />
+        <activity android:name=".DetailMenuActivity"
+            android:theme="@style/ThemeNobar"/>
         <activity
             android:name=".Auth.RegisterActivity"
             android:theme="@style/ThemeNobar" />

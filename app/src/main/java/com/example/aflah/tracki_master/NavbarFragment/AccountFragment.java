@@ -7,8 +7,9 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,14 +17,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.aflah.tracki_master.AboutTrackiActivity;
-import com.example.aflah.tracki_master.Adapter.TokoFavoritAdapter;
+import com.example.aflah.tracki_master.Adapter.ListSavePromoAdapter;
 import com.example.aflah.tracki_master.Auth.LoginActivity;
 import com.example.aflah.tracki_master.EditProfilActivity;
+import com.example.aflah.tracki_master.Model.Promotion;
+import com.example.aflah.tracki_master.Model.Response.ResponseLogout;
 import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
 import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.Model.User;
@@ -47,7 +49,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.media.MediaRecorder.VideoSource.CAMERA;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 
@@ -60,14 +61,6 @@ import static com.facebook.FacebookSdk.getApplicationContext;
  * create an instance of this fragment.
  */
 public class AccountFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     CircleImageView imgAvatar;
     TextView tvUserName;
@@ -77,17 +70,17 @@ public class AccountFragment extends Fragment {
     Gson gson = new Gson();
     String userToken;
     List<Store> stores;
+    List<Promotion> promotions;
     RecyclerView recyclerView;
-    TokoFavoritAdapter tokoFavoritAdapter;
-    Button btnEditProfile;
+    ListSavePromoAdapter listSavePromoAdapter;
     Dialog Mydialog;
     TextView picAvatar,picGaleri, picCamera;
+    Toolbar toolbarAccount;
     private int GALLERY = 1, CAMERA = 2;
 
     private OnFragmentInteractionListener mListener;
 
     public AccountFragment() {
-        // Required empty public constructor
     }
 
     /**
@@ -101,20 +94,13 @@ public class AccountFragment extends Fragment {
     // TODO: Rename and change types and number of parameters
     public static AccountFragment newInstance(String param1, String param2) {
         AccountFragment fragment = new AccountFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
         sharedPreferences = this.getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
         json = sharedPreferences.getString("userLogin", "");
         userLogin= gson.fromJson(json, UserLogin.class);
@@ -127,11 +113,14 @@ public class AccountFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         imgAvatar = view.findViewById(R.id.imgProfile);
         tvUserName = view.findViewById(R.id.tv_userName);
-        btnEditProfile = (Button) view.findViewById(R.id.btn_edit);
+        toolbarAccount = (Toolbar) view.findViewById(R.id.toolbar_account);
+
+        NavigationActivity navigationActivity = (NavigationActivity) getActivity();
+        navigationActivity.setSupportActionBar(toolbarAccount);
+
 
         Picasso.get().load(userLogin.getFoto()).fit().into(imgAvatar);
         tvUserName.setText(userLogin.getName());
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycerview_tokoFavorit);
 
         imgAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,25 +129,20 @@ public class AccountFragment extends Fragment {
             }
         });
 
-        btnEditProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getActivity().startActivity(new Intent(view.getContext(), EditProfilActivity.class));
-            }
-        });
-
         stores = new ArrayList<>();
+        promotions = new ArrayList<>();
         ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
         Call<ResponseUserById> getTokoFav = apiRequest.getTokoFavorit(userLogin.getId());
         getTokoFav.enqueue(new Callback<ResponseUserById>() {
             @Override
             public void onResponse(Call<ResponseUserById> call, Response<ResponseUserById> response) {
-                for (int i =0; i < response.body().getUser().getStores().size();i++){
-                    stores.add(response.body().getUser().getStores().get(i));
+                for (Promotion promotion : response.body().getUnused_promotions()){
+                    promotions.add(promotion);
                 }
-                recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-                tokoFavoritAdapter = new TokoFavoritAdapter(getContext(), stores);
-                recyclerView.setAdapter(tokoFavoritAdapter);
+                listSavePromoAdapter = new ListSavePromoAdapter(getContext(), promotions);
+                recyclerView = view.findViewById(R.id.recycerview_promoSaved);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                recyclerView.setAdapter(listSavePromoAdapter);
             }
 
             @Override
@@ -196,13 +180,30 @@ public class AccountFragment extends Fragment {
                 editor.putString("userLogin", "");
                 editor.apply();
                 editor.commit();
+                ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
+                Call<ResponseLogout> responseLogoutCall = apiRequest.sendLogout();
+                responseLogoutCall.enqueue(new Callback<ResponseLogout>() {
+                    @Override
+                    public void onResponse(Call<ResponseLogout> call, Response<ResponseLogout> response) {
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseLogout> call, Throwable t) {
+
+                    }
+                });
                 startActivity(new Intent(getContext(), LoginActivity.class));
+                getActivity().finish();
+                break;
+            case R.id.btn_edit:
+                Log.v("itemSelected", "edit profile");
+                getActivity().startActivity(new Intent(getActivity(), EditProfilActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
