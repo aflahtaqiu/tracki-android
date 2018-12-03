@@ -200,41 +200,6 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
 
                 dialog.show();
 
-//                LayoutInflater li = LayoutInflater.from(context);
-//                View promptsView = li.inflate(R.layout.activity_qrcode_promo, null);
-//
-//                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-//                alertDialogBuilder.setView(promptsView);
-//                AlertDialog alertDialog = alertDialogBuilder.create();
-//
-//                ImageView qrCode = (ImageView) alertDialog.findViewById(R.id.qrCode_generatePromo);
-//
-//                MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
-//                try{
-//                    BitMatrix bitMatrix = multiFormatWriter.encode(qrCodeString, BarcodeFormat.QR_CODE,250, 250 );
-//                    Log.v("kunam", qrCodeString);
-//                    BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
-//                    Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
-//                    qrCode.setImageBitmap(bitmap);
-//                }catch (WriterException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                Button btnClose = (Button) alertDialog.findViewById(R.id.btnClosePopUp);
-//
-//                btnClose.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        alertDialog.dismiss();
-//                    }
-//                });
-//
-//                alertDialog.show();
-
-//                Intent intent = new Intent(DetailPromoActivity.this, QRCodePromoActivity.class);
-//                intent.putExtra("qrCodeString", qrCodeString);
-//                intent.putExtra("", idPromo);
-//                startActivity(intent);
                 break;
             case R.id.btnSimpan_detailPromo :
 
