@@ -2,10 +2,13 @@
 <TextView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:textSize="20dp"
-    android:ellipsize="marquee"
-    android:textColor="#000000"
-    android:background="@drawable/button_simpan">
+    android:layout_height="wrap_content"
+    android:textSize="16dp"
+    android:text="lala"
+    android:gravity="left"
+    android:padding="8dp"
+    android:layout_marginStart="8dp"
+    android:textColor="@color/colorAbuGelap"
+    android:background="@color/colorWhite">
 
 </TextView>

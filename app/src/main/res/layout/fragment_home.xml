@@ -24,36 +24,49 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <AutoCompleteTextView
-                android:id="@+id/edit_search"
-                android:layout_width="250dp"
-                android:layout_height="35dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="12dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/round_textedit"
-                android:drawableStart="@drawable/ic_search_black_24dp"
-                android:drawableLeft="@drawable/ic_search_black_24dp"
-                android:fontFamily="sans-serif-light"
-                android:hint="Cari toko atau produk"
-                android:imeOptions="actionSearch"
-                android:inputType="text"
-                android:paddingStart="10dp"
-                android:paddingLeft="10dp"
-                android:textColor="@color/searchText"
-                android:textColorHint="@color/searchHint"
-                android:textSize="15sp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-            </AutoCompleteTextView>
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/spinnerSearch"
-                android:layout_width="125dp"
-                android:layout_height="50dp"
-                android:background="@android:drawable/btn_dropdown"
-                android:spinnerMode="dropdown" >
+                <AutoCompleteTextView
+                    android:id="@+id/edit_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_weight="2"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/round_textedit"
+                    android:drawableStart="@drawable/ic_search_black_24dp"
+                    android:drawableLeft="@drawable/ic_search_black_24dp"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="Cari toko atau produk"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:paddingStart="10dp"
+                    android:paddingLeft="10dp"
+                    android:textColor="@color/searchText"
+                    android:textColorHint="@color/searchHint"
+                    android:textSize="15sp">
 
-            </android.support.v7.widget.AppCompatSpinner>
+                </AutoCompleteTextView>
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/spinnerSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:layout_weight="4"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/button_simpan"
+                    android:spinnerMode="dropdown">
+
+                </android.support.v7.widget.AppCompatSpinner>
+
+            </LinearLayout>
 
         </android.support.v7.widget.Toolbar>
 
