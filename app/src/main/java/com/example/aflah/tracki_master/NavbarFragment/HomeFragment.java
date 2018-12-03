@@ -219,7 +219,7 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
             public void onRefresh() {
                 mySwipeRefreshLayout.setRefreshing(true);
                 rmdup.clear();
-                textViewTokoTerdekat.setText("Tidak terdeksi toko terdekat");
+                textViewTokoTerdekat.setText("Tidak terdeksi toko");
                 imageViewUndetectStore.setVisibility(View.VISIBLE);
                 tokoTerdekatAdapter.notifyDataSetChanged();
                 mySwipeRefreshLayout.setRefreshing(false);
