@@ -1,52 +1,236 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--<android.support.design.widget.CoordinatorLayout-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--tools:context=".DetailTokoActivity">-->
+
+    <!--<android.support.v4.widget.NestedScrollView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+
+        <!--<android.support.constraint.ConstraintLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="@drawable/background_account"-->
+            <!--&gt;-->
+
+            <!--<de.hdodenhof.circleimageview.CircleImageView-->
+                <!--android:id="@+id/iv_logo_detail_toko"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="100dp"-->
+                <!--android:src="@drawable/logo"-->
+                <!--app:civ_border_color="@color/colorWhite"-->
+                <!--app:civ_border_width="2dp"-->
+                <!--app:layout_constraintBottom_toTopOf="@id/ratingToko_detailToko"-->
+                <!--app:layout_constraintStart_toStartOf="parent" />-->
+
+            <!--<RatingBar-->
+                <!--android:id="@+id/ratingToko_detailToko"-->
+                <!--style="@style/Base.Widget.AppCompat.RatingBar.Indicator"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="8dp"-->
+                <!--android:numStars="5"-->
+                <!--android:rating="4.5"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@id/iv_logo_detail_toko" />-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/tv_namaToko_detailToko"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="center"-->
+                <!--android:paddingLeft="10dp"-->
+                <!--android:text="Excelso"-->
+                <!--android:textColor="@color/colorWhite"-->
+                <!--android:textSize="20dp"-->
+                <!--android:textStyle="bold"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@id/ratingToko_detailToko"/>-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/tv_tipeToko_detailToko"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textColor="@color/colorWhite"-->
+                <!--android:text="Tipe Toko"-->
+                <!--android:gravity="center"-->
+                <!--android:textSize="12dp"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@id/tv_namaToko_detailToko"/>-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/tv_lokasiToko_detailToko"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:gravity="center"-->
+                <!--android:text="Lokasi Toko"-->
+                <!--android:textColor="@color/colorWhite"-->
+                <!--android:textSize="16dp"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@id/tv_tipeToko_detailToko"/>-->
+
+            <!--<LinearLayout-->
+                <!--android:id="@+id/jamBuka"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:gravity="center"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@id/tv_lokasiToko_detailToko">-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_jamBukaToko_detailToko"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="10.00"-->
+                    <!--android:textColor="@color/colorWhite"-->
+                    <!--android:isScrollContainer="true"-->
+                    <!--android:textSize="16dp"-->
+                    <!--android:maxLength="5" />-->
+
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="-"-->
+                    <!--android:textColor="@color/colorWhite"-->
+                    <!--android:textSize="16dp" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_jamTutupToko_detailToko"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="22.00"-->
+                    <!--android:textColor="@color/colorWhite"-->
+                    <!--android:maxLength="5"-->
+                    <!--android:textSize="16dp" />-->
+
+            <!--</LinearLayout>-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/tv_phoneToko_detailToko"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="1234567890"-->
+                <!--android:textSize="16dp"-->
+                <!--android:clickable="true"-->
+                <!--android:gravity="center"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textColor="@color/colorWhite"-->
+                <!--android:isScrollContainer="true"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@id/jamBuka"/>-->
+
+            <!--<Button-->
+                <!--android:id="@+id/btn_reviewToko_detailToko"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@drawable/button_edit_profile"-->
+                <!--android:layout_marginTop="8dp"-->
+                <!--android:text="Lihat ulasan"-->
+                <!--android:textAllCaps="false"-->
+                <!--android:textColor="@color/colorTracki"-->
+                <!--android:textSize="12dp"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@id/tv_phoneToko_detailToko"/>-->
+
+            <!--<android.support.design.widget.TabLayout-->
+                <!--android:id="@+id/tablayout_detailtoko"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@color/colorTracki"-->
+                <!--app:tabMode="fixed"-->
+                <!--app:tabGravity="fill"-->
+                <!--app:tabIndicatorColor="@color/colorAccent"-->
+                <!--android:layout_marginTop="40dp"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@id/btn_reviewToko_detailToko">-->
+
+            <!--</android.support.design.widget.TabLayout>-->
+
+            <!--<android.support.v4.view.ViewPager-->
+                <!--android:id="@+id/viewpager_detailtoko"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="0dp"-->
+                <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@id/tablayout_detailtoko"-->
+                <!--app:layout_constraintStart_toStartOf="parent">-->
+
+            <!--</android.support.v4.view.ViewPager>-->
+
+        <!--</android.support.constraint.ConstraintLayout>-->
+
+    <!--</android.support.v4.widget.NestedScrollView>-->
+
+<!--</android.support.design.widget.CoordinatorLayout>-->
+
+
+
+
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".DetailTokoActivity">
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="150dp">
-            <android.support.v4.view.ViewPager
-                android:id="@+id/viewPager_carousel_detailToko"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="150dp">
 
-            </android.support.v4.view.ViewPager>
+    <android.support.v4.view.ViewPager
+    android:id="@+id/viewPager_carousel_detailToko"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:id="@+id/layoutDots_detailToko"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_below="@+id/viewPager_carousel_detailToko"
-                android:gravity="center_horizontal|center_vertical">
+    </android.support.v4.view.ViewPager>
 
-            </LinearLayout>
-        </RelativeLayout>
+    <LinearLayout
+    android:id="@+id/layoutDots_detailToko"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_below="@+id/viewPager_carousel_detailToko"
+    android:gravity="center_horizontal|center_vertical">
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tablayout_detailtoko"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorTracki"
-            app:tabMode="fixed"
-            app:tabGravity="fill"
-            app:tabIndicatorColor="@color/colorAccent"></android.support.design.widget.TabLayout>
+    </LinearLayout>
+    </RelativeLayout>
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/viewpager_detailtoko"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></android.support.v4.view.ViewPager>
+    <android.support.design.widget.TabLayout
+    android:id="@+id/tablayout_detailtoko"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorTracki"
+    app:tabMode="fixed"
+    app:tabGravity="fill"
+    app:tabIndicatorColor="@color/colorAccent"></android.support.design.widget.TabLayout>
+
+    <android.support.v4.view.ViewPager
+    android:id="@+id/viewpager_detailtoko"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"></android.support.v4.view.ViewPager>
 
 
     </LinearLayout>
 
-
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>
