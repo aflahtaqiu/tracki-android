@@ -169,6 +169,8 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
             public void onRefresh() {
                 mySwipeRefreshLayout.setRefreshing(true);
                 rmdup.clear();
+                textViewTokoTerdekat.setText("Tidak terdeksi toko terdekat");
+                imageViewUndetectStore.setVisibility(View.VISIBLE);
                 tokoTerdekatAdapter.notifyDataSetChanged();
                 mySwipeRefreshLayout.setRefreshing(false);
             }
@@ -280,13 +282,13 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                             });
                         }
                     }
-                    else{
-                        rmdup.clear();
-                        tokoTerdekatAdapter = new TokoTerdekatAdapter(getContext(), rmdup);
-                        textViewTokoTerdekat.setText("Tidak teredeksi toko terdekat");
-                        recyclerView.setAdapter(tokoTerdekatAdapter);
-                        imageViewUndetectStore.setVisibility(View.VISIBLE);
-                    }
+//                    else{
+//                        rmdup.clear();
+//                        tokoTerdekatAdapter = new TokoTerdekatAdapter(getContext(), rmdup);
+//                        textViewTokoTerdekat.setText("Tidak terdeksi toko terdekat");
+//                        recyclerView.setAdapter(tokoTerdekatAdapter);
+//                        imageViewUndetectStore.setVisibility(View.VISIBLE);
+//                    }
                 }
             });
         }
