@@ -6,7 +6,14 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.aflah.tracki_master.Model.ResponseProductById;
+import com.example.aflah.tracki_master.Retrofit.ApiRequest;
+import com.example.aflah.tracki_master.Retrofit.RetroServer;
 import com.squareup.picasso.Picasso;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DetailMenuActivity extends AppCompatActivity {
 
@@ -24,16 +31,43 @@ public class DetailMenuActivity extends AppCompatActivity {
         detailMenu = (TextView) findViewById(R.id.tv_detailMenu_detailMenu);
         gambarMenu = (ImageView) findViewById(R.id.iv_menu_detailMenu);
 
-        String nama = getIntent().getExtras().getString("namaMenu");
-        String kategori = getIntent().getExtras().getString("kategoriMenu");
-        String harga = getIntent().getExtras().getString("hargaMenu");
-        String detail = getIntent().getExtras().getString("detailMenu");
-        String gambar = getIntent().getExtras().getString("gambarMenu");
 
-        namaMenu.setText(nama);
-        kategoriMenu.setText(kategori);
-        hargaMenu.setText(harga);
-        detailMenu.setText(detail);
-        Picasso.get().load(gambar).into(gambarMenu);
+        try{
+            int idProduk = getIntent().getExtras().getInt("idProduk");
+            ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
+            Call<ResponseProductById> getproduk = apiRequest.getProductById(idProduk);
+            getproduk.enqueue(new Callback<ResponseProductById>() {
+                @Override
+                public void onResponse(Call<ResponseProductById> call, Response<ResponseProductById> response) {
+                    String nama = response.body().getProduct().getName();
+                    String kategori = response.body().getProduct().getCategory().getName();
+                    String harga = String.valueOf(response.body().getProduct().getPrice());
+                    String detail = response.body().getProduct().getDescription();
+                    String gambar = response.body().getProduct().getPicture();
+                    namaMenu.setText(nama);
+                    kategoriMenu.setText(kategori);
+                    hargaMenu.setText(harga);
+                    detailMenu.setText(detail);
+                    Picasso.get().load(gambar).into(gambarMenu);
+                }
+
+                @Override
+                public void onFailure(Call<ResponseProductById> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+            String nama = getIntent().getExtras().getString("namaMenu");
+            String kategori = getIntent().getExtras().getString("kategoriMenu");
+            String harga = getIntent().getExtras().getString("hargaMenu");
+            String detail = getIntent().getExtras().getString("detailMenu");
+            String gambar = getIntent().getExtras().getString("gambarMenu");
+            namaMenu.setText(nama);
+            kategoriMenu.setText(kategori);
+            hargaMenu.setText(harga);
+            detailMenu.setText(detail);
+            Picasso.get().load(gambar).into(gambarMenu);
+        }
+
     }
 }

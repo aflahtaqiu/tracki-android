@@ -26,11 +26,11 @@
 
             <AutoCompleteTextView
                 android:id="@+id/edit_search"
-                android:layout_width="match_parent"
+                android:layout_width="250dp"
                 android:layout_height="35dp"
-                android:layout_marginLeft="24dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginRight="80dp"
+                android:layout_marginRight="12dp"
                 android:layout_marginBottom="16dp"
                 android:background="@drawable/round_textedit"
                 android:drawableStart="@drawable/ic_search_black_24dp"
@@ -46,6 +46,15 @@
                 android:textSize="15sp">
 
             </AutoCompleteTextView>
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/spinnerSearch"
+                android:layout_width="125dp"
+                android:layout_height="50dp"
+                android:background="@android:drawable/btn_dropdown"
+                android:spinnerMode="dropdown" >
+
+            </android.support.v7.widget.AppCompatSpinner>
+
         </android.support.v7.widget.Toolbar>
 
         <!--<LinearLayout-->
@@ -113,37 +122,6 @@
 
         </android.support.v7.widget.RecyclerView>
 
-        <ImageView
-            android:id="@+id/iv_filter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
-            android:src="@drawable/ic_filter"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.883"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Filter"
-            android:textColor="@color/colorWhite"
-            android:textSize="12dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/iv_filter"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.066" />
     </android.support.constraint.ConstraintLayout>
 </android.support.v4.widget.SwipeRefreshLayout>

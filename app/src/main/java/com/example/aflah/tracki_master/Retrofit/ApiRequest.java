@@ -14,6 +14,7 @@ import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameStore;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchProduct;
 import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
 import com.example.aflah.tracki_master.Model.Response.ResponseTokoByUID;
+import com.example.aflah.tracki_master.Model.ResponseProductById;
 
 import java.io.File;
 import java.util.Date;
@@ -80,6 +81,11 @@ public interface ApiRequest {
 
     @GET("all-products")
     Call<ResponseSearchNameProduct> getSearchNamesProduct();
+
+    @GET("product/{id}")
+    Call<ResponseProductById> getProductById(
+            @Path("id") int id
+    );
 
     @FormUrlEncoded
     @POST("user/register")
