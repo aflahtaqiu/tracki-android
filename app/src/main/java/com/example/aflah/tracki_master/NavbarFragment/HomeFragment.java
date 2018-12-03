@@ -25,7 +25,9 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.aflah.tracki_master.Adapter.TokoTerdekatAdapter;
 import com.example.aflah.tracki_master.DetailTokoActivity;
@@ -59,7 +61,7 @@ import retrofit2.Response;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment implements NavigationActivity.OnCubeaconUpdated,AdapterView.OnItemClickListener,SwipeRefreshLayout.OnRefreshListener {
+public class HomeFragment extends Fragment implements NavigationActivity.OnCubeaconUpdated,AdapterView.OnItemClickListener,SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemSelectedListener {
 
     private static final String TAG = HomeFragment.class.getSimpleName();
     private List<Map<String, String>> data;
@@ -70,6 +72,7 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
     HashMap<String,SearchName> toko;
     String[] from;
     int[] to;
+    String[] spinnerItem = new String[]{"Toko", "Produk"};
 
     ViewPager viewPager;
 
@@ -80,8 +83,8 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
 
     int beaconCount;
 
-
     TextView textViewTokoTerdekat;
+    Spinner spinnerSearch;
 
     private SearchView searchView = null;
     private SearchView.OnQueryTextListener queryTextListener;
@@ -120,6 +123,11 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
         imageViewUndetectStore = (ImageView) view.findViewById(R.id.iv_undetect_store);
         imageViewUndetectStore.setVisibility(View.INVISIBLE);
         AutoCompleteTextView autoCompleteTextView = view.findViewById(R.id.edit_search);
+        spinnerSearch = (Spinner) view.findViewById(R.id.spinnerSearch);
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this.getActivity(), R.layout.item_spinner, spinnerItem);
+        spinnerSearch.setAdapter(spinnerAdapter);
+        spinnerSearch.setEnabled(true);
+        spinnerSearch.setOnItemSelectedListener(this);
 
         autoCompleteTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -282,13 +290,6 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                             });
                         }
                     }
-//                    else{
-//                        rmdup.clear();
-//                        tokoTerdekatAdapter = new TokoTerdekatAdapter(getContext(), rmdup);
-//                        textViewTokoTerdekat.setText("Tidak terdeksi toko terdekat");
-//                        recyclerView.setAdapter(tokoTerdekatAdapter);
-//                        imageViewUndetectStore.setVisibility(View.VISIBLE);
-//                    }
                 }
             });
         }
@@ -303,6 +304,23 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
 
     @Override
     public void onRefresh() {
+
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        switch (position){
+            case 0:
+                Toast.makeText(getActivity(), "Anda memilih id " + position , Toast.LENGTH_LONG).show();
+                break;
+            case 1:
+                Toast.makeText(getActivity(), "Anda memilih id " + position , Toast.LENGTH_LONG).show();
+                break;
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
 
     }
 
