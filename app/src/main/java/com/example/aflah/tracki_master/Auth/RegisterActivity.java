@@ -105,7 +105,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegister, Vi
                         Date dateOfBirth = inputFormat.parse(date);
 
                         signupUserEmail(nama, email, dateOfBirth, password, konfirmasiPassword);
-                        startActivity(new Intent(RegisterActivity.this, NavigationActivity.class));
+
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
@@ -142,23 +142,29 @@ public class RegisterActivity extends AppCompatActivity implements IRegister, Vi
         registerUser.enqueue(new Callback<ResponseRegister>() {
             @Override
             public void onResponse(Call<ResponseRegister> call, Response<ResponseRegister> response) {
-                UserLogin userLogin = response.body().getUser();
-                String token = response.body().getAccess_token();
+                try {
+                    UserLogin userLogin = response.body().getUser();
+                    String token = response.body().getAccess_token();
 
-                Gson gson = new Gson();
-                String json = gson.toJson(userLogin);
-                SharedPreferences.Editor editor = getSharedPreferences("login", Context.MODE_PRIVATE).edit();
-                editor.putString("tokenLogin","Bearer "+ token);
-                editor.putString("userLogin", json);
-                editor.apply();
-                editor.commit();
-                Log.e("selamatDatangRegister", response.body().toString());
+                    Gson gson = new Gson();
+                    String json = gson.toJson(userLogin);
+                    SharedPreferences.Editor editor = getSharedPreferences("login", Context.MODE_PRIVATE).edit();
+                    editor.putString("tokenLogin","Bearer "+ token);
+                    editor.putString("userLogin", json);
+                    editor.apply();
+                    editor.commit();
+                    Log.e("selamatDatangRegister", response.body().toString());
+                    startActivity(new Intent(RegisterActivity.this, NavigationActivity.class));
+                    finish();
+                }catch (Exception e){
+                    Toast.makeText(RegisterActivity.this, "Anda sudah terdaftar", Toast.LENGTH_LONG).show();
+                }
             }
 
             @Override
             public void onFailure(Call<ResponseRegister> call, Throwable t) {
-                Log.e("selamatDatangRegister", t.getMessage());
-                Toast.makeText(RegisterActivity.this, "Maaf : " + t.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(RegisterActivity.this, "Maaf email Anda sudah terdaftar", Toast.LENGTH_LONG).show();
+                etEmail.getEditText().setText("");
             }
         });
 

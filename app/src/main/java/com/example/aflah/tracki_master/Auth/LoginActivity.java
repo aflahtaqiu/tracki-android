@@ -128,6 +128,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
 
                     if (etPassword.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EQUAL, "Password Anda salah", etPassword.getText().toString()+ " "), true)
                             ){
+                        etPassword.getEditText().setText("");
                     }
                 }
             }
@@ -173,5 +174,4 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
             Toast.makeText(LoginActivity.this, "appData : " + appData, Toast.LENGTH_LONG).show();
         }
     }
-
 }
