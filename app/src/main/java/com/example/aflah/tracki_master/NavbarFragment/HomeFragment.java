@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
@@ -75,6 +76,7 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
     ArrayAdapter<String> autoCompleteAdaptor;
     List<Store> stores;
     HashMap<String,Store> rmdup;
+    ImageView imageViewUndetectStore;
 
     int beaconCount;
 
@@ -115,6 +117,8 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         textViewTokoTerdekat = (TextView) view.findViewById(R.id.tv_tokoTerdekat_tokoTerdekat);
+        imageViewUndetectStore = (ImageView) view.findViewById(R.id.iv_undetect_store);
+        imageViewUndetectStore.setVisibility(View.INVISIBLE);
         AutoCompleteTextView autoCompleteTextView = view.findViewById(R.id.edit_search);
 
         autoCompleteTextView.setOnClickListener(new View.OnClickListener() {
@@ -261,10 +265,10 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                                 public void onResponse(Call<ResponseTokoByUID> call, Response<ResponseTokoByUID> response) {
                                     for (Store store : response.body().getStores()) {
                                         rmdup.put(String.valueOf(store.getId()),store);
-
                                     }
                                     if (rmdup.size() !=0 ){
                                         textViewTokoTerdekat.setText("Toko terdekat");
+                                        imageViewUndetectStore.setVisibility(View.INVISIBLE);
                                     }
                                     tokoTerdekatAdapter.notifyDataSetChanged();
                                 }
@@ -279,8 +283,9 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                     else{
                         rmdup.clear();
                         tokoTerdekatAdapter = new TokoTerdekatAdapter(getContext(), rmdup);
+                        textViewTokoTerdekat.setText("Tidak teredeksi toko terdekat");
                         recyclerView.setAdapter(tokoTerdekatAdapter);
-                        textViewTokoTerdekat.setText("Tidak terdeteksi toko");
+                        imageViewUndetectStore.setVisibility(View.VISIBLE);
                     }
                 }
             });

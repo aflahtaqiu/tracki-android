@@ -15,7 +15,7 @@
         android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <LinearLayout
@@ -37,10 +37,8 @@
             android:padding="8dp"
             android:textColorHint="#C7C7C7"
             app:rve_backgroundColor="#10ffffff"
-            app:rve_topLeftCornerRadius="25dp"
             app:rve_bottomLeftCornerRadius="25dp"
             app:rve_bottomRightCornerRadius="25dp"
-            app:rve_topRightCornerRadius="25dp"
             app:rve_editTextColor="#000000"
             app:rve_editTextGravity="left"
             app:rve_editTextSize="14sp"
@@ -50,6 +48,8 @@
             app:rve_hint="Masukkan Email Anda"
             app:rve_normalColor="#C7C7C7"
             app:rve_strokeWidth="1dp"
+            app:rve_topLeftCornerRadius="25dp"
+            app:rve_topRightCornerRadius="25dp"
             app:rve_typingColor="#aa1a237e"
             app:rve_validColor="#ff00c853" />
 
@@ -62,10 +62,8 @@
             android:padding="8dp"
             android:textColorHint="#C7C7C7"
             app:rve_backgroundColor="#10ffffff"
-            app:rve_topLeftCornerRadius="25dp"
             app:rve_bottomLeftCornerRadius="25dp"
             app:rve_bottomRightCornerRadius="25dp"
-            app:rve_topRightCornerRadius="25dp"
             app:rve_editTextColor="#000000"
             app:rve_editTextGravity="left"
             app:rve_editTextSize="14sp"
@@ -75,6 +73,8 @@
             app:rve_hint="Masukkan Password Anda"
             app:rve_normalColor="#C7C7C7"
             app:rve_strokeWidth="1dp"
+            app:rve_topLeftCornerRadius="25dp"
+            app:rve_topRightCornerRadius="25dp"
             app:rve_typingColor="#aa1a237e"
             app:rve_validColor="#ff00c853" />
 
