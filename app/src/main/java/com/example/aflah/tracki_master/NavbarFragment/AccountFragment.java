@@ -125,6 +125,7 @@ public class AccountFragment extends Fragment {
 
         stores = new ArrayList<>();
         promotions = new ArrayList<>();
+
         ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
         Call<ResponseUserById> getTokoFav = apiRequest.getSavedPromo(userLogin.getId());
         getTokoFav.enqueue(new Callback<ResponseUserById>() {

@@ -1,5 +1,6 @@
 package com.example.aflah.tracki_master.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.example.aflah.tracki_master.DetailPromoActivity;
 import com.example.aflah.tracki_master.Model.Promotion;
 import com.example.aflah.tracki_master.Model.Response.ResponseDeletePromo;
+import com.example.aflah.tracki_master.NavigationActivity;
 import com.example.aflah.tracki_master.R;
 import com.example.aflah.tracki_master.Retrofit.ApiRequest;
 import com.example.aflah.tracki_master.Retrofit.RetroServer;
@@ -73,7 +75,10 @@ public class ListSavePromoAdapter extends RecyclerView.Adapter<ListSavePromoAdap
                 deletePromoCall.enqueue(new Callback<ResponseDeletePromo>() {
                     @Override
                     public void onResponse(Call<ResponseDeletePromo> call, Response<ResponseDeletePromo> response) {
-
+                        Intent intent = new Intent(context,NavigationActivity.class);
+                        intent.putExtra("LOC",R.id.navigation_account);
+                        context.startActivity(intent);
+                        ((Activity)context).finish();
                     }
 
                     @Override
