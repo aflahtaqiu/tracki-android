@@ -11,6 +11,9 @@ import com.example.aflah.tracki_master.Retrofit.ApiRequest;
 import com.example.aflah.tracki_master.Retrofit.RetroServer;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,9 +42,10 @@ public class DetailMenuActivity extends AppCompatActivity {
             getproduk.enqueue(new Callback<ResponseProductById>() {
                 @Override
                 public void onResponse(Call<ResponseProductById> call, Response<ResponseProductById> response) {
+                    NumberFormat numberFormat = new DecimalFormat("#,###");
                     String nama = response.body().getProduct().getName();
                     String kategori = response.body().getProduct().getCategory().getName();
-                    String harga = String.valueOf(response.body().getProduct().getPrice());
+                    String harga = numberFormat.format(response.body().getProduct().getPrice()).replace(',','.');
                     String detail = response.body().getProduct().getDescription();
                     String gambar = response.body().getProduct().getPicture();
                     namaMenu.setText(nama);
