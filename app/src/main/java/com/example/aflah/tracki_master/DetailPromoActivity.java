@@ -209,6 +209,9 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
                     @Override
                     public void onResponse(Call<ResponseRedeemPromotion> call, Response<ResponseRedeemPromotion> response) {
                         Log.v("sudahRedeem", "anda sudah redeem promo ini " + response.toString());
+                        Intent intent = new Intent(getBaseContext(),NavigationActivity.class);
+                        intent.putExtra("LOC",R.id.navigation_account);
+                        startActivity(intent);
                     }
 
                     @Override
