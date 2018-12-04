@@ -71,8 +71,13 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
                     if (promoFragment == null){
                         promoFragment = new PromoFragment();
                     }
-                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.content, promoFragment, "").commit();
+                    if (sharedPreferences.getString("tokenLogin", "").isEmpty()){
+                        startActivity(new Intent(NavigationActivity.this, LoginActivity.class));
+                        finish();
+                    }else {
+                        fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                        fragmentTransaction.replace(R.id.content, promoFragment, "").commit();
+                    }
                     return true;
                 case R.id.navigation_account:
                     if (accountFragment == null){
