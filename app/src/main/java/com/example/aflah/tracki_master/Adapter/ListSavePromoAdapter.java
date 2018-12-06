@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,12 +39,14 @@ public class ListSavePromoAdapter extends RecyclerView.Adapter<ListSavePromoAdap
     private List<Promotion> promotions;
     String userToken;
     RecyclerView recyclerView;
+    TextView tvNoPromo;
 
-    public ListSavePromoAdapter(Context context, List<Promotion> promotions, String userToken, RecyclerView recyclerView) {
+    public ListSavePromoAdapter(Context context, List<Promotion> promotions, String userToken, RecyclerView recyclerView, TextView tvNoPromo) {
         this.context = context;
         this.promotions = promotions;
         this.userToken = userToken;
         this.recyclerView = recyclerView;
+        this.tvNoPromo = tvNoPromo;
     }
 
     @NonNull
@@ -81,10 +84,6 @@ public class ListSavePromoAdapter extends RecyclerView.Adapter<ListSavePromoAdap
                 deletePromoCall.enqueue(new Callback<ResponseDeletePromo>() {
                     @Override
                     public void onResponse(Call<ResponseDeletePromo> call, Response<ResponseDeletePromo> response) {
-//                        Intent intent = new Intent(context,NavigationActivity.class);
-//                        intent.putExtra("LOC",R.id.navigation_account);
-//                        context.startActivity(intent);
-//                        ((Activity)context).finish();
 
                         ApiRequest apiRequest1 = RetroServer.getClient().create(ApiRequest.class);
                         Call<ResponseUserById> getSavedPromo = apiRequest.getSavedPromo(promotions.get(position).getPivot().getUser_id());
@@ -95,7 +94,9 @@ public class ListSavePromoAdapter extends RecyclerView.Adapter<ListSavePromoAdap
                                 for (Promotion promotion : response.body().getUnused_promotions()){
                                     promotions.add(promotion);
                                 }
-                                ListSavePromoAdapter listSavePromoAdapter = new ListSavePromoAdapter(context, promotions, userToken, recyclerView);
+                                if (promotions.size() != 0) tvNoPromo.setVisibility(View.INVISIBLE);
+                                else tvNoPromo.setVisibility(View.VISIBLE);
+                                ListSavePromoAdapter listSavePromoAdapter = new ListSavePromoAdapter(context, promotions, userToken, recyclerView, tvNoPromo);
                                 recyclerView.setAdapter(listSavePromoAdapter);
                             }
 
@@ -104,9 +105,6 @@ public class ListSavePromoAdapter extends RecyclerView.Adapter<ListSavePromoAdap
 
                             }
                         });
-
-
-
                     }
 
                     @Override

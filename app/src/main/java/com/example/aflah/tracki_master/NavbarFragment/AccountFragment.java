@@ -65,7 +65,7 @@ import static com.facebook.FacebookSdk.getApplicationContext;
 public class AccountFragment extends Fragment {
 
     CircleImageView imgAvatar;
-    TextView tvUserName;
+    TextView tvUserName, tvNoPromo;
     SharedPreferences sharedPreferences;
     String json;
     UserLogin userLogin;
@@ -115,6 +115,7 @@ public class AccountFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         imgAvatar = view.findViewById(R.id.imgProfile);
         tvUserName = view.findViewById(R.id.tv_userName);
+        tvNoPromo = view.findViewById(R.id.announceNoPromo_accountFragment);
         toolbarAccount = (Toolbar) view.findViewById(R.id.toolbar_account);
 
         NavigationActivity navigationActivity = (NavigationActivity) getActivity();
@@ -143,7 +144,9 @@ public class AccountFragment extends Fragment {
                 }
                 recyclerView = view.findViewById(R.id.recycerview_promoSaved);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                listSavePromoAdapter = new ListSavePromoAdapter(getContext(), promotions, userToken,recyclerView);
+                if (promotions.size() != 0)
+                    tvNoPromo.setVisibility(View.INVISIBLE);
+                listSavePromoAdapter = new ListSavePromoAdapter(getContext(), promotions, userToken,recyclerView, tvNoPromo);
                 recyclerView.setAdapter(listSavePromoAdapter);
             }
 
