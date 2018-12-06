@@ -113,6 +113,8 @@ public class RegisterActivity extends AppCompatActivity implements IRegister, Vi
                 break;
             case R.id.tv_masuk_register:
                 startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                finish();
+                break;
         }
     }
 

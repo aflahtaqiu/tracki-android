@@ -88,6 +88,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
         switch (v.getId()){
             case R.id.tv_daftar_login :
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+                finish();
                 break;
             case R.id.btn_masuk_login:
                 if (cekValidasi()){
