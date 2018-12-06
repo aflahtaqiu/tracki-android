@@ -176,9 +176,9 @@ public class AccountFragment extends Fragment {
                 Log.v("itemSelected", "about");
                 getActivity().startActivity(new Intent(getActivity(), AboutTrackiActivity.class));
                 break;
-            case R.id.item_help:
-                Log.v("itemSelected", "help");
-                break;
+//            case R.id.item_help:
+//                Log.v("itemSelected", "help");
+//                break;
             case R.id.item_logout:
                 SharedPreferences.Editor editor = this.getActivity().getSharedPreferences("login", Context.MODE_PRIVATE).edit();
                 editor.putString("tokenLogin", "");

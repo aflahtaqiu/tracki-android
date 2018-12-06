@@ -3,7 +3,9 @@ package com.example.aflah.tracki_master;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.aflah.tracki_master.Model.ResponseProductById;
@@ -20,20 +22,18 @@ import retrofit2.Response;
 
 public class DetailMenuActivity extends AppCompatActivity {
 
-    TextView namaMenu, kategoriMenu, hargaMenu, detailMenu;
-    ImageView gambarMenu;
+    TextView namaMenu, kategoriMenu, hargaMenu, detailMenu, tvDetail, tvRp;
+    ImageView gambarMenu, icHarga;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_menu);
 
-        namaMenu = (TextView) findViewById(R.id.tv_namaMenu_detailMenu);
-        kategoriMenu = (TextView) findViewById(R.id.tv_kategoriMenu_detailMenu);
-        hargaMenu = (TextView) findViewById(R.id.tv_hargaMenu_detailMenu);
-        detailMenu = (TextView) findViewById(R.id.tv_detailMenu_detailMenu);
-        gambarMenu = (ImageView) findViewById(R.id.iv_menu_detailMenu);
+        initViews();
 
+        invisibleVIews();
 
         try{
             int idProduk = getIntent().getExtras().getInt("idProduk");
@@ -53,6 +53,10 @@ public class DetailMenuActivity extends AppCompatActivity {
                     hargaMenu.setText(harga);
                     detailMenu.setText(detail);
                     Picasso.get().load(gambar).into(gambarMenu);
+                    tvDetail.setVisibility(View.VISIBLE);
+                    tvRp.setVisibility(View.VISIBLE);
+                    icHarga.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.INVISIBLE);
                 }
 
                 @Override
@@ -64,5 +68,23 @@ public class DetailMenuActivity extends AppCompatActivity {
 
         }
 
+    }
+
+    private void invisibleVIews() {
+        tvDetail.setVisibility(View.INVISIBLE);
+        tvRp.setVisibility(View.INVISIBLE);
+        icHarga.setVisibility(View.INVISIBLE);
+    }
+
+    private void initViews() {
+        namaMenu = (TextView) findViewById(R.id.tv_namaMenu_detailMenu);
+        kategoriMenu = (TextView) findViewById(R.id.tv_kategoriMenu_detailMenu);
+        hargaMenu = (TextView) findViewById(R.id.tv_hargaMenu_detailMenu);
+        detailMenu = (TextView) findViewById(R.id.tv_detailMenu_detailMenu);
+        gambarMenu = (ImageView) findViewById(R.id.iv_menu_detailMenu);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar_detailProduk);
+        tvDetail = (TextView) findViewById(R.id.tv_detail_detailMenu);
+        tvRp = (TextView) findViewById(R.id.tv_rpMenu_detailMenu);
+        icHarga = (ImageView) findViewById(R.id.iv_icHarga_detailMenu);
     }
 }

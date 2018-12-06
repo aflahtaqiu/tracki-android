@@ -2,9 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
     <item
-        android:id="@+id/item_logout"
-        android:title="Logout"
+        android:id="@+id/btn_edit"
+        android:title="Edit Profile"
         app:showAsAction="never" />
 
     <item
@@ -12,14 +13,15 @@
         android:title="About Tracki"
         app:showAsAction="never" />
 
-    <item
-        android:id="@+id/item_help"
-        android:title="Help"
-        app:showAsAction="never" />
+    <!--<item-->
+        <!--android:id="@+id/item_help"-->
+        <!--android:title="Help"-->
+        <!--app:showAsAction="never" />-->
+
+
 
     <item
-        android:id="@+id/btn_edit"
-        android:title="Edit Profile"
+        android:id="@+id/item_logout"
+        android:title="Logout"
         app:showAsAction="never" />
-
 </menu>
