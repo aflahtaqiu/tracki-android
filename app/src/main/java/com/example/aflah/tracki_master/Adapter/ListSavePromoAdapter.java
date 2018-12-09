@@ -29,6 +29,7 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -79,39 +80,68 @@ public class ListSavePromoAdapter extends RecyclerView.Adapter<ListSavePromoAdap
         holder.imageButtonDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
-                Call<ResponseDeletePromo> deletePromoCall = apiRequest.deletePromo(userToken, promotions.get(position).getId());
-                deletePromoCall.enqueue(new Callback<ResponseDeletePromo>() {
-                    @Override
-                    public void onResponse(Call<ResponseDeletePromo> call, Response<ResponseDeletePromo> response) {
 
-                        ApiRequest apiRequest1 = RetroServer.getClient().create(ApiRequest.class);
-                        Call<ResponseUserById> getSavedPromo = apiRequest.getSavedPromo(promotions.get(position).getPivot().getUser_id());
-                        getSavedPromo.enqueue(new Callback<ResponseUserById>() {
+                SweetAlertDialog confirmAlertDialog = new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("Hapus promo")
+                        .setContentText("Apakah Anda yakin menghapus promo ini?")
+                        .setConfirmText("Ya")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
-                            public void onResponse(Call<ResponseUserById> call, Response<ResponseUserById> response) {
-                                List<Promotion> promotions = new ArrayList<>();
-                                for (Promotion promotion : response.body().getUnused_promotions()){
-                                    promotions.add(promotion);
-                                }
-                                if (promotions.size() != 0) tvNoPromo.setVisibility(View.INVISIBLE);
-                                else tvNoPromo.setVisibility(View.VISIBLE);
-                                ListSavePromoAdapter listSavePromoAdapter = new ListSavePromoAdapter(context, promotions, userToken, recyclerView, tvNoPromo);
-                                recyclerView.setAdapter(listSavePromoAdapter);
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+
+                                ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
+                                Call<ResponseDeletePromo> deletePromoCall = apiRequest.deletePromo(userToken, promotions.get(position).getId());
+                                deletePromoCall.enqueue(new Callback<ResponseDeletePromo>() {
+                                    @Override
+                                    public void onResponse(Call<ResponseDeletePromo> call, Response<ResponseDeletePromo> response) {
+
+                                        Call<ResponseUserById> getSavedPromo = apiRequest.getSavedPromo(promotions.get(position).getPivot().getUser_id());
+                                        getSavedPromo.enqueue(new Callback<ResponseUserById>() {
+                                            @Override
+                                            public void onResponse(Call<ResponseUserById> call, Response<ResponseUserById> response) {
+                                                List<Promotion> promotions = new ArrayList<>();
+                                                for (Promotion promotion : response.body().getUnused_promotions()){
+                                                    promotions.add(promotion);
+                                                }
+                                                if (promotions.size() != 0) tvNoPromo.setVisibility(View.INVISIBLE);
+                                                else tvNoPromo.setVisibility(View.VISIBLE);
+                                                ListSavePromoAdapter listSavePromoAdapter = new ListSavePromoAdapter(context, promotions, userToken, recyclerView, tvNoPromo);
+                                                recyclerView.setAdapter(listSavePromoAdapter);
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<ResponseUserById> call, Throwable t) {
+
+                                            }
+                                        });
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<ResponseDeletePromo> call, Throwable t) {
+
+                                    }
+                                });
+
+                                //sweetAlertDialog.dismissWithAnimation();
+
+                                sweetAlertDialog
+                                        .setTitleText("Promo dihapus")
+                                        .setContentText("Promo tersebut sudah dihapus")
+                                        .setConfirmText("OK")
+                                        .showCancelButton(false)
+                                        .setConfirmClickListener(null)
+                                        .changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+
                             }
-
+                        })
+                        .setCancelButton("Tidak", new SweetAlertDialog.OnSweetClickListener() {
                             @Override
-                            public void onFailure(Call<ResponseUserById> call, Throwable t) {
-
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                sweetAlertDialog.dismissWithAnimation();
                             }
                         });
-                    }
 
-                    @Override
-                    public void onFailure(Call<ResponseDeletePromo> call, Throwable t) {
-
-                    }
-                });
+                confirmAlertDialog.show();
             }
         });
 

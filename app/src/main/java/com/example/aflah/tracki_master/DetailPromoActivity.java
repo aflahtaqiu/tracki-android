@@ -37,6 +37,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -57,6 +58,7 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
     String userToken;
     ProgressBar progressBarDetailPromo;
     View view1, view2, view3;
+    SweetAlertDialog sweetAlertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,6 +170,10 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
         view2 = (View) findViewById(R.id.view2);
         view3 = (View) findViewById(R.id.view3);
         progressBarDetailPromo = (ProgressBar) findViewById(R.id.progressBarDetailPromo);
+
+        sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+                .setTitleText("Promo disimpan")
+                .setContentText("Silahkan lihat di halaman akun");
     }
 
     @Override
@@ -208,10 +214,7 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
                 getReedem.enqueue(new Callback<ResponseRedeemPromotion>() {
                     @Override
                     public void onResponse(Call<ResponseRedeemPromotion> call, Response<ResponseRedeemPromotion> response) {
-                        Log.v("sudahRedeem", "anda sudah redeem promo ini " + response.toString());
-                        Intent intent = new Intent(getBaseContext(),NavigationActivity.class);
-                        intent.putExtra("LOC",R.id.navigation_account);
-                        startActivity(intent);
+
                     }
 
                     @Override
@@ -219,6 +222,8 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
                         Log.v("sudahRedeem", "anda onFailure " + t.getMessage());
                     }
                 });
+
+                sweetAlertDialog.show();
                 btnSimpan.setEnabled(false);
                 break;
         }
