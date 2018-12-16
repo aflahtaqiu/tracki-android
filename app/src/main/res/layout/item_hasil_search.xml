@@ -6,7 +6,7 @@
     app:cardElevation="6dp"
     android:clickable="true"
     android:background="@drawable/back_item_review"
-    android:id="@+id/cardview_review">
+    android:id="@+id/cardview_hasil_search">
 
     <LinearLayout
         android:layout_width="match_parent"
