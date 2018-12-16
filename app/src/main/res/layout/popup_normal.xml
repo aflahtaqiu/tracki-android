@@ -22,16 +22,16 @@
 
         <View style="@style/line_style" />
 
-        <TextView
-            android:id="@+id/imgAvatar"
-            android:layout_width="match_parent"
-            android:paddingLeft="10dp"
-            android:paddingTop="10dp"
-            android:layout_height="50dp"
-            android:textSize="16sp"
-            android:gravity="left"
-            android:text="Pilih avatar"
-            android:textColor="@color/colorBlack" />
+        <!--<TextView-->
+            <!--android:id="@+id/imgAvatar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:paddingLeft="10dp"-->
+            <!--android:paddingTop="10dp"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:textSize="16sp"-->
+            <!--android:gravity="left"-->
+            <!--android:text="Pilih avatar"-->
+            <!--android:textColor="@color/colorBlack" />-->
 
         <TextView
             android:id="@+id/imgGaleri"

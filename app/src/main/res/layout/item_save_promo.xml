@@ -9,7 +9,8 @@
     app:cardElevation="6dp"
     android:layout_marginStart="16dp"
     android:layout_marginEnd="16dp"
-    android:layout_marginTop="5dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
     android:clickable="true"
     android:id="@+id/cardview_save_promo">
 
@@ -61,18 +62,17 @@
         android:layout_height="match_parent">
 
         <ImageButton
-            android:id="@+id/delete"
+            android:id="@+id/btn_deletePromo"
             android:layout_width="30dp"
             android:layout_height="35dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:background="@null"
-            android:src="@drawable/cb_delete"
+            android:src="@drawable/ic_delete_black_24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"

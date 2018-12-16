@@ -1,13 +1,17 @@
 package com.example.aflah.tracki_master;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,6 +24,11 @@ import com.example.aflah.tracki_master.Model.UserLogin;
 import com.example.aflah.tracki_master.Retrofit.ApiRequest;
 import com.example.aflah.tracki_master.Retrofit.RetroServer;
 import com.google.gson.Gson;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
@@ -28,12 +37,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DetailPromoActivity extends AppCompatActivity implements View.OnClickListener{
 
+    final Context context = this;
     Button btnGunakan, btnSimpan;
     TextView textViewNamaPromo, textViewNamaToko, textViewTanggalPromo, textViewKetentuanPromo,
         textViewDeskripsiPromo, textViewPromoDigunakan, textViewTanggalTersedia, textViewdeskripsi, textViewSyaratKetentuan;
@@ -46,7 +57,8 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
     String qrCodeString;
     String userToken;
     ProgressBar progressBarDetailPromo;
-    View view1, view2, view3, view4;
+    View view1, view2, view3;
+    SweetAlertDialog sweetAlertDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +116,6 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
                 view1.setVisibility(View.VISIBLE);
                 view2.setVisibility(View.VISIBLE);
                 view3.setVisibility(View.VISIBLE);
-                view4.setVisibility(View.VISIBLE);
                 gambarPromo.setVisibility(View.VISIBLE);
 
                 if (response.body().getPromotion().getSaved() == true){
@@ -140,7 +151,6 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
         view1.setVisibility(View.INVISIBLE);
         view2.setVisibility(View.INVISIBLE);
         view3.setVisibility(View.INVISIBLE);
-        view4.setVisibility(View.INVISIBLE);
     }
 
     private void initView() {
@@ -159,18 +169,43 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
         view1 = (View) findViewById(R.id.view1);
         view2 = (View) findViewById(R.id.view2);
         view3 = (View) findViewById(R.id.view3);
-        view4 = (View) findViewById(R.id.view4);
         progressBarDetailPromo = (ProgressBar) findViewById(R.id.progressBarDetailPromo);
+
+        sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+                .setTitleText("Promo disimpan")
+                .setContentText("Silahkan lihat di halaman akun");
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnGunakan_detailPromo :
-                Intent intent = new Intent(DetailPromoActivity.this, QRCodePromoActivity.class);
-                intent.putExtra("qrCodeString", qrCodeString);
-                intent.putExtra("", idPromo);
-                startActivity(intent);
+                final Dialog dialog = new Dialog(context);
+                dialog.setContentView(R.layout.activity_qrcode_promo);
+
+                ImageView qrCode = (ImageView) dialog.findViewById(R.id.qrCode_generatePromo);
+
+                MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+                try{
+                    BitMatrix bitMatrix = multiFormatWriter.encode(qrCodeString, BarcodeFormat.QR_CODE,250, 250 );
+                    BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+                    Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
+                    qrCode.setImageBitmap(bitmap);
+                }catch (WriterException e) {
+                    e.printStackTrace();
+                }
+
+                Button btnClose = (Button) dialog.findViewById(R.id.btnClosePopUp);
+
+                btnClose.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+
                 break;
             case R.id.btnSimpan_detailPromo :
 
@@ -179,7 +214,7 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
                 getReedem.enqueue(new Callback<ResponseRedeemPromotion>() {
                     @Override
                     public void onResponse(Call<ResponseRedeemPromotion> call, Response<ResponseRedeemPromotion> response) {
-                        Log.v("sudahRedeem", "anda sudah redeem promo ini " + response.toString());
+
                     }
 
                     @Override
@@ -187,6 +222,8 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
                         Log.v("sudahRedeem", "anda onFailure " + t.getMessage());
                     }
                 });
+
+                sweetAlertDialog.show();
                 btnSimpan.setEnabled(false);
                 break;
         }

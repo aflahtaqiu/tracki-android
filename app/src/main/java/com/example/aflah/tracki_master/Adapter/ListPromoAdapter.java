@@ -19,7 +19,10 @@ import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.R;
 import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -60,6 +63,18 @@ public class ListPromoAdapter extends RecyclerView.Adapter<ListPromoAdapter.MyVi
 
         holder.namaPromo.setText(promotions.get(position).getTitle());
         holder.namaToko.setText(promotions.get(position).getStore().getName());
+        holder.tanggalPromo.setText(promotions.get(position).getExpired_date());
+
+        try {
+            String expireDateStr;
+            SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date dateExpire = inputFormat.parse(promotions.get(position).getExpired_date());
+            expireDateStr = outputFormat.format(dateExpire);
+            holder.tanggalPromo.setText(expireDateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         Picasso.get().load(promotions.get(position).getBanner()).into(holder.gambarPromo);
 
@@ -82,7 +97,7 @@ public class ListPromoAdapter extends RecyclerView.Adapter<ListPromoAdapter.MyVi
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView namaToko, namaPromo;
+        TextView namaToko,namaPromo, tanggalPromo;
         ImageView gambarPromo;
         CardView cardView;
 
@@ -92,6 +107,7 @@ public class ListPromoAdapter extends RecyclerView.Adapter<ListPromoAdapter.MyVi
             namaToko = itemView.findViewById(R.id.namaToko_itemPromo);
             namaPromo = itemView.findViewById(R.id.namaPromo_itemPromo);
             gambarPromo = itemView.findViewById(R.id.gambarPromo_itemPromo);
+            tanggalPromo = itemView.findViewById(R.id.tanggalPromo_itemPromo);
             cardView = itemView.findViewById(R.id.cardview_promo);
         }
     }
