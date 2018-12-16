@@ -76,6 +76,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_userName" />
 
+
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycerview_promoSaved"
         android:layout_width="0dp"
