@@ -9,9 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.aflah.tracki_master.DetailMenuActivity;
+import com.example.aflah.tracki_master.DetaiMenu.DetailMenuActivity;
 import com.example.aflah.tracki_master.Model.Product;
 import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.R;

@@ -1,7 +1,5 @@
 package com.example.aflah.tracki_master.NavbarFragment;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,11 +12,7 @@ import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -27,10 +21,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.aflah.tracki_master.Adapter.TokoTerdekatAdapter;
-import com.example.aflah.tracki_master.DetailMenuActivity;
+import com.example.aflah.tracki_master.DetaiMenu.DetailMenuActivity;
 import com.example.aflah.tracki_master.DetailTokoActivity;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameProduct;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameStore;
@@ -48,7 +41,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TimerTask;
 
 import retrofit2.Call;
 import retrofit2.Callback;

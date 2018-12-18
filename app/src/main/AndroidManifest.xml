@@ -71,7 +71,7 @@
         <!-- android:label="@string/title_activity_maps"></activity> -->
 
         <activity android:name=".DetailTokoActivity" />
-        <activity android:name=".DetailMenuActivity"
+        <activity android:name=".DetaiMenu.DetailMenuActivity"
             android:theme="@style/ThemeNobar"/>
         <activity
             android:name=".Auth.RegisterActivity"

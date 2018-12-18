@@ -1,6 +1,5 @@
 package com.example.aflah.tracki_master.Adapter;
 
-import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -10,11 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.aflah.tracki_master.DetailMenuActivity;
+import com.example.aflah.tracki_master.DetaiMenu.DetailMenuActivity;
 import com.example.aflah.tracki_master.Model.Product;
 import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.R;
@@ -22,8 +19,6 @@ import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.List;
-import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
