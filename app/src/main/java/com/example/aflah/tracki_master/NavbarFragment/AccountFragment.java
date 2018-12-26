@@ -255,10 +255,10 @@ public class AccountFragment extends Fragment {
 
         float bitmapRatio = (float) width / (float) height;
         if (bitmapRatio > 1) {
-            width = 800;
+            width = 200;
             height = (int) (width / bitmapRatio);
         } else {
-            height = 800;
+            height = 200;
             width = (int) (height * bitmapRatio);
         }
         return Bitmap.createScaledBitmap(image, width, height, true);
@@ -302,15 +302,14 @@ public class AccountFragment extends Fragment {
                         editor.putString("userLogin", json);
                         editor.apply();
                         editor.commit();
+                        Mydialog.dismiss();
+                        Picasso.get().load(userLogin.getFoto()).fit().into(imgAvatar);
 
-                        Intent intent = new Intent(getContext(),NavigationActivity.class);
-                        intent.putExtra("LOC",R.id.navigation_account);
-                        startActivity(intent);
-                        getActivity().finish();
                     }
 
                     @Override
                     public void onFailure(Call<ResponseUserById> call, Throwable t) {
+                        Log.v("poto",""+t.getMessage());
                     }
                 });
 
