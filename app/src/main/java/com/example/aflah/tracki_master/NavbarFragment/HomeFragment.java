@@ -46,15 +46,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link HomeFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class HomeFragment extends Fragment implements NavigationActivity.OnCubeaconUpdated,AdapterView.OnItemClickListener,SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemSelectedListener {
 
     private static final String TAG = HomeFragment.class.getSimpleName();
@@ -91,14 +82,7 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
     public HomeFragment() {
         // Required empty public constructor
     }
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
-     */
+
     // TODO: Rename and change types and number of parameters
     public static HomeFragment newInstance(String param1, String param2) {
         HomeFragment fragment = new HomeFragment();
@@ -116,7 +100,6 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         textViewTokoTerdekat = (TextView) view.findViewById(R.id.tv_tokoTerdekat_tokoTerdekat);
         imageViewUndetectStore = (ImageView) view.findViewById(R.id.iv_undetect_store);
-//        imageViewUndetectStore.setVisibility(View.INVISIBLE);
         AutoCompleteTextView autoCompleteTextView = view.findViewById(R.id.edit_search);
         spinnerSearch = (AppCompatSpinner) view.findViewById(R.id.spinnerSearch);
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this.getActivity(), R.layout.item_spinner, spinnerItem);
@@ -203,7 +186,6 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
         });
         stores = new ArrayList<>();
         rmdup = new HashMap<>();
-
 
         mySwipeRefreshLayout = view.findViewById(R.id.swiperefresh);
         mySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -335,10 +317,8 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                Intent intent = new Intent(getActivity(),DetailTokoActivity.class);
                startActivity(intent);
     }
-
     @Override
     public void onRefresh() {
-
     }
 
     @Override
@@ -358,17 +338,6 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
 
     }
 
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

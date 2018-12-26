@@ -34,7 +34,6 @@ import java.util.Map;
 import java.util.UUID;
 
 public class NavigationActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
-//        HomeFragment.OnFragmentInteractionListener,
         PromoFragment.OnFragmentInteractionListener,
         CBRangingListener, CBServiceListener{
 
@@ -150,28 +149,20 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     @Override
     protected void onResume() {
         super.onResume();
-        // check all requirement like is BLE available, is bluetooth on/off,
-        // location service for Android API 23 or later
         if (SystemRequirementManager.checkAllRequirementUsingDefaultDialog(this)) {
-            // connecting to Cubeacon service when all requirements completed
             cubeacon.connect(this);
-            // disable background mode, because we're going to use full
-            // scanning resource in foreground mode
             cubeacon.setBackgroundMode(false);
         }
     }
-
     @Override
     protected void onPause() {
         super.onPause();
-        // enable background mode when this activity paused
         cubeacon.setBackgroundMode(true);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
         cubeacon.disconnect(this);
     }
 
@@ -182,7 +173,6 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
     @Override
     public void onFragmentInteraction(Uri uri) {
-
     }
 
     @Override
@@ -192,8 +182,8 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         String title, subtitle;
         Map<String, String> map;
 
-        // clear data
         data.clear();
+
         for (CBBeacon beacon : beacons) {
             title = beacon.getProximityUUID().toString().toUpperCase();
             subtitle = String.format(Locale.getDefault(), "M:%d m:%d RSSI:%d Accuracy:%.2fm",
@@ -204,9 +194,6 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
             data.add(map);
         }
         //TODO : IMPLEMENT INTERFACE
-
-
-        // update view using runnable
         mOnCubeaconUpdated.setData(data,list);
     }
 
@@ -214,15 +201,12 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
     public void onBeaconServiceConnect() {
         cubeacon.addRangingListener(this);
         try {
-            // create a new region for ranging beacons
             CBRegion region = new CBRegion("com.eyro.cubeacon.ranging_region",
                     UUID.fromString("CB10023F-A318-3394-4199-A8730C7C1AEC"));
-            // start ranging beacons using region
             cubeacon.startRangingBeaconsInRegion(region);
         } catch (RemoteException e) {
         }
     }
-
     public interface OnCubeaconUpdated{
         void setData(List<Map<String, String>> data,List<CBBeacon> cub);
     }
