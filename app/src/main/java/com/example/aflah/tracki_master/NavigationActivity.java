@@ -17,7 +17,7 @@ import com.example.aflah.tracki_master.Auth.LoginActivity;
 import com.example.aflah.tracki_master.Model.UserLogin;
 import com.example.aflah.tracki_master.NavbarFragment.AccountFragment;
 import com.example.aflah.tracki_master.NavbarFragment.HomeFragment;
-import com.example.aflah.tracki_master.NavbarFragment.PromoFragment;
+import com.example.aflah.tracki_master.NavbarFragment.Promotion.PromoFragment;
 import com.eyro.cubeacon.CBBeacon;
 import com.eyro.cubeacon.CBRangingListener;
 import com.eyro.cubeacon.CBRegion;

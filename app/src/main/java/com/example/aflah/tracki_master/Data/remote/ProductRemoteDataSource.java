@@ -1,7 +1,5 @@
 package com.example.aflah.tracki_master.Data.remote;
 
-import android.util.Log;
-
 import com.example.aflah.tracki_master.Data.ProductSource;
 import com.example.aflah.tracki_master.Model.ResponseProductById;
 
@@ -25,7 +23,7 @@ public class ProductRemoteDataSource implements ProductSource {
 
             @Override
             public void onFailure(Call<ResponseProductById> call, Throwable t) {
-
+                getProductByIdCallBack.onFailure(t.getMessage());
             }
         });
     }
