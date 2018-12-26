@@ -39,9 +39,9 @@
         <activity
             android:name=".NavigationActivity"
             android:theme="@style/AppTheme.NoActionBar"
+            android:permission="android.permission.BLUETOOTH"
             android:windowSoftInputMode="adjustNothing"
             android:label=""/>
-        <activity android:name=".NavbarFragment.MonitoringActivity" />
         <activity
             android:name=".PrologActivity"
             android:theme="@style/PrologTheme" />
