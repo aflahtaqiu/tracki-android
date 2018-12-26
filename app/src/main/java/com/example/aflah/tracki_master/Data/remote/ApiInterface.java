@@ -1,5 +1,6 @@
 package com.example.aflah.tracki_master.Data.remote;
 
+import com.example.aflah.tracki_master.Model.Response.ResponseRedeemPromotion;
 import com.example.aflah.tracki_master.Model.ResponseProductById;
 
 import retrofit2.Call;
@@ -12,4 +13,7 @@ public interface ApiInterface {
     Call<ResponseProductById> getProductById(
             @Path("id") int id
     );
+
+    @GET("promotion")
+    Call<ResponseRedeemPromotion> getPromotions();
 }

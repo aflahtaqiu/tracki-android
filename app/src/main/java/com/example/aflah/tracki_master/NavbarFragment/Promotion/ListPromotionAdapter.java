@@ -1,4 +1,4 @@
-package com.example.aflah.tracki_master.Adapter;
+package com.example.aflah.tracki_master.NavbarFragment.Promotion;
 
 import android.content.Context;
 import android.content.Intent;
