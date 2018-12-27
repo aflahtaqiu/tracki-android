@@ -1,17 +1,22 @@
 package com.example.aflah.tracki_master.NavbarFragment;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -193,20 +198,11 @@ public class AccountFragment extends Fragment {
         Mydialog = new Dialog(getActivity());
         Mydialog.setContentView(R.layout.popup_normal);
 
-        //picAvatar = (TextView)Mydialog.findViewById(R.id.imgAvatar);
         picGaleri = (TextView)Mydialog.findViewById(R.id.imgGaleri);
         picCamera = (TextView)Mydialog.findViewById(R.id.imgCamera);
 
-        //picAvatar.setEnabled(true);
         picGaleri.setEnabled(true);
         picCamera.setEnabled(true);
-
-//        picAvatar.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                Toast.makeText(getApplicationContext(), "Pilih default avatar", Toast.LENGTH_LONG).show();
-//            }
-//        });
 
         picGaleri.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -223,6 +219,15 @@ public class AccountFragment extends Fragment {
             public void onClick(View v) {
 //                Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 //                startActivityForResult(intent, CAMERA);
+                if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.CAMERA)
+                        == PackageManager.PERMISSION_DENIED){
+                    ActivityCompat.requestPermissions(getActivity(), new String[] {android.Manifest.permission.CAMERA}, 70);
+                }
+
+                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivityForResult(takePictureIntent, CAMERA);
+                }
             }
         });
 
@@ -247,16 +252,21 @@ public class AccountFragment extends Fragment {
 
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == GALLERY && resultCode == RESULT_OK && null != data) {
+        if ((requestCode == GALLERY || requestCode == CAMERA) && resultCode == RESULT_OK && null != data) {
             try {
                 selectedImage = data.getData();
-                Bitmap foto = getResizedBitmap(MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),selectedImage));
-
                 File file = new File(getContext().getCacheDir(), "fotoProfil");
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
                 file.createNewFile();
-
-                foto.compress(Bitmap.CompressFormat.JPEG, 100 /*ignored for PNG*/, bos);
+                if(requestCode == GALLERY){
+                    Bitmap foto = getResizedBitmap(MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),selectedImage));
+                    foto.compress(Bitmap.CompressFormat.JPEG, 100 /*ignored for PNG*/, bos);
+                }else{
+                    Bundle extras = data.getExtras();
+                    Bitmap imageBitmap = (Bitmap) extras.get("data");
+                    Bitmap foto = getResizedBitmap(imageBitmap);
+                    foto.compress(Bitmap.CompressFormat.JPEG, 100 /*ignored for PNG*/, bos);
+                }
                 byte[] bitmapdata = bos.toByteArray();
                 FileOutputStream fos = new FileOutputStream(file);
                 fos.write(bitmapdata);
@@ -292,6 +302,7 @@ public class AccountFragment extends Fragment {
                 });
 
             } catch (Exception e) {
+                Log.v("kamera",""+ e.toString());
         }
 
     }
