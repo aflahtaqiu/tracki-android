@@ -71,7 +71,7 @@
         <!-- android:name=".MapsActivity" -->
         <!-- android:label="@string/title_activity_maps"></activity> -->
 
-        <activity android:name=".DetailTokoActivity" />
+        <activity android:name=".DetailToko.DetailTokoActivity" />
         <activity android:name=".DetaiMenu.DetailMenuActivity"
             android:theme="@style/ThemeNobar"/>
         <activity
@@ -102,7 +102,7 @@
             android:name=".ReviewTokoActivity"
             android:theme="@style/ThemeNobar" />
         <activity
-            android:name=".DetailPromoActivity"
+            android:name=".DetailPromo.DetailPromoActivity"
             android:theme="@style/ThemeNobar" />
         <activity android:name=".QRCodePromoActivity"
             android:theme="@style/AppTheme.PopUpPromo"></activity>

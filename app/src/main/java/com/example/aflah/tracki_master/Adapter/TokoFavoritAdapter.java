@@ -12,12 +12,11 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.aflah.tracki_master.DetailTokoActivity;
+import com.example.aflah.tracki_master.DetailToko.DetailTokoActivity;
 import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.R;
 import com.squareup.picasso.Picasso;
 
-import java.security.PrivilegedAction;
 import java.util.List;
 
 /**

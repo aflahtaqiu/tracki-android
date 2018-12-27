@@ -1,17 +1,11 @@
-package com.example.aflah.tracki_master;
+package com.example.aflah.tracki_master.DetailPromo;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -21,6 +15,7 @@ import android.widget.TextView;
 import com.example.aflah.tracki_master.Model.Response.ResponsePromotionById;
 import com.example.aflah.tracki_master.Model.Response.ResponseRedeemPromotion;
 import com.example.aflah.tracki_master.Model.UserLogin;
+import com.example.aflah.tracki_master.R;
 import com.example.aflah.tracki_master.Retrofit.ApiRequest;
 import com.example.aflah.tracki_master.Retrofit.RetroServer;
 import com.google.gson.Gson;
@@ -31,7 +26,6 @@ import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -219,7 +213,6 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
 
                     @Override
                     public void onFailure(Call<ResponseRedeemPromotion> call, Throwable t) {
-                        Log.v("sudahRedeem", "anda onFailure " + t.getMessage());
                     }
                 });
 

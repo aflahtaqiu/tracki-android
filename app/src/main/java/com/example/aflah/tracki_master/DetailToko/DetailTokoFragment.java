@@ -1,6 +1,7 @@
-package com.example.aflah.tracki_master.DetailTokoFragment;
+package com.example.aflah.tracki_master.DetailToko;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,9 +10,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.aflah.tracki_master.Adapter.ListMinumanAdapter;
+import com.example.aflah.tracki_master.Adapter.DetailTokoAdapter;
 import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
 import com.example.aflah.tracki_master.R;
 import com.example.aflah.tracki_master.Retrofit.ApiRequest;
@@ -24,19 +26,21 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link MinumanFragment.OnFragmentInteractionListener} interface
+ * {@link DetailTokoFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link MinumanFragment#newInstance} factory method to
+ * Use the {@link DetailTokoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MinumanFragment extends Fragment {
-
-    RecyclerView recyclerView;
-    TextView textViewNoMinuman;
+public class DetailTokoFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public MinumanFragment() {
+    RecyclerView recyclerView;
+    ProgressBar progressBar;
+    String userToken;
+    SharedPreferences sharedPreferences;
+
+    public DetailTokoFragment() {
         // Required empty public constructor
     }
 
@@ -46,27 +50,30 @@ public class MinumanFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment MinumanFragment.
+     * @return A new instance of fragment DetailTokoFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MinumanFragment newInstance(String param1, String param2) {
-        MinumanFragment fragment = new MinumanFragment();
+    public static DetailTokoFragment newInstance(String param1, String param2) {
+        DetailTokoFragment fragment = new DetailTokoFragment();
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPreferences = this.getActivity().getSharedPreferences("login", Context.MODE_PRIVATE);
+        userToken = sharedPreferences.getString("tokenLogin", "");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view =  inflater.inflate(R.layout.fragment_minuman, container, false);
+        View view = inflater.inflate(R.layout.fragment_detail_toko, container, false);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_minuman);
-        textViewNoMinuman = (TextView) view.findViewById(R.id.tv_minumanTidakAda_fragmenMinuman);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_detailtoko);
+        progressBar = (ProgressBar) view.findViewById(R.id.progressBarDetailToko);
+        TextView textView = (TextView) view.findViewById(R.id.tv_phoneToko_detailToko);
 
         int idToko = getActivity().getIntent().getExtras().getInt("idTokoTerdekat");
 
@@ -76,21 +83,11 @@ public class MinumanFragment extends Fragment {
             @Override
             public void onResponse(Call<ResponseDetailToko> call, Response<ResponseDetailToko> response) {
 
-                int temp=0;
-                for (int i = 0;i<response.body().getStore().getProducts().size();i++){
-                    if (response.body().getStore().getProducts().get(i).getCategory().getId() == 2){
-                        temp =1;
-                    }
-                }
-                if (temp==1){
-                    textViewNoMinuman.setVisibility(View.GONE);
-                }
-
-                recyclerView.setAdapter(new ListMinumanAdapter(getContext(), response.body().getStore()));
+                progressBar.setVisibility(View.GONE);
+                recyclerView.setAdapter(new DetailTokoAdapter(getContext(), response.body().getStore(), userToken));
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 recyclerView.smoothScrollToPosition(0);
             }
-
             @Override
             public void onFailure(Call<ResponseDetailToko> call, Throwable t) {
             }
@@ -99,7 +96,6 @@ public class MinumanFragment extends Fragment {
         return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);

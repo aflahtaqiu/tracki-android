@@ -1,13 +1,10 @@
 package com.example.aflah.tracki_master.Adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +12,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.aflah.tracki_master.DetailPromoActivity;
+import com.example.aflah.tracki_master.DetailPromo.DetailPromoActivity;
 import com.example.aflah.tracki_master.Model.Promotion;
 import com.example.aflah.tracki_master.Model.Response.ResponseDeletePromo;
 import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
-import com.example.aflah.tracki_master.NavigationActivity;
 import com.example.aflah.tracki_master.R;
 import com.example.aflah.tracki_master.Retrofit.ApiRequest;
 import com.example.aflah.tracki_master.Retrofit.RetroServer;
-import com.google.android.gms.common.api.Api;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

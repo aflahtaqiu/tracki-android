@@ -1,13 +1,10 @@
 package com.example.aflah.tracki_master.NavbarFragment;
 
 import android.app.Dialog;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -15,7 +12,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,7 +19,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.aflah.tracki_master.AboutTrackiActivity;
 import com.example.aflah.tracki_master.Adapter.ListSavePromoAdapter;
@@ -44,14 +39,11 @@ import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -59,8 +51,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
-import static com.facebook.FacebookSdk.getApplicationContext;
-
 
 public class AccountFragment extends Fragment {
 
@@ -85,15 +75,6 @@ public class AccountFragment extends Fragment {
     public AccountFragment() {
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AccountFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static AccountFragment newInstance(String param1, String param2) {
         AccountFragment fragment = new AccountFragment();
         return fragment;
@@ -173,7 +154,6 @@ public class AccountFragment extends Fragment {
 
         switch (itemId){
             case R.id.item_about:
-                Log.v("itemSelected", "about");
                 getActivity().startActivity(new Intent(getActivity(), AboutTrackiActivity.class));
                 break;
 //            case R.id.item_help:
@@ -202,7 +182,6 @@ public class AccountFragment extends Fragment {
                 getActivity().finish();
                 break;
             case R.id.btn_edit:
-                Log.v("itemSelected", "edit profile");
                 getActivity().startActivity(new Intent(getActivity(), EditProfilActivity.class));
                 break;
         }
@@ -309,7 +288,6 @@ public class AccountFragment extends Fragment {
 
                     @Override
                     public void onFailure(Call<ResponseUserById> call, Throwable t) {
-                        Log.v("poto",""+t.getMessage());
                     }
                 });
 

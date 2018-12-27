@@ -193,7 +193,6 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
             map.put("subtitle", subtitle);
             data.add(map);
         }
-        //TODO : IMPLEMENT INTERFACE
         mOnCubeaconUpdated.setData(data,list);
     }
 

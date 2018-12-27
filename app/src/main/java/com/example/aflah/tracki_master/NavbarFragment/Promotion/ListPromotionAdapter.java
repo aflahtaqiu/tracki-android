@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.aflah.tracki_master.DetailPromoActivity;
+import com.example.aflah.tracki_master.DetailPromo.DetailPromoActivity;
 import com.example.aflah.tracki_master.Model.Promotion;
 import com.example.aflah.tracki_master.R;
 import com.squareup.picasso.Picasso;

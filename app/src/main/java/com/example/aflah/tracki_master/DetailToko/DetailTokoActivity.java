@@ -1,7 +1,5 @@
-package com.example.aflah.tracki_master;
+package com.example.aflah.tracki_master.DetailToko;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -9,14 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.example.aflah.tracki_master.Adapter.CarouselDetailTokoAdapter;
 import com.example.aflah.tracki_master.Adapter.DetailTokoViewPagerAdapter;
-import com.example.aflah.tracki_master.DetailTokoFragment.DetailTokoFragment;
-import com.example.aflah.tracki_master.DetailTokoFragment.MakananFragment;
-import com.example.aflah.tracki_master.DetailTokoFragment.MinumanFragment;
 import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
+import com.example.aflah.tracki_master.R;
 import com.example.aflah.tracki_master.Retrofit.ApiRequest;
 import com.example.aflah.tracki_master.Retrofit.RetroServer;
 
