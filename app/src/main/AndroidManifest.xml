@@ -99,7 +99,7 @@
         <activity android:name=".AboutTrackiActivity" />
         <activity android:name=".ForgotPasswordActivity" />
         <activity
-            android:name=".ReviewTokoActivity"
+            android:name=".ReviewToko.ReviewTokoActivity"
             android:theme="@style/ThemeNobar" />
         <activity
             android:name=".DetailPromo.DetailPromoActivity"

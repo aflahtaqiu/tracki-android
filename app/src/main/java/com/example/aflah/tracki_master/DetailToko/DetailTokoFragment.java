@@ -23,14 +23,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link DetailTokoFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link DetailTokoFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class DetailTokoFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
@@ -40,19 +32,8 @@ public class DetailTokoFragment extends Fragment {
     String userToken;
     SharedPreferences sharedPreferences;
 
-    public DetailTokoFragment() {
-        // Required empty public constructor
-    }
+    public DetailTokoFragment() {}
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DetailTokoFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static DetailTokoFragment newInstance(String param1, String param2) {
         DetailTokoFragment fragment = new DetailTokoFragment();
         return fragment;
@@ -119,18 +100,7 @@ public class DetailTokoFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ReviewTokoActivity">
+    tools:context=".ReviewToko.ReviewTokoActivity">
 
     <LinearLayout
         android:id="@+id/layout_input"
@@ -19,8 +19,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_gravity="center"
-            android:layout_marginTop="15dp"
-            android:src="@drawable/logo" />
+            android:layout_marginTop="15dp" />
 
         <TextView
             android:id="@+id/tv_namaToko_review"
@@ -28,7 +27,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="8dp"
-            android:text="Nama Toko"
             android:textColor="@color/colorAbuGelap"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -40,7 +38,6 @@
             android:layout_gravity="center"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:text="Tipe Toko"
             android:textColor="@color/colorAbuGelap"
             android:textSize="14sp" />
 

@@ -1,10 +1,16 @@
 package com.example.aflah.tracki_master.Data.remote;
 
+import com.example.aflah.tracki_master.Model.Response.ResponseAddReview;
+import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
 import com.example.aflah.tracki_master.Model.Response.ResponseRedeemPromotion;
 import com.example.aflah.tracki_master.Model.ResponseProductById;
 
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface ApiInterface {
@@ -16,4 +22,18 @@ public interface ApiInterface {
 
     @GET("promotion")
     Call<ResponseRedeemPromotion> getPromotions();
+
+    @GET("store/{id}")
+    Call<ResponseDetailToko> getStoreByID(
+            @Path("id") int id
+    );
+
+    @FormUrlEncoded
+    @POST("review")
+    Call<ResponseAddReview> addReview(
+            @Header("Authorization") String token,
+            @Field("store_id") int store_id,
+            @Field("rating") double rating,
+            @Field("description") String description
+    );
 }

@@ -2,7 +2,6 @@ package com.example.aflah.tracki_master.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -17,7 +16,7 @@ import android.widget.TextView;
 import com.example.aflah.tracki_master.Auth.LoginActivity;
 import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.R;
-import com.example.aflah.tracki_master.ReviewTokoActivity;
+import com.example.aflah.tracki_master.ReviewToko.ReviewTokoActivity;
 import com.squareup.picasso.Picasso;
 
 
@@ -47,6 +46,7 @@ public class DetailTokoAdapter extends RecyclerView.Adapter<DetailTokoAdapter.My
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+
         holder.namaToko.setText(store.getName());
         holder.tipeToko.setText(store.getStore_type().getName());
         holder.lokasiToko.setText(store.getLocation());
