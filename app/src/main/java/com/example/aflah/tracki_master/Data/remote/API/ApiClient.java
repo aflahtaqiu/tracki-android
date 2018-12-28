@@ -1,4 +1,4 @@
-package com.example.aflah.tracki_master.Data.remote;
+package com.example.aflah.tracki_master.Data.remote.API;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

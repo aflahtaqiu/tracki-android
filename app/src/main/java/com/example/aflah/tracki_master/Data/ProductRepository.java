@@ -1,7 +1,5 @@
 package com.example.aflah.tracki_master.Data;
 
-import android.util.Log;
-
 import com.example.aflah.tracki_master.Data.remote.ProductRemoteDataSource;
 import com.example.aflah.tracki_master.Model.ResponseProductById;
 

@@ -1,7 +1,6 @@
 package com.example.aflah.tracki_master.Data;
 
 import com.example.aflah.tracki_master.Model.Promotion;
-import com.example.aflah.tracki_master.Model.Response.ResponseRedeemPromotion;
 
 import java.util.List;
 

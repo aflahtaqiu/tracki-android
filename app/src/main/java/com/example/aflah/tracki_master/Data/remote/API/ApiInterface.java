@@ -1,7 +1,8 @@
-package com.example.aflah.tracki_master.Data.remote;
+package com.example.aflah.tracki_master.Data.remote.API;
 
 import com.example.aflah.tracki_master.Model.Response.ResponseAddReview;
 import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
+import com.example.aflah.tracki_master.Model.Response.ResponsePromotionById;
 import com.example.aflah.tracki_master.Model.Response.ResponseRedeemPromotion;
 import com.example.aflah.tracki_master.Model.ResponseProductById;
 
@@ -35,5 +36,18 @@ public interface ApiInterface {
             @Field("store_id") int store_id,
             @Field("rating") double rating,
             @Field("description") String description
+    );
+
+    @GET("promotion/{id}")
+    Call<ResponsePromotionById> getPromotionById(
+            @Header("Authorization") String token,
+            @Path("id") int id
+    );
+
+    @FormUrlEncoded
+    @POST("redeem")
+    Call<ResponseRedeemPromotion> sendRedeemData (
+            @Header("Authorization") String token,
+            @Field("promotion_id") int promotion_id
     );
 }

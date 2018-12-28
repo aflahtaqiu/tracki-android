@@ -12,13 +12,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.aflah.tracki_master.Model.Response.ResponsePromotionById;
-import com.example.aflah.tracki_master.Model.Response.ResponseRedeemPromotion;
+import com.example.aflah.tracki_master.Injection;
+import com.example.aflah.tracki_master.Model.Promotion;
 import com.example.aflah.tracki_master.Model.UserLogin;
 import com.example.aflah.tracki_master.R;
-import com.example.aflah.tracki_master.Retrofit.ApiRequest;
-import com.example.aflah.tracki_master.Retrofit.RetroServer;
 import com.google.gson.Gson;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
@@ -33,14 +32,10 @@ import java.util.Date;
 import java.util.HashMap;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
-public class DetailPromoActivity extends AppCompatActivity implements View.OnClickListener{
+public class DetailPromoActivity extends AppCompatActivity implements  DetailPromoContract.view, View.OnClickListener{
 
-    final Context context = this;
-    Button btnGunakan, btnSimpan;
+    Button btnGunakan, btnSimpan, btnCloseDialogQRCode;
     TextView textViewNamaPromo, textViewNamaToko, textViewTanggalPromo, textViewKetentuanPromo,
         textViewDeskripsiPromo, textViewPromoDigunakan;
     int idPromo;
@@ -51,7 +46,10 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
     SharedPreferences sharedPreferences;
     HashMap<String, Object> hasMapQrCode;
     String qrCodeString,userToken;
-    SweetAlertDialog sweetAlertDialog, progressDialog;
+    SweetAlertDialog dialogProgress,dialogSuccess;
+    Dialog qrCodeDialog;
+
+    private DetailPromoPresenter presenter = new DetailPromoPresenter(Injection.provideDetailPromoRepository(), this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,9 +57,6 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_detail_promo);
 
         initView();
-
-        progressDialog.show();
-        constraintLayout.setVisibility(View.GONE);
 
         idPromo = getIntent().getExtras().getInt("idPromo");
         namaToko = getIntent().getExtras().getString("namaToko");
@@ -76,50 +71,7 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
         hasMapQrCode.put("idUser", userLogin.getId());
         qrCodeString = gson.toJsonTree(hasMapQrCode).toString();
 
-        ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
-        Call<ResponsePromotionById> getPromotion = apiRequest.getPromotionById(userToken,idPromo);
-        getPromotion.enqueue(new Callback<ResponsePromotionById>() {
-            @Override
-            public void onResponse(Call<ResponsePromotionById> call, Response<ResponsePromotionById> response) {
-                textViewNamaPromo.setText(response.body().getPromotion().getTitle());
-                textViewNamaToko.setText(namaToko);
-
-                try {
-                    String expireDateStr;
-                    SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MM-yyyy");
-                    SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    Date dateExpire = inputFormat.parse(response.body().getPromotion().getExpired_date());
-                    expireDateStr = outputFormat.format(dateExpire);
-                    textViewTanggalPromo.setText(expireDateStr);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-                textViewDeskripsiPromo.setText(response.body().getPromotion().getDescription());
-                textViewKetentuanPromo.setText(response.body().getPromotion().getTerms_and_policies());
-                Picasso.get().load(response.body().getPromotion().getBanner()).into(gambarPromo);
-
-                if (response.body().getPromotion().getSaved() == true){
-                    btnSimpan.setEnabled(false);
-                    if (response.body().getPromotion().getUsed() == true){
-                        btnSimpan.setVisibility(View.GONE);
-                        btnGunakan.setVisibility(View.GONE);
-                        textViewPromoDigunakan.setVisibility(View.VISIBLE);
-                    }
-                }
-                if (response.body().getPromotion().getUsed() == true){
-                    btnGunakan.setEnabled(false);
-                }
-
-                constraintLayout.setVisibility(View.VISIBLE);
-                progressDialog.dismiss();
-            }
-
-            @Override
-            public void onFailure(Call<ResponsePromotionById> call, Throwable t) {
-
-            }
-        });
+        presenter.getDetailPromo(userToken, idPromo);
 
         btnGunakan.setOnClickListener(this);
         btnSimpan.setOnClickListener(this);
@@ -137,66 +89,115 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
         textViewPromoDigunakan = (TextView) findViewById(R.id.tv_promoDigunakan_detailPromo);
         gambarPromo = (ImageView) findViewById(R.id.gambarPromo_detailPromo);
 
-        sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
-                .setTitleText("Promo disimpan")
-                .setContentText("Silahkan lihat di halaman akun");
-
-        progressDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
-        progressDialog.getProgressHelper().setBarColor(Color.parseColor("#B40037"));
-        progressDialog.getProgressHelper().setRimColor(Color.parseColor("#B40037"));
-        progressDialog.setTitleText("Loading");
-        progressDialog.setCancelable(false);
+        constraintLayout.setVisibility(View.GONE);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnGunakan_detailPromo :
-                final Dialog dialog = new Dialog(context);
-                dialog.setContentView(R.layout.activity_qrcode_promo);
-
-                ImageView qrCode = (ImageView) dialog.findViewById(R.id.qrCode_generatePromo);
-
-                MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
-                try{
-                    BitMatrix bitMatrix = multiFormatWriter.encode(qrCodeString, BarcodeFormat.QR_CODE,250, 250 );
-                    BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
-                    Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
-                    qrCode.setImageBitmap(bitmap);
-                }catch (WriterException e) {
-                    e.printStackTrace();
-                }
-
-                Button btnClose = (Button) dialog.findViewById(R.id.btnClosePopUp);
-
-                btnClose.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialog.dismiss();
-                    }
-                });
-
-                dialog.show();
-
+                presenter.generateQRCode();
                 break;
             case R.id.btnSimpan_detailPromo :
-
-                ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
-                Call<ResponseRedeemPromotion> getReedem = apiRequest.getRedeemData(userToken, idPromo);
-                getReedem.enqueue(new Callback<ResponseRedeemPromotion>() {
-                    @Override
-                    public void onResponse(Call<ResponseRedeemPromotion> call, Response<ResponseRedeemPromotion> response) {
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseRedeemPromotion> call, Throwable t) {
-                    }
-                });
-
-                sweetAlertDialog.show();
+                presenter.sendRedeemData(userToken, idPromo);
                 btnSimpan.setEnabled(false);
                 break;
         }
+    }
+
+    @Override
+    public void showProgress() {
+        dialogProgress = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+        dialogProgress.getProgressHelper().setBarColor(Color.parseColor("#B40037"));
+        dialogProgress.getProgressHelper().setRimColor(Color.parseColor("#B40037"));
+        dialogProgress.setTitleText("Loading");
+        dialogProgress.setCancelable(false);
+        dialogProgress.setCanceledOnTouchOutside(true);
+        dialogProgress.show();
+    }
+
+    @Override
+    public void hideProgress() {
+        dialogProgress.dismiss();
+    }
+
+    @Override
+    public void showDialogSuccess() {
+        dialogSuccess = new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+                .setTitleText("Promo disimpan")
+                .setContentText("Silahkan lihat di halaman akun");
+        dialogSuccess.show();
+    }
+
+    @Override
+    public void hideDialogSuccess() {
+        dialogSuccess.dismiss();
+    }
+
+    @Override
+    public void showDialogQRCode() {
+        qrCodeDialog = new Dialog(this);
+        qrCodeDialog.setContentView(R.layout.activity_qrcode_promo);
+        ImageView qrCode = (ImageView) qrCodeDialog.findViewById(R.id.qrCode_generatePromo);
+
+        MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+        try{
+            BitMatrix bitMatrix = multiFormatWriter.encode(qrCodeString, BarcodeFormat.QR_CODE,250, 250 );
+            BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+            Bitmap bitmap = barcodeEncoder.createBitmap(bitMatrix);
+            qrCode.setImageBitmap(bitmap);
+        }catch (WriterException e) {
+            e.printStackTrace();
+        }
+
+        btnCloseDialogQRCode = (Button) qrCodeDialog.findViewById(R.id.btnClosePopUp);
+
+        btnCloseDialogQRCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                qrCodeDialog.dismiss();
+            }
+        });
+
+        qrCodeDialog.show();
+    }
+
+    @Override
+    public void showData(Promotion promotion) {
+        textViewNamaPromo.setText(promotion.getTitle());
+        textViewNamaToko.setText(namaToko);
+
+        try {
+            String expireDateStr;
+            SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date dateExpire = inputFormat.parse(promotion.getExpired_date());
+            expireDateStr = outputFormat.format(dateExpire);
+            textViewTanggalPromo.setText(expireDateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        textViewDeskripsiPromo.setText(promotion.getDescription());
+        textViewKetentuanPromo.setText(promotion.getTerms_and_policies());
+        Picasso.get().load(promotion.getBanner()).into(gambarPromo);
+
+        if (promotion.getSaved() == true){
+            btnSimpan.setEnabled(false);
+            if (promotion.getUsed() == true){
+                btnSimpan.setVisibility(View.GONE);
+                btnGunakan.setVisibility(View.GONE);
+                textViewPromoDigunakan.setVisibility(View.VISIBLE);
+            }
+        }
+        if (promotion.getUsed() == true){
+            btnGunakan.setEnabled(false);
+        }
+        constraintLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showError(String errorMsg) {
+        Toast.makeText(this, "Ada error : " + errorMsg, Toast.LENGTH_LONG).show();
     }
 }

@@ -80,6 +80,7 @@ public class PromoFragment extends Fragment implements PromotionContract.view {
         sweetAlertDialogProgress.getProgressHelper().setRimColor(Color.parseColor("#B40037"));
         sweetAlertDialogProgress.setTitleText("Loading");
         sweetAlertDialogProgress.setCancelable(false);
+        sweetAlertDialogProgress.setCanceledOnTouchOutside(true);
         sweetAlertDialogProgress.show();
     }
 

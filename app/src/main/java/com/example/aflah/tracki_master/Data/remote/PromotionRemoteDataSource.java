@@ -1,6 +1,8 @@
 package com.example.aflah.tracki_master.Data.remote;
 
 import com.example.aflah.tracki_master.Data.PromotionSource;
+import com.example.aflah.tracki_master.Data.remote.API.ApiClient;
+import com.example.aflah.tracki_master.Data.remote.API.ApiInterface;
 import com.example.aflah.tracki_master.Model.Response.ResponseRedeemPromotion;
 
 import retrofit2.Call;

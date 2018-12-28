@@ -1,6 +1,5 @@
 package com.example.aflah.tracki_master.Data;
 
-import com.example.aflah.tracki_master.Model.Product;
 import com.example.aflah.tracki_master.Model.ResponseProductById;
 
 public interface ProductSource {
