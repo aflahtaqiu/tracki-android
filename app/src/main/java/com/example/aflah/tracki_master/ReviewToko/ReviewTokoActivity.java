@@ -18,9 +18,7 @@ import com.example.aflah.tracki_master.Adapter.ReviewAdapter;
 import com.example.aflah.tracki_master.Injection;
 import com.example.aflah.tracki_master.Model.Reviewer;
 import com.example.aflah.tracki_master.Model.Store;
-import com.example.aflah.tracki_master.Model.UserLogin;
 import com.example.aflah.tracki_master.R;
-import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -53,17 +51,10 @@ public class ReviewTokoActivity extends AppCompatActivity implements View.OnClic
         initViews();
 
         sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("userLogin", "");
-        UserLogin userLogin = gson.fromJson(json, UserLogin.class);
         userToken = sharedPreferences.getString("tokenLogin", "");
-
-        btnReview.setOnClickListener(this);
-
         idToko = getIntent().getExtras().getInt("idToko");
 
         presenter.getReview(idToko);
-
         initAdapter();
     }
 
@@ -82,6 +73,7 @@ public class ReviewTokoActivity extends AppCompatActivity implements View.OnClic
         et_isiKomentar = (EditText) findViewById(R.id.et_komentarToko_review);
         btnReview = (Button) findViewById(R.id.btn_kirim_review);
         recyclerView = (RecyclerView) findViewById(R.id.recycerview_review);
+        btnReview.setOnClickListener(this);
     }
 
     @Override

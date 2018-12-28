@@ -8,6 +8,7 @@
     tools:context="com.example.aflah.tracki_master.DetailPromo.DetailPromoActivity">
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayoutDetailPromo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dp">
@@ -46,15 +47,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/namaPromo_detailPromo" />
 
-        <!--<LinearLayout-->
-        <!--android:id="@+id/tanggalPromo_container"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="horizontal"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintTop_toBottomOf="@id/namaToko_detailPromo">-->
-
         <TextView
             android:id="@+id/tanggalPromo"
             android:layout_width="match_parent"
@@ -76,8 +68,6 @@
             app:layout_constraintStart_toEndOf="@id/tanggalPromo"
             app:layout_constraintTop_toBottomOf="@id/namaToko_detailPromo"
             app:layout_constraintEnd_toEndOf="parent"/>
-
-        <!--</LinearLayout>-->
 
         <View
             android:id="@+id/view1"
@@ -159,27 +149,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view3" />
 
-        <ProgressBar
-            android:id="@+id/progressBarDetailPromo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:indeterminateTint="@color/colorTracki"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
-        <!--<LinearLayout-->
-        <!--android:id="@+id/linearLayoutButton_detailPromo"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:orientation="horizontal"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--android:gravity="center_horizontal"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/ketentuanPromo_detailPromo"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent">-->
-
         <Button
             android:id="@+id/btnSimpan_detailPromo"
             android:layout_width="0dp"
@@ -213,8 +182,6 @@
             app:layout_constraintStart_toEndOf="@id/btnSimpan_detailPromo"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
-        <!--</LinearLayout>-->
-
         <TextView
             android:id="@+id/tv_promoDigunakan_detailPromo"
             style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
@@ -234,6 +201,5 @@
             android:visibility="gone"/>
 
     </android.support.constraint.ConstraintLayout>
-
 
 </android.support.v4.widget.NestedScrollView>

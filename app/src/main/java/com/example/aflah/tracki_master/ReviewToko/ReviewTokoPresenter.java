@@ -1,7 +1,5 @@
 package com.example.aflah.tracki_master.ReviewToko;
 
-import android.util.Log;
-
 import com.example.aflah.tracki_master.Data.ReviewTokoRepository;
 import com.example.aflah.tracki_master.Data.ReviewTokoSource;
 import com.example.aflah.tracki_master.Model.Store;

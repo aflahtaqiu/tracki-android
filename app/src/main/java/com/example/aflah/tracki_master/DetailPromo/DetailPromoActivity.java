@@ -4,12 +4,12 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.aflah.tracki_master.Model.Response.ResponsePromotionById;
@@ -41,17 +41,15 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
     final Context context = this;
     Button btnGunakan, btnSimpan;
     TextView textViewNamaPromo, textViewNamaToko, textViewTanggalPromo, textViewKetentuanPromo,
-        textViewDeskripsiPromo, textViewPromoDigunakan, textViewTanggalTersedia, textViewdeskripsi, textViewSyaratKetentuan;
+        textViewDeskripsiPromo, textViewPromoDigunakan;
     int idPromo;
+    ConstraintLayout constraintLayout;
     String namaToko;
     ImageView gambarPromo;
     UserLogin userLogin;
     SharedPreferences sharedPreferences;
     HashMap<String, Object> hasMapQrCode;
-    String qrCodeString;
-    String userToken;
-    ProgressBar progressBarDetailPromo;
-    View view1, view2, view3;
+    String qrCodeString,userToken;
     SweetAlertDialog sweetAlertDialog;
 
     @Override
@@ -61,7 +59,7 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
 
         initView();
 
-        initViewGone();
+        constraintLayout.setVisibility(View.GONE);
 
         idPromo = getIntent().getExtras().getInt("idPromo");
         namaToko = getIntent().getExtras().getString("namaToko");
@@ -81,8 +79,7 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
         getPromotion.enqueue(new Callback<ResponsePromotionById>() {
             @Override
             public void onResponse(Call<ResponsePromotionById> call, Response<ResponsePromotionById> response) {
-
-                progressBarDetailPromo.setVisibility(View.GONE);
+                constraintLayout.setVisibility(View.VISIBLE);
 
                 textViewNamaPromo.setText(response.body().getPromotion().getTitle());
                 textViewNamaToko.setText(namaToko);
@@ -101,16 +98,6 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
                 textViewDeskripsiPromo.setText(response.body().getPromotion().getDescription());
                 textViewKetentuanPromo.setText(response.body().getPromotion().getTerms_and_policies());
                 Picasso.get().load(response.body().getPromotion().getBanner()).into(gambarPromo);
-
-                btnSimpan.setVisibility(View.VISIBLE);
-                btnGunakan.setVisibility(View.VISIBLE);
-                textViewTanggalTersedia.setVisibility(View.VISIBLE);
-                textViewdeskripsi.setVisibility(View.VISIBLE);
-                textViewSyaratKetentuan.setVisibility(View.VISIBLE);
-                view1.setVisibility(View.VISIBLE);
-                view2.setVisibility(View.VISIBLE);
-                view3.setVisibility(View.VISIBLE);
-                gambarPromo.setVisibility(View.VISIBLE);
 
                 if (response.body().getPromotion().getSaved() == true){
                     btnSimpan.setEnabled(false);
@@ -135,19 +122,8 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
         btnSimpan.setOnClickListener(this);
     }
 
-    private void initViewGone() {
-        btnSimpan.setVisibility(View.INVISIBLE);
-        btnGunakan.setVisibility(View.INVISIBLE);
-        gambarPromo.setVisibility(View.INVISIBLE);
-        textViewTanggalTersedia.setVisibility(View.INVISIBLE);
-        textViewdeskripsi.setVisibility(View.INVISIBLE);
-        textViewSyaratKetentuan.setVisibility(View.INVISIBLE);
-        view1.setVisibility(View.INVISIBLE);
-        view2.setVisibility(View.INVISIBLE);
-        view3.setVisibility(View.INVISIBLE);
-    }
-
     private void initView() {
+        constraintLayout = (ConstraintLayout) findViewById(R.id.constraintLayoutDetailPromo);
         btnGunakan = (Button) findViewById(R.id.btnGunakan_detailPromo);
         btnSimpan = (Button) findViewById(R.id.btnSimpan_detailPromo);
         textViewNamaPromo = (TextView) findViewById(R.id.namaPromo_detailPromo);
@@ -156,14 +132,7 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
         textViewDeskripsiPromo = (TextView) findViewById(R.id.deskripsiPromo_detailPromo);
         textViewKetentuanPromo = (TextView) findViewById(R.id.ketentuanPromo_detailPromo);
         textViewPromoDigunakan = (TextView) findViewById(R.id.tv_promoDigunakan_detailPromo);
-        textViewTanggalTersedia = (TextView) findViewById(R.id.tanggalPromo);
-        textViewdeskripsi = (TextView) findViewById(R.id.deskripsi);
-        textViewSyaratKetentuan = (TextView) findViewById(R.id.syaratKetentuan);
         gambarPromo = (ImageView) findViewById(R.id.gambarPromo_detailPromo);
-        view1 = (View) findViewById(R.id.view1);
-        view2 = (View) findViewById(R.id.view2);
-        view3 = (View) findViewById(R.id.view3);
-        progressBarDetailPromo = (ProgressBar) findViewById(R.id.progressBarDetailPromo);
 
         sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
                 .setTitleText("Promo disimpan")
