@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -50,7 +51,7 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
     SharedPreferences sharedPreferences;
     HashMap<String, Object> hasMapQrCode;
     String qrCodeString,userToken;
-    SweetAlertDialog sweetAlertDialog;
+    SweetAlertDialog sweetAlertDialog, progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,7 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
 
         initView();
 
+        progressDialog.show();
         constraintLayout.setVisibility(View.GONE);
 
         idPromo = getIntent().getExtras().getInt("idPromo");
@@ -79,8 +81,6 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
         getPromotion.enqueue(new Callback<ResponsePromotionById>() {
             @Override
             public void onResponse(Call<ResponsePromotionById> call, Response<ResponsePromotionById> response) {
-                constraintLayout.setVisibility(View.VISIBLE);
-
                 textViewNamaPromo.setText(response.body().getPromotion().getTitle());
                 textViewNamaToko.setText(namaToko);
 
@@ -110,6 +110,9 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
                 if (response.body().getPromotion().getUsed() == true){
                     btnGunakan.setEnabled(false);
                 }
+
+                constraintLayout.setVisibility(View.VISIBLE);
+                progressDialog.dismiss();
             }
 
             @Override
@@ -137,6 +140,12 @@ public class DetailPromoActivity extends AppCompatActivity implements View.OnCli
         sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
                 .setTitleText("Promo disimpan")
                 .setContentText("Silahkan lihat di halaman akun");
+
+        progressDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+        progressDialog.getProgressHelper().setBarColor(Color.parseColor("#B40037"));
+        progressDialog.getProgressHelper().setRimColor(Color.parseColor("#B40037"));
+        progressDialog.setTitleText("Loading");
+        progressDialog.setCancelable(false);
     }
 
     @Override

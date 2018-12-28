@@ -1,7 +1,7 @@
 package com.example.aflah.tracki_master.NavbarFragment.Promotion;
 
-import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,10 +19,12 @@ import com.example.aflah.tracki_master.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class PromoFragment extends Fragment implements PromotionContract.view {
 
     RecyclerView recyclerViewPromo;
-    ProgressDialog progressDialog;
+    SweetAlertDialog sweetAlertDialogProgress;
     private ListPromotionAdapter listPromotionAdapter;
     List<Promotion> promotionList = new ArrayList<>();
 
@@ -42,6 +44,7 @@ public class PromoFragment extends Fragment implements PromotionContract.view {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_promo, container, false);
         recyclerViewPromo = view.findViewById(R.id.recycerview_promo);
+
         presenter.getListDataPromotions();
         initAdapter();
         return view;
@@ -72,15 +75,17 @@ public class PromoFragment extends Fragment implements PromotionContract.view {
 
     @Override
     public void showProgress() {
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Loading....");
-        progressDialog.setTitle("Harap tunggu");
-        progressDialog.show();
+        sweetAlertDialogProgress = new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE);
+        sweetAlertDialogProgress.getProgressHelper().setBarColor(Color.parseColor("#B40037"));
+        sweetAlertDialogProgress.getProgressHelper().setRimColor(Color.parseColor("#B40037"));
+        sweetAlertDialogProgress.setTitleText("Loading");
+        sweetAlertDialogProgress.setCancelable(false);
+        sweetAlertDialogProgress.show();
     }
 
     @Override
     public void hideProgress() {
-        progressDialog.dismiss();
+        sweetAlertDialogProgress.dismiss();
     }
 
     @Override
