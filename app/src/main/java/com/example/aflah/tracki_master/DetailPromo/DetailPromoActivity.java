@@ -33,19 +33,18 @@ import java.util.HashMap;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class DetailPromoActivity extends AppCompatActivity implements  DetailPromoContract.view, View.OnClickListener{
+public class DetailPromoActivity extends AppCompatActivity implements  DetailPromoContract.view{
 
     Button btnGunakan, btnSimpan, btnCloseDialogQRCode;
     TextView textViewNamaPromo, textViewNamaToko, textViewTanggalPromo, textViewKetentuanPromo,
         textViewDeskripsiPromo, textViewPromoDigunakan;
     int idPromo;
     ConstraintLayout constraintLayout;
-    String namaToko;
     ImageView gambarPromo;
     UserLogin userLogin;
     SharedPreferences sharedPreferences;
     HashMap<String, Object> hasMapQrCode;
-    String qrCodeString,userToken;
+    String qrCodeString,userToken, namaToko;
     SweetAlertDialog dialogProgress,dialogSuccess;
     Dialog qrCodeDialog;
 
@@ -60,6 +59,7 @@ public class DetailPromoActivity extends AppCompatActivity implements  DetailPro
 
         idPromo = getIntent().getExtras().getInt("idPromo");
         namaToko = getIntent().getExtras().getString("namaToko");
+
         sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("userLogin", "");
@@ -72,9 +72,6 @@ public class DetailPromoActivity extends AppCompatActivity implements  DetailPro
         qrCodeString = gson.toJsonTree(hasMapQrCode).toString();
 
         presenter.getDetailPromo(userToken, idPromo);
-
-        btnGunakan.setOnClickListener(this);
-        btnSimpan.setOnClickListener(this);
     }
 
     private void initView() {
@@ -90,19 +87,6 @@ public class DetailPromoActivity extends AppCompatActivity implements  DetailPro
         gambarPromo = (ImageView) findViewById(R.id.gambarPromo_detailPromo);
 
         constraintLayout.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.btnGunakan_detailPromo :
-                presenter.generateQRCode();
-                break;
-            case R.id.btnSimpan_detailPromo :
-                presenter.sendRedeemData(userToken, idPromo);
-                btnSimpan.setEnabled(false);
-                break;
-        }
     }
 
     @Override
@@ -199,5 +183,12 @@ public class DetailPromoActivity extends AppCompatActivity implements  DetailPro
     @Override
     public void showError(String errorMsg) {
         Toast.makeText(this, "Ada error : " + errorMsg, Toast.LENGTH_LONG).show();
+    }
+
+    public void gunakanPromo(View view) {presenter.generateQRCode(); }
+
+    public void simpanPromo(View view) {
+        presenter.sendRedeemData(userToken, idPromo);
+        btnSimpan.setEnabled(false);
     }
 }

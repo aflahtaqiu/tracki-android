@@ -29,7 +29,7 @@ import retrofit2.Response;
 public class EditProfilActivity extends Activity implements View.OnClickListener {
 
     ImageView correct, close;
-    EditText etNama, etPassword, etTanggalLahir;
+    EditText etNama, etTanggalLahir;
     SharedPreferences sharedPreferences;
     UserLogin userLogin;
     String userToken;
@@ -48,7 +48,6 @@ public class EditProfilActivity extends Activity implements View.OnClickListener
         correct = (ImageView) findViewById(R.id.iv_correctEditProfil);
         close = (ImageView) findViewById(R.id.iv_closeEditProfil);
         etNama = (EditText) findViewById(R.id.et_nama_editProfil);
-//        etPassword = (EditText) findViewById(R.id.et_sandi_editProfil);
         etTanggalLahir = (EditText) findViewById(R.id.et_tanggalLahir_editProfil);
 
         etNama.setText(userLogin.getName());
