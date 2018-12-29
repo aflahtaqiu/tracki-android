@@ -1,4 +1,4 @@
-package com.example.aflah.tracki_master;
+package com.example.aflah.tracki_master.View;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,7 +19,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.aflah.tracki_master.Auth.LoginActivity;
-import com.example.aflah.tracki_master.Auth.RegisterActivity;
+import com.example.aflah.tracki_master.PreferenceManager;
+import com.example.aflah.tracki_master.R;
 
 public class PrologActivity extends AppCompatActivity {
 

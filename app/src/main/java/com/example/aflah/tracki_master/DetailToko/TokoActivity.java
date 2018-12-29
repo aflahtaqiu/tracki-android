@@ -7,13 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.aflah.tracki_master.Adapter.CarouselDetailTokoAdapter;
 import com.example.aflah.tracki_master.Adapter.DetailTokoViewPagerAdapter;
-import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
+import com.example.aflah.tracki_master.Injection;
 import com.example.aflah.tracki_master.R;
-import com.example.aflah.tracki_master.Retrofit.ApiRequest;
-import com.example.aflah.tracki_master.Retrofit.RetroServer;
 import com.example.aflah.tracki_master.View.MakananFragment;
 import com.example.aflah.tracki_master.View.MinumanFragment;
 
@@ -22,11 +21,8 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class DetailTokoActivity extends AppCompatActivity implements DetailTokoFragment.OnFragmentInteractionListener, MakananFragment.OnFragmentInteractionListener, MinumanFragment.OnFragmentInteractionListener {
+public class TokoActivity extends AppCompatActivity implements DetailTokoFragment.OnFragmentInteractionListener,
+        MakananFragment.OnFragmentInteractionListener, MinumanFragment.OnFragmentInteractionListener, TokoContract.view {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -34,56 +30,75 @@ public class DetailTokoActivity extends AppCompatActivity implements DetailTokoF
 
     ViewPager viewPager_CarouselDetailToko;
     LinearLayout linearLayout;
+    private CarouselDetailTokoAdapter carouselDetailTokoAdapter;
+    List<String> urlImageList = new ArrayList<>();
+
+    TokoPresenter presenter = new TokoPresenter(Injection.provideStoreRepository(), this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_toko);
 
-        linearLayout = (LinearLayout) findViewById(R.id.linearLayout_detailToko);
-        tabLayout = (TabLayout) findViewById(R.id.tablayout_detailtoko);
-        viewPager = (ViewPager) findViewById(R.id.viewpager_detailtoko);
-        viewPager_CarouselDetailToko = (ViewPager) findViewById(R.id.viewPager_carousel_detailToko);
-        detailTokoViewPagerAdapter = new DetailTokoViewPagerAdapter(getSupportFragmentManager());
+        initViews();
 
         linearLayout.setVisibility(View.GONE);
 
+        int idToko = getIntent().getExtras().getInt("idTokoTerdekat");
+
+        presenter.getImagesUrl(idToko);
+        initCarouselAdapter();
+
+        detailTokoViewPagerAdapter = new DetailTokoViewPagerAdapter(getSupportFragmentManager());
         detailTokoViewPagerAdapter.AddFragment(new DetailTokoFragment(), "About");
         detailTokoViewPagerAdapter.AddFragment(new MakananFragment(), "Makanan");
         detailTokoViewPagerAdapter.AddFragment(new MinumanFragment(), "Minuman");
-
-        List<String> urlImageList = new ArrayList<>();
-        int idToko = getIntent().getExtras().getInt("idTokoTerdekat");
-        ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
-        Call<ResponseDetailToko> getData = apiRequest.getStoreByID(idToko);
-        getData.enqueue(new Callback<ResponseDetailToko>() {
-            @Override
-            public void onResponse(Call<ResponseDetailToko> call, Response<ResponseDetailToko> response) {
-                for (int i =0 ;i< response.body().getStore().getGalleries().size();i++){
-                    urlImageList.add(response.body().getStore().getGalleries().get(i).getPicture());
-                }
-                CarouselDetailTokoAdapter carouselDetailTokoAdapter = new CarouselDetailTokoAdapter(DetailTokoActivity.this, urlImageList);
-                viewPager_CarouselDetailToko.setAdapter(carouselDetailTokoAdapter);
-            }
-
-            @Override
-            public void onFailure(Call<ResponseDetailToko> call, Throwable t) {
-
-            }
-        });
-
         viewPager.setAdapter(detailTokoViewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
+
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimeCarousel(), 4000, 4000);
         linearLayout.setVisibility(View.VISIBLE);
     }
 
+    private void initCarouselAdapter() {
+        carouselDetailTokoAdapter = new CarouselDetailTokoAdapter(TokoActivity.this, urlImageList);
+        viewPager_CarouselDetailToko.setAdapter(carouselDetailTokoAdapter);
+    }
+
+    private void initViews() {
+        linearLayout = (LinearLayout) findViewById(R.id.linearLayout_detailToko);
+        tabLayout = (TabLayout) findViewById(R.id.tablayout_detailtoko);
+        viewPager = (ViewPager) findViewById(R.id.viewpager_detailtoko);
+        viewPager_CarouselDetailToko = (ViewPager) findViewById(R.id.viewPager_carousel_detailToko);
+    }
+
+    @Override
+    public void showDataList(List<String> urlList) {
+        this.urlImageList.addAll(urlList);
+        carouselDetailTokoAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showFailureMessage(String errMsg) {
+        Toast.makeText(this, "Ada error : " + errMsg, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showViewPager() {
+        detailTokoViewPagerAdapter = new DetailTokoViewPagerAdapter(getSupportFragmentManager());
+        detailTokoViewPagerAdapter.AddFragment(new DetailTokoFragment(), "About");
+        detailTokoViewPagerAdapter.AddFragment(new MakananFragment(), "Makanan");
+        detailTokoViewPagerAdapter.AddFragment(new MinumanFragment(), "Minuman");
+        viewPager.setAdapter(detailTokoViewPagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
+    }
+
     public class TimeCarousel extends TimerTask{
         @Override
         public void run() {
-            DetailTokoActivity.this.runOnUiThread(new Runnable() {
+            TokoActivity.this.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     switch (viewPager_CarouselDetailToko.getCurrentItem()){

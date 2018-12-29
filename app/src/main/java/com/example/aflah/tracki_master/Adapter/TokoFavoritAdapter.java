@@ -12,7 +12,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.aflah.tracki_master.DetailToko.DetailTokoActivity;
+import com.example.aflah.tracki_master.DetailToko.TokoActivity;
 import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.R;
 import com.squareup.picasso.Picasso;
@@ -52,7 +52,7 @@ public class TokoFavoritAdapter extends RecyclerView.Adapter<TokoFavoritAdapter.
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), DetailTokoActivity.class);
+                Intent intent = new Intent(v.getContext(), TokoActivity.class);
                 intent.putExtra("idTokoTerdekat", favouriteStores.get(position).getId());
                 context.startActivity(intent);
             }

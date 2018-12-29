@@ -1,9 +1,11 @@
-package com.example.aflah.tracki_master;
+package com.example.aflah.tracki_master.View;
 
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.aflah.tracki_master.R;
 
 public class SplashScreen extends AppCompatActivity {
 

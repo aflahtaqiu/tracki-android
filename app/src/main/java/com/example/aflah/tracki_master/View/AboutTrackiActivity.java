@@ -1,7 +1,9 @@
-package com.example.aflah.tracki_master;
+package com.example.aflah.tracki_master.View;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.aflah.tracki_master.R;
 
 public class AboutTrackiActivity extends AppCompatActivity {
 

@@ -24,7 +24,7 @@ import android.widget.TextView;
 
 import com.example.aflah.tracki_master.Adapter.TokoTerdekatAdapter;
 import com.example.aflah.tracki_master.View.DetailMenuActivity;
-import com.example.aflah.tracki_master.DetailToko.DetailTokoActivity;
+import com.example.aflah.tracki_master.DetailToko.TokoActivity;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameProduct;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameStore;
 import com.example.aflah.tracki_master.Model.Response.ResponseTokoByUID;
@@ -132,7 +132,7 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                                     String selected = (String) adapterView.getItemAtPosition(i);
                                     int pos = Arrays.asList(namaToko).indexOf(selected);
                                     SearchName tokoPilihan =toko.get(namaToko[pos]);
-                                    Intent intent = new Intent(getActivity(),DetailTokoActivity.class);
+                                    Intent intent = new Intent(getActivity(),TokoActivity.class);
                                     intent.putExtra("idTokoTerdekat",Integer.valueOf(tokoPilihan.getId()));
                                     autoCompleteTextView.setText("");
                                     startActivity(intent);
@@ -314,7 +314,7 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                CBBeacon beacon = this.beacons.get(position);
-               Intent intent = new Intent(getActivity(),DetailTokoActivity.class);
+               Intent intent = new Intent(getActivity(),TokoActivity.class);
                startActivity(intent);
     }
     @Override

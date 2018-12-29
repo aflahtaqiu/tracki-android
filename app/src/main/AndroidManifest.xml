@@ -35,7 +35,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".SplashScreen"
+            android:name=".View.SplashScreen"
             android:theme="@style/SplashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,7 +50,7 @@
             android:windowSoftInputMode="adjustNothing"
             android:label=""/>
         <activity
-            android:name=".PrologActivity"
+            android:name=".View.PrologActivity"
             android:theme="@style/PrologTheme" />
         <!-- <activity android:name=".PreferenceManager"></activity> -->
         <!--
@@ -78,7 +78,7 @@
         <!-- android:name=".MapsActivity" -->
         <!-- android:label="@string/title_activity_maps"></activity> -->
 
-        <activity android:name=".DetailToko.DetailTokoActivity" />
+        <activity android:name=".DetailToko.TokoActivity" />
         <activity android:name=".View.DetailMenuActivity"
             android:theme="@style/ThemeNobar"/>
         <activity
@@ -103,7 +103,7 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
-        <activity android:name=".AboutTrackiActivity" />
+        <activity android:name=".View.AboutTrackiActivity" />
         <activity android:name=".ForgotPasswordActivity" />
         <activity
             android:name=".View.ReviewTokoActivity"

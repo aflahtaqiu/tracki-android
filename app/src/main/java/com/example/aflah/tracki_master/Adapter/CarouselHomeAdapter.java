@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.example.aflah.tracki_master.DetailToko.DetailTokoActivity;
+import com.example.aflah.tracki_master.DetailToko.TokoActivity;
 import com.example.aflah.tracki_master.Model.Advertisement;
 import com.example.aflah.tracki_master.R;
 import com.squareup.picasso.Picasso;
@@ -52,7 +52,7 @@ public class CarouselHomeAdapter extends PagerAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(view.getContext(), DetailTokoActivity.class);
+                Intent intent = new Intent(view.getContext(), TokoActivity.class);
                 intent.putExtra("idTokoTerdekat", advertisements.get(position).getStore_id());
                 context.startActivity(intent);
             }
