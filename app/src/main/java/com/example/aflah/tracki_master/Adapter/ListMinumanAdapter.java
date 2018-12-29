@@ -12,24 +12,24 @@ import android.widget.TextView;
 
 import com.example.aflah.tracki_master.View.DetailMenuActivity;
 import com.example.aflah.tracki_master.Model.Product;
-import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.R;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ListMinumanAdapter extends RecyclerView.Adapter<ListMinumanAdapter.MyViewHolder> {
 
     private Context context;
-    private Store store;
+    private List<Product> listMinuman;
     NumberFormat numberFormat = new DecimalFormat("#,###");
 
-    public ListMinumanAdapter(Context context, Store store) {
+    public ListMinumanAdapter(Context context, List<Product> listMinuman) {
         this.context = context;
-        this.store = store;
+        this.listMinuman = listMinuman;
     }
 
     @NonNull
@@ -44,24 +44,15 @@ public class ListMinumanAdapter extends RecyclerView.Adapter<ListMinumanAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        if (store.getProducts().get(position).getCategory().getId() == 2){
-            holder.namaMinuman.setText(store.getProducts().get(position).getName());
-            holder.hargaMinuaman.setText(numberFormat.format(store.getProducts().get(position).getPrice()).replace(',','.'));
-            Picasso.get().load(store.getProducts().get(position).getPicture()).into(holder.img_minuman);
-        }
-        else {
-            holder.img_minuman.setVisibility(View.GONE);
-            holder.rpMinuman.setVisibility(View.GONE);
-            holder.hargaMinuaman.setVisibility(View.GONE);
-            holder.namaMinuman.setVisibility(View.GONE);
-            holder.linearLayout_minuman_item.setPadding(10, 0, 10, 0 );
-        }
+
+        holder.namaMinuman.setText(listMinuman.get(position).getName());
+        holder.hargaMinuaman.setText(numberFormat.format(listMinuman.get(position).getPrice()).replace(',','.'));
+        Picasso.get().load(listMinuman.get(position).getPicture()).into(holder.img_minuman);
     }
 
     @Override
     public int getItemCount() {
-
-        return store.getProducts().size();
+        return listMinuman.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
@@ -85,7 +76,7 @@ public class ListMinumanAdapter extends RecyclerView.Adapter<ListMinumanAdapter.
 
                     int posisi = getAdapterPosition();
                     if (posisi != RecyclerView.NO_POSITION){
-                        Product clickedData = store.getProducts().get(posisi);
+                        Product clickedData = listMinuman.get(posisi);
                         Intent intent = new Intent(v.getContext(), DetailMenuActivity.class);
                         intent.putExtra("idProduk", clickedData.getId());
                         context.startActivity(intent);

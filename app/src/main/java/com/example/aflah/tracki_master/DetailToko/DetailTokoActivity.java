@@ -14,6 +14,8 @@ import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
 import com.example.aflah.tracki_master.R;
 import com.example.aflah.tracki_master.Retrofit.ApiRequest;
 import com.example.aflah.tracki_master.Retrofit.RetroServer;
+import com.example.aflah.tracki_master.View.MakananFragment;
+import com.example.aflah.tracki_master.View.MinumanFragment;
 
 import java.util.ArrayList;
 import java.util.List;

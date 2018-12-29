@@ -1,7 +1,10 @@
 package com.example.aflah.tracki_master.Data;
 
 import com.example.aflah.tracki_master.Data.remote.ProductRemoteDataSource;
+import com.example.aflah.tracki_master.Model.Product;
 import com.example.aflah.tracki_master.Model.ResponseProductById;
+
+import java.util.List;
 
 public class ProductRepository implements ProductSource {
 
@@ -22,6 +25,36 @@ public class ProductRepository implements ProductSource {
             @Override
             public void onFailure(String errorMessage) {
                 getProductByIdCallBack.onFailure(errorMessage);
+            }
+        });
+    }
+
+    @Override
+    public void getMakanan(int idToko, GetMakananCallback getMakananCallback) {
+        productRemoteDataSource.getMakanan(idToko, new GetMakananCallback() {
+            @Override
+            public void onSuccess(List<Product> listMakanan) {
+                getMakananCallback.onSuccess(listMakanan);
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+                getMakananCallback.onFailure(errMsg);
+            }
+        });
+    }
+
+    @Override
+    public void getMinuman(int idToko, GetMinumanCallback getMinumanCallback) {
+        productRemoteDataSource.getMinuman(idToko, new GetMinumanCallback() {
+            @Override
+            public void onSuccess(List<Product> listMinuman) {
+                getMinumanCallback.onSuccess(listMinuman);
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+                getMinumanCallback.onFailure(errMsg);
             }
         });
     }
