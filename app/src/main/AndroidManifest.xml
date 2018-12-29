@@ -79,7 +79,7 @@
         <!-- android:label="@string/title_activity_maps"></activity> -->
 
         <activity android:name=".DetailToko.DetailTokoActivity" />
-        <activity android:name=".DetaiMenu.DetailMenuActivity"
+        <activity android:name=".View.DetailMenuActivity"
             android:theme="@style/ThemeNobar"/>
         <activity
             android:name=".Auth.RegisterActivity"
@@ -106,13 +106,11 @@
         <activity android:name=".AboutTrackiActivity" />
         <activity android:name=".ForgotPasswordActivity" />
         <activity
-            android:name=".ReviewToko.ReviewTokoActivity"
+            android:name=".View.ReviewTokoActivity"
             android:theme="@style/ThemeNobar" />
         <activity
-            android:name=".DetailPromo.DetailPromoActivity"
+            android:name=".View.DetailPromoActivity"
             android:theme="@style/ThemeNobar" />
-        <activity android:name=".QRCodePromoActivity"
-            android:theme="@style/AppTheme.PopUpPromo"></activity>
     </application>
 
 </manifest>

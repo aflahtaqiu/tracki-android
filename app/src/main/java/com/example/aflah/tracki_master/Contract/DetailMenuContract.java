@@ -1,4 +1,4 @@
-package com.example.aflah.tracki_master.DetaiMenu;
+package com.example.aflah.tracki_master.Contract;
 
 import com.example.aflah.tracki_master.Model.ResponseProductById;
 

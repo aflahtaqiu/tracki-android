@@ -23,7 +23,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.example.aflah.tracki_master.Adapter.TokoTerdekatAdapter;
-import com.example.aflah.tracki_master.DetaiMenu.DetailMenuActivity;
+import com.example.aflah.tracki_master.View.DetailMenuActivity;
 import com.example.aflah.tracki_master.DetailToko.DetailTokoActivity;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameProduct;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameStore;

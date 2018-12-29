@@ -1,5 +1,6 @@
-package com.example.aflah.tracki_master.DetailPromo;
+package com.example.aflah.tracki_master.Presenter;
 
+import com.example.aflah.tracki_master.Contract.DetailPromoContract;
 import com.example.aflah.tracki_master.Data.DetailPromoRepository;
 import com.example.aflah.tracki_master.Data.DetailPromoSource;
 import com.example.aflah.tracki_master.Model.Promotion;

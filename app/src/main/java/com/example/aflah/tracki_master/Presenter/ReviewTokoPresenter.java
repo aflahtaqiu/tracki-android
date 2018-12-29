@@ -1,5 +1,6 @@
-package com.example.aflah.tracki_master.ReviewToko;
+package com.example.aflah.tracki_master.Presenter;
 
+import com.example.aflah.tracki_master.Contract.ReviewTokoContract;
 import com.example.aflah.tracki_master.Data.ReviewTokoRepository;
 import com.example.aflah.tracki_master.Data.ReviewTokoSource;
 import com.example.aflah.tracki_master.Model.Store;

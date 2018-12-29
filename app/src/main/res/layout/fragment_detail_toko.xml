@@ -6,15 +6,6 @@
     tools:context=".DetailToko.DetailTokoFragment"
     android:id="@+id/swipecontainer_detailtoko">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <ProgressBar
-        android:id="@+id/progressBarDetailToko"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:indeterminateTint="@color/colorTracki"/>
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview_detailtoko"
         android:layout_width="match_parent"

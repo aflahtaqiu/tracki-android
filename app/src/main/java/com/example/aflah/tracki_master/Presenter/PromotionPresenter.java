@@ -1,8 +1,9 @@
-package com.example.aflah.tracki_master.NavbarFragment.Promotion;
+package com.example.aflah.tracki_master.Presenter;
 
 import com.example.aflah.tracki_master.Data.PromotionRepository;
 import com.example.aflah.tracki_master.Data.PromotionSource;
 import com.example.aflah.tracki_master.Model.Promotion;
+import com.example.aflah.tracki_master.Contract.PromotionContract;
 
 import java.util.List;
 

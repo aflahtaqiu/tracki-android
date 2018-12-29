@@ -1,4 +1,4 @@
-package com.example.aflah.tracki_master.ReviewToko;
+package com.example.aflah.tracki_master.View;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -19,6 +19,8 @@ import com.example.aflah.tracki_master.Injection;
 import com.example.aflah.tracki_master.Model.Reviewer;
 import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.R;
+import com.example.aflah.tracki_master.Contract.ReviewTokoContract;
+import com.example.aflah.tracki_master.Presenter.ReviewTokoPresenter;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -82,6 +84,7 @@ public class ReviewTokoActivity extends AppCompatActivity implements View.OnClic
             ratingTokoSend = (double) ratingBarSend.getRating();
             komentarToko = et_isiKomentar.getText().toString();
             presenter.sendReview(userToken, idToko, ratingTokoSend, komentarToko);
+            this.reviewerList.clear();
             presenter.getReview(idToko);
         }
     }

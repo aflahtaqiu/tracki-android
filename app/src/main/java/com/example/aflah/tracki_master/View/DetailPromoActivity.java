@@ -1,4 +1,4 @@
-package com.example.aflah.tracki_master.DetailPromo;
+package com.example.aflah.tracki_master.View;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.aflah.tracki_master.Contract.DetailPromoContract;
+import com.example.aflah.tracki_master.Presenter.DetailPromoPresenter;
 import com.example.aflah.tracki_master.Injection;
 import com.example.aflah.tracki_master.Model.Promotion;
 import com.example.aflah.tracki_master.Model.UserLogin;
@@ -33,7 +35,7 @@ import java.util.HashMap;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class DetailPromoActivity extends AppCompatActivity implements  DetailPromoContract.view{
+public class DetailPromoActivity extends AppCompatActivity implements DetailPromoContract.view {
 
     Button btnGunakan, btnSimpan, btnCloseDialogQRCode;
     TextView textViewNamaPromo, textViewNamaToko, textViewTanggalPromo, textViewKetentuanPromo,

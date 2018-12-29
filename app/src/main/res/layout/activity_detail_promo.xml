@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.aflah.tracki_master.DetailPromo.DetailPromoActivity">
+    tools:context="com.example.aflah.tracki_master.View.DetailPromoActivity">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayoutDetailPromo"

@@ -1,4 +1,4 @@
-package com.example.aflah.tracki_master.ReviewToko;
+package com.example.aflah.tracki_master.Contract;
 
 import com.example.aflah.tracki_master.Model.Store;
 

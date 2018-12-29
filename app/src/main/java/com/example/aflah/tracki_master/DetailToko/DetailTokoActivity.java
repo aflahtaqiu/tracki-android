@@ -5,7 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ImageView;
+import android.view.View;
 import android.widget.LinearLayout;
 
 import com.example.aflah.tracki_master.Adapter.CarouselDetailTokoAdapter;
@@ -31,26 +31,24 @@ public class DetailTokoActivity extends AppCompatActivity implements DetailTokoF
     private DetailTokoViewPagerAdapter detailTokoViewPagerAdapter;
 
     ViewPager viewPager_CarouselDetailToko;
-
-    LinearLayout linearLayout_DotsPanel;
-    private int dotsCount;
-    private ImageView[] dots;
+    LinearLayout linearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_toko);
 
+        linearLayout = (LinearLayout) findViewById(R.id.linearLayout_detailToko);
         tabLayout = (TabLayout) findViewById(R.id.tablayout_detailtoko);
         viewPager = (ViewPager) findViewById(R.id.viewpager_detailtoko);
         viewPager_CarouselDetailToko = (ViewPager) findViewById(R.id.viewPager_carousel_detailToko);
         detailTokoViewPagerAdapter = new DetailTokoViewPagerAdapter(getSupportFragmentManager());
 
+        linearLayout.setVisibility(View.GONE);
+
         detailTokoViewPagerAdapter.AddFragment(new DetailTokoFragment(), "About");
         detailTokoViewPagerAdapter.AddFragment(new MakananFragment(), "Makanan");
         detailTokoViewPagerAdapter.AddFragment(new MinumanFragment(), "Minuman");
-
-        linearLayout_DotsPanel = (LinearLayout) findViewById(R.id.layoutDots_detailToko);
 
         List<String> urlImageList = new ArrayList<>();
         int idToko = getIntent().getExtras().getInt("idTokoTerdekat");
@@ -77,34 +75,25 @@ public class DetailTokoActivity extends AppCompatActivity implements DetailTokoF
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimeCarousel(), 4000, 4000);
-    }
-
-    public void setDotsCount(int dotsCount) {
-        this.dotsCount = dotsCount;
+        linearLayout.setVisibility(View.VISIBLE);
     }
 
     public class TimeCarousel extends TimerTask{
-
         @Override
         public void run() {
-
             DetailTokoActivity.this.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-
-                    if (viewPager_CarouselDetailToko.getCurrentItem() == 0)
-                        viewPager_CarouselDetailToko.setCurrentItem(1, true);
-                    else if (viewPager_CarouselDetailToko.getCurrentItem() == 1)
-                        viewPager_CarouselDetailToko.setCurrentItem(2, true);
-                    else
-                        viewPager_CarouselDetailToko.setCurrentItem(0, true);
+                    switch (viewPager_CarouselDetailToko.getCurrentItem()){
+                        case 0 : viewPager_CarouselDetailToko.setCurrentItem(1); break;
+                        case 1 : viewPager_CarouselDetailToko.setCurrentItem(2);break;
+                        case 2 : viewPager_CarouselDetailToko.setCurrentItem(0);break;
+                    }
                 }
             });
         }
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
+    public void onFragmentInteraction(Uri uri) { }
 }

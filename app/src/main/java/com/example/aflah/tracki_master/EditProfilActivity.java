@@ -69,7 +69,6 @@ public class EditProfilActivity extends Activity implements View.OnClickListener
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.iv_correctEditProfil:
-
                 String date = etTanggalLahir.getText().toString();
                 try {
                     SimpleDateFormat inputFormat = new SimpleDateFormat("dd-MM-yyyy");

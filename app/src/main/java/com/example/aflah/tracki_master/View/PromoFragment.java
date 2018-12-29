@@ -1,4 +1,4 @@
-package com.example.aflah.tracki_master.NavbarFragment.Promotion;
+package com.example.aflah.tracki_master.View;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -14,6 +14,9 @@ import android.widget.Toast;
 
 import com.example.aflah.tracki_master.Injection;
 import com.example.aflah.tracki_master.Model.Promotion;
+import com.example.aflah.tracki_master.Adapter.ListPromotionAdapter;
+import com.example.aflah.tracki_master.Contract.PromotionContract;
+import com.example.aflah.tracki_master.Presenter.PromotionPresenter;
 import com.example.aflah.tracki_master.R;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.example.aflah.tracki_master.DetaiMenu;
+package com.example.aflah.tracki_master.View;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.aflah.tracki_master.Contract.DetailMenuContract;
+import com.example.aflah.tracki_master.Presenter.DetailMenuPresenter;
 import com.example.aflah.tracki_master.Injection;
 import com.example.aflah.tracki_master.Model.ResponseProductById;
 import com.example.aflah.tracki_master.R;

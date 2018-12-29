@@ -1,4 +1,4 @@
-package com.example.aflah.tracki_master.NavbarFragment.Promotion;
+package com.example.aflah.tracki_master.Contract;
 
 import com.example.aflah.tracki_master.Model.Promotion;
 

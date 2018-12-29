@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.aflah.tracki_master.DetaiMenu.DetailMenuActivity;
+import com.example.aflah.tracki_master.View.DetailMenuActivity;
 import com.example.aflah.tracki_master.Model.Product;
 import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.R;

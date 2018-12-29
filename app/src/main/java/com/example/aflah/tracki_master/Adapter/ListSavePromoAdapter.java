@@ -12,7 +12,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.aflah.tracki_master.DetailPromo.DetailPromoActivity;
+import com.example.aflah.tracki_master.View.DetailPromoActivity;
 import com.example.aflah.tracki_master.Model.Promotion;
 import com.example.aflah.tracki_master.Model.Response.ResponseDeletePromo;
 import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
