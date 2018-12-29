@@ -78,7 +78,7 @@
         <!-- android:name=".MapsActivity" -->
         <!-- android:label="@string/title_activity_maps"></activity> -->
 
-        <activity android:name=".DetailToko.TokoActivity" />
+        <activity android:name=".View.TokoActivity" />
         <activity android:name=".View.DetailMenuActivity"
             android:theme="@style/ThemeNobar"/>
         <activity

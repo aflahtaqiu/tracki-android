@@ -1,4 +1,4 @@
-package com.example.aflah.tracki_master.DetailToko;
+package com.example.aflah.tracki_master.View;
 
 import android.net.Uri;
 import android.support.design.widget.TabLayout;
@@ -11,10 +11,11 @@ import android.widget.Toast;
 
 import com.example.aflah.tracki_master.Adapter.CarouselDetailTokoAdapter;
 import com.example.aflah.tracki_master.Adapter.DetailTokoViewPagerAdapter;
+import com.example.aflah.tracki_master.Contract.TokoContract;
+import com.example.aflah.tracki_master.DetailToko.DetailTokoFragment;
 import com.example.aflah.tracki_master.Injection;
+import com.example.aflah.tracki_master.Presenter.TokoPresenter;
 import com.example.aflah.tracki_master.R;
-import com.example.aflah.tracki_master.View.MakananFragment;
-import com.example.aflah.tracki_master.View.MinumanFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,6 @@ public class TokoActivity extends AppCompatActivity implements DetailTokoFragmen
         setContentView(R.layout.activity_detail_toko);
 
         initViews();
-
         linearLayout.setVisibility(View.GONE);
 
         int idToko = getIntent().getExtras().getInt("idTokoTerdekat");
@@ -55,7 +55,6 @@ public class TokoActivity extends AppCompatActivity implements DetailTokoFragmen
         detailTokoViewPagerAdapter.AddFragment(new MinumanFragment(), "Minuman");
         viewPager.setAdapter(detailTokoViewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
-
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimeCarousel(), 4000, 4000);

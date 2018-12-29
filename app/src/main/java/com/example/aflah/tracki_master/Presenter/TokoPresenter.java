@@ -1,5 +1,6 @@
-package com.example.aflah.tracki_master.DetailToko;
+package com.example.aflah.tracki_master.Presenter;
 
+import com.example.aflah.tracki_master.Contract.TokoContract;
 import com.example.aflah.tracki_master.Data.StoreRepository;
 import com.example.aflah.tracki_master.Data.StoreSource;
 

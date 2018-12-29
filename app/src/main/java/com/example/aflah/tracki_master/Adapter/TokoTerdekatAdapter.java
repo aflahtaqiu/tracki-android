@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.example.aflah.tracki_master.DetailToko.TokoActivity;
+import com.example.aflah.tracki_master.View.TokoActivity;
 import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.R;
 import com.squareup.picasso.Picasso;

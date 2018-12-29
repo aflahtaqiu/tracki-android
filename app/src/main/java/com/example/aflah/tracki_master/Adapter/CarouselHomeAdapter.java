@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.example.aflah.tracki_master.DetailToko.TokoActivity;
+import com.example.aflah.tracki_master.View.TokoActivity;
 import com.example.aflah.tracki_master.Model.Advertisement;
 import com.example.aflah.tracki_master.R;
 import com.squareup.picasso.Picasso;

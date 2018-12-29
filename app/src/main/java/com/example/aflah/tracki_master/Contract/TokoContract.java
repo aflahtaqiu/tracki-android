@@ -1,4 +1,4 @@
-package com.example.aflah.tracki_master.DetailToko;
+package com.example.aflah.tracki_master.Contract;
 
 import java.util.List;
 
