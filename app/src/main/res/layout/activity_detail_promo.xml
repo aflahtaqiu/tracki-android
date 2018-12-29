@@ -149,40 +149,45 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view3" />
 
-        <Button
-            android:id="@+id/btnSimpan_detailPromo"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_simpan"
-            android:text="Simpan Promo"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:textAllCaps="false"
-            android:textColor="@color/colorTracki"
-            android:textSize="18dp"
-            android:onClick="simpanPromo"
+            android:layout_marginTop="24dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ketentuanPromo_detailPromo"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btnGunakan_detailPromo"/>
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btnGunakan_detailPromo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="8dp"
-            android:background="@drawable/button_gunakan"
-            android:text="Gunakan Promo"
-            android:textAllCaps="false"
-            android:textColor="#ffffff"
-            android:textSize="18dp"
-            android:onClick="gunakanPromo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ketentuanPromo_detailPromo"
-            app:layout_constraintStart_toEndOf="@id/btnSimpan_detailPromo"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            <Button
+                android:id="@+id/btnSimpan_detailPromo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_simpan"
+                android:text="Simpan Promo"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="8dp"
+                android:textAllCaps="false"
+                android:textColor="@color/colorTracki"
+                android:textSize="18dp"
+                android:layout_weight="1"
+                android:onClick="simpanPromo"/>
+
+            <Button
+                android:id="@+id/btnGunakan_detailPromo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="8dp"
+                android:background="@drawable/button_gunakan"
+                android:text="Gunakan Promo"
+                android:layout_weight="1"
+                android:textAllCaps="false"
+                android:textColor="#ffffff"
+                android:textSize="18dp"
+                android:onClick="gunakanPromo"/>
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_promoDigunakan_detailPromo"
@@ -190,11 +195,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="*Anda sudah menggunakan promo  "
+            android:text="*Anda sudah menggunakan promo ini"
             android:textColor="@color/colorTracki"
             android:textSize="17dp"
             android:textStyle="bold"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="32dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintTop_toBottomOf="@id/ketentuanPromo_detailPromo"
             app:layout_constraintStart_toStartOf="parent"

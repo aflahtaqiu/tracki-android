@@ -12,6 +12,8 @@ public interface DetailPromoContract {
         void showDialogQRCode();
         void showData(Promotion promotion);
         void showError(String errorMsg);
+        void showIsPromoUsed();
+        void showIsPromoSaved();
     }
 
     interface presenter {

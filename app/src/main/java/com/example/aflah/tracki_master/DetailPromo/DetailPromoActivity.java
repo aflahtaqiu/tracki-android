@@ -56,9 +56,7 @@ public class DetailPromoActivity extends AppCompatActivity implements  DetailPro
         setContentView(R.layout.activity_detail_promo);
 
         initView();
-
-        idPromo = getIntent().getExtras().getInt("idPromo");
-        namaToko = getIntent().getExtras().getString("namaToko");
+        getExtras();
 
         sharedPreferences = getSharedPreferences("login", Context.MODE_PRIVATE);
         Gson gson = new Gson();
@@ -66,12 +64,20 @@ public class DetailPromoActivity extends AppCompatActivity implements  DetailPro
         userLogin = gson.fromJson(json, UserLogin.class);
         userToken = sharedPreferences.getString("tokenLogin", "");
 
+        generateQRString(gson);
+        presenter.getDetailPromo(userToken, idPromo);
+    }
+
+    private void generateQRString(Gson gson) {
         hasMapQrCode = new HashMap<>();
         hasMapQrCode.put("idPromo", idPromo);
         hasMapQrCode.put("idUser", userLogin.getId());
         qrCodeString = gson.toJsonTree(hasMapQrCode).toString();
+    }
 
-        presenter.getDetailPromo(userToken, idPromo);
+    private void getExtras() {
+        idPromo = getIntent().getExtras().getInt("idPromo");
+        namaToko = getIntent().getExtras().getString("namaToko");
     }
 
     private void initView() {
@@ -166,23 +172,23 @@ public class DetailPromoActivity extends AppCompatActivity implements  DetailPro
         textViewKetentuanPromo.setText(promotion.getTerms_and_policies());
         Picasso.get().load(promotion.getBanner()).into(gambarPromo);
 
-        if (promotion.getSaved() == true){
-            btnSimpan.setEnabled(false);
-            if (promotion.getUsed() == true){
-                btnSimpan.setVisibility(View.GONE);
-                btnGunakan.setVisibility(View.GONE);
-                textViewPromoDigunakan.setVisibility(View.VISIBLE);
-            }
-        }
-        if (promotion.getUsed() == true){
-            btnGunakan.setEnabled(false);
-        }
         constraintLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showError(String errorMsg) {
         Toast.makeText(this, "Ada error : " + errorMsg, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showIsPromoUsed() {
+        btnGunakan.setVisibility(View.GONE);
+        textViewPromoDigunakan.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showIsPromoSaved() {
+        btnSimpan.setVisibility(View.GONE);
     }
 
     public void gunakanPromo(View view) {presenter.generateQRCode(); }

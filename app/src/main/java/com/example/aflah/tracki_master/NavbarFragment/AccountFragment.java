@@ -1,6 +1,5 @@
 package com.example.aflah.tracki_master.NavbarFragment;
 
-import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -233,6 +232,7 @@ public class AccountFragment extends Fragment {
 
         Mydialog.show();
     }
+    
     private Bitmap getResizedBitmap(Bitmap image) {
         int width = image.getWidth();
         int height = image.getHeight();
@@ -301,11 +301,7 @@ public class AccountFragment extends Fragment {
                     }
                 });
 
-            } catch (Exception e) {
-                Log.v("kamera",""+ e.toString());
+            } catch (Exception e) { }
         }
-
     }
-}
-
 }

@@ -22,9 +22,8 @@ public class DetailPromoPresenter implements DetailPromoContract.presenter {
             public void onSuccess(Promotion promotion) {
                 view.hideProgress();
                 view.showData(promotion);
-                if (promotion.getUsed() == true){
-                    view.showIsPromoUsed();
-                }
+                if (promotion.getSaved()) view.showIsPromoSaved();
+                if (promotion.getUsed()) view.showIsPromoUsed();
             }
 
             @Override
