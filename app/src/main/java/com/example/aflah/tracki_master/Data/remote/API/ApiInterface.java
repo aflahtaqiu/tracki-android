@@ -4,13 +4,17 @@ import com.example.aflah.tracki_master.Model.Response.ResponseAddReview;
 import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
 import com.example.aflah.tracki_master.Model.Response.ResponsePromotionById;
 import com.example.aflah.tracki_master.Model.Response.ResponseRedeemPromotion;
+import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
 import com.example.aflah.tracki_master.Model.ResponseProductById;
+
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
@@ -49,5 +53,19 @@ public interface ApiInterface {
     Call<ResponseRedeemPromotion> sendRedeemData (
             @Header("Authorization") String token,
             @Field("promotion_id") int promotion_id
+    );
+
+    @FormUrlEncoded
+    @PATCH("user/{id}")
+    Call<ResponseUserById> updateProfile(
+            @Path("id") int idUser,
+            @Header("Authorization") String token,
+            @Field("name") String name,
+            @Field("date_of_birth") Date dateOfBirth
+    );
+
+    @GET("user/{id}")
+    Call<ResponseUserById> getUserById(
+            @Path("id") int id
     );
 }

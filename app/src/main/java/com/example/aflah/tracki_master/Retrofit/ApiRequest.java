@@ -2,18 +2,15 @@ package com.example.aflah.tracki_master.Retrofit;
 
 import com.example.aflah.tracki_master.Model.Advertisements;
 import com.example.aflah.tracki_master.Model.Response.ResponseDeletePromo;
-import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
 import com.example.aflah.tracki_master.Model.Response.ResponseLogin;
 import com.example.aflah.tracki_master.Model.Response.ResponseLogout;
 import com.example.aflah.tracki_master.Model.Response.ResponseRedeemPromotion;
-import com.example.aflah.tracki_master.Model.Response.ResponsePromotionById;
 import com.example.aflah.tracki_master.Model.Response.ResponseRegister;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameProduct;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameStore;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchProduct;
 import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
 import com.example.aflah.tracki_master.Model.Response.ResponseTokoByUID;
-import com.example.aflah.tracki_master.Model.ResponseProductById;
 
 import java.util.Date;
 
@@ -39,11 +36,6 @@ public interface ApiRequest {
         @Path("numberUID") int numberUID
     );
 
-    @GET("store/{id}")
-    Call<ResponseDetailToko> getStoreByID(
-            @Path("id") int id
-    );
-
     @GET("user/{id}")
     Call<ResponseUserById> getSavedPromo(
             @Path("id") int id
@@ -58,12 +50,6 @@ public interface ApiRequest {
     @GET("advertisement")
     Call<Advertisements> getAdvertisements();
 
-    @GET("promotion/{id}")
-    Call<ResponsePromotionById> getPromotionById(
-            @Header("Authorization") String token,
-            @Path("id") int id
-    );
-
     @DELETE("redeem/{id}")
     Call<ResponseDeletePromo> deletePromo(
             @Header("Authorization") String token,
@@ -75,11 +61,6 @@ public interface ApiRequest {
 
     @GET("all-products")
     Call<ResponseSearchNameProduct> getSearchNamesProduct();
-
-    @GET("product/{id}")
-    Call<ResponseProductById> getProductById(
-            @Path("id") int id
-    );
 
     @FormUrlEncoded
     @POST("user/register")

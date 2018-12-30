@@ -85,7 +85,7 @@
             android:name=".Auth.RegisterActivity"
             android:theme="@style/ThemeNobar" />
         <activity
-            android:name=".EditProfilActivity"
+            android:name=".View.EditProfilActivity"
             android:theme="@style/ThemeNobar" />
         <activity
             android:name=".Auth.LoginActivity"

@@ -26,7 +26,7 @@ import android.widget.TextView;
 import com.example.aflah.tracki_master.View.AboutTrackiActivity;
 import com.example.aflah.tracki_master.Adapter.ListSavePromoAdapter;
 import com.example.aflah.tracki_master.Auth.LoginActivity;
-import com.example.aflah.tracki_master.EditProfilActivity;
+import com.example.aflah.tracki_master.View.EditProfilActivity;
 import com.example.aflah.tracki_master.Model.Promotion;
 import com.example.aflah.tracki_master.Model.Response.ResponseLogout;
 import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
