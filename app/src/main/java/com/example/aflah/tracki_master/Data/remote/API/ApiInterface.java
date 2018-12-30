@@ -4,6 +4,8 @@ import com.example.aflah.tracki_master.Model.Response.ResponseAddReview;
 import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
 import com.example.aflah.tracki_master.Model.Response.ResponsePromotionById;
 import com.example.aflah.tracki_master.Model.Response.ResponseRedeemPromotion;
+import com.example.aflah.tracki_master.Model.Response.ResponseSearchProduct;
+import com.example.aflah.tracki_master.Model.Response.ResponseTokoByUID;
 import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
 import com.example.aflah.tracki_master.Model.ResponseProductById;
 
@@ -17,8 +19,15 @@ import retrofit2.http.Header;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiInterface {
+
+    @GET("search-store")
+    Call<ResponseTokoByUID> getStore(@Query("name") String name);
+
+    @GET("search-product")
+    Call<ResponseSearchProduct> getProductList(@Query("name") String name);
 
     @GET("product/{id}")
     Call<ResponseProductById> getProductById(

@@ -2,6 +2,7 @@ package com.example.aflah.tracki_master.Data;
 
 import com.example.aflah.tracki_master.Data.remote.StoreRemoteDataSource;
 import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
+import com.example.aflah.tracki_master.Model.Store;
 
 import java.util.List;
 
@@ -39,6 +40,21 @@ public class StoreRepository implements StoreSource{
             @Override
             public void onFailure(String errMsg) {
                 callback.onFailure(errMsg);
+            }
+        });
+    }
+
+    @Override
+    public void getSearchList(String keyword, GetSearhList callback) {
+        storeRemoteDataSource.getSearchList(keyword, new GetSearhList() {
+            @Override
+            public void onSuccess(List<Store> listStore) {
+                callback.onSuccess(listStore);
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+
             }
         });
     }

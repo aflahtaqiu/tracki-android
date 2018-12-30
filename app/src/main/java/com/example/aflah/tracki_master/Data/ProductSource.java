@@ -10,6 +10,7 @@ public interface ProductSource {
     void getProductById(int id, GetProductByIdCallBack getProductByIdCallBack);
     void getMakanan(int idToko, GetMakananCallback getMakananCallback);
     void getMinuman(int idToko, GetMinumanCallback getMinumanCallback);
+    void getSearchList(String keyword , GetSearhList getSearhList);
 
     interface GetProductByIdCallBack {
 
@@ -25,6 +26,10 @@ public interface ProductSource {
 
     interface GetMinumanCallback {
         void onSuccess(List<Product> listMinuman);
+        void onFailure(String errMsg);
+    }
+    interface GetSearhList{
+        void onSuccess(List<Product> listProduct);
         void onFailure(String errMsg);
     }
 

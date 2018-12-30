@@ -12,9 +12,11 @@ import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -24,6 +26,8 @@ import android.widget.TextView;
 
 import com.example.aflah.tracki_master.Adapter.TokoTerdekatAdapter;
 import com.example.aflah.tracki_master.View.DetailMenuActivity;
+import com.example.aflah.tracki_master.View.HasilSearchProductActivity;
+import com.example.aflah.tracki_master.View.HasilSearchStoreActivity;
 import com.example.aflah.tracki_master.View.TokoActivity;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameProduct;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameStore;
@@ -126,12 +130,24 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                             autoCompleteAdaptor = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,namaToko);
                             autoCompleteTextView.setAdapter(autoCompleteAdaptor);
                             autoCompleteTextView.setThreshold(0);
+                            autoCompleteTextView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                                @Override
+                                public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                                    if(i == EditorInfo.IME_ACTION_SEARCH){
+                                        Intent intent = new Intent(getActivity(), HasilSearchStoreActivity.class);
+                                        intent.putExtra("search",String.valueOf(autoCompleteTextView.getText()));
+                                        autoCompleteTextView.setText("");
+                                        getActivity().startActivity(intent);
+                                    }
+                                    return false;
+                                }
+                            });
                             autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                                     String selected = (String) adapterView.getItemAtPosition(i);
                                     int pos = Arrays.asList(namaToko).indexOf(selected);
-                                    SearchName tokoPilihan =toko.get(namaToko[pos]);
+                                    SearchName tokoPilihan = toko.get(namaToko[pos]);
                                     Intent intent = new Intent(getActivity(),TokoActivity.class);
                                     intent.putExtra("idTokoTerdekat",Integer.valueOf(tokoPilihan.getId()));
                                     autoCompleteTextView.setText("");
@@ -160,6 +176,18 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                             autoCompleteAdaptor = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,namaToko);
                             autoCompleteTextView.setAdapter(autoCompleteAdaptor);
                             autoCompleteTextView.setThreshold(0);
+                            autoCompleteTextView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                                @Override
+                                public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                                    if(i == EditorInfo.IME_ACTION_SEARCH){
+                                        Intent intent = new Intent(getActivity(), HasilSearchProductActivity.class);
+                                        intent.putExtra("search",String.valueOf(autoCompleteTextView.getText()));
+                                        autoCompleteTextView.setText("");
+                                        getActivity().startActivity(intent);
+                                    }
+                                    return false;
+                                }
+                            });
                             autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

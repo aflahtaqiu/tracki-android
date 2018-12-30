@@ -215,13 +215,10 @@ public class AccountFragment extends Fragment {
         picCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-//                startActivityForResult(intent, CAMERA);
                 if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.CAMERA)
                         == PackageManager.PERMISSION_DENIED){
                     ActivityCompat.requestPermissions(getActivity(), new String[] {android.Manifest.permission.CAMERA}, 70);
                 }
-
                 Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
                     startActivityForResult(takePictureIntent, CAMERA);
