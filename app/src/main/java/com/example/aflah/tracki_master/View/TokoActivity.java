@@ -12,7 +12,6 @@ import android.widget.Toast;
 import com.example.aflah.tracki_master.Adapter.CarouselDetailTokoAdapter;
 import com.example.aflah.tracki_master.Adapter.DetailTokoViewPagerAdapter;
 import com.example.aflah.tracki_master.Contract.TokoContract;
-import com.example.aflah.tracki_master.DetailToko.DetailTokoFragment;
 import com.example.aflah.tracki_master.Injection;
 import com.example.aflah.tracki_master.Presenter.TokoPresenter;
 import com.example.aflah.tracki_master.R;

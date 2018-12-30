@@ -1,4 +1,4 @@
-package com.example.aflah.tracki_master.DetailToko;
+package com.example.aflah.tracki_master.View;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,19 +12,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.aflah.tracki_master.Adapter.DetailTokoAdapter;
+import com.example.aflah.tracki_master.Contract.DetailTokoContract;
+import com.example.aflah.tracki_master.Presenter.DetailTokoPresenter;
+import com.example.aflah.tracki_master.Injection;
 import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
+import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.R;
-import com.example.aflah.tracki_master.Retrofit.ApiRequest;
-import com.example.aflah.tracki_master.Retrofit.RetroServer;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
-public class DetailTokoFragment extends Fragment {
+public class DetailTokoFragment extends Fragment implements DetailTokoContract.view {
 
     private OnFragmentInteractionListener mListener;
 
@@ -32,6 +32,10 @@ public class DetailTokoFragment extends Fragment {
     String userToken;
     SharedPreferences sharedPreferences;
     SweetAlertDialog sweetAlertDialogProgress;
+    DetailTokoAdapter adapter;
+    Store store = new Store();
+
+    private DetailTokoPresenter presenter = new DetailTokoPresenter(Injection.provideStoreRepository(), this);
 
     public DetailTokoFragment() {}
 
@@ -47,33 +51,11 @@ public class DetailTokoFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_detail_toko, container, false);
-        sweetAlertDialogProgress = new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE);
-        sweetAlertDialogProgress.getProgressHelper().setBarColor(Color.parseColor("#B40037"));
-        sweetAlertDialogProgress.getProgressHelper().setRimColor(Color.parseColor("#B40037"));
-        sweetAlertDialogProgress.setTitleText("Loading");
-        sweetAlertDialogProgress.setCancelable(false);
-        sweetAlertDialogProgress.setCanceledOnTouchOutside(true);
-        sweetAlertDialogProgress.show();
-
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_detailtoko);
         TextView textView = (TextView) view.findViewById(R.id.tv_phoneToko_detailToko);
 
         int idToko = getActivity().getIntent().getExtras().getInt("idTokoTerdekat");
-
-        ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
-        Call<ResponseDetailToko> getData = apiRequest.getStoreByID(idToko);
-        getData.enqueue(new Callback<ResponseDetailToko>() {
-            @Override
-            public void onResponse(Call<ResponseDetailToko> call, Response<ResponseDetailToko> response) {
-                recyclerView.setAdapter(new DetailTokoAdapter(getContext(), response.body().getStore(), userToken));
-                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                recyclerView.smoothScrollToPosition(0);
-                sweetAlertDialogProgress.dismiss();
-            }
-            @Override
-            public void onFailure(Call<ResponseDetailToko> call, Throwable t) {
-            }
-        });
+        presenter.getStoreDetail(idToko);
 
         return view;
     }
@@ -93,6 +75,41 @@ public class DetailTokoFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void showProgress() {
+        sweetAlertDialogProgress = new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE);
+        sweetAlertDialogProgress.getProgressHelper().setBarColor(Color.parseColor("#B40037"));
+        sweetAlertDialogProgress.getProgressHelper().setRimColor(Color.parseColor("#B40037"));
+        sweetAlertDialogProgress.setTitleText("Loading");
+        sweetAlertDialogProgress.setCancelable(false);
+        sweetAlertDialogProgress.setCanceledOnTouchOutside(true);
+        sweetAlertDialogProgress.show();
+    }
+
+    @Override
+    public void hideProgress() {
+        sweetAlertDialogProgress.dismiss();
+    }
+
+    @Override
+    public void showDataList(ResponseDetailToko responseDetailToko) {
+        this.store = responseDetailToko.getStore();
+        adapter = new DetailTokoAdapter(getContext(), store, userToken);
+        adapter.notifyDataSetChanged();
+        initAdapter();
+    }
+
+    private void initAdapter() {
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.smoothScrollToPosition(0);
+    }
+
+    @Override
+    public void showError(String errMsg) {
+        Toast.makeText(getContext(), "Ada error : " + errMsg, Toast.LENGTH_LONG).show();
     }
 
     public interface OnFragmentInteractionListener {
