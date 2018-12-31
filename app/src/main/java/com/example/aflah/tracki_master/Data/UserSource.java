@@ -12,6 +12,7 @@ public interface UserSource {
     void getUserById(int idUser, GetUserByIdCallback callback);
     void resetUserPassword(String email, ResetUserPasswordCallback callback);
     void registerUser(String nama, String email, Date dateOfBirth, String password, String confirmPassword, RegisterUserCallback callback);
+    void loginUser(String email, String password, LoginUserCallback callback);
 
     interface UpdateProfileCallback {
         void onSuccess(ResponseUserById responseUserById);
@@ -29,6 +30,11 @@ public interface UserSource {
     }
 
     interface RegisterUserCallback {
+        void onSuccess(UserLogin userLogin, String token, String pesan);
+        void onFailure(String errMsg);
+    }
+
+    interface LoginUserCallback {
         void onSuccess(UserLogin userLogin, String token, String pesan);
         void onFailure(String errMsg);
     }

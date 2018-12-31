@@ -1,16 +1,16 @@
 package com.example.aflah.tracki_master.Data.remote;
 
-import android.util.Log;
-
 import com.example.aflah.tracki_master.Data.UserSource;
 import com.example.aflah.tracki_master.Data.remote.API.ApiClient;
 import com.example.aflah.tracki_master.Data.remote.API.ApiInterface;
 import com.example.aflah.tracki_master.Model.Response.ResponseForgotPassword;
+import com.example.aflah.tracki_master.Model.Response.ResponseLogin;
 import com.example.aflah.tracki_master.Model.Response.ResponseRegister;
 import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.Date;
 
 import retrofit2.Call;
@@ -90,6 +90,31 @@ public class UserRemoteDataSource implements UserSource {
             @Override
             public void onFailure(Call<ResponseRegister> call, Throwable t) {
                 callback.onFailure("Email sudah terdaftar sebagai akun Tracki");
+            }
+        });
+    }
+
+    @Override
+    public void loginUser(String email, String password, LoginUserCallback callback) {
+        Call<ResponseLogin> call = apiInterface.sendLogin(email, password);
+        call.enqueue(new Callback<ResponseLogin>() {
+            @Override
+            public void onResponse(Call<ResponseLogin> call, Response<ResponseLogin> response) {
+                if (response.code() == 200){
+                    callback.onSuccess(response.body().getUserLogin(), response.body().getAccessToken(), response.body().getMessage());
+                }
+                else {
+                    try {
+                        callback.onSuccess(null, null, response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseLogin> call, Throwable t) {
+                callback.onFailure(t.getMessage());
             }
         });
     }

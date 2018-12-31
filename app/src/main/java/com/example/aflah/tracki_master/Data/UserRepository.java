@@ -74,4 +74,19 @@ public class UserRepository implements UserSource {
             }
         });
     }
+
+    @Override
+    public void loginUser(String email, String password, LoginUserCallback callback) {
+        userRemoteDataSource.loginUser(email, password, new LoginUserCallback() {
+            @Override
+            public void onSuccess(UserLogin userLogin, String token, String pesan) {
+                callback.onSuccess(userLogin, token, pesan);
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+                callback.onFailure(errMsg);
+            }
+        });
+    }
 }
