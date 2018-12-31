@@ -6,10 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +42,15 @@ public class RegisterActivity extends AppCompatActivity implements IRegister, Vi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        initViews();
+
+        initEditText();
+
+        btnDaftar.setOnClickListener(this);
+        tv_masuk.setOnClickListener(this);
+    }
+
+    private void initViews() {
         etNama = (RippleValidatorEditText) findViewById(R.id.et_nama_register);
         etEmail = (RippleValidatorEditText) findViewById(R.id.et_email_register);
         etSandi = (RippleValidatorEditText) findViewById(R.id.et_sandi_register);
@@ -51,7 +58,9 @@ public class RegisterActivity extends AppCompatActivity implements IRegister, Vi
         etTanggalLahir = (RippleValidatorEditText) findViewById(R.id.et_tanggalLahir_register);
         tv_masuk = (TextView) findViewById(R.id.tv_masuk_register);
         btnDaftar = (Button) findViewById(R.id.btn_daftar_register);
+    }
 
+    private void initEditText() {
         etNama.addValidator(
                 RVEValidatorFactory.getValidator(RVEValidatorType.EMPTY,"Anda belum mengisi nama Anda",null)
         );
@@ -69,9 +78,6 @@ public class RegisterActivity extends AppCompatActivity implements IRegister, Vi
         etTanggalLahir.addValidator(
                 RVEValidatorFactory.getValidator(RVEValidatorType.EMPTY, "Isi tanggal Lahir Anda", null)
         );
-
-        btnDaftar.setOnClickListener(this);
-        tv_masuk.setOnClickListener(this);
     }
 
     public void onStart() {
@@ -121,14 +127,14 @@ public class RegisterActivity extends AppCompatActivity implements IRegister, Vi
     @Override
     public boolean cekValidasi() {
 
-        if (etNama.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EMPTY,"Anda belum mengisi nama Anda",null),true) &&
-                etEmail.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EMPTY, "Anda belum mengisi email Anda", null),true) &&
-                etSandi.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EMPTY, "Anda belum mengisi sandi Anda", null),true) &&
-                etSandiKonfirmasi.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EMPTY, "Anda belum mengisi konfirmasi sandi Anda", null),true) &&
-                etTanggalLahir.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EMPTY, "Isi tanggal Lahir Anda", null),true)){
-            if (etEmail.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EMAIL, "ex : john@doe.com", null),true) &&
-                    etSandi.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.MIN_LENGTH, "Password minimal 8 karakter", 8), true) &&
-                    etSandiKonfirmasi.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EQUAL, "Tidak cocok dengan sandi Anda", etSandi.getText().toString()),true)){
+        if (etNama.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EMPTY,"Anda belum mengisi nama Anda",null),false) &&
+                etEmail.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EMPTY, "Anda belum mengisi email Anda", null),false) &&
+                etSandi.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EMPTY, "Anda belum mengisi sandi Anda", null),false) &&
+                etSandiKonfirmasi.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EMPTY, "Anda belum mengisi konfirmasi sandi Anda", null),false) &&
+                etTanggalLahir.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EMPTY, "Isi tanggal Lahir Anda", null),false)){
+            if (etEmail.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EMAIL, "ex : john@doe.com", null),false) &&
+                    etSandi.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.MIN_LENGTH, "Password minimal 8 karakter", 8), false) &&
+                    etSandiKonfirmasi.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EQUAL, "Tidak cocok dengan sandi Anda", etSandi.getText().toString()),false)){
                 return true;
             }
             else return false;
@@ -155,7 +161,6 @@ public class RegisterActivity extends AppCompatActivity implements IRegister, Vi
                     editor.putString("userLogin", json);
                     editor.apply();
                     editor.commit();
-                    Log.e("selamatDatangRegister", response.body().toString());
                     startActivity(new Intent(RegisterActivity.this, NavigationActivity.class));
                     finish();
                 }catch (Exception e){
