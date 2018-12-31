@@ -9,6 +9,7 @@ public interface UserSource {
 
     void updateProfile(int idUser, String userToken, String namaUser, Date dateOfBirthUser, UpdateProfileCallback callback);
     void getUserById(int idUser, GetUserByIdCallback callback);
+    void resetUserPassword(String email, ResetUserPasswordCallback callback);
 
     interface UpdateProfileCallback {
         void onSuccess(ResponseUserById responseUserById);
@@ -17,6 +18,11 @@ public interface UserSource {
 
     interface GetUserByIdCallback {
         void onSuccess(User user);
+        void onFailure(String errMsg);
+    }
+
+    interface ResetUserPasswordCallback {
+        void onSuccess(String message, int code);
         void onFailure(String errMsg);
     }
 }

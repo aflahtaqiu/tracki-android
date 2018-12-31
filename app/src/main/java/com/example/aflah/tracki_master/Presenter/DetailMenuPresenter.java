@@ -3,7 +3,7 @@ package com.example.aflah.tracki_master.Presenter;
 import com.example.aflah.tracki_master.Contract.DetailMenuContract;
 import com.example.aflah.tracki_master.Data.ProductRepository;
 import com.example.aflah.tracki_master.Data.ProductSource;
-import com.example.aflah.tracki_master.Model.ResponseProductById;
+import com.example.aflah.tracki_master.Model.Response.ResponseProductById;
 
 public class DetailMenuPresenter implements DetailMenuContract.presenter {
 

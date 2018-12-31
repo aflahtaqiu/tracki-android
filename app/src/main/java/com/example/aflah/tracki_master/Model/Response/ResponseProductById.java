@@ -1,5 +1,6 @@
-package com.example.aflah.tracki_master.Model;
+package com.example.aflah.tracki_master.Model.Response;
 
+import com.example.aflah.tracki_master.Model.Product;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

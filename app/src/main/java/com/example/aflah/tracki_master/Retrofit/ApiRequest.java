@@ -4,7 +4,6 @@ import com.example.aflah.tracki_master.Model.Advertisements;
 import com.example.aflah.tracki_master.Model.Response.ResponseDeletePromo;
 import com.example.aflah.tracki_master.Model.Response.ResponseLogin;
 import com.example.aflah.tracki_master.Model.Response.ResponseLogout;
-import com.example.aflah.tracki_master.Model.Response.ResponseRedeemPromotion;
 import com.example.aflah.tracki_master.Model.Response.ResponseRegister;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameProduct;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameStore;
@@ -23,7 +22,6 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
-import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
@@ -77,26 +75,10 @@ public interface ApiRequest {
     );
 
     @FormUrlEncoded
-    @POST("redeem")
-    Call<ResponseRedeemPromotion> getRedeemData (
-            @Header("Authorization") String token,
-            @Field("promotion_id") int promotion_id
-    );
-
-    @FormUrlEncoded
     @POST("user/login")
     Call<ResponseLogin> sendLogin(
             @Field("email") String email,
             @Field("password") String password
-    );
-
-    @FormUrlEncoded
-    @PATCH("user/{id}")
-    Call<ResponseUserById> updateProfile(
-            @Path("id") int idUser,
-            @Header("Authorization") String token,
-            @Field("name") String name,
-            @Field("date_of_birth") Date dateOfBirth
     );
 
     @Multipart

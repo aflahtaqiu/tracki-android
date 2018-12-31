@@ -43,4 +43,19 @@ public class UserRepository implements UserSource {
             }
         });
     }
+
+    @Override
+    public void resetUserPassword(String email, ResetUserPasswordCallback callback) {
+        userRemoteDataSource.resetUserPassword(email, new ResetUserPasswordCallback() {
+            @Override
+            public void onSuccess(String message, int code) {
+                callback.onSuccess(message, code);
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+                callback.onFailure(errMsg);
+            }
+        });
+    }
 }

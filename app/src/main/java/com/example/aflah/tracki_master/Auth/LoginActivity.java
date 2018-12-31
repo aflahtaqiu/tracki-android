@@ -5,18 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.support.annotation.NonNull;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import com.example.aflah.tracki_master.ForgotPasswordActivity;
+import com.example.aflah.tracki_master.View.ForgotPasswordActivity;
 import com.example.aflah.tracki_master.Model.Response.ResponseLogin;
 import com.example.aflah.tracki_master.Model.UserLogin;
 import com.example.aflah.tracki_master.NavigationActivity;
@@ -24,9 +19,6 @@ import com.example.aflah.tracki_master.R;
 import com.example.aflah.tracki_master.Retrofit.ApiRequest;
 import com.example.aflah.tracki_master.Retrofit.RetroServer;
 
-import com.facebook.login.Login;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -102,7 +94,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
                 break;
             case R.id.tv_lupaPassword_login:
                 startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
-                finish();
                 break;
         }
     }
@@ -166,7 +157,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
 
     @Override
     public boolean cekValidasi() {
-
         if (etEmail.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EMPTY, "Email harus diisi", null),true) &&
                 etEmail.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EMAIL, "ex: john@doe.com", null),true) &&
                 etPassword.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EMPTY, "Anda harus mengisi password", null),true)){

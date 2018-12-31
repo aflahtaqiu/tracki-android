@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.example.aflah.tracki_master.Contract.DetailMenuContract;
 import com.example.aflah.tracki_master.Presenter.DetailMenuPresenter;
 import com.example.aflah.tracki_master.Injection;
-import com.example.aflah.tracki_master.Model.ResponseProductById;
+import com.example.aflah.tracki_master.Model.Response.ResponseProductById;
 import com.example.aflah.tracki_master.R;
 import com.squareup.picasso.Picasso;
 

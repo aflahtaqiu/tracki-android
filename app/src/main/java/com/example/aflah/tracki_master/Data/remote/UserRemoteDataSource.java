@@ -3,7 +3,10 @@ package com.example.aflah.tracki_master.Data.remote;
 import com.example.aflah.tracki_master.Data.UserSource;
 import com.example.aflah.tracki_master.Data.remote.API.ApiClient;
 import com.example.aflah.tracki_master.Data.remote.API.ApiInterface;
+import com.example.aflah.tracki_master.Model.Response.ResponseForgotPassword;
 import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
+
+import org.json.JSONObject;
 
 import java.util.Date;
 
@@ -42,6 +45,31 @@ public class UserRemoteDataSource implements UserSource {
 
             @Override
             public void onFailure(Call<ResponseUserById> call, Throwable t) {
+                callback.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void resetUserPassword(String email, ResetUserPasswordCallback callback) {
+        Call<ResponseForgotPassword> call = apiInterface.changePassword(email);
+        call.enqueue(new Callback<ResponseForgotPassword>() {
+            @Override
+            public void onResponse(Call<ResponseForgotPassword> call, Response<ResponseForgotPassword> response) {
+                if (response.code() == 200)
+                    callback.onSuccess(response.body().getPesan(), response.code());
+                else {
+                    try {
+                        JSONObject jsonObjectError = new JSONObject(response.errorBody().string());
+                        callback.onSuccess(jsonObjectError.getString("message"), response.code());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseForgotPassword> call, Throwable t) {
                 callback.onFailure(t.getMessage());
             }
         });

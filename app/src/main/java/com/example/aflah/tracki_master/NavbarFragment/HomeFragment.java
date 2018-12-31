@@ -6,12 +6,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,7 +50,6 @@ import retrofit2.Response;
 
 public class HomeFragment extends Fragment implements NavigationActivity.OnCubeaconUpdated,AdapterView.OnItemClickListener,SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemSelectedListener {
 
-    private static final String TAG = HomeFragment.class.getSimpleName();
     private List<Map<String, String>> data;
     private List<CBBeacon> beacons;
     private SimpleAdapter adapter;
@@ -62,8 +59,6 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
     String[] from;
     int[] to;
     String[] spinnerItem = new String[]{"Toko", "Produk"};
-
-    ViewPager viewPager;
 
     ArrayAdapter<String> autoCompleteAdaptor;
     List<Store> stores;
@@ -76,21 +71,11 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
     TextView textViewTokoTerdekat;
     AppCompatSpinner spinnerSearch;
 
-    private SearchView searchView = null;
-    private SearchView.OnQueryTextListener queryTextListener;
-
     RecyclerView recyclerView;
 
     private OnFragmentInteractionListener mListener;
 
     public HomeFragment() {
-        // Required empty public constructor
-    }
-
-    // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
-        return fragment;
     }
 
     @Override
@@ -208,8 +193,6 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                         }
                     });
                 }
-
-
             }
         });
         stores = new ArrayList<>();
@@ -233,27 +216,6 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
         data = new ArrayList<>();
         adapter = new SimpleAdapter(getContext(), data, android.R.layout.simple_list_item_2, from, to);
 
-//        viewPager = (ViewPager) view.findViewById(R.id.viewPager_carousel_Home);
-
-//        List<Advertisement> advertisementList = new ArrayList<>();
-//        ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
-//        Call<Advertisements> getIklans = apiRequest.getAdvertisements();
-//        getIklans.enqueue(new Callback<Advertisements>() {
-//            @Override
-//            public void onResponse(Call<Advertisements> call, Response<Advertisements> response) {
-//                for (int i = 0; i< response.body().getAdvertisements().size() ;i++){
-//                    advertisementList.add(response.body().getAdvertisements().get(i));
-//                }
-//                CarouselHomeAdapter carouselHomeAdapter = new CarouselHomeAdapter(getContext(), advertisementList);
-//                viewPager.setAdapter(carouselHomeAdapter);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Advertisements> call, Throwable t) {
-//
-//            }
-//        });
-
         recyclerView = (RecyclerView) view.findViewById(R.id.recycerview_tokoTerdekat);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         tokoTerdekatAdapter = new TokoTerdekatAdapter(getContext(), rmdup);
@@ -267,7 +229,6 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
         super.onViewCreated(view, savedInstanceState);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -367,7 +328,6 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
     }
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }

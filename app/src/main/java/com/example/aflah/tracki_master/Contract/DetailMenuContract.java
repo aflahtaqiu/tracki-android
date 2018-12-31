@@ -1,6 +1,6 @@
 package com.example.aflah.tracki_master.Contract;
 
-import com.example.aflah.tracki_master.Model.ResponseProductById;
+import com.example.aflah.tracki_master.Model.Response.ResponseProductById;
 
 public interface DetailMenuContract {
 

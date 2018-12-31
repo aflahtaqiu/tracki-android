@@ -2,12 +2,13 @@ package com.example.aflah.tracki_master.Data.remote.API;
 
 import com.example.aflah.tracki_master.Model.Response.ResponseAddReview;
 import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
+import com.example.aflah.tracki_master.Model.Response.ResponseForgotPassword;
 import com.example.aflah.tracki_master.Model.Response.ResponsePromotionById;
 import com.example.aflah.tracki_master.Model.Response.ResponseRedeemPromotion;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchProduct;
 import com.example.aflah.tracki_master.Model.Response.ResponseTokoByUID;
 import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
-import com.example.aflah.tracki_master.Model.ResponseProductById;
+import com.example.aflah.tracki_master.Model.Response.ResponseProductById;
 
 import java.util.Date;
 
@@ -76,5 +77,11 @@ public interface ApiInterface {
     @GET("user/{id}")
     Call<ResponseUserById> getUserById(
             @Path("id") int id
+    );
+
+    @FormUrlEncoded
+    @POST("password-reset/create")
+    Call<ResponseForgotPassword> changePassword(
+            @Field("email") String email
     );
 }
