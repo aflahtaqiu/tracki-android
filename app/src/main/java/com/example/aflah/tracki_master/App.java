@@ -24,11 +24,6 @@ import org.altbeacon.beacon.powersave.BackgroundPowerSaver;
 import org.altbeacon.beacon.startup.BootstrapNotifier;
 import org.altbeacon.beacon.startup.RegionBootstrap;
 
-
-/**
- * Created by Ennobel on 10/4/2018.
- */
-
 public class App extends Application implements BootstrapNotifier {
     private static final String TAG = App.class.getSimpleName();
     private RegionBootstrap regionBootstrap;

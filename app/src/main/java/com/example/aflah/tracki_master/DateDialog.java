@@ -11,10 +11,6 @@ import android.widget.EditText;
 
 import java.util.Calendar;
 
-/**
- * Created by X441U on 10/20/2018.
- */
-
 @SuppressLint("ValidFragment")
 public class DateDialog extends DialogFragment implements DatePickerDialog.OnDateSetListener {
 

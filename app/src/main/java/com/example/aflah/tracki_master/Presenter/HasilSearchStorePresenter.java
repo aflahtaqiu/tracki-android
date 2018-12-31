@@ -1,8 +1,5 @@
 package com.example.aflah.tracki_master.Presenter;
 
-
-import android.util.Log;
-
 import com.example.aflah.tracki_master.Contract.HasilSearchStoreContract;
 import com.example.aflah.tracki_master.Data.StoreRepository;
 import com.example.aflah.tracki_master.Data.StoreSource;

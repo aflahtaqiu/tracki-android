@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.aflah.tracki_master.Model.Store;
-import com.example.aflah.tracki_master.Presenter.DetailTokoPresenter;
 import com.example.aflah.tracki_master.R;
 import com.example.aflah.tracki_master.View.TokoActivity;
 import com.squareup.picasso.Picasso;
@@ -26,7 +25,6 @@ public class HasilSearchStoreAdapter extends RecyclerView.Adapter<HasilSearchSto
     public HasilSearchStoreAdapter(Context context, List listStore){
         this.context = context;
         this.listStore = listStore;
-
     }
 
 
@@ -63,13 +61,12 @@ public class HasilSearchStoreAdapter extends RecyclerView.Adapter<HasilSearchSto
         CardView cardView;
 
         public MyViewHolder(View itemView){
-        super(itemView);
+            super(itemView);
 
-        nama = itemView.findViewById(R.id.tv_nama);
-        lokasiOrharga = itemView.findViewById(R.id.tv_lokasi);
-        gambar = itemView.findViewById(R.id.tv_gambar);
-        cardView = itemView.findViewById(R.id.cardview_hasil_search);
+            nama = itemView.findViewById(R.id.tv_nama);
+            lokasiOrharga = itemView.findViewById(R.id.tv_lokasi);
+            gambar = itemView.findViewById(R.id.tv_gambar);
+            cardView = itemView.findViewById(R.id.cardview_hasil_search);
         }
-
     }
 }

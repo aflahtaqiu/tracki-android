@@ -12,8 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.aflah.tracki_master.Model.Product;
-import com.example.aflah.tracki_master.Model.Store;
-import com.example.aflah.tracki_master.Presenter.DetailTokoPresenter;
 import com.example.aflah.tracki_master.R;
 import com.example.aflah.tracki_master.View.DetailMenuActivity;
 import com.squareup.picasso.Picasso;
@@ -29,7 +27,6 @@ public class HasilSearchProductAdapter extends RecyclerView.Adapter<HasilSearchP
     public HasilSearchProductAdapter(Context context, List listProduct){
         this.context = context;
         this.listProduct = listProduct;
-
     }
 
 
@@ -44,11 +41,9 @@ public class HasilSearchProductAdapter extends RecyclerView.Adapter<HasilSearchP
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         NumberFormat numberFormat = new DecimalFormat("#,###");
-
         holder.nama.setText(listProduct.get(position).getName());
         holder.lokasiOrharga.setText("Rp. "+ numberFormat.format(listProduct.get(position).getPrice()).replace(',','.'));
         Picasso.get().load(listProduct.get(position).getPicture()).into(holder.gambar);
-
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,6 +70,5 @@ public class HasilSearchProductAdapter extends RecyclerView.Adapter<HasilSearchP
         gambar = itemView.findViewById(R.id.tv_gambar);
         cardView = itemView.findViewById(R.id.cardview_hasil_search);
         }
-
     }
 }

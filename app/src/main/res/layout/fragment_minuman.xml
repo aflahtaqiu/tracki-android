@@ -12,7 +12,6 @@
 
     </android.support.v7.widget.RecyclerView>
 
-
     <TextView
         android:id="@+id/tv_minumanTidakAda_fragmenMinuman"
         android:layout_gravity="center"
