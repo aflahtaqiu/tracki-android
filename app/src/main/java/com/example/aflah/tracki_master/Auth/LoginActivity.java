@@ -21,7 +21,7 @@ import com.example.aflah.tracki_master.Retrofit.RetroServer;
 
 import com.google.gson.Gson;
 
-import java.io.IOException;
+import org.json.JSONObject;
 
 import me.omidh.ripplevalidatoredittext.RVEValidatorFactory;
 import me.omidh.ripplevalidatoredittext.RVEValidatorType;
@@ -105,9 +105,7 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
         loginUser.enqueue(new Callback<ResponseLogin>() {
             @Override
             public void onResponse(Call<ResponseLogin> call, Response<ResponseLogin> response) {
-
-                try{
-                    String message = response.body().getMessage();
+                if (response.code() == 200){
                     UserLogin userLogin = response.body().getUserLogin();
                     String token = response.body().getAccessToken();
                     Gson gson = new Gson();
@@ -119,23 +117,18 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
                     editor.commit();
                     startActivity(new Intent(LoginActivity.this, NavigationActivity.class));
                     finish();
-                }catch (Exception e){
-                    String message = null;
+                } else{
                     try {
-                        message = response.errorBody().string();
-                        if (message.equals("{\"message\":\"email\"}")){
-                            if (etEmail.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EQUAL, "Email Anda belum terdaftar", etEmail.getText().toString() + " "), true)){
-                                etEmail.getEditText().setText("");
-
-                            }
-                        } else if(message.equals("{\"message\":\"password\"}")){
-                            if (etPassword.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EQUAL, "Password Anda salah", etPassword.getText().toString()+ " "), true)
-                                    ){
-                                etPassword.getEditText().setText("");
-                            }
+                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
+                        if (jsonObject.getString("message").equals("email")){
+                            etEmail.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EQUAL,"Email Anda belum terdaftar", etEmail.getText().toString()+"1"), false);
+                            etEmail.getEditText().setText("");
+                        } else if (jsonObject.getString("message").equals("password")){
+                            etPassword.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EQUAL, "Password Anda salah", etPassword.getText().toString()+ " "), false);
+                            etPassword.getEditText().setText("");
                         }
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
             }
@@ -157,9 +150,9 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
 
     @Override
     public boolean cekValidasi() {
-        if (etEmail.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EMPTY, "Email harus diisi", null),true) &&
-                etEmail.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EMAIL, "ex: john@doe.com", null),true) &&
-                etPassword.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EMPTY, "Anda harus mengisi password", null),true)){
+        if (etEmail.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EMPTY, "Email harus diisi", null), false) &&
+                etEmail.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EMAIL, "ex: john@doe.com", null),false) &&
+                etPassword.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EMPTY, "Anda harus mengisi password", null),false)){
             return true;
         } else return false;
     }
