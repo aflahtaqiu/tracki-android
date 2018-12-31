@@ -81,7 +81,7 @@
         <activity android:name=".View.DetailMenuActivity"
             android:theme="@style/ThemeNobar"/>
         <activity
-            android:name=".Auth.RegisterActivity"
+            android:name=".View.RegisterActivity"
             android:theme="@style/ThemeNobar" />
         <activity
             android:name=".View.EditProfilActivity"

@@ -3,6 +3,7 @@ package com.example.aflah.tracki_master.Data;
 import com.example.aflah.tracki_master.Data.remote.UserRemoteDataSource;
 import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
 import com.example.aflah.tracki_master.Model.User;
+import com.example.aflah.tracki_master.Model.UserLogin;
 
 import java.util.Date;
 
@@ -50,6 +51,21 @@ public class UserRepository implements UserSource {
             @Override
             public void onSuccess(String message, int code) {
                 callback.onSuccess(message, code);
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+                callback.onFailure(errMsg);
+            }
+        });
+    }
+
+    @Override
+    public void registerUser(String nama, String email, Date dateOfBirth, String password, String confirmPassword, RegisterUserCallback callback) {
+        userRemoteDataSource.registerUser(nama, email, dateOfBirth, password, confirmPassword, new RegisterUserCallback() {
+            @Override
+            public void onSuccess(UserLogin userLogin, String token, String pesan) {
+                callback.onSuccess(userLogin, token, pesan);
             }
 
             @Override

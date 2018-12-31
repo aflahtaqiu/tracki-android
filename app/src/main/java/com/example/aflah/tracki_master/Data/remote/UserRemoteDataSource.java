@@ -1,9 +1,12 @@
 package com.example.aflah.tracki_master.Data.remote;
 
+import android.util.Log;
+
 import com.example.aflah.tracki_master.Data.UserSource;
 import com.example.aflah.tracki_master.Data.remote.API.ApiClient;
 import com.example.aflah.tracki_master.Data.remote.API.ApiInterface;
 import com.example.aflah.tracki_master.Model.Response.ResponseForgotPassword;
+import com.example.aflah.tracki_master.Model.Response.ResponseRegister;
 import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
 
 import org.json.JSONObject;
@@ -71,6 +74,22 @@ public class UserRemoteDataSource implements UserSource {
             @Override
             public void onFailure(Call<ResponseForgotPassword> call, Throwable t) {
                 callback.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void registerUser(String nama, String email, Date dateOfBirth, String password, String confirmPassword, RegisterUserCallback callback) {
+        Call<ResponseRegister> call = apiInterface.sendRegister(nama, email, dateOfBirth, password, confirmPassword);
+        call.enqueue(new Callback<ResponseRegister>() {
+            @Override
+            public void onResponse(Call<ResponseRegister> call, Response<ResponseRegister> response) {
+                callback.onSuccess(response.body().getUser(), response.body().getAccess_token(), response.message());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseRegister> call, Throwable t) {
+                callback.onFailure("Email sudah terdaftar sebagai akun Tracki");
             }
         });
     }

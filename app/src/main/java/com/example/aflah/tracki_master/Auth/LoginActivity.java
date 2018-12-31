@@ -19,6 +19,7 @@ import com.example.aflah.tracki_master.R;
 import com.example.aflah.tracki_master.Retrofit.ApiRequest;
 import com.example.aflah.tracki_master.Retrofit.RetroServer;
 
+import com.example.aflah.tracki_master.View.RegisterActivity;
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
@@ -35,6 +36,8 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
     Button btnLogin, btnMasukTamu;
     TextView tvDaftar, tvLupaPassword;
     RippleValidatorEditText etEmail, etPassword;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
