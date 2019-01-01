@@ -8,7 +8,7 @@
     android:gravity="left"
     android:padding="8dp"
     android:layout_marginStart="8dp"
-    android:textColor="@color/colorAbuGelap"
-    android:background="@color/colorWhite">
+    android:textColor="@color/colorWhite"
+    android:background="@color/colorTracki">
 
 </TextView>
