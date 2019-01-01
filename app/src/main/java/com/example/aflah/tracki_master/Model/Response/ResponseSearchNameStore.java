@@ -7,10 +7,6 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-/**
- * Created by Ennobel on 11/15/2018.
- */
-
 public class ResponseSearchNameStore {
     @SerializedName("stores")
     @Expose

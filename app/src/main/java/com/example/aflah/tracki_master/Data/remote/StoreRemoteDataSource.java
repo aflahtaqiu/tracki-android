@@ -5,6 +5,7 @@ import com.example.aflah.tracki_master.Data.remote.API.ApiClient;
 import com.example.aflah.tracki_master.Data.remote.API.ApiInterface;
 import com.example.aflah.tracki_master.Model.Galery;
 import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
+import com.example.aflah.tracki_master.Model.Response.ResponseTokoByUID;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +49,22 @@ public class StoreRemoteDataSource implements StoreSource {
 
             @Override
             public void onFailure(Call<ResponseDetailToko> call, Throwable t) {
+                callback.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void getSearchList(String keyword, GetSearhList callback) {
+        Call<ResponseTokoByUID> call = apiInterface.getStore(keyword);
+        call.enqueue(new Callback<ResponseTokoByUID>() {
+            @Override
+            public void onResponse(Call<ResponseTokoByUID> call, Response<ResponseTokoByUID> response) {
+                callback.onSuccess(response.body().getStores());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseTokoByUID> call, Throwable t) {
                 callback.onFailure(t.getMessage());
             }
         });

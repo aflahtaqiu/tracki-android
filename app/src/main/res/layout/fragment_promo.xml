@@ -8,8 +8,6 @@
     android:background="@drawable/background_account"
     tools:context=".View.PromoFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <TextView
         android:id="@+id/tv_daftar_promo"
         android:layout_width="match_parent"

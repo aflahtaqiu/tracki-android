@@ -18,7 +18,6 @@ public class CarouselDetailTokoAdapter extends PagerAdapter {
 
     private Context context;
     private LayoutInflater layoutInflater;
-    private Integer [] images = {R.drawable.logo, R.drawable.img_menu_default, R.drawable.slide1, R.drawable.slide2, R.drawable.slide3};
     private List<String> urlList;
 
     public CarouselDetailTokoAdapter(Context context, List<String> urlList) {
@@ -41,8 +40,6 @@ public class CarouselDetailTokoAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.item_carousel_detailtoko, null);
-//        ImageView imageView_carousel = (ImageView) view.findViewById(R.id.iv_carousel_detail_toko);
-//        imageView_carousel.setImageResource(images[position]);
 
         Picasso.get().load(urlList.get(position)).fit().into((ImageView) view.findViewById(R.id.iv_carousel_detail_toko));
 

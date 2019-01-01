@@ -17,7 +17,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <LinearLayout
         android:id="@+id/layout_input_login"
         android:layout_width="match_parent"
@@ -89,8 +88,7 @@
             android:text="Lupa Kata Sandi?"
             android:textAllCaps="false"
             android:textColor="@color/colorTracki"
-            android:textSize="15dp"
-            android:visibility="invisible"/>
+            android:textSize="15dp"/>
 
         <Button
             android:id="@+id/btn_masuk_login"
@@ -131,27 +129,6 @@
         app:layout_constraintTop_toBottomOf="@id/garisLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <!--<com.google.android.gms.common.SignInButton-->
-        <!--android:layout_width="306dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent"-->
-        <!--app:layout_constraintVertical_bias="0.79"-->
-        <!--android:layout_marginTop="50dp">-->
-
-    <!--</com.google.android.gms.common.SignInButton>-->
-
-    <!--<com.facebook.login.widget.LoginButton-->
-    <!--android:layout_width="306dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--app:layout_constraintEnd_toEndOf="parent"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintTop_toTopOf="parent"-->
-    <!--app:layout_constraintVertical_bias="0.88"/>-->
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_login"

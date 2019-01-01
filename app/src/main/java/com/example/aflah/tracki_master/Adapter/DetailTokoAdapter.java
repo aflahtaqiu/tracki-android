@@ -35,16 +35,13 @@ public class DetailTokoAdapter extends RecyclerView.Adapter<DetailTokoAdapter.My
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_detail_toko, parent, false);
         MyViewHolder myViewHolder = new MyViewHolder(view);
-
         return myViewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-
         holder.namaToko.setText(store.getName());
         holder.tipeToko.setText(store.getStore_type().getName());
         holder.lokasiToko.setText(store.getLocation());
@@ -52,7 +49,6 @@ public class DetailTokoAdapter extends RecyclerView.Adapter<DetailTokoAdapter.My
         holder.jamTutupToko.setText(store.getClose());
         holder.noTelpToko.setText(store.getPhone());
         holder.ratingBarToko.setRating((float) store.getRating());
-
         holder.btnReview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,7 +61,6 @@ public class DetailTokoAdapter extends RecyclerView.Adapter<DetailTokoAdapter.My
                 }
             }
         });
-
         holder.noTelpToko.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,7 +69,6 @@ public class DetailTokoAdapter extends RecyclerView.Adapter<DetailTokoAdapter.My
                 context.startActivity(intent);
             }
         });
-
         Picasso.get().load(store.getLogo()).into(holder.img_toko_detailToko);
     }
 
@@ -84,7 +78,6 @@ public class DetailTokoAdapter extends RecyclerView.Adapter<DetailTokoAdapter.My
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-
         TextView namaToko, tipeToko, lokasiToko, jamBukaToko, jamTutupToko, noTelpToko;
         CircleImageView img_toko_detailToko;
         Button btnReview;

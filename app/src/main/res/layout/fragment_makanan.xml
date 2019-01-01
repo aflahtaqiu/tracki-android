@@ -5,7 +5,6 @@
     android:layout_height="match_parent"
     tools:context=".View.MakananFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerview_makanan"
         android:layout_width="match_parent"

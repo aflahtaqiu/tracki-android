@@ -3,9 +3,6 @@ package com.example.aflah.tracki_master.Model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by Ennobel on 11/16/2018.
- */
 
 public class SearchName {
     @SerializedName("id")

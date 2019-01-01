@@ -26,7 +26,7 @@ import android.widget.TextView;
 import com.example.aflah.tracki_master.View.AboutTrackiActivity;
 import com.example.aflah.tracki_master.Adapter.ListSavePromoAdapter;
 import com.example.aflah.tracki_master.Auth.LoginActivity;
-import com.example.aflah.tracki_master.EditProfilActivity;
+import com.example.aflah.tracki_master.View.EditProfilActivity;
 import com.example.aflah.tracki_master.Model.Promotion;
 import com.example.aflah.tracki_master.Model.Response.ResponseLogout;
 import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
@@ -215,13 +215,10 @@ public class AccountFragment extends Fragment {
         picCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-//                startActivityForResult(intent, CAMERA);
                 if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.CAMERA)
                         == PackageManager.PERMISSION_DENIED){
                     ActivityCompat.requestPermissions(getActivity(), new String[] {android.Manifest.permission.CAMERA}, 70);
                 }
-
                 Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
                     startActivityForResult(takePictureIntent, CAMERA);

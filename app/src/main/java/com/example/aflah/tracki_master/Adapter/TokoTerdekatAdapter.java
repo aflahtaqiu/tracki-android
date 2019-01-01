@@ -39,7 +39,6 @@ public class TokoTerdekatAdapter extends RecyclerView.Adapter<TokoTerdekatAdapte
 
         View view = LayoutInflater.from(context).inflate(R.layout.item_toko_terdekat, parent, false);
         MyViewHolder myViewHolder = new MyViewHolder(view);
-
         return myViewHolder;
     }
 
@@ -58,7 +57,6 @@ public class TokoTerdekatAdapter extends RecyclerView.Adapter<TokoTerdekatAdapte
         });
 
         holder.ratingBar_tokoTerdekat.setRating((float)storeList.get(position).getRating());
-
         Picasso.get().load(storeList.get(position).getLogo()).into(holder.img_tokoTerdekat);
     }
 

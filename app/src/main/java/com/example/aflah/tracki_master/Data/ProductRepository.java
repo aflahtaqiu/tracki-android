@@ -2,7 +2,7 @@ package com.example.aflah.tracki_master.Data;
 
 import com.example.aflah.tracki_master.Data.remote.ProductRemoteDataSource;
 import com.example.aflah.tracki_master.Model.Product;
-import com.example.aflah.tracki_master.Model.ResponseProductById;
+import com.example.aflah.tracki_master.Model.Response.ResponseProductById;
 
 import java.util.List;
 
@@ -55,6 +55,21 @@ public class ProductRepository implements ProductSource {
             @Override
             public void onFailure(String errMsg) {
                 getMinumanCallback.onFailure(errMsg);
+            }
+        });
+    }
+
+    @Override
+    public void getSearchList(String keyword, GetSearhList getSearhList) {
+        productRemoteDataSource.getSearchList(keyword, new GetSearhList() {
+            @Override
+            public void onSuccess(List<Product> listProduct) {
+                getSearhList.onSuccess(listProduct);
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+
             }
         });
     }

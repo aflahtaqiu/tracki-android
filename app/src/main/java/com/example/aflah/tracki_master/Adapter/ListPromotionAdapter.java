@@ -59,7 +59,6 @@ public class ListPromotionAdapter extends RecyclerView.Adapter<ListPromotionAdap
         }
 
         Picasso.get().load(promotionList.get(position).getBanner()).into(holder.gambarPromo);
-
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

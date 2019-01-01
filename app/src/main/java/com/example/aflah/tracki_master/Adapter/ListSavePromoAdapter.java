@@ -83,7 +83,6 @@ public class ListSavePromoAdapter extends RecyclerView.Adapter<ListSavePromoAdap
                         .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sweetAlertDialog) {
-
                                 ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
                                 Call<ResponseDeletePromo> deletePromoCall = apiRequest.deletePromo(userToken, promotions.get(position).getId());
                                 deletePromoCall.enqueue(new Callback<ResponseDeletePromo>() {
@@ -116,8 +115,6 @@ public class ListSavePromoAdapter extends RecyclerView.Adapter<ListSavePromoAdap
 
                                     }
                                 });
-
-                                //sweetAlertDialog.dismissWithAnimation();
 
                                 sweetAlertDialog
                                         .setTitleText("Promo dihapus")

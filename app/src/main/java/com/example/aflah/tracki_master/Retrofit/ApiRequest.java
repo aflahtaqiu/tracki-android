@@ -1,19 +1,13 @@
 package com.example.aflah.tracki_master.Retrofit;
 
-import com.example.aflah.tracki_master.Model.Advertisements;
 import com.example.aflah.tracki_master.Model.Response.ResponseDeletePromo;
-import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
 import com.example.aflah.tracki_master.Model.Response.ResponseLogin;
 import com.example.aflah.tracki_master.Model.Response.ResponseLogout;
-import com.example.aflah.tracki_master.Model.Response.ResponseRedeemPromotion;
-import com.example.aflah.tracki_master.Model.Response.ResponsePromotionById;
 import com.example.aflah.tracki_master.Model.Response.ResponseRegister;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameProduct;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameStore;
-import com.example.aflah.tracki_master.Model.Response.ResponseSearchProduct;
 import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
 import com.example.aflah.tracki_master.Model.Response.ResponseTokoByUID;
-import com.example.aflah.tracki_master.Model.ResponseProductById;
 
 import java.util.Date;
 
@@ -26,11 +20,9 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
-import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 public interface ApiRequest {
 
@@ -39,28 +31,8 @@ public interface ApiRequest {
         @Path("numberUID") int numberUID
     );
 
-    @GET("store/{id}")
-    Call<ResponseDetailToko> getStoreByID(
-            @Path("id") int id
-    );
-
     @GET("user/{id}")
     Call<ResponseUserById> getSavedPromo(
-            @Path("id") int id
-    );
-
-    @GET("search-product")
-    Call<ResponseSearchProduct> getProductList(@Query("name") String name);
-
-    @GET("search-store")
-    Call<ResponseTokoByUID> getStore(@Query("name") String name);
-
-    @GET("advertisement")
-    Call<Advertisements> getAdvertisements();
-
-    @GET("promotion/{id}")
-    Call<ResponsePromotionById> getPromotionById(
-            @Header("Authorization") String token,
             @Path("id") int id
     );
 
@@ -75,11 +47,6 @@ public interface ApiRequest {
 
     @GET("all-products")
     Call<ResponseSearchNameProduct> getSearchNamesProduct();
-
-    @GET("product/{id}")
-    Call<ResponseProductById> getProductById(
-            @Path("id") int id
-    );
 
     @FormUrlEncoded
     @POST("user/register")
@@ -96,26 +63,10 @@ public interface ApiRequest {
     );
 
     @FormUrlEncoded
-    @POST("redeem")
-    Call<ResponseRedeemPromotion> getRedeemData (
-            @Header("Authorization") String token,
-            @Field("promotion_id") int promotion_id
-    );
-
-    @FormUrlEncoded
     @POST("user/login")
     Call<ResponseLogin> sendLogin(
             @Field("email") String email,
             @Field("password") String password
-    );
-
-    @FormUrlEncoded
-    @PATCH("user/{id}")
-    Call<ResponseUserById> updateProfile(
-            @Path("id") int idUser,
-            @Header("Authorization") String token,
-            @Field("name") String name,
-            @Field("date_of_birth") Date dateOfBirth
     );
 
     @Multipart
