@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_account"
-    tools:context=".NavbarFragment.AccountFragment">
+    tools:context=".View.AccountFragment">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_account"

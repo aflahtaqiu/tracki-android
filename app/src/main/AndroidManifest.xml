@@ -43,7 +43,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NavigationActivity"
+            android:name=".View.NavigationActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:permission="android.permission.BLUETOOTH"
             android:windowSoftInputMode="adjustNothing"

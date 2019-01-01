@@ -1,4 +1,4 @@
-package com.example.aflah.tracki_master.NavbarFragment;
+package com.example.aflah.tracki_master.View;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -23,16 +23,11 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.example.aflah.tracki_master.Adapter.TokoTerdekatAdapter;
-import com.example.aflah.tracki_master.View.DetailMenuActivity;
-import com.example.aflah.tracki_master.View.HasilSearchProductActivity;
-import com.example.aflah.tracki_master.View.HasilSearchStoreActivity;
-import com.example.aflah.tracki_master.View.TokoActivity;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameProduct;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameStore;
 import com.example.aflah.tracki_master.Model.Response.ResponseTokoByUID;
 import com.example.aflah.tracki_master.Model.SearchName;
 import com.example.aflah.tracki_master.Model.Store;
-import com.example.aflah.tracki_master.NavigationActivity;
 import com.example.aflah.tracki_master.R;
 import com.example.aflah.tracki_master.Retrofit.ApiRequest;
 import com.example.aflah.tracki_master.Retrofit.RetroServer;

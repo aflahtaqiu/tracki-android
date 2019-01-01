@@ -1,4 +1,4 @@
-package com.example.aflah.tracki_master.NavbarFragment;
+package com.example.aflah.tracki_master.View;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -23,17 +23,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.aflah.tracki_master.View.AboutTrackiActivity;
 import com.example.aflah.tracki_master.Adapter.ListSavePromoAdapter;
-import com.example.aflah.tracki_master.View.LoginActivity;
-import com.example.aflah.tracki_master.View.EditProfilActivity;
 import com.example.aflah.tracki_master.Model.Promotion;
 import com.example.aflah.tracki_master.Model.Response.ResponseLogout;
 import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
 import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.Model.User;
 import com.example.aflah.tracki_master.Model.UserLogin;
-import com.example.aflah.tracki_master.NavigationActivity;
 import com.example.aflah.tracki_master.R;
 import com.example.aflah.tracki_master.Retrofit.ApiRequest;
 import com.example.aflah.tracki_master.Retrofit.RetroServer;

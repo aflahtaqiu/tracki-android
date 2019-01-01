@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 
+import com.example.aflah.tracki_master.View.NavigationActivity;
 import com.eyro.cubeacon.Cubeacon;
 import com.eyro.cubeacon.LogLevel;
 import com.eyro.cubeacon.Logger;

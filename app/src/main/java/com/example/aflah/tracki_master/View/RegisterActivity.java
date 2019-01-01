@@ -13,10 +13,8 @@ import android.widget.TextView;
 
 import com.example.aflah.tracki_master.Contract.RegisterContract;
 import com.example.aflah.tracki_master.Presenter.RegisterPresenter;
-import com.example.aflah.tracki_master.DateDialog;
 import com.example.aflah.tracki_master.Injection;
 import com.example.aflah.tracki_master.Model.UserLogin;
-import com.example.aflah.tracki_master.NavigationActivity;
 import com.example.aflah.tracki_master.R;
 import com.google.gson.Gson;
 

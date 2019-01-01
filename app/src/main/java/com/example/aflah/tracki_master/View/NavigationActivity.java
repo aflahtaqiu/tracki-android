@@ -1,4 +1,4 @@
-package com.example.aflah.tracki_master;
+package com.example.aflah.tracki_master.View;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,11 +16,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
 
-import com.example.aflah.tracki_master.View.LoginActivity;
+import com.example.aflah.tracki_master.R;
 import com.example.aflah.tracki_master.Model.UserLogin;
-import com.example.aflah.tracki_master.NavbarFragment.AccountFragment;
-import com.example.aflah.tracki_master.NavbarFragment.HomeFragment;
-import com.example.aflah.tracki_master.View.PromoFragment;
 import com.eyro.cubeacon.CBBeacon;
 import com.eyro.cubeacon.CBRangingListener;
 import com.eyro.cubeacon.CBRegion;

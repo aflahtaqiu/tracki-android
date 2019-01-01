@@ -16,7 +16,6 @@ import com.example.aflah.tracki_master.Contract.LoginContract;
 import com.example.aflah.tracki_master.Presenter.LoginPresenter;
 import com.example.aflah.tracki_master.Injection;
 import com.example.aflah.tracki_master.Model.UserLogin;
-import com.example.aflah.tracki_master.NavigationActivity;
 import com.example.aflah.tracki_master.R;
 
 import com.google.gson.Gson;
