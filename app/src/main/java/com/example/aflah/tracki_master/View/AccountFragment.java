@@ -287,7 +287,6 @@ public class AccountFragment extends Fragment {
                     public void onFailure(Call<ResponseUserById> call, Throwable t) {
                     }
                 });
-
             } catch (Exception e) { }
         }
     }
