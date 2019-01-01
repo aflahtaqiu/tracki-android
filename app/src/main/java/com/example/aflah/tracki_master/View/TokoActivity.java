@@ -1,6 +1,7 @@
 package com.example.aflah.tracki_master.View;
 
 import android.net.Uri;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -29,7 +30,7 @@ public class TokoActivity extends AppCompatActivity implements DetailTokoFragmen
     private DetailTokoViewPagerAdapter detailTokoViewPagerAdapter;
 
     ViewPager viewPager_CarouselDetailToko;
-    LinearLayout linearLayout;
+    ConstraintLayout constraintLayout;
     private CarouselDetailTokoAdapter carouselDetailTokoAdapter;
     List<String> urlImageList = new ArrayList<>();
 
@@ -41,7 +42,7 @@ public class TokoActivity extends AppCompatActivity implements DetailTokoFragmen
         setContentView(R.layout.activity_detail_toko);
 
         initViews();
-        linearLayout.setVisibility(View.GONE);
+        constraintLayout.setVisibility(View.GONE);
 
         int idToko = getIntent().getExtras().getInt("idTokoTerdekat");
 
@@ -57,7 +58,7 @@ public class TokoActivity extends AppCompatActivity implements DetailTokoFragmen
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new TimeCarousel(), 4000, 4000);
-        linearLayout.setVisibility(View.VISIBLE);
+        constraintLayout.setVisibility(View.VISIBLE);
     }
 
     private void initCarouselAdapter() {
@@ -66,7 +67,7 @@ public class TokoActivity extends AppCompatActivity implements DetailTokoFragmen
     }
 
     private void initViews() {
-        linearLayout = (LinearLayout) findViewById(R.id.linearLayout_detailToko);
+        constraintLayout = (ConstraintLayout) findViewById(R.id.constraint_detailToko);
         tabLayout = (TabLayout) findViewById(R.id.tablayout_detailtoko);
         viewPager = (ViewPager) findViewById(R.id.viewpager_detailtoko);
         viewPager_CarouselDetailToko = (ViewPager) findViewById(R.id.viewPager_carousel_detailToko);
