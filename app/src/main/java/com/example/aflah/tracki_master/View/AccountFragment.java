@@ -24,6 +24,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.aflah.tracki_master.Adapter.ListSavePromoAdapter;
+import com.example.aflah.tracki_master.Data.remote.API.ApiClient;
+import com.example.aflah.tracki_master.Data.remote.API.ApiInterface;
 import com.example.aflah.tracki_master.Model.Promotion;
 import com.example.aflah.tracki_master.Model.Response.ResponseLogout;
 import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
@@ -31,8 +33,6 @@ import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.Model.User;
 import com.example.aflah.tracki_master.Model.UserLogin;
 import com.example.aflah.tracki_master.R;
-import com.example.aflah.tracki_master.Retrofit.ApiRequest;
-import com.example.aflah.tracki_master.Retrofit.RetroServer;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
@@ -74,11 +74,6 @@ public class AccountFragment extends Fragment {
     public AccountFragment() {
     }
 
-    public static AccountFragment newInstance(String param1, String param2) {
-        AccountFragment fragment = new AccountFragment();
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,8 +109,8 @@ public class AccountFragment extends Fragment {
         stores = new ArrayList<>();
         promotions = new ArrayList<>();
 
-        ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
-        Call<ResponseUserById> getSavedPromo = apiRequest.getSavedPromo(userLogin.getId());
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        Call<ResponseUserById> getSavedPromo = apiInterface.getSavedPromo(userLogin.getId());
         getSavedPromo.enqueue(new Callback<ResponseUserById>() {
             @Override
             public void onResponse(Call<ResponseUserById> call, Response<ResponseUserById> response) {
@@ -164,8 +159,8 @@ public class AccountFragment extends Fragment {
                 editor.putString("userLogin", "");
                 editor.apply();
                 editor.commit();
-                ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
-                Call<ResponseLogout> responseLogoutCall = apiRequest.sendLogout();
+                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                Call<ResponseLogout> responseLogoutCall = apiInterface.sendLogout();
                 responseLogoutCall.enqueue(new Callback<ResponseLogout>() {
                     @Override
                     public void onResponse(Call<ResponseLogout> call, Response<ResponseLogout> response) {
@@ -270,8 +265,8 @@ public class AccountFragment extends Fragment {
 
                 RequestBody requestMethod = RequestBody.create(MultipartBody.FORM,"PUT");
 
-                ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
-                Call<ResponseUserById> updatefoto = apiRequest.updateProfilPicture(userLogin.getId(),userToken,multipartBody,requestMethod);
+                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                Call<ResponseUserById> updatefoto = apiInterface.updateProfilPicture(userLogin.getId(),userToken,multipartBody,requestMethod);
                 updatefoto.enqueue(new Callback<ResponseUserById>() {
                     @Override
                     public void onResponse(Call<ResponseUserById> call, Response<ResponseUserById> response) {

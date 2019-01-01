@@ -12,13 +12,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.aflah.tracki_master.Data.remote.API.ApiClient;
+import com.example.aflah.tracki_master.Data.remote.API.ApiInterface;
 import com.example.aflah.tracki_master.View.DetailPromoActivity;
 import com.example.aflah.tracki_master.Model.Promotion;
 import com.example.aflah.tracki_master.Model.Response.ResponseDeletePromo;
 import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
 import com.example.aflah.tracki_master.R;
-import com.example.aflah.tracki_master.Retrofit.ApiRequest;
-import com.example.aflah.tracki_master.Retrofit.RetroServer;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -83,13 +83,13 @@ public class ListSavePromoAdapter extends RecyclerView.Adapter<ListSavePromoAdap
                         .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
-                                Call<ResponseDeletePromo> deletePromoCall = apiRequest.deletePromo(userToken, promotions.get(position).getId());
+                                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                                Call<ResponseDeletePromo> deletePromoCall = apiInterface.deletePromo(userToken, promotions.get(position).getId());
                                 deletePromoCall.enqueue(new Callback<ResponseDeletePromo>() {
                                     @Override
                                     public void onResponse(Call<ResponseDeletePromo> call, Response<ResponseDeletePromo> response) {
 
-                                        Call<ResponseUserById> getSavedPromo = apiRequest.getSavedPromo(promotions.get(position).getPivot().getUser_id());
+                                        Call<ResponseUserById> getSavedPromo = apiInterface.getSavedPromo(promotions.get(position).getPivot().getUser_id());
                                         getSavedPromo.enqueue(new Callback<ResponseUserById>() {
                                             @Override
                                             public void onResponse(Call<ResponseUserById> call, Response<ResponseUserById> response) {

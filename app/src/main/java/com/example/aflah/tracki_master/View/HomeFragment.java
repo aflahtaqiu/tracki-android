@@ -23,14 +23,14 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.example.aflah.tracki_master.Adapter.TokoTerdekatAdapter;
+import com.example.aflah.tracki_master.Data.remote.API.ApiClient;
+import com.example.aflah.tracki_master.Data.remote.API.ApiInterface;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameProduct;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameStore;
 import com.example.aflah.tracki_master.Model.Response.ResponseTokoByUID;
 import com.example.aflah.tracki_master.Model.SearchName;
 import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.R;
-import com.example.aflah.tracki_master.Retrofit.ApiRequest;
-import com.example.aflah.tracki_master.Retrofit.RetroServer;
 import com.eyro.cubeacon.CBBeacon;
 
 import java.util.ArrayList;
@@ -93,11 +93,11 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
         autoCompleteTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
+                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
                 if (flagSearch == 0){
                     Call<ResponseSearchNameStore> getNama;
-                    getNama = apiRequest.getSearchNamesStore();
+                    getNama = apiInterface.getSearchNamesStore();
                     getNama.enqueue(new Callback<ResponseSearchNameStore>() {
                         @Override
                         public void onResponse(Call<ResponseSearchNameStore> call, Response<ResponseSearchNameStore> response) {
@@ -143,7 +143,7 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                     });
                 }else {
                     Call<ResponseSearchNameProduct> getNama;
-                    getNama = apiRequest.getSearchNamesProduct();
+                    getNama = apiInterface.getSearchNamesProduct();
                     getNama.enqueue(new Callback<ResponseSearchNameProduct>() {
                         @Override
                         public void onResponse(Call<ResponseSearchNameProduct> call, Response<ResponseSearchNameProduct> response) {
@@ -264,12 +264,12 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                 @Override
                 public void run() {
 
-                    ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
+                    ApiInterface apiInter = ApiClient.getClient().create(ApiInterface.class);
 
                     if (cbBeacons.size() != 0){
                         for (int i = 0 ;i<cbBeacons.size(); i++ ){
                             final int tole = i;
-                            Call<ResponseTokoByUID> getData = apiRequest.getStoreByUID(beacons.get(i).getMajor());
+                            Call<ResponseTokoByUID> getData = apiInter.getStoreByUID(beacons.get(i).getMajor());
                             getData.enqueue(new Callback<ResponseTokoByUID>() {
                                 @Override
                                 public void onResponse(Call<ResponseTokoByUID> call, Response<ResponseTokoByUID> response) {
