@@ -1,9 +1,10 @@
-package com.example.aflah.tracki_master.Auth;
+package com.example.aflah.tracki_master.View;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -11,31 +12,28 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.aflah.tracki_master.View.ForgotPasswordActivity;
-import com.example.aflah.tracki_master.Model.Response.ResponseLogin;
+import com.example.aflah.tracki_master.Contract.LoginContract;
+import com.example.aflah.tracki_master.Presenter.LoginPresenter;
+import com.example.aflah.tracki_master.Injection;
 import com.example.aflah.tracki_master.Model.UserLogin;
 import com.example.aflah.tracki_master.NavigationActivity;
 import com.example.aflah.tracki_master.R;
-import com.example.aflah.tracki_master.Retrofit.ApiRequest;
-import com.example.aflah.tracki_master.Retrofit.RetroServer;
 
-import com.example.aflah.tracki_master.View.RegisterActivity;
 import com.google.gson.Gson;
 
-import org.json.JSONObject;
-
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import me.omidh.ripplevalidatoredittext.RVEValidatorFactory;
 import me.omidh.ripplevalidatoredittext.RVEValidatorType;
 import me.omidh.ripplevalidatoredittext.RippleValidatorEditText;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
-public class LoginActivity extends Activity implements View.OnClickListener, ILogin {
+public class LoginActivity extends Activity implements View.OnClickListener, LoginContract.view {
 
     Button btnLogin, btnMasukTamu;
     TextView tvDaftar, tvLupaPassword;
     RippleValidatorEditText etEmail, etPassword;
+    SweetAlertDialog sweetAlertDialog;
+
+    LoginPresenter presenter = new LoginPresenter(Injection.provideUserRepository(), this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,12 +81,11 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
                 finish();
                 break;
             case R.id.btn_masuk_login:
-                if (cekValidasi()){
-                    loginEmailPassword(etEmail.getText().toString(), etPassword.getText().toString());
-                }
+                presenter.loginUser(etEmail.getText().toString(), etPassword.getText().toString());
+
                 break;
             case R.id.btn_masukTamu_login:
-                loginSebagaiTamu();
+                presenter.loginAsGuest();
                 startActivity(new Intent(LoginActivity.this, NavigationActivity.class));
                 finish();
                 break;
@@ -96,65 +93,6 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
                 startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
                 break;
         }
-    }
-
-    @Override
-    public void loginEmailPassword(String email, String password) {
-        ApiRequest apiRequest = RetroServer.getClient().create(ApiRequest.class);
-        Call<ResponseLogin> loginUser = apiRequest.sendLogin(email, password);
-        loginUser.enqueue(new Callback<ResponseLogin>() {
-            @Override
-            public void onResponse(Call<ResponseLogin> call, Response<ResponseLogin> response) {
-                if (response.code() == 200){
-                    UserLogin userLogin = response.body().getUserLogin();
-                    String token = response.body().getAccessToken();
-                    Gson gson = new Gson();
-                    String json = gson.toJson(userLogin);
-                    SharedPreferences.Editor editor = getSharedPreferences("login", Context.MODE_PRIVATE).edit();
-                    editor.putString("tokenLogin","Bearer "+ token);
-                    editor.putString("userLogin", json);
-                    editor.apply();
-                    editor.commit();
-                    startActivity(new Intent(LoginActivity.this, NavigationActivity.class));
-                    finish();
-                } else{
-                    try {
-                        JSONObject jsonObject = new JSONObject(response.errorBody().string());
-                        if (jsonObject.getString("message").equals("email")){
-                            etEmail.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EQUAL,"Email Anda belum terdaftar", etEmail.getText().toString()+"1"), false);
-                            etEmail.getEditText().setText("");
-                        } else if (jsonObject.getString("message").equals("password")){
-                            etPassword.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EQUAL, "Password Anda salah", etPassword.getText().toString()+ " "), false);
-                            etPassword.getEditText().setText("");
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseLogin> call, Throwable t) {
-            }
-        });
-    }
-
-    @Override
-    public void loginSebagaiTamu() {
-        SharedPreferences.Editor editor = getSharedPreferences("login", Context.MODE_PRIVATE).edit();
-        editor.putString("tokenLogin", "");
-        editor.putString("userLogin", "");
-        editor.apply();
-        editor.commit();
-    }
-
-    @Override
-    public boolean cekValidasi() {
-        if (etEmail.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EMPTY, "Email harus diisi", null), false) &&
-                etEmail.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EMAIL, "ex: john@doe.com", null),false) &&
-                etPassword.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EMPTY, "Anda harus mengisi password", null),false)){
-            return true;
-        } else return false;
     }
 
     protected void onNewIntent(Intent intent) {
@@ -171,5 +109,77 @@ public class LoginActivity extends Activity implements View.OnClickListener, ILo
                     .appendPath(recipeId).build();
             Toast.makeText(LoginActivity.this, "appData : " + appData, Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public void showProgress() {
+        sweetAlertDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+        sweetAlertDialog.getProgressHelper().setBarColor(Color.parseColor("#B40037"));
+        sweetAlertDialog.getProgressHelper().setRimColor(Color.parseColor("#B40037"));
+        sweetAlertDialog.setTitleText("Loading");
+        sweetAlertDialog.setCancelable(false);
+        sweetAlertDialog.setCanceledOnTouchOutside(true);
+        sweetAlertDialog.show();
+    }
+
+    @Override
+    public void hideProgress() {
+        sweetAlertDialog.dismiss();
+    }
+
+    @Override
+    public void showError(String errMsg) {
+        Toast.makeText(this, "Ada error : "+ errMsg, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void showFailure(int code, String pesan) {
+        if (code == 1){
+              etEmail.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EQUAL,"Email Anda belum terdaftar", etEmail.getText().toString()+"1"), false);
+              etEmail.getEditText().setText("");
+              etPassword.getEditText().setText("");
+        } else if (code == 2){
+              etPassword.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EQUAL, "Password Anda salah", etPassword.getText().toString()+ " "), false);
+              etPassword.getEditText().setText("");
+        }
+        sweetAlertDialog
+                .setTitleText("Login User")
+                .setContentText(pesan)
+                .setConfirmText("OK")
+                .showCancelButton(false)
+                .setConfirmClickListener(null)
+                .changeAlertType(SweetAlertDialog.ERROR_TYPE);
+        sweetAlertDialog.show();
+    }
+
+    @Override
+    public void changeActivity(UserLogin userLogin, String token) {
+        Gson gson = new Gson();
+        String json = gson.toJson(userLogin);
+        SharedPreferences.Editor editor = getSharedPreferences("login", Context.MODE_PRIVATE).edit();
+        editor.putString("tokenLogin","Bearer "+ token);
+        editor.putString("userLogin", json);
+        editor.apply();
+        editor.commit();
+        startActivity(new Intent(LoginActivity.this, NavigationActivity.class));
+        finish();
+    }
+
+    @Override
+    public void loginAsGues() {
+        SharedPreferences.Editor editor = getSharedPreferences("login", Context.MODE_PRIVATE).edit();
+        editor.putString("tokenLogin", "");
+        editor.putString("userLogin", "");
+        editor.apply();
+        editor.commit();
+    }
+
+    @Override
+    public boolean checkInput() {
+        if (etEmail.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EMPTY, "Email harus diisi", null), false) &&
+                etEmail.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EMAIL, "ex: john@doe.com", null),false) &&
+                etPassword.validateWith(RVEValidatorFactory.getValidator(RVEValidatorType.EMPTY, "Anda harus mengisi password", null),false)){
+            return true;
+        } else return false;
     }
 }

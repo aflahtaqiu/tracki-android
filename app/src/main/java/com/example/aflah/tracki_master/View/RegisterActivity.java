@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.aflah.tracki_master.Auth.LoginActivity;
 import com.example.aflah.tracki_master.Contract.RegisterContract;
 import com.example.aflah.tracki_master.Presenter.RegisterPresenter;
 import com.example.aflah.tracki_master.DateDialog;
@@ -150,7 +149,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void showFail(String pesan) {
         sweetAlertDialog
-                .setTitleText("Reset Password")
+                .setTitleText("Register User")
                 .setContentText(pesan)
                 .setConfirmText("OK")
                 .showCancelButton(false)

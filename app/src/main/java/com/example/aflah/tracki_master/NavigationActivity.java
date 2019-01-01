@@ -16,7 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
 
-import com.example.aflah.tracki_master.Auth.LoginActivity;
+import com.example.aflah.tracki_master.View.LoginActivity;
 import com.example.aflah.tracki_master.Model.UserLogin;
 import com.example.aflah.tracki_master.NavbarFragment.AccountFragment;
 import com.example.aflah.tracki_master.NavbarFragment.HomeFragment;

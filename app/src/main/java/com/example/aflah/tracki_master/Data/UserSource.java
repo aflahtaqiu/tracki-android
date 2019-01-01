@@ -35,7 +35,7 @@ public interface UserSource {
     }
 
     interface LoginUserCallback {
-        void onSuccess(UserLogin userLogin, String token, String pesan);
+        void onSuccess(UserLogin userLogin, String token, String pesan, int code);
         void onFailure(String errMsg);
     }
 }

@@ -79,8 +79,8 @@ public class UserRepository implements UserSource {
     public void loginUser(String email, String password, LoginUserCallback callback) {
         userRemoteDataSource.loginUser(email, password, new LoginUserCallback() {
             @Override
-            public void onSuccess(UserLogin userLogin, String token, String pesan) {
-                callback.onSuccess(userLogin, token, pesan);
+            public void onSuccess(UserLogin userLogin, String token, String pesan, int code) {
+                callback.onSuccess(userLogin, token, pesan, code);
             }
 
             @Override

@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.example.aflah.tracki_master.Auth.LoginActivity;
+import com.example.aflah.tracki_master.View.LoginActivity;
 import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.R;
 import com.example.aflah.tracki_master.View.ReviewTokoActivity;

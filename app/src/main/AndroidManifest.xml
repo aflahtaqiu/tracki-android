@@ -93,7 +93,7 @@
             android:name=".View.HasilSearchProductActivity"
             android:theme="@style/ThemeNobar" />
         <activity
-            android:name=".Auth.LoginActivity"
+            android:name=".View.LoginActivity"
             android:launchMode="singleTop"
             android:theme="@style/ThemeNobar">
             <intent-filter android:autoVerify="false">

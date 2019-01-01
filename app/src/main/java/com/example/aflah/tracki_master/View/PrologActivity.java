@@ -18,7 +18,6 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.aflah.tracki_master.Auth.LoginActivity;
 import com.example.aflah.tracki_master.PreferenceManager;
 import com.example.aflah.tracki_master.R;
 

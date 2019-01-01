@@ -100,12 +100,13 @@ public class UserRemoteDataSource implements UserSource {
         call.enqueue(new Callback<ResponseLogin>() {
             @Override
             public void onResponse(Call<ResponseLogin> call, Response<ResponseLogin> response) {
-                if (response.code() == 200){
-                    callback.onSuccess(response.body().getUserLogin(), response.body().getAccessToken(), response.body().getMessage());
+                if (response.code() == 201){
+                    response.toString();
+                    callback.onSuccess(response.body().getUserLogin(), response.body().getAccessToken(), response.body().getMessage(), response.code());
                 }
                 else {
                     try {
-                        callback.onSuccess(null, null, response.errorBody().string());
+                        callback.onSuccess(null, null, response.errorBody().string(), response.code());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
