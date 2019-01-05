@@ -110,7 +110,7 @@ public class AccountFragment extends Fragment {
         promotions = new ArrayList<>();
 
         ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<ResponseUserById> getSavedPromo = apiInterface.getSavedPromo(userLogin.getId());
+        Call<ResponseUserById> getSavedPromo = apiInterface.getUserById(userLogin.getId());
         getSavedPromo.enqueue(new Callback<ResponseUserById>() {
             @Override
             public void onResponse(Call<ResponseUserById> call, Response<ResponseUserById> response) {
@@ -136,10 +136,8 @@ public class AccountFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-
         inflater.inflate(R.menu.menu_setting, menu);
         super.onCreateOptionsMenu(menu, inflater);
-
     }
 
     @Override
