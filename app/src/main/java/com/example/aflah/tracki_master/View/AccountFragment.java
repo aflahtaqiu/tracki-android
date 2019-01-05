@@ -42,6 +42,7 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -69,7 +70,6 @@ public class AccountFragment extends Fragment {
     Toolbar toolbarAccount;
     Uri selectedImage;
     private int GALLERY = 1, CAMERA = 2;
-
 
     public AccountFragment() {
     }
@@ -156,21 +156,37 @@ public class AccountFragment extends Fragment {
                 editor.putString("userLogin", "");
                 editor.apply();
                 editor.commit();
-                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-                Call<ResponseLogout> responseLogoutCall = apiInterface.sendLogout();
-                responseLogoutCall.enqueue(new Callback<ResponseLogout>() {
-                    @Override
-                    public void onResponse(Call<ResponseLogout> call, Response<ResponseLogout> response) {
+                SweetAlertDialog confirmDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("Log Out")
+                        .setContentText("Apakah Anda yakin untuk log out?")
+                        .setConfirmText("Ya")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+                                Call<ResponseLogout> responseLogoutCall = apiInterface.sendLogout();
+                                responseLogoutCall.enqueue(new Callback<ResponseLogout>() {
+                                    @Override
+                                    public void onResponse(Call<ResponseLogout> call, Response<ResponseLogout> response) {
 
-                    }
+                                    }
 
-                    @Override
-                    public void onFailure(Call<ResponseLogout> call, Throwable t) {
+                                    @Override
+                                    public void onFailure(Call<ResponseLogout> call, Throwable t) {
 
-                    }
-                });
-                startActivity(new Intent(getContext(), LoginActivity.class));
-                getActivity().finish();
+                                    }
+                                });
+                                startActivity(new Intent(getContext(), LoginActivity.class));
+                                getActivity().finish();
+                            }
+                        })
+                        .setCancelButton("Tidak", new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                sweetAlertDialog.dismissWithAnimation();
+                            }
+                        });
+                confirmDialog.show();
                 break;
             case R.id.btn_edit:
                 getActivity().startActivity(new Intent(getActivity(), EditProfilActivity.class));
