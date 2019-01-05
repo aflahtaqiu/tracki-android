@@ -89,4 +89,19 @@ public class UserRepository implements UserSource {
             }
         });
     }
+
+    @Override
+    public void logoutUser(LogoutCallback callback) {
+        userRemoteDataSource.logoutUser(new LogoutCallback() {
+            @Override
+            public void onSuccess(String successMsg) {
+                callback.onSuccess(successMsg);
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+                callback.onFailure(errMsg);
+            }
+        });
+    }
 }

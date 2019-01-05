@@ -13,6 +13,7 @@ public interface UserSource {
     void resetUserPassword(String email, ResetUserPasswordCallback callback);
     void registerUser(String nama, String email, Date dateOfBirth, String password, String confirmPassword, RegisterUserCallback callback);
     void loginUser(String email, String password, LoginUserCallback callback);
+    void logoutUser(LogoutCallback callback);
 
     interface UpdateProfileCallback {
         void onSuccess(ResponseUserById responseUserById);
@@ -36,6 +37,11 @@ public interface UserSource {
 
     interface LoginUserCallback {
         void onSuccess(UserLogin userLogin, String token, String pesan, int code);
+        void onFailure(String errMsg);
+    }
+
+    interface LogoutCallback {
+        void onSuccess(String successMsg);
         void onFailure(String errMsg);
     }
 }

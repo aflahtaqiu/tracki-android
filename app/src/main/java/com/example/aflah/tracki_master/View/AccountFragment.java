@@ -88,16 +88,8 @@ public class AccountFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
-        imgAvatar = view.findViewById(R.id.imgProfile);
-        tvUserName = view.findViewById(R.id.tv_userName);
-        tvNoPromo = view.findViewById(R.id.announceNoPromo_accountFragment);
-        toolbarAccount = (Toolbar) view.findViewById(R.id.toolbar_account);
 
-        NavigationActivity navigationActivity = (NavigationActivity) getActivity();
-        navigationActivity.setSupportActionBar(toolbarAccount);
-
-        Picasso.get().load(userLogin.getFoto()).fit().into(imgAvatar);
-        tvUserName.setText(userLogin.getName());
+        initViews(view);
 
         imgAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,6 +124,19 @@ public class AccountFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void initViews(View view) {
+        imgAvatar = view.findViewById(R.id.imgProfile);
+        tvUserName = view.findViewById(R.id.tv_userName);
+        tvNoPromo = view.findViewById(R.id.announceNoPromo_accountFragment);
+        toolbarAccount = (Toolbar) view.findViewById(R.id.toolbar_account);
+
+        NavigationActivity navigationActivity = (NavigationActivity) getActivity();
+        navigationActivity.setSupportActionBar(toolbarAccount);
+
+        Picasso.get().load(userLogin.getFoto()).fit().into(imgAvatar);
+        tvUserName.setText(userLogin.getName());
     }
 
     @Override
@@ -210,7 +215,6 @@ public class AccountFragment extends Fragment {
                 Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 galleryIntent.setType("image/*");
                 startActivityForResult(galleryIntent, GALLERY);
-
             }
         });
 
