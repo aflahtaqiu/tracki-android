@@ -1,0 +1,421 @@
+@startuml
+
+title __CONTRACT's Class Diagram__\n
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface DetailMenuContract {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface presenter {
+          {abstract} + getDetailProduct()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface view {
+          {abstract} + hideProgress()
+          {abstract} + showData()
+          {abstract} + showError()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface DetailPromoContract {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface view {
+          {abstract} + showProgress()
+          {abstract} + hideProgress()
+          {abstract} + showDialogSuccess()
+          {abstract} + hideDialogSuccess()
+          {abstract} + showDialogQRCode()
+          {abstract} + showData()
+          {abstract} + showError()
+          {abstract} + showIsPromoUsed()
+          {abstract} + showIsPromoSaved()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface presenter {
+          {abstract} + getDetailPromo()
+          {abstract} + sendRedeemData()
+          {abstract} + generateQRCode()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface DetailTokoContract {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface presenter {
+          {abstract} + getStoreDetail()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface view {
+          {abstract} + showProgress()
+          {abstract} + hideProgress()
+          {abstract} + showDataList()
+          {abstract} + showError()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface EditProfilContract {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface presenter {
+          {abstract} + updateProfile()
+          {abstract} + getUserById()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface view {
+          {abstract} + showProgress()
+          {abstract} + hideProgress()
+          {abstract} + showError()
+          {abstract} + updateUI()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface ForgotPasswordContract {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface presenter {
+          {abstract} + sendEmail()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface view {
+          {abstract} + showProgress()
+          {abstract} + hideProgress()
+          {abstract} + showSuccess()
+          {abstract} + showFail()
+          {abstract} + showError()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface HasilSearchProductContract {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface presenter {
+          {abstract} + getListProduct()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface view {
+          {abstract} + showDataList()
+          {abstract} + showFailureMessage()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface HasilSearchStoreContract {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface presenter {
+          {abstract} + getListStore()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface view {
+          {abstract} + showDataList()
+          {abstract} + showFailureMessage()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface MakananContract {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface presenter {
+          {abstract} + getAllMakanan()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface view {
+          {abstract} + showDataList()
+          {abstract} + showIfNoMakanan()
+          {abstract} + showFailure()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface MinumanContract {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface presenter {
+          {abstract} + getAllMinuman()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface view {
+          {abstract} + showDataList()
+          {abstract} + showIfNoMinuman()
+          {abstract} + showFailure()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface PromotionContract {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface view {
+          {abstract} + showProgress()
+          {abstract} + hideProgress()
+          {abstract} + showDataList()
+          {abstract} + showFailureMessage()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface presenter {
+          {abstract} + getListDataPromotions()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface RegisterContract {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface presenter {
+          {abstract} + registerUser()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface view {
+          {abstract} + showProgress()
+          {abstract} + hideProgress()
+          {abstract} + showSuccess()
+          {abstract} + showFail()
+          {abstract} + checkInput()
+          {abstract} + changeActivity()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface ReviewTokoContract {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface view {
+          {abstract} + showProgress()
+          {abstract} + hideProgress()
+          {abstract} + showListReview()
+          {abstract} + showError()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface presenter {
+          {abstract} + getReview()
+          {abstract} + sendReview()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface TokoContract {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface view {
+          {abstract} + showDataList()
+          {abstract} + showFailureMessage()
+          {abstract} + showViewPager()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface presenter {
+          {abstract} + getImagesUrl()
+      }
+    }
+  }
+  
+
+  DetailMenuContract +-down- presenter
+  DetailMenuContract +-down- view
+  DetailPromoContract +-down- view
+  DetailPromoContract +-down- presenter
+  DetailTokoContract +-down- presenter
+  DetailTokoContract +-down- view
+  EditProfilContract +-down- presenter
+  EditProfilContract +-down- view
+  ForgotPasswordContract +-down- presenter
+  ForgotPasswordContract +-down- view
+  HasilSearchProductContract +-down- presenter
+  HasilSearchProductContract +-down- view
+  HasilSearchStoreContract +-down- presenter
+  HasilSearchStoreContract +-down- view
+  MakananContract +-down- presenter
+  MakananContract +-down- view
+  MinumanContract +-down- presenter
+  MinumanContract +-down- view
+  PromotionContract +-down- view
+  PromotionContract +-down- presenter
+  RegisterContract +-down- presenter
+  RegisterContract +-down- view
+  ReviewTokoContract +-down- view
+  ReviewTokoContract +-down- presenter
+  TokoContract +-down- view
+  TokoContract +-down- presenter
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml
