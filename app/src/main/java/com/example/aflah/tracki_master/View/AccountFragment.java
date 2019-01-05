@@ -53,18 +53,20 @@ public class AccountFragment extends Fragment implements AccountContract.view {
 
     CircleImageView imgAvatar;
     TextView tvUserName, tvNoPromo, picGaleri, picCamera;
-    SharedPreferences sharedPreferences;
-    String json, userToken;
-    UserLogin userLogin;
-    Gson gson = new Gson();
-    List<Promotion> promotionList = new ArrayList<>();
-    RecyclerView recyclerView;
-    ListSavePromoAdapter listSavedPromoAdapter;
     Dialog Mydialog;
     Toolbar toolbarAccount;
-    Uri selectedImage;
-    private int GALLERY = 1, CAMERA = 2;
+    RecyclerView recyclerView;
     SweetAlertDialog sweetAlertDialogProgress;
+
+    String json, userToken;
+    private int GALLERY = 1, CAMERA = 2;
+
+    SharedPreferences sharedPreferences;
+    Gson gson = new Gson();
+    UserLogin userLogin;
+    List<Promotion> promotionList = new ArrayList<>();
+
+    ListSavePromoAdapter listSavedPromoAdapter;
 
     private AccountPresenter presenter = new AccountPresenter(Injection.provideUserRepository(), this);
 
@@ -81,6 +83,7 @@ public class AccountFragment extends Fragment implements AccountContract.view {
         userToken = sharedPreferences.getString("tokenLogin", "");
         setHasOptionsMenu(true);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -198,7 +201,7 @@ public class AccountFragment extends Fragment implements AccountContract.view {
 
         if ((requestCode == GALLERY || requestCode == CAMERA) && resultCode == RESULT_OK && null != data) {
             try {
-                selectedImage = data.getData();
+                Uri selectedImage = data.getData();
                 File file = new File(getContext().getCacheDir(), "fotoProfil");
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
                 file.createNewFile();
@@ -300,8 +303,7 @@ public class AccountFragment extends Fragment implements AccountContract.view {
 
     @Override
     public void updateSharedPreferences(User user) {
-        Gson gson = new Gson();
-        String json = gson.toJson(user);
+        json = gson.toJson(user);
         SharedPreferences.Editor editor = getContext().getSharedPreferences("login", Context.MODE_PRIVATE).edit();
         editor.putString("userLogin", json);
         editor.apply();
