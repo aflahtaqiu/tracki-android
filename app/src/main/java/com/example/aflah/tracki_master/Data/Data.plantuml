@@ -1,0 +1,349 @@
+@startuml
+
+title __DATA's Class Diagram__\n
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      class DetailPromoRepository {
+          + DetailPromoRepository()
+          + getPromotionById()
+          + sendRedeemData()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      interface DetailPromoSource {
+          {abstract} + getPromotionById()
+          {abstract} + sendRedeemData()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      interface GetPromotionByIdCallback {
+          {abstract} + onSuccess()
+          {abstract} + onFailure()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      interface SendRedeemDataCallback {
+          {abstract} + onSuccess()
+          {abstract} + onFailure()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      class ProductRepository {
+          + ProductRepository()
+          + getProductById()
+          + getMakanan()
+          + getMinuman()
+          + getSearchList()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      interface ProductSource {
+          {abstract} + getProductById()
+          {abstract} + getMakanan()
+          {abstract} + getMinuman()
+          {abstract} + getSearchList()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      interface GetProductByIdCallBack {
+          {abstract} + onSuccess()
+          {abstract} + onFailure()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      interface GetMakananCallback {
+          {abstract} + onSuccess()
+          {abstract} + onFailure()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      interface GetMinumanCallback {
+          {abstract} + onSuccess()
+          {abstract} + onFailure()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      interface GetSearhList {
+          {abstract} + onSuccess()
+          {abstract} + onFailure()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      class PromotionRepository {
+          + PromotionRepository()
+          + getAllPromotion()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      interface PromotionSource {
+          {abstract} + getAllPromotion()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      interface GetPromotionCallback {
+          {abstract} + onSuccess()
+          {abstract} + onFailure()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      class ReviewTokoRepository {
+          + ReviewTokoRepository()
+          + getReview()
+          + sendReview()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      interface ReviewTokoSource {
+          {abstract} + getReview()
+          {abstract} + sendReview()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      interface GetReviewByStoreCallback {
+          {abstract} + onSuccess()
+          {abstract} + onFailure()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      interface SendReviewByStoreCallback {
+          {abstract} + onSuccess()
+          {abstract} + onFailure()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      class StoreRepository {
+          + StoreRepository()
+          + getStoreUrlImages()
+          + getStoreDetail()
+          + getSearchList()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      interface StoreSource {
+          {abstract} + getStoreUrlImages()
+          {abstract} + getStoreDetail()
+          {abstract} + getSearchList()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      interface GetStoreImagesUrlCallback {
+          {abstract} + onSuccess()
+          {abstract} + onFailure()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      interface GetStoreDetailCallback {
+          {abstract} + onSuccess()
+          {abstract} + onFailure()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      interface GetSearhList {
+          {abstract} + onSuccess()
+          {abstract} + onFailure()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      class UserRepository {
+          + UserRepository()
+          + updateProfile()
+          + getUserById()
+          + resetUserPassword()
+          + registerUser()
+          + loginUser()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      interface UserSource {
+          {abstract} + updateProfile()
+          {abstract} + getUserById()
+          {abstract} + resetUserPassword()
+          {abstract} + registerUser()
+          {abstract} + loginUser()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      interface UpdateProfileCallback {
+          {abstract} + onSuccess()
+          {abstract} + onFailure()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      interface GetUserByIdCallback {
+          {abstract} + onSuccess()
+          {abstract} + onFailure()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      interface ResetUserPasswordCallback {
+          {abstract} + onSuccess()
+          {abstract} + onFailure()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      interface RegisterUserCallback {
+          {abstract} + onSuccess()
+          {abstract} + onFailure()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      interface LoginUserCallback {
+          {abstract} + onSuccess()
+          {abstract} + onFailure()
+      }
+    }
+  }
+  
+
+  DetailPromoRepository -up-|> DetailPromoSource
+  DetailPromoRepository o-- DetailPromoRemoteDataSource : detailPromoRemoteDataSource
+  DetailPromoSource +-down- GetPromotionByIdCallback
+  DetailPromoSource +-down- SendRedeemDataCallback
+  ProductRepository -up-|> ProductSource
+  ProductRepository o-- ProductRemoteDataSource : productRemoteDataSource
+  ProductSource +-down- GetProductByIdCallBack
+  ProductSource +-down- GetMakananCallback
+  ProductSource +-down- GetMinumanCallback
+  ProductSource +-down- GetSearhList
+  PromotionRepository -up-|> PromotionSource
+  PromotionRepository o-- PromotionRemoteDataSource : promotionRemoteDataSource
+  PromotionSource +-down- GetPromotionCallback
+  ReviewTokoRepository -up-|> ReviewTokoSource
+  ReviewTokoRepository o-- ReviewRemoteDataSource : reviewRemoteDataSource
+  ReviewTokoSource +-down- GetReviewByStoreCallback
+  ReviewTokoSource +-down- SendReviewByStoreCallback
+  StoreRepository -up-|> StoreSource
+  StoreRepository o-- StoreRemoteDataSource : storeRemoteDataSource
+  StoreSource +-down- GetStoreImagesUrlCallback
+  StoreSource +-down- GetStoreDetailCallback
+  StoreSource +-down- GetSearhList
+  UserRepository -up-|> UserSource
+  UserRepository o-- UserRemoteDataSource : userRemoteDataSource
+  UserSource +-down- UpdateProfileCallback
+  UserSource +-down- GetUserByIdCallback
+  UserSource +-down- ResetUserPasswordCallback
+  UserSource +-down- RegisterUserCallback
+  UserSource +-down- LoginUserCallback
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

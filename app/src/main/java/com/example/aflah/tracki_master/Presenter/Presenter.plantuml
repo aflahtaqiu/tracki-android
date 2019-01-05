@@ -1,0 +1,188 @@
+@startuml
+
+title __PRESENTER's Class Diagram__\n
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Presenter {
+      class DetailMenuPresenter {
+          + DetailMenuPresenter()
+          + getDetailProduct()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Presenter {
+      class DetailPromoPresenter {
+          + DetailPromoPresenter()
+          + getDetailPromo()
+          + sendRedeemData()
+          + generateQRCode()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Presenter {
+      class DetailTokoPresenter {
+          + DetailTokoPresenter()
+          + getStoreDetail()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Presenter {
+      class EditProfilePresenter {
+          + EditProfilePresenter()
+          + updateProfile()
+          + getUserById()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Presenter {
+      class ForgotPasswordPresenter {
+          + ForgotPasswordPresenter()
+          + sendEmail()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Presenter {
+      class HasilSearchProductPresenter {
+          + HasilSearchProductPresenter()
+          + getListProduct()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Presenter {
+      class HasilSearchStorePresenter {
+          + HasilSearchStorePresenter()
+          + getListStore()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Presenter {
+      class MakananPresenter {
+          + MakananPresenter()
+          + getAllMakanan()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Presenter {
+      class MinumanPresenter {
+          + MinumanPresenter()
+          + getAllMinuman()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Presenter {
+      class PromotionPresenter {
+          + PromotionPresenter()
+          + getListDataPromotions()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Presenter {
+      class RegisterPresenter {
+          + RegisterPresenter()
+          + registerUser()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Presenter {
+      class ReviewTokoPresenter {
+          + ReviewTokoPresenter()
+          + getReview()
+          + sendReview()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Presenter {
+      class TokoPresenter {
+          + TokoPresenter()
+          + getImagesUrl()
+      }
+    }
+  }
+  
+
+  DetailMenuPresenter -up-|> presenter
+  DetailMenuPresenter o-- ProductRepository : productRepository
+  DetailMenuPresenter o-- view : view
+  DetailPromoPresenter -up-|> presenter
+  DetailPromoPresenter o-- DetailPromoRepository : detailPromoRepository
+  DetailPromoPresenter o-- view : view
+  DetailTokoPresenter -up-|> presenter
+  DetailTokoPresenter o-- StoreRepository : storeRepository
+  DetailTokoPresenter o-- view : view
+  EditProfilePresenter -up-|> presenter
+  EditProfilePresenter -up-|> Activity
+  EditProfilePresenter o-- UserRepository : userRepository
+  EditProfilePresenter o-- view : view
+  ForgotPasswordPresenter -up-|> presenter
+  ForgotPasswordPresenter o-- UserRepository : userRepository
+  ForgotPasswordPresenter o-- view : view
+  HasilSearchProductPresenter -up-|> presenter
+  HasilSearchProductPresenter o-- ProductRepository : productRepository
+  HasilSearchProductPresenter o-- view : view
+  HasilSearchStorePresenter -up-|> presenter
+  HasilSearchStorePresenter o-- StoreRepository : storeRepository
+  HasilSearchStorePresenter o-- view : view
+  MakananPresenter -up-|> presenter
+  MakananPresenter o-- ProductRepository : productRepository
+  MakananPresenter o-- view : view
+  MinumanPresenter -up-|> presenter
+  MinumanPresenter o-- ProductRepository : productRepository
+  MinumanPresenter o-- view : view
+  PromotionPresenter -up-|> presenter
+  PromotionPresenter o-- PromotionRepository : promotionRepository
+  PromotionPresenter o-- view : view
+  RegisterPresenter -up-|> presenter
+  RegisterPresenter o-- UserRepository : userRepository
+  RegisterPresenter o-- view : view
+  ReviewTokoPresenter -up-|> presenter
+  ReviewTokoPresenter o-- ReviewTokoRepository : reviewTokoRepository
+  ReviewTokoPresenter o-- view : view
+  TokoPresenter -up-|> presenter
+  TokoPresenter o-- StoreRepository : storeRepository
+  TokoPresenter o-- view : view
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml
