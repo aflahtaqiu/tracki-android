@@ -55,7 +55,7 @@ public class StoreRemoteDataSource implements StoreSource {
     }
 
     @Override
-    public void getSearchList(String keyword, GetSearhList callback) {
+    public void getSearchList(String keyword, GetStoreSearchList callback) {
         Call<ResponseTokoByUID> call = apiInterface.getStore(keyword);
         call.enqueue(new Callback<ResponseTokoByUID>() {
             @Override

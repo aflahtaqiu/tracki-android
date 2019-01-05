@@ -9,7 +9,7 @@ public interface StoreSource {
 
     void getStoreUrlImages(int idToko, GetStoreImagesUrlCallback callback);
     void getStoreDetail(int idToko, GetStoreDetailCallback callback);
-    void getSearchList(String keyword, GetSearhList callback);
+    void getSearchList(String keyword, GetStoreSearchList callback);
 
     interface GetStoreImagesUrlCallback {
         void onSuccess(List<String> imagesUrl);
@@ -21,7 +21,7 @@ public interface StoreSource {
         void onFailure(String errMsg);
     }
 
-    interface GetSearhList{
+    interface GetStoreSearchList {
         void onSuccess(List<Store> listStore);
         void onFailure(String errMsg);
     }

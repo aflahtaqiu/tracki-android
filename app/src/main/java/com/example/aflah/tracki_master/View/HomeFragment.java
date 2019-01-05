@@ -75,14 +75,6 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
 
         initViews(view);
         spinnerHandle();
-        autoCompleteTextView.setOnClickListener(this);
-
-//        autoCompleteTextView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
 
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         tokoTerdekatAdapter = new TokoTerdekatAdapter(getContext(), rmdup);
@@ -106,6 +98,7 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
         recyclerView = (RecyclerView) view.findViewById(R.id.recycerview_tokoTerdekat);
 
         mySwipeRefreshLayout.setOnRefreshListener(this);
+        autoCompleteTextView.setOnClickListener(this);
     }
 
     public void onButtonPressed(Uri uri) {

@@ -45,8 +45,8 @@ public class StoreRepository implements StoreSource{
     }
 
     @Override
-    public void getSearchList(String keyword, GetSearhList callback) {
-        storeRemoteDataSource.getSearchList(keyword, new GetSearhList() {
+    public void getSearchList(String keyword, GetStoreSearchList callback) {
+        storeRemoteDataSource.getSearchList(keyword, new GetStoreSearchList() {
             @Override
             public void onSuccess(List<Store> listStore) {
                 callback.onSuccess(listStore);

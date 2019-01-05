@@ -60,11 +60,11 @@ public class ProductRepository implements ProductSource {
     }
 
     @Override
-    public void getSearchList(String keyword, GetSearhList getSearhList) {
-        productRemoteDataSource.getSearchList(keyword, new GetSearhList() {
+    public void getSearchList(String keyword, GetProductSearchList getProductSearchList) {
+        productRemoteDataSource.getSearchList(keyword, new GetProductSearchList() {
             @Override
             public void onSuccess(List<Product> listProduct) {
-                getSearhList.onSuccess(listProduct);
+                getProductSearchList.onSuccess(listProduct);
             }
 
             @Override

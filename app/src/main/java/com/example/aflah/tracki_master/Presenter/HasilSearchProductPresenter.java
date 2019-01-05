@@ -19,7 +19,7 @@ public class HasilSearchProductPresenter implements HasilSearchProductContract.p
 
     @Override
     public void getListProduct(String keyword) {
-        productRepository.getSearchList(keyword, new ProductSource.GetSearhList() {
+        productRepository.getSearchList(keyword, new ProductSource.GetProductSearchList() {
             @Override
             public void onSuccess(List<Product> listProduct) {
                 view.showDataList(listProduct);
