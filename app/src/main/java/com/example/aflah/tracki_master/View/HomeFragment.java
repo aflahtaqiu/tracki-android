@@ -40,13 +40,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeFragment extends Fragment implements NavigationActivity.OnCubeaconUpdated,AdapterView.OnItemClickListener,SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemSelectedListener {
+public class HomeFragment extends Fragment implements NavigationActivity.OnCubeaconUpdated,AdapterView.OnItemClickListener,SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemSelectedListener, View.OnClickListener {
 
     private SwipeRefreshLayout mySwipeRefreshLayout;
     ImageView imageViewUndetectStore;
     TextView textViewTokoTerdekat;
     AppCompatSpinner spinnerSearch;
     RecyclerView recyclerView;
+    AutoCompleteTextView autoCompleteTextView;
 
     private List<CBBeacon> beacons;
     private TokoTerdekatAdapter tokoTerdekatAdapter;
@@ -72,131 +73,39 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        textViewTokoTerdekat = (TextView) view.findViewById(R.id.tv_tokoTerdekat_tokoTerdekat);
-        imageViewUndetectStore = (ImageView) view.findViewById(R.id.iv_undetect_store);
-        AutoCompleteTextView autoCompleteTextView = view.findViewById(R.id.edit_search);
-        spinnerSearch = (AppCompatSpinner) view.findViewById(R.id.spinnerSearch);
+        initViews(view);
+        spinnerHandle();
+        autoCompleteTextView.setOnClickListener(this);
 
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this.getActivity(), R.layout.item_spinner, spinnerItem);
-        spinnerSearch.setAdapter(spinnerAdapter);
-        spinnerSearch.setOnItemSelectedListener(this);
+//        autoCompleteTextView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
 
-        autoCompleteTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-
-                if (flagSearch == 0){
-                    Call<ResponseSearchNameStore> getNama = apiInterface.getSearchNamesStore();
-                    getNama.enqueue(new Callback<ResponseSearchNameStore>() {
-                        @Override
-                        public void onResponse(Call<ResponseSearchNameStore> call, Response<ResponseSearchNameStore> response) {
-                            String[] namaToko = new String[response.body().getSearchNamesStore().size()];
-                            for (int i = 0; i < response.body().getSearchNamesStore().size(); i++) {
-                                namaToko[i] = response.body().getSearchNamesStore().get(i).getName();
-                                hashMapSearch.put(namaToko[i],response.body().getSearchNamesStore().get(i));
-                            }
-                            autoCompleteAdaptor = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,namaToko);
-                            autoCompleteTextView.setAdapter(autoCompleteAdaptor);
-                            autoCompleteTextView.setThreshold(0);
-                            autoCompleteTextView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                                @Override
-                                public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                                    if(i == EditorInfo.IME_ACTION_SEARCH){
-                                        Intent intent = new Intent(getActivity(), HasilSearchStoreActivity.class);
-                                        intent.putExtra("search",String.valueOf(autoCompleteTextView.getText()));
-                                        autoCompleteTextView.setText("");
-                                        getActivity().startActivity(intent);
-                                    }
-                                    return false;
-                                }
-                            });
-                            autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                    String selected = (String) adapterView.getItemAtPosition(i);
-                                    int pos = Arrays.asList(namaToko).indexOf(selected);
-                                    SearchName tokoPilihan = hashMapSearch.get(namaToko[pos]);
-                                    Intent intent = new Intent(getActivity(),TokoActivity.class);
-                                    intent.putExtra("idTokoTerdekat",Integer.valueOf(tokoPilihan.getId()));
-                                    autoCompleteTextView.setText("");
-                                    startActivity(intent);
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onFailure(Call<ResponseSearchNameStore> call, Throwable t) {
-
-                        }
-                    });
-                }else {
-                    Call<ResponseSearchNameProduct> getNama = apiInterface.getSearchNamesProduct();
-                    getNama.enqueue(new Callback<ResponseSearchNameProduct>() {
-                        @Override
-                        public void onResponse(Call<ResponseSearchNameProduct> call, Response<ResponseSearchNameProduct> response) {
-                            String[] namaProduk = new String[response.body().getSearchNamesProduct().size()];
-                            for (int i = 0; i < response.body().getSearchNamesProduct().size(); i++) {
-                                namaProduk[i] = response.body().getSearchNamesProduct().get(i).getName();
-                                hashMapSearch.put(namaProduk[i],response.body().getSearchNamesProduct().get(i));
-                            }
-                            autoCompleteAdaptor = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,namaProduk);
-                            autoCompleteTextView.setAdapter(autoCompleteAdaptor);
-                            autoCompleteTextView.setThreshold(0);
-                            autoCompleteTextView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                                @Override
-                                public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                                    if(i == EditorInfo.IME_ACTION_SEARCH){
-                                        Intent intent = new Intent(getActivity(), HasilSearchProductActivity.class);
-                                        intent.putExtra("search",String.valueOf(autoCompleteTextView.getText()));
-                                        autoCompleteTextView.setText("");
-                                        getActivity().startActivity(intent);
-                                    }
-                                    return false;
-                                }
-                            });
-                            autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                    String selected = (String) adapterView.getItemAtPosition(i);
-                                    int pos = Arrays.asList(namaProduk).indexOf(selected);
-                                    SearchName produkPilihan = hashMapSearch.get(namaProduk[pos]);
-                                    Intent intent = new Intent(getActivity(),DetailMenuActivity.class);
-                                    intent.putExtra("idProduk",Integer.valueOf(produkPilihan.getId()));
-                                    autoCompleteTextView.setText("");
-                                    startActivity(intent);
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onFailure(Call<ResponseSearchNameProduct> call, Throwable t) {
-
-                        }
-                    });
-                }
-            }
-        });
-
-        mySwipeRefreshLayout = view.findViewById(R.id.swiperefresh);
-        mySwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mySwipeRefreshLayout.setRefreshing(true);
-                rmdup.clear();
-                textViewTokoTerdekat.setText("Tidak terdeksi toko");
-                imageViewUndetectStore.setVisibility(View.VISIBLE);
-                tokoTerdekatAdapter.notifyDataSetChanged();
-                mySwipeRefreshLayout.setRefreshing(false);
-            }
-        });
-
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycerview_tokoTerdekat);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         tokoTerdekatAdapter = new TokoTerdekatAdapter(getContext(), rmdup);
         recyclerView.setAdapter(tokoTerdekatAdapter);
 
         return view;
+    }
+
+    private void spinnerHandle() {
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this.getActivity(), R.layout.item_spinner, spinnerItem);
+        spinnerSearch.setAdapter(spinnerAdapter);
+        spinnerSearch.setOnItemSelectedListener(this);
+    }
+
+    private void initViews(View view) {
+        textViewTokoTerdekat = (TextView) view.findViewById(R.id.tv_tokoTerdekat_tokoTerdekat);
+        imageViewUndetectStore = (ImageView) view.findViewById(R.id.iv_undetect_store);
+        autoCompleteTextView = view.findViewById(R.id.edit_search);
+        spinnerSearch = (AppCompatSpinner) view.findViewById(R.id.spinnerSearch);
+        mySwipeRefreshLayout = view.findViewById(R.id.swiperefresh);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycerview_tokoTerdekat);
+
+        mySwipeRefreshLayout.setOnRefreshListener(this);
     }
 
     public void onButtonPressed(Uri uri) {
@@ -259,7 +168,14 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
     }
 
     @Override
-    public void onRefresh() { }
+    public void onRefresh() {
+        mySwipeRefreshLayout.setRefreshing(true);
+        rmdup.clear();
+        textViewTokoTerdekat.setText("Tidak terdeksi toko");
+        imageViewUndetectStore.setVisibility(View.VISIBLE);
+        tokoTerdekatAdapter.notifyDataSetChanged();
+        mySwipeRefreshLayout.setRefreshing(false);
+    }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -275,6 +191,101 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) { }
+
+    @Override
+    public void onClick(View v) {
+        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+
+        if (flagSearch == 0){
+            Call<ResponseSearchNameStore> getNama = apiInterface.getSearchNamesStore();
+            getNama.enqueue(new Callback<ResponseSearchNameStore>() {
+                @Override
+                public void onResponse(Call<ResponseSearchNameStore> call, Response<ResponseSearchNameStore> response) {
+                    String[] namaToko = new String[response.body().getSearchNamesStore().size()];
+                    for (int i = 0; i < response.body().getSearchNamesStore().size(); i++) {
+                        namaToko[i] = response.body().getSearchNamesStore().get(i).getName();
+                        hashMapSearch.put(namaToko[i],response.body().getSearchNamesStore().get(i));
+                    }
+                    autoCompleteAdaptor = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,namaToko);
+                    autoCompleteTextView.setAdapter(autoCompleteAdaptor);
+                    autoCompleteTextView.setThreshold(0);
+                    autoCompleteTextView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                        @Override
+                        public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                            if(i == EditorInfo.IME_ACTION_SEARCH){
+                                Intent intent = new Intent(getActivity(), HasilSearchStoreActivity.class);
+                                intent.putExtra("search",String.valueOf(autoCompleteTextView.getText()));
+                                autoCompleteTextView.setText("");
+                                getActivity().startActivity(intent);
+                            }
+                            return false;
+                        }
+                    });
+                    autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            String selected = (String) adapterView.getItemAtPosition(i);
+                            int pos = Arrays.asList(namaToko).indexOf(selected);
+                            SearchName tokoPilihan = hashMapSearch.get(namaToko[pos]);
+                            Intent intent = new Intent(getActivity(),TokoActivity.class);
+                            intent.putExtra("idTokoTerdekat",Integer.valueOf(tokoPilihan.getId()));
+                            autoCompleteTextView.setText("");
+                            startActivity(intent);
+                        }
+                    });
+                }
+
+                @Override
+                public void onFailure(Call<ResponseSearchNameStore> call, Throwable t) {
+
+                }
+            });
+        }else {
+            Call<ResponseSearchNameProduct> getNama = apiInterface.getSearchNamesProduct();
+            getNama.enqueue(new Callback<ResponseSearchNameProduct>() {
+                @Override
+                public void onResponse(Call<ResponseSearchNameProduct> call, Response<ResponseSearchNameProduct> response) {
+                    String[] namaProduk = new String[response.body().getSearchNamesProduct().size()];
+                    for (int i = 0; i < response.body().getSearchNamesProduct().size(); i++) {
+                        namaProduk[i] = response.body().getSearchNamesProduct().get(i).getName();
+                        hashMapSearch.put(namaProduk[i],response.body().getSearchNamesProduct().get(i));
+                    }
+                    autoCompleteAdaptor = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,namaProduk);
+                    autoCompleteTextView.setAdapter(autoCompleteAdaptor);
+                    autoCompleteTextView.setThreshold(0);
+                    autoCompleteTextView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                        @Override
+                        public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                            if(i == EditorInfo.IME_ACTION_SEARCH){
+                                Intent intent = new Intent(getActivity(), HasilSearchProductActivity.class);
+                                intent.putExtra("search",String.valueOf(autoCompleteTextView.getText()));
+                                autoCompleteTextView.setText("");
+                                getActivity().startActivity(intent);
+                            }
+                            return false;
+                        }
+                    });
+                    autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            String selected = (String) adapterView.getItemAtPosition(i);
+                            int pos = Arrays.asList(namaProduk).indexOf(selected);
+                            SearchName produkPilihan = hashMapSearch.get(namaProduk[pos]);
+                            Intent intent = new Intent(getActivity(),DetailMenuActivity.class);
+                            intent.putExtra("idProduk",Integer.valueOf(produkPilihan.getId()));
+                            autoCompleteTextView.setText("");
+                            startActivity(intent);
+                        }
+                    });
+                }
+
+                @Override
+                public void onFailure(Call<ResponseSearchNameProduct> call, Throwable t) {
+
+                }
+            });
+        }
+    }
 
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction(Uri uri);
