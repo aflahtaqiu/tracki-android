@@ -65,7 +65,7 @@ public class AccountFragment extends Fragment {
     RecyclerView recyclerView;
     ListSavePromoAdapter listSavePromoAdapter;
     Dialog Mydialog;
-    TextView picAvatar,picGaleri, picCamera;
+    TextView picGaleri, picCamera;
     Toolbar toolbarAccount;
     Uri selectedImage;
     private int GALLERY = 1, CAMERA = 2;
@@ -150,9 +150,6 @@ public class AccountFragment extends Fragment {
             case R.id.item_about:
                 getActivity().startActivity(new Intent(getActivity(), AboutTrackiActivity.class));
                 break;
-//            case R.id.item_help:
-//                Log.v("itemSelected", "help");
-//                break;
             case R.id.item_logout:
                 SharedPreferences.Editor editor = this.getActivity().getSharedPreferences("login", Context.MODE_PRIVATE).edit();
                 editor.putString("tokenLogin", "");
@@ -280,7 +277,6 @@ public class AccountFragment extends Fragment {
                         editor.commit();
                         Mydialog.dismiss();
                         Picasso.get().load(userLogin.getFoto()).fit().into(imgAvatar);
-
                     }
 
                     @Override
