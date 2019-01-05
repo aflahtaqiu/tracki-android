@@ -9,6 +9,9 @@ import com.example.aflah.tracki_master.Model.UserLogin;
 import java.util.Date;
 import java.util.List;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+
 public class UserRepository implements UserSource {
 
     private UserRemoteDataSource userRemoteDataSource;
@@ -114,6 +117,21 @@ public class UserRepository implements UserSource {
             @Override
             public void onSuccess(List<Promotion> promotionList) {
                 callback.onSuccess(promotionList);
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+                callback.onFailure(errMsg);
+            }
+        });
+    }
+
+    @Override
+    public void updateFotoUser(int idUser, String userToken, MultipartBody.Part multipartBody, RequestBody requestMethod, UpdateFotoCallback callback) {
+        userRemoteDataSource.updateFotoUser(idUser, userToken, multipartBody, requestMethod, new UpdateFotoCallback() {
+            @Override
+            public void onSuccess(User user) {
+                callback.onSuccess(user);
             }
 
             @Override

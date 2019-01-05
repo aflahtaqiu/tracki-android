@@ -4,8 +4,12 @@ import com.example.aflah.tracki_master.Contract.AccountContract;
 import com.example.aflah.tracki_master.Data.UserRepository;
 import com.example.aflah.tracki_master.Data.UserSource;
 import com.example.aflah.tracki_master.Model.Promotion;
+import com.example.aflah.tracki_master.Model.User;
 
 import java.util.List;
+
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class AccountPresenter implements AccountContract.presenter {
 
@@ -53,6 +57,25 @@ public class AccountPresenter implements AccountContract.presenter {
 
             @Override
             public void onFailure(String errMsg) {
+                view.showFailure(errMsg);
+            }
+        });
+    }
+
+    @Override
+    public void updatePhotoUser(int idUser, String userToken, MultipartBody.Part multipartBody, RequestBody requestMethod) {
+        view.showProgress();
+        userRepository.updateFotoUser(idUser, userToken, multipartBody, requestMethod, new UserSource.UpdateFotoCallback() {
+            @Override
+            public void onSuccess(User user) {
+                view.hideProgress();
+                view.updateSharedPreferences(user);
+                view.showFotoUser(user);
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+                view.hideProgress();
                 view.showFailure(errMsg);
             }
         });

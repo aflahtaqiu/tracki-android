@@ -8,6 +8,9 @@ import com.example.aflah.tracki_master.Model.UserLogin;
 import java.util.Date;
 import java.util.List;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+
 public interface UserSource {
 
     void updateProfile(int idUser, String userToken, String namaUser, Date dateOfBirthUser, UpdateProfileCallback callback);
@@ -17,6 +20,7 @@ public interface UserSource {
     void loginUser(String email, String password, LoginUserCallback callback);
     void logoutUser(LogoutCallback callback);
     void getSavedPromotion(int idUser, GetSavedPromoCallback callback);
+    void updateFotoUser(int idUser, String userToken, MultipartBody.Part multipartBody, RequestBody requestMethod, UpdateFotoCallback callback);
 
     interface UpdateProfileCallback {
         void onSuccess(ResponseUserById responseUserById);
@@ -50,6 +54,11 @@ public interface UserSource {
 
     interface GetSavedPromoCallback {
         void onSuccess(List<Promotion> promotionList);
+        void onFailure(String errMsg);
+    }
+
+    interface UpdateFotoCallback {
+        void onSuccess(User user);
         void onFailure(String errMsg);
     }
 }

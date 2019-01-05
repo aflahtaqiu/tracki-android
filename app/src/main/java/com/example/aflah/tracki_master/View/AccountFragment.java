@@ -27,11 +27,8 @@ import android.widget.Toast;
 
 import com.example.aflah.tracki_master.Adapter.ListSavePromoAdapter;
 import com.example.aflah.tracki_master.Contract.AccountContract;
-import com.example.aflah.tracki_master.Data.remote.API.ApiClient;
-import com.example.aflah.tracki_master.Data.remote.API.ApiInterface;
 import com.example.aflah.tracki_master.Injection;
 import com.example.aflah.tracki_master.Model.Promotion;
-import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
 import com.example.aflah.tracki_master.Model.User;
 import com.example.aflah.tracki_master.Model.UserLogin;
 import com.example.aflah.tracki_master.Presenter.AccountPresenter;
@@ -49,26 +46,21 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
 
 public class AccountFragment extends Fragment implements AccountContract.view {
 
     CircleImageView imgAvatar;
-    TextView tvUserName, tvNoPromo;
+    TextView tvUserName, tvNoPromo, picGaleri, picCamera;
     SharedPreferences sharedPreferences;
-    String json;
+    String json, userToken;
     UserLogin userLogin;
     Gson gson = new Gson();
-    String userToken;
     List<Promotion> promotionList = new ArrayList<>();
     RecyclerView recyclerView;
     ListSavePromoAdapter listSavedPromoAdapter;
     Dialog Mydialog;
-    TextView picGaleri, picCamera;
     Toolbar toolbarAccount;
     Uri selectedImage;
     private int GALLERY = 1, CAMERA = 2;
@@ -164,6 +156,7 @@ public class AccountFragment extends Fragment implements AccountContract.view {
                 Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 galleryIntent.setType("image/*");
                 startActivityForResult(galleryIntent, GALLERY);
+                Mydialog.dismiss();
             }
         });
 
@@ -177,6 +170,7 @@ public class AccountFragment extends Fragment implements AccountContract.view {
                 Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
                     startActivityForResult(takePictureIntent, CAMERA);
+                    Mydialog.dismiss();
                 }
             }
         });
@@ -200,7 +194,6 @@ public class AccountFragment extends Fragment implements AccountContract.view {
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         super.onActivityResult(requestCode, resultCode, data);
 
         if ((requestCode == GALLERY || requestCode == CAMERA) && resultCode == RESULT_OK && null != data) {
@@ -229,27 +222,7 @@ public class AccountFragment extends Fragment implements AccountContract.view {
 
                 RequestBody requestMethod = RequestBody.create(MultipartBody.FORM,"PUT");
 
-                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-                Call<ResponseUserById> updatefoto = apiInterface.updateProfilPicture(userLogin.getId(),userToken,multipartBody,requestMethod);
-                updatefoto.enqueue(new Callback<ResponseUserById>() {
-                    @Override
-                    public void onResponse(Call<ResponseUserById> call, Response<ResponseUserById> response) {
-                        User userLogin =  response.body().getUser();
-
-                        Gson gson = new Gson();
-                        String json = gson.toJson(userLogin);
-                        SharedPreferences.Editor editor = getContext().getSharedPreferences("login", Context.MODE_PRIVATE).edit();
-                        editor.putString("userLogin", json);
-                        editor.apply();
-                        editor.commit();
-                        Mydialog.dismiss();
-                        Picasso.get().load(userLogin.getFoto()).fit().into(imgAvatar);
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseUserById> call, Throwable t) {
-                    }
-                });
+                presenter.updatePhotoUser(userLogin.getId(), userToken, multipartBody, requestMethod);
             } catch (Exception e) { }
         }
     }
@@ -314,8 +287,25 @@ public class AccountFragment extends Fragment implements AccountContract.view {
 
     @Override
     public void showListPromo(List<Promotion> promotionList) {
+        if (!this.promotionList.isEmpty())
+            this.promotionList.clear();
         this.promotionList.addAll(promotionList);
         listSavedPromoAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showFotoUser(User user) {
+        Picasso.get().load(user.getFoto()).fit().into(imgAvatar);
+    }
+
+    @Override
+    public void updateSharedPreferences(User user) {
+        Gson gson = new Gson();
+        String json = gson.toJson(user);
+        SharedPreferences.Editor editor = getContext().getSharedPreferences("login", Context.MODE_PRIVATE).edit();
+        editor.putString("userLogin", json);
+        editor.apply();
+        editor.commit();
     }
 
     public void initSavedPromoAdapter() {

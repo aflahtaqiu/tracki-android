@@ -14,6 +14,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.Date;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -143,6 +145,22 @@ public class UserRemoteDataSource implements UserSource {
             @Override
             public void onResponse(Call<ResponseUserById> call, Response<ResponseUserById> response) {
                 callback.onSuccess(response.body().getUnused_promotions());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseUserById> call, Throwable t) {
+                callback.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void updateFotoUser(int idUser, String userToken, MultipartBody.Part multipartBody, RequestBody requestMethod, UpdateFotoCallback callback) {
+        Call<ResponseUserById> call = apiInterface.updateProfilPicture(idUser, userToken, multipartBody, requestMethod);
+        call.enqueue(new Callback<ResponseUserById>() {
+            @Override
+            public void onResponse(Call<ResponseUserById> call, Response<ResponseUserById> response) {
+                callback.onSuccess(response.body().getUser());
             }
 
             @Override
