@@ -10,7 +10,7 @@ public interface ProductSource {
     void getProductById(int id, GetProductByIdCallBack getProductByIdCallBack);
     void getMakanan(int idToko, GetMakananCallback getMakananCallback);
     void getMinuman(int idToko, GetMinumanCallback getMinumanCallback);
-    void getSearchList(String keyword , GetProductSearchList getProductSearchList);
+    void getSearchList(String keyword , GetProductsSearchList getProductsSearchList);
 
     interface GetProductByIdCallBack {
 
@@ -28,7 +28,7 @@ public interface ProductSource {
         void onSuccess(List<Product> listMinuman);
         void onFailure(String errMsg);
     }
-    interface GetProductSearchList {
+    interface GetProductsSearchList {
         void onSuccess(List<Product> listProduct);
         void onFailure(String errMsg);
     }

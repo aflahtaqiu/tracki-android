@@ -81,17 +81,17 @@ public class ProductRemoteDataSource implements ProductSource {
     }
 
     @Override
-    public void getSearchList(String keyword, GetProductSearchList getProductSearchList) {
+    public void getSearchList(String keyword, GetProductsSearchList getProductsSearchList) {
         Call<ResponseSearchProduct> call = apiInterface.getProductList(keyword);
         call.enqueue(new Callback<ResponseSearchProduct>() {
             @Override
             public void onResponse(Call<ResponseSearchProduct> call, Response<ResponseSearchProduct> response) {
-                getProductSearchList.onSuccess(response.body().getProductList());
+                getProductsSearchList.onSuccess(response.body().getProductList());
             }
 
             @Override
             public void onFailure(Call<ResponseSearchProduct> call, Throwable t) {
-                getProductSearchList.onFailure(t.getMessage());
+                getProductsSearchList.onFailure(t.getMessage());
             }
         });
     }
