@@ -1,0 +1,496 @@
+@startuml
+
+title __VIEW's Class Diagram__\n
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class AboutTrackiActivity {
+          # onCreate()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class DetailMenuActivity {
+          ~ namaMenu : TextView
+          ~ kategoriMenu : TextView
+          ~ hargaMenu : TextView
+          ~ detailMenu : TextView
+          ~ tvDetail : TextView
+          ~ tvRp : TextView
+          ~ gambarMenu : ImageView
+          ~ icHarga : ImageView
+          ~ progressBar : ProgressBar
+          # onCreate()
+          - invisibleVIews()
+          - initViews()
+          + hideProgress()
+          + showData()
+          + showError()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class DetailPromoActivity {
+          ~ btnGunakan : Button
+          ~ btnSimpan : Button
+          ~ btnCloseDialogQRCode : Button
+          ~ textViewNamaPromo : TextView
+          ~ textViewNamaToko : TextView
+          ~ textViewTanggalPromo : TextView
+          ~ textViewKetentuanPromo : TextView
+          ~ textViewDeskripsiPromo : TextView
+          ~ textViewPromoDigunakan : TextView
+          ~ idPromo : int
+          ~ constraintLayout : ConstraintLayout
+          ~ gambarPromo : ImageView
+          ~ sharedPreferences : SharedPreferences
+          ~ hasMapQrCode : HashMap<String, Object>
+          ~ qrCodeString : String
+          ~ userToken : String
+          ~ namaToko : String
+          ~ dialogProgress : SweetAlertDialog
+          ~ dialogSuccess : SweetAlertDialog
+          ~ qrCodeDialog : Dialog
+          # onCreate()
+          - generateQRString()
+          - getExtras()
+          - initView()
+          + showProgress()
+          + hideProgress()
+          + showDialogSuccess()
+          + hideDialogSuccess()
+          + showDialogQRCode()
+          + showData()
+          + showError()
+          + showIsPromoUsed()
+          + showIsPromoSaved()
+          + gunakanPromo()
+          + simpanPromo()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class DetailTokoFragment {
+          ~ recyclerView : RecyclerView
+          ~ userToken : String
+          ~ sharedPreferences : SharedPreferences
+          ~ sweetAlertDialogProgress : SweetAlertDialog
+          + DetailTokoFragment()
+          + onCreate()
+          + onCreateView()
+          + onAttach()
+          + onDetach()
+          + showProgress()
+          + hideProgress()
+          + showDataList()
+          - initAdapter()
+          + showError()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      interface OnFragmentInteractionListener {
+          {abstract} + onFragmentInteraction()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class EditProfilActivity {
+          ~ correct : ImageView
+          ~ close : ImageView
+          ~ etNama : EditText
+          ~ etTanggalLahir : EditText
+          ~ sharedPreferences : SharedPreferences
+          ~ userToken : String
+          ~ sweetAlertDialogProgress : SweetAlertDialog
+          + onCreate()
+          - setCurrentValues()
+          - initViews()
+          + onClick()
+          + onStart()
+          - setDatePicker()
+          + showProgress()
+          + hideProgress()
+          + showError()
+          + updateUI()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class ForgotPasswordActivity {
+          ~ editTextEmail : EditText
+          ~ btnKirim : Button
+          ~ sweetAlertDialog : SweetAlertDialog
+          # onCreate()
+          + showProgress()
+          + hideProgress()
+          + showSuccess()
+          + showFail()
+          + showError()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class HasilSearchProductActivity {
+          ~ recyclerViewHasilSearch : RecyclerView
+          ~ listProduct : List<Product>
+          + HasilSearchProductActivity()
+          # onCreate()
+          + showDataList()
+          + showFailureMessage()
+          + initAdaptor()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class HasilSearchStoreActivity {
+          ~ recyclerViewHasilSearch : RecyclerView
+          ~ listStore : List<Store>
+          + HasilSearchStoreActivity()
+          # onCreate()
+          + showDataList()
+          + showFailureMessage()
+          + initAdapter()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class MakananFragment {
+          ~ recyclerView : RecyclerView
+          ~ textViewNoMakanan : TextView
+          ~ listMakanan : List<Product>
+          + MakananFragment()
+          + onCreate()
+          + onCreateView()
+          - initAdapter()
+          + onAttach()
+          + onDetach()
+          + showDataList()
+          + showIfNoMakanan()
+          + showFailure()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      interface OnFragmentInteractionListener {
+          {abstract} + onFragmentInteraction()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class MinumanFragment {
+          ~ recyclerView : RecyclerView
+          ~ textViewNoMinuman : TextView
+          ~ listMinuman : List<Product>
+          + MinumanFragment()
+          + onCreate()
+          + onCreateView()
+          + onAttach()
+          + onDetach()
+          + showDataList()
+          + showIfNoMinuman()
+          + showFailure()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      interface OnFragmentInteractionListener {
+          {abstract} + onFragmentInteraction()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class PrologActivity {
+          - viewPager : ViewPager
+          - dotsLayout : LinearLayout
+          - dots : TextView[]
+          - layouts : int[]
+          - btnSkip : Button
+          - btnNext : Button
+          ~ viewPagerPageChangeListener : OnPageChangeListener
+          # onCreate()
+          - addBottomDots()
+          - getItem()
+          - launchHomeScreen()
+          - changeStatusBarColor()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class MyViewPagerAdapter {
+          - layoutInflater : LayoutInflater
+          + MyViewPagerAdapter()
+          + instantiateItem()
+          + getCount()
+          + isViewFromObject()
+          + destroyItem()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class PromoFragment {
+          ~ recyclerViewPromo : RecyclerView
+          ~ sweetAlertDialogProgress : SweetAlertDialog
+          ~ promotionList : List<Promotion>
+          + PromoFragment()
+          + onCreate()
+          + onCreateView()
+          + initAdapter()
+          + onAttach()
+          + onDetach()
+          + showProgress()
+          + hideProgress()
+          + showDataList()
+          + showFailureMessage()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      interface OnFragmentInteractionListener {
+          {abstract} + onFragmentInteraction()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class RegisterActivity {
+          ~ btnDaftar : Button
+          ~ tv_masuk : TextView
+          ~ etNama : RippleValidatorEditText
+          ~ etEmail : RippleValidatorEditText
+          ~ etSandi : RippleValidatorEditText
+          ~ etSandiKonfirmasi : RippleValidatorEditText
+          ~ etTanggalLahir : RippleValidatorEditText
+          ~ sweetAlertDialog : SweetAlertDialog
+          # onCreate()
+          - initViews()
+          - initEditText()
+          + onStart()
+          + onClick()
+          + showProgress()
+          + hideProgress()
+          + showSuccess()
+          + showFail()
+          + checkInput()
+          + changeActivity()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class ReviewTokoActivity {
+          ~ circleImageView : CircleImageView
+          ~ namaToko : TextView
+          ~ tipeToko : TextView
+          ~ recyclerView : RecyclerView
+          ~ ratingBarResult : RatingBar
+          ~ ratingBarSend : RatingBar
+          ~ btnReview : Button
+          ~ et_isiKomentar : EditText
+          ~ ratingTokoSend : double
+          ~ komentarToko : String
+          ~ userToken : String
+          ~ idToko : int
+          ~ sharedPreferences : SharedPreferences
+          ~ progressDialog : ProgressDialog
+          ~ reviewerList : List<Reviewer>
+          # onCreate()
+          - initAdapter()
+          - initViews()
+          + onClick()
+          + showProgress()
+          + hideProgress()
+          + showListReview()
+          + showError()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class SplashScreen {
+          # onCreate()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class TokoActivity {
+          - tabLayout : TabLayout
+          - viewPager : ViewPager
+          ~ viewPager_CarouselDetailToko : ViewPager
+          ~ constraintLayout : ConstraintLayout
+          ~ urlImageList : List<String>
+          # onCreate()
+          - initCarouselAdapter()
+          - initViews()
+          + showDataList()
+          + showFailureMessage()
+          + showViewPager()
+          + onFragmentInteraction()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class TimeCarousel {
+          + run()
+      }
+    }
+  }
+  
+
+  AboutTrackiActivity -up-|> AppCompatActivity
+  HostCallbacks -up-|> FragmentHostCallback
+  DetailMenuActivity -up-|> view
+  DetailMenuActivity -up-|> AppCompatActivity
+  DetailMenuActivity o-- DetailMenuPresenter : presenter
+  HostCallbacks -up-|> FragmentHostCallback
+  DetailPromoActivity -up-|> view
+  DetailPromoActivity -up-|> AppCompatActivity
+  DetailPromoActivity o-- UserLogin : userLogin
+  DetailPromoActivity o-- DetailPromoPresenter : presenter
+  HostCallbacks -up-|> FragmentHostCallback
+  DetailTokoFragment -up-|> view
+  DetailTokoFragment -up-|> Fragment
+  DetailTokoFragment o-- OnFragmentInteractionListener : mListener
+  DetailTokoFragment o-- DetailTokoAdapter : adapter
+  DetailTokoFragment o-- Store : store
+  DetailTokoFragment o-- DetailTokoPresenter : presenter
+  DetailTokoFragment +-down- OnFragmentInteractionListener
+  SavedState -up-|> Parcelable
+  EditProfilActivity -up-|> OnClickListener
+  EditProfilActivity -up-|> view
+  EditProfilActivity -up-|> Activity
+  EditProfilActivity o-- UserLogin : userLogin
+  EditProfilActivity o-- EditProfilePresenter : presenter
+  ForgotPasswordActivity -up-|> view
+  ForgotPasswordActivity -up-|> AppCompatActivity
+  ForgotPasswordActivity o-- ForgotPasswordPresenter : presenter
+  HostCallbacks -up-|> FragmentHostCallback
+  HasilSearchProductActivity -up-|> view
+  HasilSearchProductActivity -up-|> Activity
+  HasilSearchProductActivity o-- HasilSearchProductAdapter : hasilSearchProductAdapter
+  HasilSearchProductActivity o-- HasilSearchProductPresenter : presenter
+  HasilSearchStoreActivity -up-|> view
+  HasilSearchStoreActivity -up-|> Activity
+  HasilSearchStoreActivity o-- HasilSearchStoreAdapter : hasilSearchStoreAdapter
+  HasilSearchStoreActivity o-- HasilSearchStorePresenter : presenter
+  MakananFragment -up-|> view
+  MakananFragment -up-|> Fragment
+  MakananFragment o-- OnFragmentInteractionListener : mListener
+  MakananFragment o-- ListMakananAdapter : adapter
+  MakananFragment o-- MakananPresenter : presenter
+  MakananFragment +-down- OnFragmentInteractionListener
+  SavedState -up-|> Parcelable
+  MinumanFragment -up-|> view
+  MinumanFragment -up-|> Fragment
+  MinumanFragment o-- ListMinumanAdapter : adapter
+  MinumanFragment o-- OnFragmentInteractionListener : mListener
+  MinumanFragment o-- MinumanPresenter : presenter
+  MinumanFragment +-down- OnFragmentInteractionListener
+  SavedState -up-|> Parcelable
+  PrologActivity -up-|> AppCompatActivity
+  PrologActivity o-- MyViewPagerAdapter : myViewPagerAdapter
+  PrologActivity o-- PreferenceManager : prefManager
+  PrologActivity +-down- MyViewPagerAdapter
+  MyViewPagerAdapter -up-|> PagerAdapter
+  HostCallbacks -up-|> FragmentHostCallback
+  PromoFragment -up-|> view
+  PromoFragment -up-|> Fragment
+  PromoFragment o-- ListPromotionAdapter : listPromotionAdapter
+  PromoFragment o-- PromotionPresenter : presenter
+  PromoFragment o-- OnFragmentInteractionListener : mListener
+  PromoFragment +-down- OnFragmentInteractionListener
+  SavedState -up-|> Parcelable
+  RegisterActivity -up-|> OnClickListener
+  RegisterActivity -up-|> view
+  RegisterActivity -up-|> AppCompatActivity
+  RegisterActivity o-- RegisterPresenter : presenter
+  HostCallbacks -up-|> FragmentHostCallback
+  ReviewTokoActivity -up-|> OnClickListener
+  ReviewTokoActivity -up-|> view
+  ReviewTokoActivity -up-|> AppCompatActivity
+  ReviewTokoActivity o-- ReviewAdapter : reviewAdapter
+  ReviewTokoActivity o-- ReviewTokoPresenter : presenter
+  HostCallbacks -up-|> FragmentHostCallback
+  SplashScreen -up-|> AppCompatActivity
+  HostCallbacks -up-|> FragmentHostCallback
+  TokoActivity -up-|> OnFragmentInteractionListener
+  TokoActivity -up-|> OnFragmentInteractionListener
+  TokoActivity -up-|> OnFragmentInteractionListener
+  TokoActivity -up-|> view
+  TokoActivity -up-|> AppCompatActivity
+  TokoActivity o-- DetailTokoViewPagerAdapter : detailTokoViewPagerAdapter
+  TokoActivity o-- CarouselDetailTokoAdapter : carouselDetailTokoAdapter
+  TokoActivity o-- TokoPresenter : presenter
+  TokoActivity +-down- TimeCarousel
+  TimeCarousel -up-|> TimerTask
+  HostCallbacks -up-|> FragmentHostCallback
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

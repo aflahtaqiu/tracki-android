@@ -1,0 +1,1474 @@
+@startuml
+
+title __APP's Class Diagram__\n
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class AboutTrackiActivity {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.NavbarFragment {
+      class AccountFragment {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      class Advertisement {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      class Advertisements {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      package com.example.aflah.tracki_master.Data.remote {
+        package com.example.aflah.tracki_master.Data.remote.API {
+          class ApiClient {
+          }
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      package com.example.aflah.tracki_master.Data.remote {
+        package com.example.aflah.tracki_master.Data.remote.API {
+          interface ApiInterface {
+          }
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Retrofit {
+      interface ApiRequest {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    class App {
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    class BuildConfig {
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Adapter {
+      class CarouselDetailTokoAdapter {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      class Category {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    class DateDialog {
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class DetailMenuActivity {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface DetailMenuContract {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Presenter {
+      class DetailMenuPresenter {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class DetailPromoActivity {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface DetailPromoContract {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Presenter {
+      class DetailPromoPresenter {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      package com.example.aflah.tracki_master.Data.remote {
+        class DetailPromoRemoteDataSource {
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      class DetailPromoRepository {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      interface DetailPromoSource {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Adapter {
+      class DetailTokoAdapter {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface DetailTokoContract {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class DetailTokoFragment {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Presenter {
+      class DetailTokoPresenter {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Adapter {
+      class DetailTokoViewPagerAdapter {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class EditProfilActivity {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface EditProfilContract {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Presenter {
+      class EditProfilePresenter {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    class ExampleInstrumentedTest {
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class ForgotPasswordActivity {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface ForgotPasswordContract {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Presenter {
+      class ForgotPasswordPresenter {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      class Galery {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class HasilSearchProductActivity {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Adapter {
+      class HasilSearchProductAdapter {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface HasilSearchProductContract {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Presenter {
+      class HasilSearchProductPresenter {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class HasilSearchStoreActivity {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Adapter {
+      class HasilSearchStoreAdapter {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface HasilSearchStoreContract {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Presenter {
+      class HasilSearchStorePresenter {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.NavbarFragment {
+      class HomeFragment {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Auth {
+      interface ILogin {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    class Injection {
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Adapter {
+      class ListMakananAdapter {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Adapter {
+      class ListMinumanAdapter {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Adapter {
+      class ListPromotionAdapter {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Adapter {
+      class ListSavePromoAdapter {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Auth {
+      class LoginActivity {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Auth {
+      interface LoginContract {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Auth {
+      class LoginPresenter {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface MakananContract {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class MakananFragment {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Presenter {
+      class MakananPresenter {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface MinumanContract {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class MinumanFragment {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Presenter {
+      class MinumanPresenter {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    class NavigationActivity {
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      class PivotPromo {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      class PivotReview {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    class PreferenceManager {
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      class Product {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      package com.example.aflah.tracki_master.Data.remote {
+        class ProductRemoteDataSource {
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      class ProductRepository {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      interface ProductSource {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class PrologActivity {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class PromoFragment {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      class Promotion {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface PromotionContract {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Presenter {
+      class PromotionPresenter {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      package com.example.aflah.tracki_master.Data.remote {
+        class PromotionRemoteDataSource {
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      class PromotionRepository {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      interface PromotionSource {
+      }
+    }
+  }
+  
+
+  package com.eyro.cubeacon {
+    class R {
+    }
+  }
+  
+
+  package com.google.android.gms.auth {
+    package com.google.android.gms.auth.api {
+      class R {
+      }
+    }
+  }
+  
+
+  package com.squareup.picasso {
+    class R {
+    }
+  }
+  
+
+  package com.google.android.gms.tasks {
+    class R {
+    }
+  }
+  
+
+  package android.support.design {
+    class R {
+    }
+  }
+  
+
+  package android.support.graphics.drawable {
+    class R {
+    }
+  }
+  
+
+  package com.facebook {
+    class R {
+    }
+  }
+  
+
+  package android.support.mediacompat {
+    class R {
+    }
+  }
+  
+
+  package com.facebook {
+    package com.facebook.messenger {
+      class R {
+      }
+    }
+  }
+  
+
+  package android.support.fragment {
+    class R {
+    }
+  }
+  
+
+  package com.google.android.gms.auth {
+    package com.google.android.gms.auth.api {
+      package com.google.android.gms.auth.api.phone {
+        class R {
+        }
+      }
+    }
+  }
+  
+
+  package com.facebook {
+    package com.facebook.login {
+      class R {
+      }
+    }
+  }
+  
+
+  package android.support.customtabs {
+    class R {
+    }
+  }
+  
+
+  package android.support.v7.recyclerview {
+    class R {
+    }
+  }
+  
+
+  package com.facebook {
+    package com.facebook.applinks {
+      class R {
+      }
+    }
+  }
+  
+
+  package com.facebook {
+    package com.facebook.places {
+      class R {
+      }
+    }
+  }
+  
+
+  package me.omidh.ripplevalidatoredittext {
+    class R {
+    }
+  }
+  
+
+  package android.support.compat {
+    class R {
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    class R {
+    }
+  }
+  
+
+  package android.arch.lifecycle {
+    package android.arch.lifecycle.viewmodel {
+      class R {
+      }
+    }
+  }
+  
+
+  package android.support.multidex {
+    class R {
+    }
+  }
+  
+
+  package android.support.v7.cardview {
+    class R {
+    }
+  }
+  
+
+  package android.arch.lifecycle {
+    package android.arch.lifecycle.livedata.core {
+      class R {
+      }
+    }
+  }
+  
+
+  package com.facebook {
+    package com.facebook.common {
+      class R {
+      }
+    }
+  }
+  
+
+  package android.support.coreui {
+    class R {
+    }
+  }
+  
+
+  package android.arch.core {
+    class R {
+    }
+  }
+  
+
+  package de.hdodenhof.circleimageview {
+    class R {
+    }
+  }
+  
+
+  package android.support.coreutils {
+    class R {
+    }
+  }
+  
+
+  package android.support.transition {
+    class R {
+    }
+  }
+  
+
+  package android.support.v7.appcompat {
+    class R {
+    }
+  }
+  
+
+  package android.support.graphics.drawable {
+    package android.support.graphics.drawable.animated {
+      class R {
+      }
+    }
+  }
+  
+
+  package android.arch.lifecycle {
+    class R {
+    }
+  }
+  
+
+  package com.google.android.gms.auth {
+    class R {
+    }
+  }
+  
+
+  package org.altbeacon.beacon {
+    class R {
+    }
+  }
+  
+
+  package com.facebook {
+    package com.facebook.core {
+      class R {
+      }
+    }
+  }
+  
+
+  package cn.pedant.SweetAlert {
+    class R {
+    }
+  }
+  
+
+  package com.facebook {
+    package com.facebook.share {
+      class R {
+      }
+    }
+  }
+  
+
+  package android.support.v4 {
+    class R {
+    }
+  }
+  
+
+  package com.wajahatkarim3.easyvalidation.core {
+    class R {
+    }
+  }
+  
+
+  package com.pnikosis.materialishprogress {
+    class R {
+    }
+  }
+  
+
+  package android.support.constraint {
+    class R {
+    }
+  }
+  
+
+  package com.google.zxing.client.android {
+    class R {
+    }
+  }
+  
+
+  package com.google.android.gms.common {
+    class R {
+    }
+  }
+  
+
+  package com.facebook {
+    package com.facebook.marketing {
+      class R {
+      }
+    }
+  }
+  
+
+  package com.google.android.gms.base {
+    class R {
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class RegisterActivity {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface RegisterContract {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Presenter {
+      class RegisterPresenter {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      package com.example.aflah.tracki_master.Model.Response {
+        class ResponseAddReview {
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      package com.example.aflah.tracki_master.Model.Response {
+        class ResponseDeletePromo {
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      package com.example.aflah.tracki_master.Model.Response {
+        class ResponseDetailToko {
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      package com.example.aflah.tracki_master.Model.Response {
+        class ResponseForgotPassword {
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      package com.example.aflah.tracki_master.Model.Response {
+        class ResponseLogin {
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      package com.example.aflah.tracki_master.Model.Response {
+        class ResponseLogout {
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      package com.example.aflah.tracki_master.Model.Response {
+        class ResponseProductById {
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      package com.example.aflah.tracki_master.Model.Response {
+        class ResponsePromotionById {
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      package com.example.aflah.tracki_master.Model.Response {
+        class ResponseRedeemPromotion {
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      package com.example.aflah.tracki_master.Model.Response {
+        class ResponseRegister {
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      package com.example.aflah.tracki_master.Model.Response {
+        class ResponseSearchNameProduct {
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      package com.example.aflah.tracki_master.Model.Response {
+        class ResponseSearchNameStore {
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      package com.example.aflah.tracki_master.Model.Response {
+        class ResponseSearchProduct {
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      package com.example.aflah.tracki_master.Model.Response {
+        class ResponseTokoByUID {
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      package com.example.aflah.tracki_master.Model.Response {
+        class ResponseUserById {
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Retrofit {
+      class RetroServer {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Adapter {
+      class ReviewAdapter {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      package com.example.aflah.tracki_master.Data.remote {
+        class ReviewRemoteDataSource {
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class ReviewTokoActivity {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface ReviewTokoContract {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Presenter {
+      class ReviewTokoPresenter {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      class ReviewTokoRepository {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      interface ReviewTokoSource {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      class Reviewer {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      class SearchName {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class SplashScreen {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      class Store {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      package com.example.aflah.tracki_master.Data.remote {
+        class StoreRemoteDataSource {
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      class StoreRepository {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      interface StoreSource {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      class StoreType {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.View {
+      class TokoActivity {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Contract {
+      interface TokoContract {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Presenter {
+      class TokoPresenter {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Adapter {
+      class TokoTerdekatAdapter {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      class User {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      class UserLogin {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      package com.example.aflah.tracki_master.Data.remote {
+        class UserRemoteDataSource {
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      class UserRepository {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Data {
+      interface UserSource {
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    class setting {
+    }
+  }
+  
+
+  AboutTrackiActivity -up-|> AppCompatActivity
+  AccountFragment -up-|> Fragment
+  AccountFragment o-- UserLogin : userLogin
+  AccountFragment o-- ListSavePromoAdapter : listSavePromoAdapter
+  Advertisement o-- Store : store
+  App -up-|> BootstrapNotifier
+  App -up-|> Application
+  CarouselDetailTokoAdapter -up-|> PagerAdapter
+  DateDialog -up-|> OnDateSetListener
+  DateDialog -up-|> DialogFragment
+  DetailMenuActivity -up-|> view
+  DetailMenuActivity -up-|> AppCompatActivity
+  DetailMenuActivity o-- DetailMenuPresenter : presenter
+  DetailMenuPresenter -up-|> presenter
+  DetailMenuPresenter o-- ProductRepository : productRepository
+  DetailMenuPresenter o-- view : view
+  DetailPromoActivity -up-|> view
+  DetailPromoActivity -up-|> AppCompatActivity
+  DetailPromoActivity o-- UserLogin : userLogin
+  DetailPromoActivity o-- DetailPromoPresenter : presenter
+  DetailPromoPresenter -up-|> presenter
+  DetailPromoPresenter o-- DetailPromoRepository : detailPromoRepository
+  DetailPromoPresenter o-- view : view
+  DetailPromoRemoteDataSource -up-|> DetailPromoSource
+  DetailPromoRemoteDataSource o-- ApiInterface : apiInterface
+  DetailPromoRepository -up-|> DetailPromoSource
+  DetailPromoRepository o-- DetailPromoRemoteDataSource : detailPromoRemoteDataSource
+  DetailTokoAdapter -up-|> Adapter
+  DetailTokoAdapter o-- Store : store
+  DetailTokoFragment -up-|> view
+  DetailTokoFragment -up-|> Fragment
+  DetailTokoFragment o-- OnFragmentInteractionListener : mListener
+  DetailTokoFragment o-- DetailTokoAdapter : adapter
+  DetailTokoFragment o-- Store : store
+  DetailTokoFragment o-- DetailTokoPresenter : presenter
+  DetailTokoPresenter -up-|> presenter
+  DetailTokoPresenter o-- StoreRepository : storeRepository
+  DetailTokoPresenter o-- view : view
+  DetailTokoViewPagerAdapter -up-|> FragmentPagerAdapter
+  EditProfilActivity -up-|> OnClickListener
+  EditProfilActivity -up-|> view
+  EditProfilActivity -up-|> Activity
+  EditProfilActivity o-- UserLogin : userLogin
+  EditProfilActivity o-- EditProfilePresenter : presenter
+  EditProfilePresenter -up-|> presenter
+  EditProfilePresenter -up-|> Activity
+  EditProfilePresenter o-- UserRepository : userRepository
+  EditProfilePresenter o-- view : view
+  ForgotPasswordActivity -up-|> view
+  ForgotPasswordActivity -up-|> AppCompatActivity
+  ForgotPasswordActivity o-- ForgotPasswordPresenter : presenter
+  ForgotPasswordPresenter -up-|> presenter
+  ForgotPasswordPresenter o-- UserRepository : userRepository
+  ForgotPasswordPresenter o-- view : view
+  HasilSearchProductActivity -up-|> view
+  HasilSearchProductActivity -up-|> Activity
+  HasilSearchProductActivity o-- HasilSearchProductAdapter : hasilSearchProductAdapter
+  HasilSearchProductActivity o-- HasilSearchProductPresenter : presenter
+  HasilSearchProductAdapter -up-|> Adapter
+  HasilSearchProductPresenter -up-|> presenter
+  HasilSearchProductPresenter o-- ProductRepository : productRepository
+  HasilSearchProductPresenter o-- view : view
+  HasilSearchStoreActivity -up-|> view
+  HasilSearchStoreActivity -up-|> Activity
+  HasilSearchStoreActivity o-- HasilSearchStoreAdapter : hasilSearchStoreAdapter
+  HasilSearchStoreActivity o-- HasilSearchStorePresenter : presenter
+  HasilSearchStoreAdapter -up-|> Adapter
+  HasilSearchStorePresenter -up-|> presenter
+  HasilSearchStorePresenter o-- StoreRepository : storeRepository
+  HasilSearchStorePresenter o-- view : view
+  HomeFragment -up-|> OnCubeaconUpdated
+  HomeFragment -up-|> OnItemClickListener
+  HomeFragment -up-|> OnRefreshListener
+  HomeFragment -up-|> OnItemSelectedListener
+  HomeFragment -up-|> Fragment
+  HomeFragment o-- TokoTerdekatAdapter : tokoTerdekatAdapter
+  HomeFragment o-- OnFragmentInteractionListener : mListener
+  ListMakananAdapter -up-|> Adapter
+  ListMinumanAdapter -up-|> Adapter
+  ListPromotionAdapter -up-|> Adapter
+  ListSavePromoAdapter -up-|> Adapter
+  LoginActivity -up-|> OnClickListener
+  LoginActivity -up-|> ILogin
+  LoginActivity -up-|> Activity
+  MakananFragment -up-|> view
+  MakananFragment -up-|> Fragment
+  MakananFragment o-- OnFragmentInteractionListener : mListener
+  MakananFragment o-- ListMakananAdapter : adapter
+  MakananFragment o-- MakananPresenter : presenter
+  MakananPresenter -up-|> presenter
+  MakananPresenter o-- ProductRepository : productRepository
+  MakananPresenter o-- view : view
+  MinumanFragment -up-|> view
+  MinumanFragment -up-|> Fragment
+  MinumanFragment o-- ListMinumanAdapter : adapter
+  MinumanFragment o-- OnFragmentInteractionListener : mListener
+  MinumanFragment o-- MinumanPresenter : presenter
+  MinumanPresenter -up-|> presenter
+  MinumanPresenter o-- ProductRepository : productRepository
+  MinumanPresenter o-- view : view
+  NavigationActivity -up-|> OnNavigationItemSelectedListener
+  NavigationActivity -up-|> OnFragmentInteractionListener
+  NavigationActivity -up-|> CBRangingListener
+  NavigationActivity -up-|> CBServiceListener
+  NavigationActivity -up-|> AppCompatActivity
+  NavigationActivity o-- HomeFragment : homeFragment
+  NavigationActivity o-- AccountFragment : accountFragment
+  NavigationActivity o-- PromoFragment : promoFragment
+  NavigationActivity o-- OnCubeaconUpdated : mOnCubeaconUpdated
+  PreferenceManager -up-|> AppCompatActivity
+  Product o-- Category : category
+  ProductRemoteDataSource -up-|> ProductSource
+  ProductRemoteDataSource o-- ApiInterface : apiInterface
+  ProductRepository -up-|> ProductSource
+  ProductRepository o-- ProductRemoteDataSource : productRemoteDataSource
+  PrologActivity -up-|> AppCompatActivity
+  PrologActivity o-- MyViewPagerAdapter : myViewPagerAdapter
+  PrologActivity o-- PreferenceManager : prefManager
+  PromoFragment -up-|> view
+  PromoFragment -up-|> Fragment
+  PromoFragment o-- ListPromotionAdapter : listPromotionAdapter
+  PromoFragment o-- PromotionPresenter : presenter
+  PromoFragment o-- OnFragmentInteractionListener : mListener
+  Promotion o-- PivotPromo : pivot
+  Promotion o-- Store : store
+  PromotionPresenter -up-|> presenter
+  PromotionPresenter o-- PromotionRepository : promotionRepository
+  PromotionPresenter o-- view : view
+  PromotionRemoteDataSource -up-|> PromotionSource
+  PromotionRemoteDataSource o-- ApiInterface : apiInterface
+  PromotionRepository -up-|> PromotionSource
+  PromotionRepository o-- PromotionRemoteDataSource : promotionRemoteDataSource
+  RegisterActivity -up-|> OnClickListener
+  RegisterActivity -up-|> view
+  RegisterActivity -up-|> AppCompatActivity
+  RegisterActivity o-- RegisterPresenter : presenter
+  RegisterPresenter -up-|> presenter
+  RegisterPresenter o-- UserRepository : userRepository
+  RegisterPresenter o-- view : view
+  ResponseAddReview o-- Store : store
+  ResponseDetailToko o-- Store : store
+  ResponseLogin o-- UserLogin : userLogin
+  ResponseProductById o-- Product : product
+  ResponsePromotionById o-- Promotion : promotion
+  ResponseRedeemPromotion o-- User : user
+  ResponseRegister o-- UserLogin : user
+  ResponseUserById o-- User : user
+  ReviewAdapter -up-|> Adapter
+  ReviewRemoteDataSource -up-|> ReviewTokoSource
+  ReviewRemoteDataSource o-- ApiInterface : apiInterface
+  ReviewTokoActivity -up-|> OnClickListener
+  ReviewTokoActivity -up-|> view
+  ReviewTokoActivity -up-|> AppCompatActivity
+  ReviewTokoActivity o-- ReviewAdapter : reviewAdapter
+  ReviewTokoActivity o-- ReviewTokoPresenter : presenter
+  ReviewTokoPresenter -up-|> presenter
+  ReviewTokoPresenter o-- ReviewTokoRepository : reviewTokoRepository
+  ReviewTokoPresenter o-- view : view
+  ReviewTokoRepository -up-|> ReviewTokoSource
+  ReviewTokoRepository o-- ReviewRemoteDataSource : reviewRemoteDataSource
+  Reviewer o-- PivotReview : pivot
+  SplashScreen -up-|> AppCompatActivity
+  Store o-- StoreType : store_type
+  StoreRemoteDataSource -up-|> StoreSource
+  StoreRemoteDataSource o-- ApiInterface : apiInterface
+  StoreRepository -up-|> StoreSource
+  StoreRepository o-- StoreRemoteDataSource : storeRemoteDataSource
+  TokoActivity -up-|> OnFragmentInteractionListener
+  TokoActivity -up-|> OnFragmentInteractionListener
+  TokoActivity -up-|> OnFragmentInteractionListener
+  TokoActivity -up-|> view
+  TokoActivity -up-|> AppCompatActivity
+  TokoActivity o-- DetailTokoViewPagerAdapter : detailTokoViewPagerAdapter
+  TokoActivity o-- CarouselDetailTokoAdapter : carouselDetailTokoAdapter
+  TokoActivity o-- TokoPresenter : presenter
+  TokoPresenter -up-|> presenter
+  TokoPresenter o-- StoreRepository : storeRepository
+  TokoPresenter o-- view : view
+  TokoTerdekatAdapter -up-|> Adapter
+  UserRemoteDataSource -up-|> UserSource
+  UserRemoteDataSource o-- ApiInterface : apiInterface
+  UserRepository -up-|> UserSource
+  UserRepository o-- UserRemoteDataSource : userRemoteDataSource
+  setting -up-|> AppCompatActivity
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

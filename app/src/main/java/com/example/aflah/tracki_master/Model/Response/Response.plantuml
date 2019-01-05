@@ -1,0 +1,239 @@
+@startuml
+
+title __RESPONSE's Class Diagram__\n
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      package com.example.aflah.tracki_master.Model.Response {
+        class ResponseAddReview {
+            - message : String
+            + getStore()
+            + setStore()
+            + getMessage()
+            + setMessage()
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      package com.example.aflah.tracki_master.Model.Response {
+        class ResponseDeletePromo {
+            - message : String
+            + getMessage()
+            + setMessage()
+            + toString()
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      package com.example.aflah.tracki_master.Model.Response {
+        class ResponseDetailToko {
+            + getStore()
+            + setStore()
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      package com.example.aflah.tracki_master.Model.Response {
+        class ResponseForgotPassword {
+            - pesan : String
+            + getPesan()
+            + setPesan()
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      package com.example.aflah.tracki_master.Model.Response {
+        class ResponseLogin {
+            - message : String
+            - accessToken : String
+            - tokenType : String
+            + getMessage()
+            + setMessage()
+            + getUserLogin()
+            + setUserLogin()
+            + getAccessToken()
+            + setAccessToken()
+            + getTokenType()
+            + setTokenType()
+            + toString()
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      package com.example.aflah.tracki_master.Model.Response {
+        class ResponseLogout {
+            - message : String
+            + getMessage()
+            + setMessage()
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      package com.example.aflah.tracki_master.Model.Response {
+        class ResponseProductById {
+            + getProduct()
+            + setProduct()
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      package com.example.aflah.tracki_master.Model.Response {
+        class ResponsePromotionById {
+            + getPromotion()
+            + setPromotion()
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      package com.example.aflah.tracki_master.Model.Response {
+        class ResponseRedeemPromotion {
+            - message : String
+            - promotions : List<Promotion>
+            + getMessage()
+            + setMessage()
+            + getUser()
+            + setUser()
+            + getPromotions()
+            + setPromotions()
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      package com.example.aflah.tracki_master.Model.Response {
+        class ResponseRegister {
+            - access_token : String
+            + getUser()
+            + setUser()
+            + getAccess_token()
+            + setAccess_token()
+            + toString()
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      package com.example.aflah.tracki_master.Model.Response {
+        class ResponseSearchNameProduct {
+            - searchNames : List<SearchName>
+            + getSearchNamesProduct()
+            + setSearchNames()
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      package com.example.aflah.tracki_master.Model.Response {
+        class ResponseSearchNameStore {
+            - searchNames : List<SearchName>
+            + getSearchNamesStore()
+            + setSearchNames()
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      package com.example.aflah.tracki_master.Model.Response {
+        class ResponseSearchProduct {
+            - productList : List<Product>
+            + getProductList()
+            + setProductList()
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      package com.example.aflah.tracki_master.Model.Response {
+        class ResponseTokoByUID {
+            - stores : List<Store>
+            + getStores()
+            + setStores()
+        }
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      package com.example.aflah.tracki_master.Model.Response {
+        class ResponseUserById {
+            - used_promotions : List<Promotion>
+            - unused_promotions : List<Promotion>
+            + getUser()
+            + setUser()
+            + getUsed_promotions()
+            + setUsed_promotions()
+            + getUnused_promotions()
+            + setUnused_promotions()
+        }
+      }
+    }
+  }
+  
+
+  ResponseAddReview o-- Store : store
+  ResponseDetailToko o-- Store : store
+  ResponseLogin o-- UserLogin : userLogin
+  ResponseProductById o-- Product : product
+  ResponsePromotionById o-- Promotion : promotion
+  ResponseRedeemPromotion o-- User : user
+  ResponseRegister o-- UserLogin : user
+  ResponseUserById o-- User : user
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

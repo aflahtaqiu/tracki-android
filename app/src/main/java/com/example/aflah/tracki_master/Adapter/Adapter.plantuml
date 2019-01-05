@@ -1,0 +1,333 @@
+@startuml
+
+title __ADAPTER's Class Diagram__\n
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Adapter {
+      class CarouselDetailTokoAdapter {
+          - context : Context
+          - layoutInflater : LayoutInflater
+          - urlList : List<String>
+          + CarouselDetailTokoAdapter()
+          + getCount()
+          + isViewFromObject()
+          + instantiateItem()
+          + destroyItem()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Adapter {
+      class DetailTokoAdapter {
+          - context : Context
+          ~ userToken : String
+          + DetailTokoAdapter()
+          + onCreateViewHolder()
+          + onBindViewHolder()
+          + getItemCount()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Adapter {
+      class MyViewHolder {
+          ~ namaToko : TextView
+          ~ tipeToko : TextView
+          ~ lokasiToko : TextView
+          ~ jamBukaToko : TextView
+          ~ jamTutupToko : TextView
+          ~ noTelpToko : TextView
+          ~ img_toko_detailToko : CircleImageView
+          ~ btnReview : Button
+          ~ ratingBarToko : RatingBar
+          + MyViewHolder()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Adapter {
+      class DetailTokoViewPagerAdapter {
+          - fragmentList : List<Fragment>
+          - titleList : List<String>
+          + DetailTokoViewPagerAdapter()
+          + getItem()
+          + getCount()
+          + getPageTitle()
+          + AddFragment()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Adapter {
+      class HasilSearchProductAdapter {
+          - context : Context
+          - listProduct : List<Product>
+          + HasilSearchProductAdapter()
+          + onCreateViewHolder()
+          + onBindViewHolder()
+          + getItemCount()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Adapter {
+      class MyViewHolder {
+          ~ nama : TextView
+          ~ lokasiOrharga : TextView
+          ~ gambar : ImageView
+          ~ cardView : CardView
+          + MyViewHolder()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Adapter {
+      class HasilSearchStoreAdapter {
+          - context : Context
+          - listStore : List<Store>
+          + HasilSearchStoreAdapter()
+          + onCreateViewHolder()
+          + onBindViewHolder()
+          + getItemCount()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Adapter {
+      class MyViewHolder {
+          ~ nama : TextView
+          ~ lokasiOrharga : TextView
+          ~ gambar : ImageView
+          ~ cardView : CardView
+          + MyViewHolder()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Adapter {
+      class ListMakananAdapter {
+          - context : Context
+          - listMakanan : List<Product>
+          ~ numberFormat : NumberFormat
+          + ListMakananAdapter()
+          + onCreateViewHolder()
+          + onBindViewHolder()
+          + getItemCount()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Adapter {
+      class MyViewHolder {
+          ~ namaMakanan : TextView
+          ~ hargaMakanan : TextView
+          ~ rpMakanan : TextView
+          ~ img_makanan : CircleImageView
+          + MyViewHolder()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Adapter {
+      class ListMinumanAdapter {
+          - context : Context
+          - listMinuman : List<Product>
+          ~ numberFormat : NumberFormat
+          + ListMinumanAdapter()
+          + onCreateViewHolder()
+          + onBindViewHolder()
+          + getItemCount()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Adapter {
+      class MyViewHolder {
+          ~ namaMinuman : TextView
+          ~ hargaMinuaman : TextView
+          ~ rpMinuman : TextView
+          ~ img_minuman : CircleImageView
+          ~ linearLayout_minuman_item : LinearLayout
+          + MyViewHolder()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Adapter {
+      class ListPromotionAdapter {
+          - context : Context
+          - promotionList : List<Promotion>
+          + ListPromotionAdapter()
+          + onCreateViewHolder()
+          + onBindViewHolder()
+          + getItemCount()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Adapter {
+      class MyViewHolder {
+          ~ namaToko : TextView
+          ~ namaPromo : TextView
+          ~ tanggalPromo : TextView
+          ~ gambarPromo : ImageView
+          ~ cardView : CardView
+          + MyViewHolder()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Adapter {
+      class ListSavePromoAdapter {
+          - context : Context
+          - promotions : List<Promotion>
+          ~ userToken : String
+          ~ recyclerView : RecyclerView
+          ~ tvNoPromo : TextView
+          + ListSavePromoAdapter()
+          + onCreateViewHolder()
+          + onBindViewHolder()
+          + getItemCount()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Adapter {
+      class MyViewHolder {
+          ~ namaToko : TextView
+          ~ namaPromo : TextView
+          ~ gambarPromo : ImageView
+          ~ cardView : CardView
+          ~ imageButtonDelete : ImageButton
+          + MyViewHolder()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Adapter {
+      class ReviewAdapter {
+          ~ context : Context
+          ~ reviewers : List<Reviewer>
+          + ReviewAdapter()
+          + onCreateViewHolder()
+          + onBindViewHolder()
+          + getItemCount()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Adapter {
+      class MyViewHolder {
+          ~ cardView : CardView
+          ~ iv_fotoProfil : CircleImageView
+          ~ tv_namaUser : TextView
+          ~ tv_isiKomentar : TextView
+          ~ ratingBar : RatingBar
+          + MyViewHolder()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Adapter {
+      class TokoTerdekatAdapter {
+          - context : Context
+          - stores : HashMap<String, Store>
+          ~ storeList : List<Store>
+          + TokoTerdekatAdapter()
+          + onCreateViewHolder()
+          + onBindViewHolder()
+          + getItemCount()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Adapter {
+      class MyViewHolder {
+          ~ img_tokoTerdekat : ImageView
+          ~ tv_namaToko_tokoTerdekat : TextView
+          ~ cardView_tokoTerdkat : CardView
+          ~ ratingBar_tokoTerdekat : RatingBar
+          + MyViewHolder()
+      }
+    }
+  }
+  
+
+  CarouselDetailTokoAdapter -up-|> PagerAdapter
+  DetailTokoAdapter -up-|> Adapter
+  DetailTokoAdapter o-- Store : store
+  DetailTokoAdapter +-down- MyViewHolder
+  MyViewHolder -up-|> ViewHolder
+  DetailTokoViewPagerAdapter -up-|> FragmentPagerAdapter
+  HasilSearchProductAdapter -up-|> Adapter
+  HasilSearchProductAdapter +-down- MyViewHolder
+  MyViewHolder -up-|> ViewHolder
+  HasilSearchStoreAdapter -up-|> Adapter
+  HasilSearchStoreAdapter +-down- MyViewHolder
+  MyViewHolder -up-|> ViewHolder
+  ListMakananAdapter -up-|> Adapter
+  ListMakananAdapter +-down- MyViewHolder
+  MyViewHolder -up-|> ViewHolder
+  ListMinumanAdapter -up-|> Adapter
+  ListMinumanAdapter +-down- MyViewHolder
+  MyViewHolder -up-|> ViewHolder
+  ListPromotionAdapter -up-|> Adapter
+  ListPromotionAdapter +-down- MyViewHolder
+  MyViewHolder -up-|> ViewHolder
+  ListSavePromoAdapter -up-|> Adapter
+  ListSavePromoAdapter +-down- MyViewHolder
+  MyViewHolder -up-|> ViewHolder
+  ReviewAdapter -up-|> Adapter
+  ReviewAdapter +-down- MyViewHolder
+  MyViewHolder -up-|> ViewHolder
+  TokoTerdekatAdapter -up-|> Adapter
+  TokoTerdekatAdapter +-down- MyViewHolder
+  MyViewHolder -up-|> ViewHolder
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

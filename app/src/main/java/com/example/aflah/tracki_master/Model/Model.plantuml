@@ -1,0 +1,363 @@
+@startuml
+
+title __MODEL's Class Diagram__\n
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      class Advertisement {
+          - id : int
+          - store_id : int
+          - banner : String
+          + getId()
+          + setId()
+          + getStore_id()
+          + setStore_id()
+          + getBanner()
+          + setBanner()
+          + getStore()
+          + setStore()
+          + toString()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      class Advertisements {
+          - advertisements : List<Advertisement>
+          + getAdvertisements()
+          + setAdvertisements()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      class Category {
+          - id : int
+          - name : String
+          + getId()
+          + setId()
+          + getName()
+          + setName()
+          + toString()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      class Galery {
+          - id : int
+          - store_id : int
+          - picture : String
+          + getId()
+          + setId()
+          + getStore_id()
+          + setStore_id()
+          + getPicture()
+          + setPicture()
+          + toString()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      class PivotPromo {
+          - store_id : int
+          - promotion_id : int
+          - user_id : int
+          + getUser_id()
+          + setUser_id()
+          + getStore_id()
+          + setStore_id()
+          + getPromotion_id()
+          + setPromotion_id()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      class PivotReview {
+          - store_id : int
+          - user_id : int
+          - rating : double
+          - description : String
+          + getStore_id()
+          + setStore_id()
+          + getUser_id()
+          + setUser_id()
+          + getRating()
+          + setRating()
+          + getDescription()
+          + setDescription()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      class Product {
+          - id : int
+          - name : String
+          - price : double
+          - description : String
+          - picture : String
+          - stores : List<Store>
+          + getStores()
+          + setStores()
+          + getId()
+          + setId()
+          + getName()
+          + setName()
+          + getPrice()
+          + setPrice()
+          + getDescription()
+          + setDescription()
+          + getCategory()
+          + setCategory()
+          + getPicture()
+          + setPicture()
+          + toString()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      class Promotion {
+          - id : int
+          - title : String
+          - description : String
+          - banner : String
+          - terms_and_policies : String
+          - expired_date : String
+          - stores : List<Store>
+          - saved : Boolean
+          - used : Boolean
+          + getSaved()
+          + setSaved()
+          + getUsed()
+          + setUsed()
+          + getStore()
+          + setStore()
+          + getStores()
+          + setStores()
+          + getPivot()
+          + setPivot()
+          + getId()
+          + setId()
+          + getTitle()
+          + setTitle()
+          + getDescription()
+          + setDescription()
+          + getBanner()
+          + setBanner()
+          + getTerms_and_policies()
+          + setTerms_and_policies()
+          + getExpired_date()
+          + setExpired_date()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      class Reviewer {
+          - id : int
+          - name : String
+          - email : String
+          - date_of_birth : String
+          - foto : String
+          - provider : String
+          - provider_id : String
+          + getId()
+          + setId()
+          + getName()
+          + setName()
+          + getEmail()
+          + setEmail()
+          + getDate_of_birth()
+          + setDate_of_birth()
+          + getFoto()
+          + setFoto()
+          + getProvider()
+          + setProvider()
+          + getProvider_id()
+          + setProvider_id()
+          + getPivot()
+          + setPivot()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      class SearchName {
+          - id : String
+          - name : String
+          + getId()
+          + setId()
+          + getName()
+          + setName()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      class Store {
+          - id : int
+          - advertisement_id : int
+          - uid : String
+          - name : String
+          - phone : String
+          - logo : String
+          - location : String
+          - open : String
+          - close : String
+          - promo : boolean
+          - products : List<Product>
+          - galleries : List<Galery>
+          - rating : double
+          - reviewers : List<Reviewer>
+          - promotions : List<Promotion>
+          + getPromotions()
+          + setPromotions()
+          + getReviewers()
+          + setReviewers()
+          + getRating()
+          + setRating()
+          + getGalleries()
+          + setGalleries()
+          + getId()
+          + setId()
+          + getAdvertisement_id()
+          + setAdvertisement_id()
+          + getUid()
+          + setUid()
+          + getName()
+          + setName()
+          + getPhone()
+          + setPhone()
+          + getLogo()
+          + setLogo()
+          + getLocation()
+          + setLocation()
+          + getOpen()
+          + setOpen()
+          + getClose()
+          + setClose()
+          + isPromo()
+          + setPromo()
+          + getStore_type()
+          + setStore_type()
+          + getProducts()
+          + setProducts()
+          + toString()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      class StoreType {
+          - id : int
+          - name : String
+          + getId()
+          + setId()
+          + getName()
+          + setName()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      class User {
+          - name : String
+          - email : String
+          - dateOfBirth : String
+          - id : int
+          - foto : String
+          - stores : List<Store>
+          + getName()
+          + setName()
+          + getEmail()
+          + setEmail()
+          + getDateOfBirth()
+          + setDateOfBirth()
+          + getId()
+          + setId()
+          + getFoto()
+          + setFoto()
+          + getStores()
+          + setStores()
+      }
+    }
+  }
+  
+
+  package com.example.aflah.tracki_master {
+    package com.example.aflah.tracki_master.Model {
+      class UserLogin {
+          - id : int
+          - name : String
+          - email : String
+          - active : boolean
+          - dateOfBirth : String
+          - foto : String
+          - provider : String
+          - providerId : String
+          + getId()
+          + setId()
+          + getName()
+          + setName()
+          + getEmail()
+          + setEmail()
+          + isActive()
+          + setActive()
+          + getDateOfBirth()
+          + setDateOfBirth()
+          + getFoto()
+          + setFoto()
+          + getProvider()
+          + setProvider()
+          + getProviderId()
+          + setProviderId()
+          + toString()
+      }
+    }
+  }
+  
+
+  Advertisement o-- Store : store
+  Product o-- Category : category
+  Promotion o-- PivotPromo : pivot
+  Promotion o-- Store : store
+  Reviewer o-- PivotReview : pivot
+  Store o-- StoreType : store_type
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml
