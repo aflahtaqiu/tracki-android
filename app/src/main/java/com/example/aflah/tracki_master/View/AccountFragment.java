@@ -32,7 +32,6 @@ import com.example.aflah.tracki_master.Data.remote.API.ApiInterface;
 import com.example.aflah.tracki_master.Injection;
 import com.example.aflah.tracki_master.Model.Promotion;
 import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
-import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.Model.User;
 import com.example.aflah.tracki_master.Model.UserLogin;
 import com.example.aflah.tracki_master.Presenter.AccountPresenter;
@@ -65,8 +64,7 @@ public class AccountFragment extends Fragment implements AccountContract.view {
     UserLogin userLogin;
     Gson gson = new Gson();
     String userToken;
-    List<Store> stores;
-    List<Promotion> promotionList;
+    List<Promotion> promotionList = new ArrayList<>();
     RecyclerView recyclerView;
     ListSavePromoAdapter listSavedPromoAdapter;
     Dialog Mydialog;
@@ -104,9 +102,6 @@ public class AccountFragment extends Fragment implements AccountContract.view {
                 MyCustomDialog();
             }
         });
-
-        stores = new ArrayList<>();
-        promotionList = new ArrayList<>();
 
         recyclerView = view.findViewById(R.id.recycerview_promoSaved);
         presenter.getSavedUnusedPromo(userLogin.getId());
