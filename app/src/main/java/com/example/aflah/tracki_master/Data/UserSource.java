@@ -1,10 +1,12 @@
 package com.example.aflah.tracki_master.Data;
 
+import com.example.aflah.tracki_master.Model.Promotion;
 import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
 import com.example.aflah.tracki_master.Model.User;
 import com.example.aflah.tracki_master.Model.UserLogin;
 
 import java.util.Date;
+import java.util.List;
 
 public interface UserSource {
 
@@ -14,6 +16,7 @@ public interface UserSource {
     void registerUser(String nama, String email, Date dateOfBirth, String password, String confirmPassword, RegisterUserCallback callback);
     void loginUser(String email, String password, LoginUserCallback callback);
     void logoutUser(LogoutCallback callback);
+    void getSavedPromotion(int idUser, GetSavedPromoCallback callback);
 
     interface UpdateProfileCallback {
         void onSuccess(ResponseUserById responseUserById);
@@ -42,6 +45,11 @@ public interface UserSource {
 
     interface LogoutCallback {
         void onSuccess(String successMsg);
+        void onFailure(String errMsg);
+    }
+
+    interface GetSavedPromoCallback {
+        void onSuccess(List<Promotion> promotionList);
         void onFailure(String errMsg);
     }
 }

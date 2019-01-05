@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -22,16 +23,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.aflah.tracki_master.Adapter.ListSavePromoAdapter;
+import com.example.aflah.tracki_master.Contract.AccountContract;
 import com.example.aflah.tracki_master.Data.remote.API.ApiClient;
 import com.example.aflah.tracki_master.Data.remote.API.ApiInterface;
+import com.example.aflah.tracki_master.Injection;
 import com.example.aflah.tracki_master.Model.Promotion;
 import com.example.aflah.tracki_master.Model.Response.ResponseLogout;
 import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
 import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.Model.User;
 import com.example.aflah.tracki_master.Model.UserLogin;
+import com.example.aflah.tracki_master.Presenter.AccountPresenter;
 import com.example.aflah.tracki_master.R;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -52,7 +57,7 @@ import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
 
-public class AccountFragment extends Fragment {
+public class AccountFragment extends Fragment implements AccountContract.view {
 
     CircleImageView imgAvatar;
     TextView tvUserName, tvNoPromo;
@@ -62,14 +67,17 @@ public class AccountFragment extends Fragment {
     Gson gson = new Gson();
     String userToken;
     List<Store> stores;
-    List<Promotion> promotions;
+    List<Promotion> promotionList;
     RecyclerView recyclerView;
-    ListSavePromoAdapter listSavePromoAdapter;
+    ListSavePromoAdapter listSavedPromoAdapter;
     Dialog Mydialog;
     TextView picGaleri, picCamera;
     Toolbar toolbarAccount;
     Uri selectedImage;
     private int GALLERY = 1, CAMERA = 2;
+    SweetAlertDialog sweetAlertDialogProgress;
+
+    private AccountPresenter presenter = new AccountPresenter(Injection.provideUserRepository(), this);
 
     public AccountFragment() {
     }
@@ -99,29 +107,11 @@ public class AccountFragment extends Fragment {
         });
 
         stores = new ArrayList<>();
-        promotions = new ArrayList<>();
+        promotionList = new ArrayList<>();
 
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<ResponseUserById> getSavedPromo = apiInterface.getUserById(userLogin.getId());
-        getSavedPromo.enqueue(new Callback<ResponseUserById>() {
-            @Override
-            public void onResponse(Call<ResponseUserById> call, Response<ResponseUserById> response) {
-                for (Promotion promotion : response.body().getUnused_promotions()){
-                    promotions.add(promotion);
-                }
-                recyclerView = view.findViewById(R.id.recycerview_promoSaved);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                if (promotions.size() != 0)
-                    tvNoPromo.setVisibility(View.INVISIBLE);
-                listSavePromoAdapter = new ListSavePromoAdapter(getContext(), promotions, userToken,recyclerView, tvNoPromo);
-                recyclerView.setAdapter(listSavePromoAdapter);
-            }
-
-            @Override
-            public void onFailure(Call<ResponseUserById> call, Throwable t) {
-
-            }
-        });
+        recyclerView = view.findViewById(R.id.recycerview_promoSaved);
+        presenter.getSavedUnusedPromo(userLogin.getId());
+        initSavedPromoAdapter();
 
         return view;
     }
@@ -159,6 +149,7 @@ public class AccountFragment extends Fragment {
                 editor.putString("userLogin", "");
                 editor.apply();
                 editor.commit();
+
                 SweetAlertDialog confirmDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE)
                         .setTitleText("Log Out")
                         .setContentText("Apakah Anda yakin untuk log out?")
@@ -303,5 +294,57 @@ public class AccountFragment extends Fragment {
                 });
             } catch (Exception e) { }
         }
+    }
+
+    @Override
+    public void cleanSharedPreferences() {
+        SharedPreferences.Editor editor = this.getActivity().getSharedPreferences("login", Context.MODE_PRIVATE).edit();
+        editor.putString("tokenLogin", "");
+        editor.putString("userLogin", "");
+        editor.apply();
+        editor.commit();
+    }
+
+    @Override
+    public void showProgress() {
+        sweetAlertDialogProgress = new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE);
+        sweetAlertDialogProgress.getProgressHelper().setBarColor(Color.parseColor("#B40037"));
+        sweetAlertDialogProgress.getProgressHelper().setRimColor(Color.parseColor("#B40037"));
+        sweetAlertDialogProgress.setTitleText("Loading");
+        sweetAlertDialogProgress.setCancelable(false);
+        sweetAlertDialogProgress.setCanceledOnTouchOutside(true);
+        sweetAlertDialogProgress.show();
+    }
+
+    @Override
+    public void hideProgress() {
+        sweetAlertDialogProgress.dismiss();
+    }
+
+    @Override
+    public void showConfirmationDialog() {
+
+    }
+
+    @Override
+    public void showFailure(String errMsg) {
+        Toast.makeText(getContext(), "Ada eror : " + errMsg, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void noSavedPromo() {
+        tvNoPromo.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showListPromo(List<Promotion> promotionList) {
+        this.promotionList.addAll(promotionList);
+        listSavedPromoAdapter.notifyDataSetChanged();
+    }
+
+    public void initSavedPromoAdapter() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        listSavedPromoAdapter = new ListSavePromoAdapter(getContext(), promotionList, userToken,recyclerView, tvNoPromo);
+        recyclerView.setAdapter(listSavedPromoAdapter);
     }
 }

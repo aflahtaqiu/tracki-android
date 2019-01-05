@@ -135,4 +135,20 @@ public class UserRemoteDataSource implements UserSource {
             }
         });
     }
+
+    @Override
+    public void getSavedPromotion(int idUser, GetSavedPromoCallback callback) {
+        Call<ResponseUserById> call = apiInterface.getUserById(idUser);
+        call.enqueue(new Callback<ResponseUserById>() {
+            @Override
+            public void onResponse(Call<ResponseUserById> call, Response<ResponseUserById> response) {
+                callback.onSuccess(response.body().getUnused_promotions());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseUserById> call, Throwable t) {
+                callback.onFailure(t.getMessage());
+            }
+        });
+    }
 }

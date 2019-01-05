@@ -1,11 +1,13 @@
 package com.example.aflah.tracki_master.Data;
 
 import com.example.aflah.tracki_master.Data.remote.UserRemoteDataSource;
+import com.example.aflah.tracki_master.Model.Promotion;
 import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
 import com.example.aflah.tracki_master.Model.User;
 import com.example.aflah.tracki_master.Model.UserLogin;
 
 import java.util.Date;
+import java.util.List;
 
 public class UserRepository implements UserSource {
 
@@ -96,6 +98,21 @@ public class UserRepository implements UserSource {
             @Override
             public void onSuccess(String successMsg) {
                 callback.onSuccess(successMsg);
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+                callback.onFailure(errMsg);
+            }
+        });
+    }
+
+    @Override
+    public void getSavedPromotion(int idUser, GetSavedPromoCallback callback) {
+        userRemoteDataSource.getSavedPromotion(idUser, new GetSavedPromoCallback() {
+            @Override
+            public void onSuccess(List<Promotion> promotionList) {
+                callback.onSuccess(promotionList);
             }
 
             @Override
