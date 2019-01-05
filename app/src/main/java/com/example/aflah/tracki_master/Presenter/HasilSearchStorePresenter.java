@@ -18,7 +18,7 @@ public class HasilSearchStorePresenter implements HasilSearchStoreContract.prese
 
     @Override
     public void getListStore(String keyword) {
-        storeRepository.getSearchList(keyword, new StoreSource.GetSearhList() {
+        storeRepository.getSearchList(keyword, new StoreSource.GetStoreSearchList() {
             @Override
             public void onSuccess(List<Store> listStore) {
                 view.showDataList(listStore);

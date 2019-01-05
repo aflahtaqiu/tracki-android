@@ -89,7 +89,7 @@ public class ListSavePromoAdapter extends RecyclerView.Adapter<ListSavePromoAdap
                                     @Override
                                     public void onResponse(Call<ResponseDeletePromo> call, Response<ResponseDeletePromo> response) {
 
-                                        Call<ResponseUserById> getSavedPromo = apiInterface.getSavedPromo(promotions.get(position).getPivot().getUser_id());
+                                        Call<ResponseUserById> getSavedPromo = apiInterface.getUserById(promotions.get(position).getPivot().getUser_id());
                                         getSavedPromo.enqueue(new Callback<ResponseUserById>() {
                                             @Override
                                             public void onResponse(Call<ResponseUserById> call, Response<ResponseUserById> response) {

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -22,16 +23,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.aflah.tracki_master.Adapter.ListSavePromoAdapter;
-import com.example.aflah.tracki_master.Data.remote.API.ApiClient;
-import com.example.aflah.tracki_master.Data.remote.API.ApiInterface;
+import com.example.aflah.tracki_master.Contract.AccountContract;
+import com.example.aflah.tracki_master.Injection;
 import com.example.aflah.tracki_master.Model.Promotion;
-import com.example.aflah.tracki_master.Model.Response.ResponseLogout;
-import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
-import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.Model.User;
 import com.example.aflah.tracki_master.Model.UserLogin;
+import com.example.aflah.tracki_master.Presenter.AccountPresenter;
 import com.example.aflah.tracki_master.R;
 import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
@@ -42,34 +42,33 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static android.app.Activity.RESULT_OK;
 
-public class AccountFragment extends Fragment {
+public class AccountFragment extends Fragment implements AccountContract.view {
 
     CircleImageView imgAvatar;
-    TextView tvUserName, tvNoPromo;
-    SharedPreferences sharedPreferences;
-    String json;
-    UserLogin userLogin;
-    Gson gson = new Gson();
-    String userToken;
-    List<Store> stores;
-    List<Promotion> promotions;
-    RecyclerView recyclerView;
-    ListSavePromoAdapter listSavePromoAdapter;
+    TextView tvUserName, tvNoPromo, picGaleri, picCamera;
     Dialog Mydialog;
-    TextView picAvatar,picGaleri, picCamera;
     Toolbar toolbarAccount;
-    Uri selectedImage;
+    RecyclerView recyclerView;
+    SweetAlertDialog sweetAlertDialogProgress;
+
+    String json, userToken;
     private int GALLERY = 1, CAMERA = 2;
 
+    SharedPreferences sharedPreferences;
+    Gson gson = new Gson();
+    UserLogin userLogin;
+    List<Promotion> promotionList = new ArrayList<>();
+
+    ListSavePromoAdapter listSavedPromoAdapter;
+
+    private AccountPresenter presenter = new AccountPresenter(Injection.provideUserRepository(), this);
 
     public AccountFragment() {
     }
@@ -84,10 +83,29 @@ public class AccountFragment extends Fragment {
         userToken = sharedPreferences.getString("tokenLogin", "");
         setHasOptionsMenu(true);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
+
+        initViews(view);
+
+        imgAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyCustomDialog();
+            }
+        });
+
+        recyclerView = view.findViewById(R.id.recycerview_promoSaved);
+        presenter.getSavedUnusedPromo(userLogin.getId());
+        initSavedPromoAdapter();
+
+        return view;
+    }
+
+    private void initViews(View view) {
         imgAvatar = view.findViewById(R.id.imgProfile);
         tvUserName = view.findViewById(R.id.tv_userName);
         tvNoPromo = view.findViewById(R.id.announceNoPromo_accountFragment);
@@ -98,48 +116,12 @@ public class AccountFragment extends Fragment {
 
         Picasso.get().load(userLogin.getFoto()).fit().into(imgAvatar);
         tvUserName.setText(userLogin.getName());
-
-        imgAvatar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MyCustomDialog();
-            }
-        });
-
-        stores = new ArrayList<>();
-        promotions = new ArrayList<>();
-
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-        Call<ResponseUserById> getSavedPromo = apiInterface.getSavedPromo(userLogin.getId());
-        getSavedPromo.enqueue(new Callback<ResponseUserById>() {
-            @Override
-            public void onResponse(Call<ResponseUserById> call, Response<ResponseUserById> response) {
-                for (Promotion promotion : response.body().getUnused_promotions()){
-                    promotions.add(promotion);
-                }
-                recyclerView = view.findViewById(R.id.recycerview_promoSaved);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                if (promotions.size() != 0)
-                    tvNoPromo.setVisibility(View.INVISIBLE);
-                listSavePromoAdapter = new ListSavePromoAdapter(getContext(), promotions, userToken,recyclerView, tvNoPromo);
-                recyclerView.setAdapter(listSavePromoAdapter);
-            }
-
-            @Override
-            public void onFailure(Call<ResponseUserById> call, Throwable t) {
-
-            }
-        });
-
-        return view;
     }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-
         inflater.inflate(R.menu.menu_setting, menu);
         super.onCreateOptionsMenu(menu, inflater);
-
     }
 
     @Override
@@ -150,30 +132,8 @@ public class AccountFragment extends Fragment {
             case R.id.item_about:
                 getActivity().startActivity(new Intent(getActivity(), AboutTrackiActivity.class));
                 break;
-//            case R.id.item_help:
-//                Log.v("itemSelected", "help");
-//                break;
             case R.id.item_logout:
-                SharedPreferences.Editor editor = this.getActivity().getSharedPreferences("login", Context.MODE_PRIVATE).edit();
-                editor.putString("tokenLogin", "");
-                editor.putString("userLogin", "");
-                editor.apply();
-                editor.commit();
-                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-                Call<ResponseLogout> responseLogoutCall = apiInterface.sendLogout();
-                responseLogoutCall.enqueue(new Callback<ResponseLogout>() {
-                    @Override
-                    public void onResponse(Call<ResponseLogout> call, Response<ResponseLogout> response) {
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseLogout> call, Throwable t) {
-
-                    }
-                });
-                startActivity(new Intent(getContext(), LoginActivity.class));
-                getActivity().finish();
+                presenter.logoutUser();
                 break;
             case R.id.btn_edit:
                 getActivity().startActivity(new Intent(getActivity(), EditProfilActivity.class));
@@ -199,7 +159,7 @@ public class AccountFragment extends Fragment {
                 Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 galleryIntent.setType("image/*");
                 startActivityForResult(galleryIntent, GALLERY);
-
+                Mydialog.dismiss();
             }
         });
 
@@ -213,6 +173,7 @@ public class AccountFragment extends Fragment {
                 Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
                     startActivityForResult(takePictureIntent, CAMERA);
+                    Mydialog.dismiss();
                 }
             }
         });
@@ -236,12 +197,11 @@ public class AccountFragment extends Fragment {
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         super.onActivityResult(requestCode, resultCode, data);
 
         if ((requestCode == GALLERY || requestCode == CAMERA) && resultCode == RESULT_OK && null != data) {
             try {
-                selectedImage = data.getData();
+                Uri selectedImage = data.getData();
                 File file = new File(getContext().getCacheDir(), "fotoProfil");
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
                 file.createNewFile();
@@ -265,29 +225,94 @@ public class AccountFragment extends Fragment {
 
                 RequestBody requestMethod = RequestBody.create(MultipartBody.FORM,"PUT");
 
-                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-                Call<ResponseUserById> updatefoto = apiInterface.updateProfilPicture(userLogin.getId(),userToken,multipartBody,requestMethod);
-                updatefoto.enqueue(new Callback<ResponseUserById>() {
-                    @Override
-                    public void onResponse(Call<ResponseUserById> call, Response<ResponseUserById> response) {
-                        User userLogin =  response.body().getUser();
-
-                        Gson gson = new Gson();
-                        String json = gson.toJson(userLogin);
-                        SharedPreferences.Editor editor = getContext().getSharedPreferences("login", Context.MODE_PRIVATE).edit();
-                        editor.putString("userLogin", json);
-                        editor.apply();
-                        editor.commit();
-                        Mydialog.dismiss();
-                        Picasso.get().load(userLogin.getFoto()).fit().into(imgAvatar);
-
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseUserById> call, Throwable t) {
-                    }
-                });
+                presenter.updatePhotoUser(userLogin.getId(), userToken, multipartBody, requestMethod);
             } catch (Exception e) { }
         }
+    }
+
+    @Override
+    public void cleanSharedPreferences() {
+        SharedPreferences.Editor editor = this.getActivity().getSharedPreferences("login", Context.MODE_PRIVATE).edit();
+        editor.putString("tokenLogin", "");
+        editor.putString("userLogin", "");
+        editor.apply();
+        editor.commit();
+    }
+
+    @Override
+    public void showProgress() {
+        sweetAlertDialogProgress = new SweetAlertDialog(getContext(), SweetAlertDialog.PROGRESS_TYPE);
+        sweetAlertDialogProgress.getProgressHelper().setBarColor(Color.parseColor("#B40037"));
+        sweetAlertDialogProgress.getProgressHelper().setRimColor(Color.parseColor("#B40037"));
+        sweetAlertDialogProgress.setTitleText("Loading");
+        sweetAlertDialogProgress.setCancelable(false);
+        sweetAlertDialogProgress.setCanceledOnTouchOutside(true);
+        sweetAlertDialogProgress.show();
+    }
+
+    @Override
+    public void hideProgress() {
+        sweetAlertDialogProgress.dismiss();
+    }
+
+    @Override
+    public void showConfirmationDialog() {
+        SweetAlertDialog confirmDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Log Out")
+                .setContentText("Apakah Anda yakin untuk log out?")
+                .setConfirmText("Ya")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        presenter.sendLogout();
+                        startActivity(new Intent(getContext(), LoginActivity.class));
+                        getActivity().finish();
+                    }
+                })
+                .setCancelButton("Tidak", new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismissWithAnimation();
+                    }
+                });
+        confirmDialog.show();
+    }
+
+    @Override
+    public void showFailure(String errMsg) {
+        Toast.makeText(getContext(), "Ada eror : " + errMsg, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void noSavedPromo() {
+        tvNoPromo.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showListPromo(List<Promotion> promotionList) {
+        if (!this.promotionList.isEmpty())
+            this.promotionList.clear();
+        this.promotionList.addAll(promotionList);
+        listSavedPromoAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showFotoUser(User user) {
+        Picasso.get().load(user.getFoto()).fit().into(imgAvatar);
+    }
+
+    @Override
+    public void updateSharedPreferences(User user) {
+        json = gson.toJson(user);
+        SharedPreferences.Editor editor = getContext().getSharedPreferences("login", Context.MODE_PRIVATE).edit();
+        editor.putString("userLogin", json);
+        editor.apply();
+        editor.commit();
+    }
+
+    public void initSavedPromoAdapter() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        listSavedPromoAdapter = new ListSavePromoAdapter(getContext(), promotionList, userToken,recyclerView, tvNoPromo);
+        recyclerView.setAdapter(listSavedPromoAdapter);
     }
 }

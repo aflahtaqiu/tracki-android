@@ -2,6 +2,7 @@ package com.example.aflah.tracki_master.Data;
 
 import com.example.aflah.tracki_master.Data.remote.StoreRemoteDataSource;
 import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
+import com.example.aflah.tracki_master.Model.SearchName;
 import com.example.aflah.tracki_master.Model.Store;
 
 import java.util.List;
@@ -45,8 +46,8 @@ public class StoreRepository implements StoreSource{
     }
 
     @Override
-    public void getSearchList(String keyword, GetSearhList callback) {
-        storeRemoteDataSource.getSearchList(keyword, new GetSearhList() {
+    public void getSearchList(String keyword, GetStoreSearchList callback) {
+        storeRemoteDataSource.getSearchList(keyword, new GetStoreSearchList() {
             @Override
             public void onSuccess(List<Store> listStore) {
                 callback.onSuccess(listStore);
@@ -54,7 +55,37 @@ public class StoreRepository implements StoreSource{
 
             @Override
             public void onFailure(String errMsg) {
+                callback.onFailure(errMsg);
+            }
+        });
+    }
 
+    @Override
+    public void getStoreByUID(int uid, GetStoreByUIDCallback callback) {
+        storeRemoteDataSource.getStoreByUID(uid, new GetStoreByUIDCallback() {
+            @Override
+            public void onSuccess(List<Store> storeList) {
+                callback.onSuccess(storeList);
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+                callback.onFailure(errMsg);
+            }
+        });
+    }
+
+    @Override
+    public void getSearchStoreByInput(GetSearchStoreByInputCallback callback) {
+        storeRemoteDataSource.getSearchStoreByInput(new GetSearchStoreByInputCallback() {
+            @Override
+            public void onSuccess(List<SearchName> searchNameStoreList) {
+                callback.onSuccess(searchNameStoreList);
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+                callback.onFailure(errMsg);
             }
         });
     }

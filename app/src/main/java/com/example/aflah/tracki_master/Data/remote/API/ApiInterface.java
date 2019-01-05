@@ -118,15 +118,9 @@ public interface ApiInterface {
             @Field("password") String password
     );
 
-
     @GET("store/uid/{numberUID}")
     Call<ResponseTokoByUID> getStoreByUID(
             @Path("numberUID") int numberUID
-    );
-
-    @GET("user/{id}")
-    Call<ResponseUserById> getSavedPromo(
-            @Path("id") int id
     );
 
     @DELETE("redeem/{id}")

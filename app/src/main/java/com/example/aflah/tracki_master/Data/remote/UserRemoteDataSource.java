@@ -5,6 +5,7 @@ import com.example.aflah.tracki_master.Data.remote.API.ApiClient;
 import com.example.aflah.tracki_master.Data.remote.API.ApiInterface;
 import com.example.aflah.tracki_master.Model.Response.ResponseForgotPassword;
 import com.example.aflah.tracki_master.Model.Response.ResponseLogin;
+import com.example.aflah.tracki_master.Model.Response.ResponseLogout;
 import com.example.aflah.tracki_master.Model.Response.ResponseRegister;
 import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
 
@@ -13,6 +14,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.Date;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -101,7 +104,6 @@ public class UserRemoteDataSource implements UserSource {
             @Override
             public void onResponse(Call<ResponseLogin> call, Response<ResponseLogin> response) {
                 if (response.code() == 201){
-                    response.toString();
                     callback.onSuccess(response.body().getUserLogin(), response.body().getAccessToken(), response.body().getMessage(), response.code());
                 }
                 else {
@@ -115,6 +117,54 @@ public class UserRemoteDataSource implements UserSource {
 
             @Override
             public void onFailure(Call<ResponseLogin> call, Throwable t) {
+                callback.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void logoutUser(LogoutCallback callback) {
+        Call<ResponseLogout> call = apiInterface.sendLogout();
+        call.enqueue(new Callback<ResponseLogout>() {
+            @Override
+            public void onResponse(Call<ResponseLogout> call, Response<ResponseLogout> response) {
+                callback.onSuccess();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseLogout> call, Throwable t) {
+                callback.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void getSavedPromotion(int idUser, GetSavedPromoCallback callback) {
+        Call<ResponseUserById> call = apiInterface.getUserById(idUser);
+        call.enqueue(new Callback<ResponseUserById>() {
+            @Override
+            public void onResponse(Call<ResponseUserById> call, Response<ResponseUserById> response) {
+                callback.onSuccess(response.body().getUnused_promotions());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseUserById> call, Throwable t) {
+                callback.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void updateFotoUser(int idUser, String userToken, MultipartBody.Part multipartBody, RequestBody requestMethod, UpdateFotoCallback callback) {
+        Call<ResponseUserById> call = apiInterface.updateProfilPicture(idUser, userToken, multipartBody, requestMethod);
+        call.enqueue(new Callback<ResponseUserById>() {
+            @Override
+            public void onResponse(Call<ResponseUserById> call, Response<ResponseUserById> response) {
+                callback.onSuccess(response.body().getUser());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseUserById> call, Throwable t) {
                 callback.onFailure(t.getMessage());
             }
         });

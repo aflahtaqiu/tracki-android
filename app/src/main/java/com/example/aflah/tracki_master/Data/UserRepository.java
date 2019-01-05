@@ -1,11 +1,16 @@
 package com.example.aflah.tracki_master.Data;
 
 import com.example.aflah.tracki_master.Data.remote.UserRemoteDataSource;
+import com.example.aflah.tracki_master.Model.Promotion;
 import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
 import com.example.aflah.tracki_master.Model.User;
 import com.example.aflah.tracki_master.Model.UserLogin;
 
 import java.util.Date;
+import java.util.List;
+
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class UserRepository implements UserSource {
 
@@ -81,6 +86,52 @@ public class UserRepository implements UserSource {
             @Override
             public void onSuccess(UserLogin userLogin, String token, String pesan, int code) {
                 callback.onSuccess(userLogin, token, pesan, code);
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+                callback.onFailure(errMsg);
+            }
+        });
+    }
+
+    @Override
+    public void logoutUser(LogoutCallback callback) {
+        userRemoteDataSource.logoutUser(new LogoutCallback() {
+
+            @Override
+            public void onSuccess() {
+                callback.onSuccess();
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+                callback.onFailure(errMsg);
+            }
+        });
+    }
+
+    @Override
+    public void getSavedPromotion(int idUser, GetSavedPromoCallback callback) {
+        userRemoteDataSource.getSavedPromotion(idUser, new GetSavedPromoCallback() {
+            @Override
+            public void onSuccess(List<Promotion> promotionList) {
+                callback.onSuccess(promotionList);
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+                callback.onFailure(errMsg);
+            }
+        });
+    }
+
+    @Override
+    public void updateFotoUser(int idUser, String userToken, MultipartBody.Part multipartBody, RequestBody requestMethod, UpdateFotoCallback callback) {
+        userRemoteDataSource.updateFotoUser(idUser, userToken, multipartBody, requestMethod, new UpdateFotoCallback() {
+            @Override
+            public void onSuccess(User user) {
+                callback.onSuccess(user);
             }
 
             @Override

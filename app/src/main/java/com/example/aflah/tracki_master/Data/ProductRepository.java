@@ -3,6 +3,7 @@ package com.example.aflah.tracki_master.Data;
 import com.example.aflah.tracki_master.Data.remote.ProductRemoteDataSource;
 import com.example.aflah.tracki_master.Model.Product;
 import com.example.aflah.tracki_master.Model.Response.ResponseProductById;
+import com.example.aflah.tracki_master.Model.SearchName;
 
 import java.util.List;
 
@@ -60,16 +61,31 @@ public class ProductRepository implements ProductSource {
     }
 
     @Override
-    public void getSearchList(String keyword, GetSearhList getSearhList) {
-        productRemoteDataSource.getSearchList(keyword, new GetSearhList() {
+    public void getSearchList(String keyword, GetProductsSearchList getProductsSearchList) {
+        productRemoteDataSource.getSearchList(keyword, new GetProductsSearchList() {
             @Override
             public void onSuccess(List<Product> listProduct) {
-                getSearhList.onSuccess(listProduct);
+                getProductsSearchList.onSuccess(listProduct);
             }
 
             @Override
             public void onFailure(String errMsg) {
+                getProductsSearchList.onFailure(errMsg);
+            }
+        });
+    }
 
+    @Override
+    public void getSearchProductByInput(GetSearchProductByInputCallback callback) {
+        productRemoteDataSource.getSearchProductByInput(new GetSearchProductByInputCallback() {
+            @Override
+            public void onSuccess(List<SearchName> searchNameProductList) {
+                callback.onSuccess(searchNameProductList);
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+                callback.onFailure(errMsg);
             }
         });
     }

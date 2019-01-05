@@ -94,6 +94,8 @@ public class PromoFragment extends Fragment implements PromotionContract.view {
 
     @Override
     public void showDataList(List<Promotion> promotionList) {
+        if (!this.promotionList.isEmpty())
+            this.promotionList.clear();
         this.promotionList.addAll(promotionList);
         listPromotionAdapter.notifyDataSetChanged();
     }
