@@ -3,8 +3,6 @@ package com.example.aflah.tracki_master.View;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatSpinner;
@@ -89,8 +87,7 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                 ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
                 if (flagSearch == 0){
-                    Call<ResponseSearchNameStore> getNama;
-                    getNama = apiInterface.getSearchNamesStore();
+                    Call<ResponseSearchNameStore> getNama = apiInterface.getSearchNamesStore();
                     getNama.enqueue(new Callback<ResponseSearchNameStore>() {
                         @Override
                         public void onResponse(Call<ResponseSearchNameStore> call, Response<ResponseSearchNameStore> response) {
@@ -134,17 +131,16 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                         }
                     });
                 }else {
-                    Call<ResponseSearchNameProduct> getNama;
-                    getNama = apiInterface.getSearchNamesProduct();
+                    Call<ResponseSearchNameProduct> getNama = apiInterface.getSearchNamesProduct();
                     getNama.enqueue(new Callback<ResponseSearchNameProduct>() {
                         @Override
                         public void onResponse(Call<ResponseSearchNameProduct> call, Response<ResponseSearchNameProduct> response) {
-                            String[] namaToko = new String[response.body().getSearchNamesProduct().size()];
+                            String[] namaProduk = new String[response.body().getSearchNamesProduct().size()];
                             for (int i = 0; i < response.body().getSearchNamesProduct().size(); i++) {
-                                namaToko[i] = response.body().getSearchNamesProduct().get(i).getName();
-                                hashMapSearch.put(namaToko[i],response.body().getSearchNamesProduct().get(i));
+                                namaProduk[i] = response.body().getSearchNamesProduct().get(i).getName();
+                                hashMapSearch.put(namaProduk[i],response.body().getSearchNamesProduct().get(i));
                             }
-                            autoCompleteAdaptor = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,namaToko);
+                            autoCompleteAdaptor = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,namaProduk);
                             autoCompleteTextView.setAdapter(autoCompleteAdaptor);
                             autoCompleteTextView.setThreshold(0);
                             autoCompleteTextView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -163,10 +159,10 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                                 @Override
                                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                                     String selected = (String) adapterView.getItemAtPosition(i);
-                                    int pos = Arrays.asList(namaToko).indexOf(selected);
-                                    SearchName tokoPilihan = hashMapSearch.get(namaToko[pos]);
+                                    int pos = Arrays.asList(namaProduk).indexOf(selected);
+                                    SearchName produkPilihan = hashMapSearch.get(namaProduk[pos]);
                                     Intent intent = new Intent(getActivity(),DetailMenuActivity.class);
-                                    intent.putExtra("idProduk",Integer.valueOf(tokoPilihan.getId()));
+                                    intent.putExtra("idProduk",Integer.valueOf(produkPilihan.getId()));
                                     autoCompleteTextView.setText("");
                                     startActivity(intent);
                                 }
@@ -228,10 +224,8 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                 public void run() {
 
                     ApiInterface apiInter = ApiClient.getClient().create(ApiInterface.class);
-
                     if (cbBeacons.size() != 0){
                         for (int i = 0 ;i<cbBeacons.size(); i++ ){
-                            final int tole = i;
                             Call<ResponseTokoByUID> getData = apiInter.getStoreByUID(beacons.get(i).getMajor());
                             getData.enqueue(new Callback<ResponseTokoByUID>() {
                                 @Override
