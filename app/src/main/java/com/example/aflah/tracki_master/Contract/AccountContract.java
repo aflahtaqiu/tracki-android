@@ -9,6 +9,7 @@ public interface AccountContract {
     interface presenter {
         void getSavedUnusedPromo(int idUse);
         void logoutUser();
+        void sendLogout();
     }
 
     interface view {

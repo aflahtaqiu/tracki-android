@@ -126,7 +126,7 @@ public class UserRemoteDataSource implements UserSource {
         call.enqueue(new Callback<ResponseLogout>() {
             @Override
             public void onResponse(Call<ResponseLogout> call, Response<ResponseLogout> response) {
-                callback.onSuccess(response.body().getMessage());
+                callback.onSuccess();
             }
 
             @Override

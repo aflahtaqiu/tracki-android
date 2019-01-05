@@ -40,6 +40,21 @@ public class AccountPresenter implements AccountContract.presenter {
 
     @Override
     public void logoutUser() {
+        view.cleanSharedPreferences();
+        view.showConfirmationDialog();
+    }
 
+    @Override
+    public void sendLogout() {
+        userRepository.logoutUser(new UserSource.LogoutCallback() {
+            @Override
+            public void onSuccess() {
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+                view.showFailure(errMsg);
+            }
+        });
     }
 }

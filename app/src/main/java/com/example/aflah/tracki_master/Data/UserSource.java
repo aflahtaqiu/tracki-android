@@ -44,7 +44,7 @@ public interface UserSource {
     }
 
     interface LogoutCallback {
-        void onSuccess(String successMsg);
+        void onSuccess();
         void onFailure(String errMsg);
     }
 

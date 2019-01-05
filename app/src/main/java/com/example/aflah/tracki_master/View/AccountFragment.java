@@ -31,7 +31,6 @@ import com.example.aflah.tracki_master.Data.remote.API.ApiClient;
 import com.example.aflah.tracki_master.Data.remote.API.ApiInterface;
 import com.example.aflah.tracki_master.Injection;
 import com.example.aflah.tracki_master.Model.Promotion;
-import com.example.aflah.tracki_master.Model.Response.ResponseLogout;
 import com.example.aflah.tracki_master.Model.Response.ResponseUserById;
 import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.Model.User;
@@ -144,43 +143,7 @@ public class AccountFragment extends Fragment implements AccountContract.view {
                 getActivity().startActivity(new Intent(getActivity(), AboutTrackiActivity.class));
                 break;
             case R.id.item_logout:
-                SharedPreferences.Editor editor = this.getActivity().getSharedPreferences("login", Context.MODE_PRIVATE).edit();
-                editor.putString("tokenLogin", "");
-                editor.putString("userLogin", "");
-                editor.apply();
-                editor.commit();
-
-                SweetAlertDialog confirmDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE)
-                        .setTitleText("Log Out")
-                        .setContentText("Apakah Anda yakin untuk log out?")
-                        .setConfirmText("Ya")
-                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                            @Override
-                            public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-                                Call<ResponseLogout> responseLogoutCall = apiInterface.sendLogout();
-                                responseLogoutCall.enqueue(new Callback<ResponseLogout>() {
-                                    @Override
-                                    public void onResponse(Call<ResponseLogout> call, Response<ResponseLogout> response) {
-
-                                    }
-
-                                    @Override
-                                    public void onFailure(Call<ResponseLogout> call, Throwable t) {
-
-                                    }
-                                });
-                                startActivity(new Intent(getContext(), LoginActivity.class));
-                                getActivity().finish();
-                            }
-                        })
-                        .setCancelButton("Tidak", new SweetAlertDialog.OnSweetClickListener() {
-                            @Override
-                            public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                sweetAlertDialog.dismissWithAnimation();
-                            }
-                        });
-                confirmDialog.show();
+                presenter.logoutUser();
                 break;
             case R.id.btn_edit:
                 getActivity().startActivity(new Intent(getActivity(), EditProfilActivity.class));
@@ -323,7 +286,25 @@ public class AccountFragment extends Fragment implements AccountContract.view {
 
     @Override
     public void showConfirmationDialog() {
-
+        SweetAlertDialog confirmDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Log Out")
+                .setContentText("Apakah Anda yakin untuk log out?")
+                .setConfirmText("Ya")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        presenter.sendLogout();
+                        startActivity(new Intent(getContext(), LoginActivity.class));
+                        getActivity().finish();
+                    }
+                })
+                .setCancelButton("Tidak", new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismissWithAnimation();
+                    }
+                });
+        confirmDialog.show();
     }
 
     @Override
