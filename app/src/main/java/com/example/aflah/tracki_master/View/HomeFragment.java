@@ -22,11 +22,7 @@ import android.widget.Toast;
 
 import com.example.aflah.tracki_master.Adapter.TokoTerdekatAdapter;
 import com.example.aflah.tracki_master.Contract.HomeContract;
-import com.example.aflah.tracki_master.Data.remote.API.ApiClient;
-import com.example.aflah.tracki_master.Data.remote.API.ApiInterface;
 import com.example.aflah.tracki_master.Injection;
-import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameProduct;
-import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameStore;
 import com.example.aflah.tracki_master.Model.SearchName;
 import com.example.aflah.tracki_master.Model.Store;
 import com.example.aflah.tracki_master.Presenter.HomePresenter;
@@ -39,11 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class HomeFragment extends Fragment implements NavigationActivity.OnCubeaconUpdated,AdapterView.OnItemClickListener,SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemSelectedListener, View.OnClickListener, HomeContract.view {
+public class HomeFragment extends Fragment implements HomeContract.view, NavigationActivity.OnCubeaconUpdated, AdapterView.OnItemClickListener,SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemSelectedListener, View.OnClickListener, TextView.OnEditorActionListener {
 
     private SwipeRefreshLayout mySwipeRefreshLayout;
     ImageView imageViewUndetectStore;
@@ -59,6 +51,7 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
     HashMap<String,Store> rmdup = new HashMap<>();
 
     String[] spinnerItem = new String[]{"Toko", "Produk"};
+    String[] arraysOfNames;
     int flagSearch = 0;
 
     private HomePresenter presenter = new HomePresenter(Injection.provideStoreRepository(), Injection.provideProductRepository(), this);
@@ -140,8 +133,19 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               Intent intent = new Intent(getActivity(),TokoActivity.class);
-               startActivity(intent);
+        String selected = (String) parent.getItemAtPosition(position);
+        int pos = Arrays.asList(arraysOfNames).indexOf(selected);
+        SearchName itemSelected = hashMapSearch.get(arraysOfNames[pos]);
+        Intent intentSearch;
+        if (flagSearch == 0){
+            intentSearch = new Intent(getActivity(),TokoActivity.class);
+            intentSearch.putExtra("idTokoTerdekat",Integer.valueOf(itemSelected.getId()));
+        } else {
+            intentSearch = new Intent(getActivity(),DetailMenuActivity.class);
+            intentSearch.putExtra("idProduk",Integer.valueOf(itemSelected.getId()));
+        }
+        autoCompleteTextView.setText("");
+        startActivity(intentSearch);
     }
 
     @Override
@@ -171,55 +175,8 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
 
     @Override
     public void onClick(View v) {
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-
-        if (flagSearch == 0){
-            presenter.getSearchStoreByInput();
-        }else {
-            Call<ResponseSearchNameProduct> getNama = apiInterface.getSearchNamesProduct();
-            getNama.enqueue(new Callback<ResponseSearchNameProduct>() {
-                @Override
-                public void onResponse(Call<ResponseSearchNameProduct> call, Response<ResponseSearchNameProduct> response) {
-                    String[] namaProduk = new String[response.body().getSearchNamesProduct().size()];
-                    for (int i = 0; i < response.body().getSearchNamesProduct().size(); i++) {
-                        namaProduk[i] = response.body().getSearchNamesProduct().get(i).getName();
-                        hashMapSearch.put(namaProduk[i],response.body().getSearchNamesProduct().get(i));
-                    }
-                    autoCompleteAdaptor = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,namaProduk);
-                    autoCompleteTextView.setAdapter(autoCompleteAdaptor);
-                    autoCompleteTextView.setThreshold(0);
-                    autoCompleteTextView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                        @Override
-                        public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                            if(i == EditorInfo.IME_ACTION_SEARCH){
-                                Intent intent = new Intent(getActivity(), HasilSearchProductActivity.class);
-                                intent.putExtra("search",String.valueOf(autoCompleteTextView.getText()));
-                                autoCompleteTextView.setText("");
-                                getActivity().startActivity(intent);
-                            }
-                            return false;
-                        }
-                    });
-                    autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            String selected = (String) adapterView.getItemAtPosition(i);
-                            int pos = Arrays.asList(namaProduk).indexOf(selected);
-                            SearchName produkPilihan = hashMapSearch.get(namaProduk[pos]);
-                            Intent intent = new Intent(getActivity(),DetailMenuActivity.class);
-                            intent.putExtra("idProduk",Integer.valueOf(produkPilihan.getId()));
-                            autoCompleteTextView.setText("");
-                            startActivity(intent);
-                        }
-                    });
-                }
-
-                @Override
-                public void onFailure(Call<ResponseSearchNameProduct> call, Throwable t) {
-
-                }
-            });
-        }
+        if (flagSearch == 0) presenter.getSearchStoreByInput();
+        else presenter.getSearchProductByInput();
     }
 
     @Override
@@ -239,38 +196,37 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
     }
 
     @Override
-    public void showAutoCompleteTextStore(String[] namaToko, List<SearchName> searchNameList) {
-        for (int i =0;i<namaToko.length; i++){
-            hashMapSearch.put(namaToko[i], searchNameList.get(i));
+    public void showAutoCompleteText(String[] arraysOfName, List<SearchName> searchNameList) {
+        for (int i =0;i<arraysOfName.length; i++){
+            hashMapSearch.put(arraysOfName[i], searchNameList.get(i));
         }
 
-        autoCompleteAdaptor = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,namaToko);
+        arraysOfNames = Arrays.copyOf(arraysOfName, arraysOfName.length);
+        initAutoCompleteAdapter(arraysOfName);
+
+        autoCompleteTextView.setOnEditorActionListener(this);
+        autoCompleteTextView.setOnItemClickListener(this);
+    }
+
+    private void initAutoCompleteAdapter(String[] arraysOfName) {
+        autoCompleteAdaptor = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,arraysOfName);
         autoCompleteTextView.setAdapter(autoCompleteAdaptor);
         autoCompleteTextView.setThreshold(0);
-        autoCompleteTextView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                if(i == EditorInfo.IME_ACTION_SEARCH){
-                    Intent intent = new Intent(getActivity(), HasilSearchStoreActivity.class);
-                    intent.putExtra("search",String.valueOf(autoCompleteTextView.getText()));
-                    autoCompleteTextView.setText("");
-                    getActivity().startActivity(intent);
-                }
-                return false;
-            }
-        });
-        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String selected = (String) adapterView.getItemAtPosition(i);
-                int pos = Arrays.asList(namaToko).indexOf(selected);
-                SearchName tokoPilihan = hashMapSearch.get(namaToko[pos]);
-                Intent intent = new Intent(getActivity(),TokoActivity.class);
-                intent.putExtra("idTokoTerdekat",Integer.valueOf(tokoPilihan.getId()));
-                autoCompleteTextView.setText("");
-                startActivity(intent);
-            }
-        });
+    }
+
+    @Override
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        if(actionId == EditorInfo.IME_ACTION_SEARCH){
+            Intent intent;
+            if (flagSearch == 0)
+                intent = new Intent(getActivity(), HasilSearchStoreActivity.class);
+            else
+                intent = new Intent(getActivity(), HasilSearchProductActivity.class);
+            intent.putExtra("search",String.valueOf(autoCompleteTextView.getText()));
+            autoCompleteTextView.setText("");
+            getActivity().startActivity(intent);
+        }
+        return false;
     }
 
     public interface OnFragmentInteractionListener {

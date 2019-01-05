@@ -10,11 +10,12 @@ public interface HomeContract {
     interface presenter {
         void getNearestStore(int uid);
         void getSearchStoreByInput();
+        void getSearchProductByInput();
     }
 
     interface view {
         void showNearestStore(List<Store> storeList);
         void showFailure(String errMsg);
-        void showAutoCompleteTextStore(String[] namaToko, List<SearchName> searchNameList);
+        void showAutoCompleteText(String[] arraysOfName, List<SearchName> searchNameList);
     }
 }

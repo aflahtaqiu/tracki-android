@@ -5,6 +5,7 @@ import com.example.aflah.tracki_master.Data.remote.API.ApiClient;
 import com.example.aflah.tracki_master.Data.remote.API.ApiInterface;
 import com.example.aflah.tracki_master.Model.Product;
 import com.example.aflah.tracki_master.Model.Response.ResponseDetailToko;
+import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameProduct;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchProduct;
 import com.example.aflah.tracki_master.Model.Response.ResponseProductById;
 
@@ -92,6 +93,22 @@ public class ProductRemoteDataSource implements ProductSource {
             @Override
             public void onFailure(Call<ResponseSearchProduct> call, Throwable t) {
                 getProductsSearchList.onFailure(t.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void getSearchProductByInput(GetSearchProductByInputCallback callback) {
+        Call<ResponseSearchNameProduct> call = apiInterface.getSearchNamesProduct();
+        call.enqueue(new Callback<ResponseSearchNameProduct>() {
+            @Override
+            public void onResponse(Call<ResponseSearchNameProduct> call, Response<ResponseSearchNameProduct> response) {
+                callback.onSuccess(response.body().getSearchNamesProduct());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseSearchNameProduct> call, Throwable t) {
+                callback.onFailure(t.getMessage());
             }
         });
     }

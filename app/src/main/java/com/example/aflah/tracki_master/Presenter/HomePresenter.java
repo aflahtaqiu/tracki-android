@@ -1,9 +1,8 @@
 package com.example.aflah.tracki_master.Presenter;
 
-import android.util.Log;
-
 import com.example.aflah.tracki_master.Contract.HomeContract;
 import com.example.aflah.tracki_master.Data.ProductRepository;
+import com.example.aflah.tracki_master.Data.ProductSource;
 import com.example.aflah.tracki_master.Data.StoreRepository;
 import com.example.aflah.tracki_master.Data.StoreSource;
 import com.example.aflah.tracki_master.Model.SearchName;
@@ -45,24 +44,39 @@ public class HomePresenter implements HomeContract.presenter {
         storeRepository.getSearchStoreByInput(new StoreSource.GetSearchStoreByInputCallback() {
             @Override
             public void onSuccess(List<SearchName> searchNameStoreList) {
-//                List<String> namaTokoList = new ArrayList<>();
                 List<SearchName> searchNameList = new ArrayList<>();
                 String[] namaToko = new String[searchNameStoreList.size()];
-
                 for (int i = 0; i< searchNameStoreList.size();i++){
-                    Log.e("tesNamaToko", searchNameStoreList.get(i).toString());
-
-//                    namaTokoList.add(i, searchNameStoreList.get(i).getName());
                     searchNameList.add(searchNameStoreList.get(i));
                     namaToko[i] = searchNameStoreList.get(i).getName();
                 }
-
-                view.showAutoCompleteTextStore(namaToko, searchNameList);
+                view.showAutoCompleteText(namaToko, searchNameList);
             }
 
             @Override
             public void onFailure(String errMsg) {
+                view.showFailure(errMsg);
+            }
+        });
+    }
 
+    @Override
+    public void getSearchProductByInput() {
+        productRepository.getSearchProductByInput(new ProductSource.GetSearchProductByInputCallback() {
+            @Override
+            public void onSuccess(List<SearchName> searchNameProductList) {
+                List<SearchName> searchNameList = new ArrayList<>();
+                String[] namaProduk = new String[searchNameProductList.size()];
+                for (int i =0;i<searchNameProductList.size();i++){
+                    searchNameList.add(searchNameProductList.get(i));
+                    namaProduk[i] = searchNameProductList.get(i).getName();
+                }
+                view.showAutoCompleteText(namaProduk, searchNameList);
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+                view.showFailure(errMsg);
             }
         });
     }
