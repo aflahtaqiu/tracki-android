@@ -54,7 +54,22 @@ public class StoreRepository implements StoreSource{
 
             @Override
             public void onFailure(String errMsg) {
+                callback.onFailure(errMsg);
+            }
+        });
+    }
 
+    @Override
+    public void getStoreByUID(int uid, GetStoreByUIDCallback callback) {
+        storeRemoteDataSource.getStoreByUID(uid, new GetStoreByUIDCallback() {
+            @Override
+            public void onSuccess(List<Store> storeList) {
+                callback.onSuccess(storeList);
+            }
+
+            @Override
+            public void onFailure(String errMsg) {
+                callback.onFailure(errMsg);
             }
         });
     }

@@ -10,6 +10,7 @@ public interface StoreSource {
     void getStoreUrlImages(int idToko, GetStoreImagesUrlCallback callback);
     void getStoreDetail(int idToko, GetStoreDetailCallback callback);
     void getSearchList(String keyword, GetStoreSearchList callback);
+    void getStoreByUID(int uid, GetStoreByUIDCallback callback);
 
     interface GetStoreImagesUrlCallback {
         void onSuccess(List<String> imagesUrl);
@@ -26,5 +27,8 @@ public interface StoreSource {
         void onFailure(String errMsg);
     }
 
-
+    interface GetStoreByUIDCallback {
+        void onSuccess(List<Store> storeList);
+        void onFailure(String errMsg);
+    }
 }

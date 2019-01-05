@@ -69,4 +69,20 @@ public class StoreRemoteDataSource implements StoreSource {
             }
         });
     }
+
+    @Override
+    public void getStoreByUID(int uid, GetStoreByUIDCallback callback) {
+        Call<ResponseTokoByUID> call = apiInterface.getStoreByUID(uid);
+        call.enqueue(new Callback<ResponseTokoByUID>() {
+            @Override
+            public void onResponse(Call<ResponseTokoByUID> call, Response<ResponseTokoByUID> response) {
+                callback.onSuccess(response.body().getStores());
+            }
+
+            @Override
+            public void onFailure(Call<ResponseTokoByUID> call, Throwable t) {
+                callback.onFailure(t.getMessage());
+            }
+        });
+    }
 }

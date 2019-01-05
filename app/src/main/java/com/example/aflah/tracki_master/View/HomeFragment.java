@@ -18,15 +18,18 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.aflah.tracki_master.Adapter.TokoTerdekatAdapter;
+import com.example.aflah.tracki_master.Contract.HomeContract;
 import com.example.aflah.tracki_master.Data.remote.API.ApiClient;
 import com.example.aflah.tracki_master.Data.remote.API.ApiInterface;
+import com.example.aflah.tracki_master.Injection;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameProduct;
 import com.example.aflah.tracki_master.Model.Response.ResponseSearchNameStore;
-import com.example.aflah.tracki_master.Model.Response.ResponseTokoByUID;
 import com.example.aflah.tracki_master.Model.SearchName;
 import com.example.aflah.tracki_master.Model.Store;
+import com.example.aflah.tracki_master.Presenter.HomePresenter;
 import com.example.aflah.tracki_master.R;
 import com.eyro.cubeacon.CBBeacon;
 
@@ -40,7 +43,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeFragment extends Fragment implements NavigationActivity.OnCubeaconUpdated,AdapterView.OnItemClickListener,SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemSelectedListener, View.OnClickListener {
+public class HomeFragment extends Fragment implements NavigationActivity.OnCubeaconUpdated,AdapterView.OnItemClickListener,SwipeRefreshLayout.OnRefreshListener, AdapterView.OnItemSelectedListener, View.OnClickListener, HomeContract.view {
 
     private SwipeRefreshLayout mySwipeRefreshLayout;
     ImageView imageViewUndetectStore;
@@ -57,6 +60,8 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
 
     String[] spinnerItem = new String[]{"Toko", "Produk"};
     int flagSearch = 0;
+
+    private HomePresenter presenter = new HomePresenter(Injection.provideStoreRepository(), Injection.provideProductRepository(), this);
 
     private OnFragmentInteractionListener mListener;
 
@@ -120,33 +125,12 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
         beacons = list;
 
         if (getActivity() != null){
-
             getActivity().runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-
-                    ApiInterface apiInter = ApiClient.getClient().create(ApiInterface.class);
                     if (cbBeacons.size() != 0){
                         for (int i = 0 ;i<cbBeacons.size(); i++ ){
-                            Call<ResponseTokoByUID> getData = apiInter.getStoreByUID(beacons.get(i).getMajor());
-                            getData.enqueue(new Callback<ResponseTokoByUID>() {
-                                @Override
-                                public void onResponse(Call<ResponseTokoByUID> call, Response<ResponseTokoByUID> response) {
-                                    for (Store store : response.body().getStores()) {
-                                        rmdup.put(String.valueOf(store.getId()),store);
-                                    }
-                                    if (rmdup.size() !=0 ){
-                                        textViewTokoTerdekat.setText("Toko terdekat");
-                                        imageViewUndetectStore.setVisibility(View.INVISIBLE);
-                                    }
-                                    tokoTerdekatAdapter.notifyDataSetChanged();
-                                }
-
-                                @Override
-                                public void onFailure(Call<ResponseTokoByUID> call, Throwable t) {
-
-                                }
-                            });
+                            presenter.getNearestStore(beacons.get(i).getMajor());
                         }
                     }
                 }
@@ -164,7 +148,7 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
     public void onRefresh() {
         mySwipeRefreshLayout.setRefreshing(true);
         rmdup.clear();
-        textViewTokoTerdekat.setText("Tidak terdeksi toko");
+        textViewTokoTerdekat.setText("Tidak terdeteksi toko");
         imageViewUndetectStore.setVisibility(View.VISIBLE);
         tokoTerdekatAdapter.notifyDataSetChanged();
         mySwipeRefreshLayout.setRefreshing(false);
@@ -278,6 +262,22 @@ public class HomeFragment extends Fragment implements NavigationActivity.OnCubea
                 }
             });
         }
+    }
+
+    @Override
+    public void showNearestStore(List<Store> storeList) {
+        for (Store store : storeList){
+            rmdup.put(String.valueOf(store.getId()), store);
+        }
+        tokoTerdekatAdapter.notifyDataSetChanged();
+
+        textViewTokoTerdekat.setText("Toko Terdekat");
+        imageViewUndetectStore.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void showFailure(String errMsg) {
+        Toast.makeText(getContext(), "Ada error : " + errMsg, Toast.LENGTH_LONG).show();
     }
 
     public interface OnFragmentInteractionListener {
