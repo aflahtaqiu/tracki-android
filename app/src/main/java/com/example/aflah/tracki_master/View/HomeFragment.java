@@ -73,12 +73,15 @@ public class HomeFragment extends Fragment implements HomeContract.view, Navigat
 
         initViews(view);
         spinnerHandle();
+        initNearestStoreAdapter();
 
+        return view;
+    }
+
+    private void initNearestStoreAdapter() {
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         tokoTerdekatAdapter = new TokoTerdekatAdapter(getContext(), rmdup);
         recyclerView.setAdapter(tokoTerdekatAdapter);
-
-        return view;
     }
 
     private void spinnerHandle() {

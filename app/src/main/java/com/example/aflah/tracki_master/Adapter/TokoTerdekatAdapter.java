@@ -26,7 +26,7 @@ public class TokoTerdekatAdapter extends RecyclerView.Adapter<TokoTerdekatAdapte
     private Context context;
     private HashMap<String, Store> stores;
 
-    List<Store> storeList;
+    private List<Store> storeList;
 
     public TokoTerdekatAdapter(Context context, HashMap<String, Store> stores) {
         this.context = context;

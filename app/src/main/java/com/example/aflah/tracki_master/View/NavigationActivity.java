@@ -37,11 +37,9 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         PromoFragment.OnFragmentInteractionListener,
         CBRangingListener, CBServiceListener{
 
-    private static final String TAG = NavigationActivity.class.getSimpleName();
     private HomeFragment homeFragment = null;
     private AccountFragment accountFragment = null;
     private PromoFragment promoFragment = null;
-    private FragmentTransaction fragmentTransaction;
     private OnCubeaconUpdated mOnCubeaconUpdated;
 
     private Cubeacon cubeacon;
@@ -57,6 +55,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            FragmentTransaction fragmentTransaction;
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     if (homeFragment == null){
@@ -120,9 +119,7 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
                     accountFragmentId = getIntent().getIntExtra("AccountFragmentLoc", 0);
                 }
             }
-
-        }catch (Exception e){
-        }
+        }catch (Exception e){ }
 
         if (accountFragmentId ==0){
             navigation.setSelectedItemId(R.id.navigation_home);
