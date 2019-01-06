@@ -1,6 +1,7 @@
 # Tracki : Android Application
 [![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/04ec7a4e5a5c4090a58286406923d813)](https://www.codacy.com/app/aflahtaqiu/tracki-android?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dinopuguh/tracki-android&amp;utm_campaign=Badge_Grade)
+<a href="https://codeclimate.com/github/aflahtaqiu/tracki-android/maintainability"><img src="https://api.codeclimate.com/v1/badges/56ad31e350b53840d42b/maintainability" /></a>
 
 This repository contains the source code of Tracki android application by Tracki Dev Team. Tracki Application use Cubeacon BLE (Bluetooth Low Energy) technology to detect nearest object (Tracki will detect nearest store).
 
